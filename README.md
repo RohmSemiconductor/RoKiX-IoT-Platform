@@ -12,4 +12,4 @@ The RoKi IoT Platform is the leading Internet of Things (IoT) technology platfor
 * Integrated machine learning for big data analytics
 
 **Will be released soon**
-* Meanwhile please use the latest [Kionix-IoT-Evaluation-Kit Pre Release](https://github.com/RohmSemiconductor/Kionix-IoT-Evaluation-Kit/releases/tag/v1.3.4_Pre)
+* Meanwhile please use the latest [Kionix-IoT-Evaluation-Kit Release](https://github.com/RohmSemiconductor/Kionix-IoT-Evaluation-Kit/releases/tag/v1.3.4)
