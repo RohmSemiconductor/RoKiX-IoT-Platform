@@ -1,7 +1,7 @@
-# RoKi-IoT-Platform
+# RoKiX-IoT-Platform
 *(Coming soon)*
 
-The RoKi IoT Platform is the leading Internet of Things (IoT) technology platform. It enables innovators to rapidly create, deploy and evaluate various IoT applications, ranging from consumer IoT applications such as wearables, health, wellness, games, toys, and smart home to Industrial IoT applications such as smart city sensor networks, asset management and logistics monitoring, factory automation, etc.
+The RoKiX IoT Platform is the leading Internet of Things (IoT) technology platform. It enables innovators to rapidly create, deploy and evaluate various IoT applications, ranging from consumer IoT applications such as wearables, health, wellness, games, toys, and smart home to Industrial IoT applications such as smart city sensor networks, asset management and logistics monitoring, factory automation, etc.
  
 **Features**
 * Removing complexity from IoT applications development
