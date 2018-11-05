@@ -1,0 +1,141 @@
+{
+    "activate": [
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_range/self.set_bit_pattern(r.KMX62_CNTL2, range, m.KMX62_CNTL2_GSEL_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            "set_average/self.set_bit_pattern(r.KMX62_CNTL2, average, m.KMX62_CNTL2_RES_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            13, 
+            "set_power_on/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            15, 
+            "set_power_on/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            79, 
+            "set_power_on/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                0, 
+                1, 
+                2, 
+                [
+                    "KMX62", 
+                    10, 
+                    14
+                ]
+            ], 
+            "odr": 100, 
+            "fmt": "<Bhhhhhhh", 
+            "type": "continuous", 
+            "hdr": "ch!ax!ay!az!mx!my!mz!temp"
+        }
+    ], 
+    "configure": [
+        [
+            "KMX62", 
+            57, 
+            128, 
+            "setup_serial_i2c/sensor.por()"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_power_off/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_power_off/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_power_off/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            56, 
+            51, 
+            "set_odr/self.set_bit_pattern(r.KMX62_ODCNTL, ODR, m.KMX62_ODCNTL_OSM_MASK)"
+        ], 
+        [
+            "KMX62", 
+            42, 
+            16, 
+            "enable_drdy/self.set_bit(r.KMX62_INC1, b.KMX62_INC1_DRDY_A1)"
+        ], 
+        [
+            "KMX62", 
+            44, 
+            0, 
+            "enable_data_logging/0xff)"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "KMX62", 
+            58, 
+            78, 
+            "set_power_off/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            76, 
+            "set_power_off/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            "set_power_off/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ]
+    ], 
+    "doc": "Read KMX62 sensor data; accelerometer, magnetometer and temperature at 100 Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 16384"
+        }, 
+        {
+            "SI_unit": "uT", 
+            "data": "Mag_X,Mag_Y,Mag_Z", 
+            "name": "Magnetometer", 
+            "SI_multiplier": "1200 / 32768"
+        }, 
+        {
+            "SI_unit": "Celsius", 
+            "data": "Temp", 
+            "name": "Temperature", 
+            "SI_multiplier": "1 / 256"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "KMX62 / 100Hz"
+}

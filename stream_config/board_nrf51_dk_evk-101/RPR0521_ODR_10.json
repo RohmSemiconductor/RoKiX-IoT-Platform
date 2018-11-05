@@ -1,0 +1,105 @@
+{
+    "activate": [
+        [
+            "RPR0521", 
+            65, 
+            6, 
+            "set_measurement_time/self.set_bit_pattern(r.RPR0521_MODE_CONTROL, valuex, m.RPR0521_MODE_CONTROL_MEASUREMENT_TIME_MASK)"
+        ], 
+        [
+            "RPR0521", 
+            65, 
+            198, 
+            "enable_als_ps_measurement/self.set_bit_pattern(r.RPR0521_MODE_CONTROL, (b.RPR0521_MODE_CONTROL_ALS_EN_TRUE | b.RPR0521_MODE_CONTROL_PS_EN_TRUE), (m.RPR0521_MODE_CONTROL_ALS_EN_MASK | m.RPR0521_MODE_CONTROL_PS_EN_MASK))"
+        ], 
+        [
+            "RPR0521", 
+            65, 
+            198, 
+            "set_measurement_time/self.set_bit_pattern(r.RPR0521_MODE_CONTROL, valuex, m.RPR0521_MODE_CONTROL_MEASUREMENT_TIME_MASK)"
+        ], 
+        [
+            "RPR0521", 
+            65, 
+            198, 
+            "enable_als_ps_measurement/self.set_bit_pattern(r.RPR0521_MODE_CONTROL, (b.RPR0521_MODE_CONTROL_ALS_EN_TRUE | b.RPR0521_MODE_CONTROL_PS_EN_TRUE), (m.RPR0521_MODE_CONTROL_ALS_EN_MASK | m.RPR0521_MODE_CONTROL_PS_EN_MASK))"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                20, 
+                1, 
+                2, 
+                [
+                    "RPR0521", 
+                    68, 
+                    7
+                ]
+            ], 
+            "odr": 10, 
+            "fmt": "<BHHHB", 
+            "type": "continuous", 
+            "hdr": "ch!Prox!Als_0!Als_1!Int"
+        }
+    ], 
+    "configure": [
+        [
+            "RPR0521", 
+            64, 
+            192, 
+            "por/self.soft_reset()"
+        ], 
+        [
+            "RPR0521", 
+            66, 
+            2, 
+            "set_als_data1_gain/self.set_bit_pattern(r.RPR0521_ALS_PS_CONTROL, valuex, m.RPR0521_ALS_PS_CONTROL_ALS_DATA1_GAIN_MASK)"
+        ], 
+        [
+            "RPR0521", 
+            67, 
+            0, 
+            "set_ps_int_sensitivity/self.set_bit_pattern(r.RPR0521_PS_CONTROL, valuex, m.RPR0521_PS_CONTROL_PERSISTENCE_MASK)"
+        ], 
+        [
+            "RPR0521", 
+            74, 
+            33, 
+            "enable_drdy_int/self.enable_interrupt_ps_only()"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "RPR0521", 
+            65, 
+            6, 
+            "disable_als_ps_measurement/self.set_bit_pattern(r.RPR0521_MODE_CONTROL, (b.RPR0521_MODE_CONTROL_ALS_EN_FALSE | b.RPR0521_MODE_CONTROL_PS_EN_FALSE), (m.RPR0521_MODE_CONTROL_ALS_EN_MASK|m.RPR0521_MODE_CONTROL_PS_EN_MASK))"
+        ], 
+        [
+            "RPR0521", 
+            64, 
+            64, 
+            "make_stream_config/sensor.set_power_off()                      # power off the sensor and record write commands"
+        ]
+    ], 
+    "doc": "Read proximity and ambient light data from RPR0521 at 10Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "Count", 
+            "data": "Prox", 
+            "name": "Proximity", 
+            "SI_multiplier": "1"
+        }, 
+        {
+            "SI_unit": "Count", 
+            "data": "Als0,Als1", 
+            "name": "Ambient Light", 
+            "SI_multiplier": "1"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "RPR0521 / 10Hz"
+}

@@ -1,0 +1,137 @@
+<stream_config>
+    <!-- Por for sensor devices -->
+    <reg_write>KX126,0x1B,0x80</reg_write>  <!-- KX126 -->
+    <reg_write>KXG03,68,128</reg_write>     <!-- KXG03 -->
+    <reg_write>KMX62,57,8</reg_write>       <!-- KMX62 -->
+    <reg_write>BM1383AGLV,19,0</reg_write>  <!-- BM1383AGLV -->
+    <reg_write>BM1383AGLV,18,0</reg_write>  <!-- BM1383AGLV -->
+
+    <!-- Active low written to KX126 -->
+    <reg_write>KX126,0x20,0x00</reg_write>
+    <!-- setup_default_connection/kx126.reset_bit(kx126_driver.r.KX126_INC1, kx126_driver.b.KX126_INC1_IEA1) # active low int1 -->
+    <reg_write>KX126,0x24,0x00</reg_write>
+    <!-- setup_default_connection/kx126.reset_bit(kx126_driver.r.KX126_INC5, kx126_driver.b.KX126_INC5_IEA2) # active low int2 -->
+  
+    <!-- Gyro settings -->
+    <reg_write>KXG03,62,215</reg_write> <!-- Wake accel ODR 100Hz -->
+    <reg_write>KXG03,63,215</reg_write> <!-- Sleep accel ODR 100Hz -->
+    <reg_write>KXG03,65,7</reg_write>   <!-- Wake gyro ODR 100Hz -->
+    <reg_write>KXG03,66,7</reg_write>   <!-- Sleep gyro ODR 100Hz -->
+    <reg_write>KXG03,64,0</reg_write>   <!-- Wake accel g-range-->
+    <reg_write>KXG03,64,64</reg_write>  <!-- Sleep accel g-range-->
+    <reg_write>KXG03,65,199</reg_write> <!-- Wake gyro range-->
+    <reg_write>KXG03,65,199</reg_write> <!-- Sleep gyro range-->
+    <reg_write>KXG03,62,247</reg_write>
+    <reg_write>KXG03,63,151</reg_write>
+    <reg_write>KXG03,65,199</reg_write>
+    <reg_write>KXG03,66,7</reg_write>
+    <reg_write>KXG03,70,0</reg_write>
+    <reg_write>KXG03,72,0</reg_write>
+    <reg_write>KXG03,71,0</reg_write>
+    <reg_write>KXG03,72,2</reg_write>
+    <reg_write>KXG03,70,2</reg_write>
+    <reg_write>KXG03,69,136</reg_write>
+    <reg_write>KXG03,62,119</reg_write>
+    <reg_write>KXG03,63,23</reg_write>
+    <reg_write>KXG03,75,16</reg_write>
+    <reg_write>KXG03,67,238</reg_write>
+    <reg_write>KXG03,67,206</reg_write>
+    <reg_write>KXG03,67,204</reg_write>
+    <reg_write>KXG03,68,8</reg_write>
+    <reg_write>KXG03,68,0</reg_write>
+    
+    <!-- KX126 DOUBLE TAP AND FREE FALL -->
+    <reg_write>KX126,0x1A,0x00</reg_write>
+    <!-- enable_double_tap/sensor.set_power_off()                          # this sensor request PC=0 to PC=1 before valid settingsSet sensor to stand-by to enable se
+      tup change -->
+
+    <!-- DOUBLE TAP -->
+    <reg_write>KX126,0x1F,0x01</reg_write>
+    <!-- set_odr/self.set_bit_pattern(r.KX126_ODCNTL, ODCNTL_OSA, m.KX126_ODCNTL_OSA_MASK) -->
+    <reg_write>KX126,0x1A,0x00</reg_write>
+    <!-- set_range/m.KX126_CNTL1_GSEL_MASK) -->
+    <reg_write>KX126,0x1A,0x40</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_CNTL1, b.KX126_CNTL1_RES)                            # high resolution -->
+    <reg_write>KX126,0x1A,0x44</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_CNTL1,b.KX126_CNTL1_TDTE) -->
+    <reg_write>KX126,0x1C,0x00</reg_write>
+    <!-- <module>/enable_double_tap(sensor) -->
+    <reg_write>KX126,0x1C,0x18</reg_write>
+    <!-- enable_double_tap/sensor.set_bit_pattern(r.KX126_CNTL3, b.KX126_CNTL3_OTDT_400, m.KX126_CNTL3_OTDT_MASK) -->
+    <reg_write>KX126,0x22,0x00</reg_write>
+    <!-- <module>/enable_double_tap(sensor) -->
+    <reg_write>KX126,0x22,0x20</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_INC3,b.KX126_INC3_TLEM)  # x- left set -->
+    <reg_write>KX126,0x22,0x30</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_INC3,b.KX126_INC3_TRIM)  # x+ right set -->
+    <reg_write>KX126,0x22,0x38</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_INC3,b.KX126_INC3_TDOM)  # y- back set -->
+    <reg_write>KX126,0x22,0x3C</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_INC3,b.KX126_INC3_TUPM)  # y+ front set -->
+    <reg_write>KX126,0x22,0x3E</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_INC3,b.KX126_INC3_TFDM)  # z- down set -->
+    <reg_write>KX126,0x22,0x3F</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_INC3,b.KX126_INC3_TFUM)  # z+ up set -->
+    <reg_write>KX126,0x28,0x02</reg_write>
+    <!-- enable_double_tap/sensor.reset_bit(r.KX126_TDTRC, b.KX126_TDTRC_STRE) -->
+    <reg_write>KX126,0x28,0x02</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_TDTRC,   b.KX126_TDTRC_DTRE) -->
+    <reg_write>KX126,0x29,0x78</reg_write>
+    <!-- <module>/enable_double_tap(sensor) -->
+    <reg_write>KX126,0x2A,0xCB</reg_write>
+    <!-- <module>/enable_double_tap(sensor) -->
+    <reg_write>KX126,0x2B,0x2A</reg_write>
+    <!-- <module>/enable_double_tap(sensor) -->
+    <reg_write>KX126,0x2C,0xA2</reg_write>
+    <!-- <module>/enable_double_tap(sensor) -->
+    <reg_write>KX126,0x2D,0x24</reg_write>
+    <!-- <module>/enable_double_tap(sensor) -->
+    <reg_write>KX126,0x2E,0x28</reg_write>
+    <!-- <module>/enable_double_tap(sensor) -->
+    <reg_write>KX126,0x2F,0xA0</reg_write>
+    <!-- <module>/enable_double_tap(sensor) -->
+  
+    <!-- FREE FALL -->
+    <reg_write>KX126,0x1F,0x01</reg_write>
+    <!-- set_odr/self.set_bit_pattern(r.KX126_ODCNTL, ODCNTL_OSA, m.KX126_ODCNTL_OSA_MASK) -->
+    <reg_write>KX126,0x1A,0x00</reg_write>
+    <!-- set_range/m.KX126_CNTL1_GSEL_MASK) -->
+    <reg_write>KX126,0x1A,0x40</reg_write>
+    <!-- enable_freefall/sensor.set_bit(r.KX126_CNTL1, b.KX126_CNTL1_RES)                            # high resolution -->
+    <reg_write>KX126,0x32,0x80</reg_write>
+    <!-- enable_freefall/sensor.set_bit(r.KX126_FFCNTL, b.KX126_FFCNTL_FFIE)         # freefall enable -->
+    <reg_write>KX126,0x32,0x87</reg_write>
+    <!-- enable_freefall/m.KX126_FFCNTL_OFFI_MASK)            # freefall odr -->
+    <reg_write>KX126,0x30,0x04</reg_write>
+    <!-- <module>/enable_freefall(sensor) -->
+    <reg_write>KX126,0x31,0x14</reg_write>
+    <!-- <module>/enable_freefall(sensor) -->
+
+    <!-- ENABLING INTERRUPTS -->
+    <reg_write>KX126,0x24,0x00</reg_write>
+    <!-- enable_double_tap/sensor.reset_bit(r.KX126_INC5, b.KX126_INC5_IEL2)       # latched interrupt for pin 2 -->
+    <reg_write>KX126,0x24,0x00</reg_write>
+    <!-- enable_double_tap/sensor.reset_bit(r.KX126_INC5, b.KX126_INC5_IEA2)       # active low -->
+    <!--<reg_write>KX126,0x25,0x80</reg_write>
+    --><!-- enable_freefall/sensor.set_bit(r.KX126_INC6, b.KX126_INC6_FFI2)        # freefall to int2 pin --><!--
+    <reg_write>KX126,0x25,0x04</reg_write>
+    --><!-- enable_double_tap/sensor.set_bit(r.KX126_INC6, b.KX126_INC6_TDTI2)     # double tap to int2 -->
+    <reg_write>KX126,0x25,0x84</reg_write>
+    <!-- enable_freefall/sensor.set_bit(r.KX126_INC6, b.KX126_INC6_FFI2)           # freefall and double tap to int2 pin -->  
+    <reg_write>KX126,0x24,0x20</reg_write>
+    <!-- enable_double_tap/sensor.set_bit(r.KX126_INC5, b.KX126_INC5_IEN2)         # enable int2 -->
+    <reg_write>KX126,0x1A,0xC4</reg_write>
+    <!-- set_power_on/self.set_bit(r.KX126_CNTL1, b.KX126_CNTL1_PC1) -->
+
+  <!-- Activation message -->
+    <!-- 8, EVKIT_MSG_ENABLE_INT_REQ, MCU_DINT, EVKIT_GPIO_PIN_SENSE_LOW, EVKIT_GPIO_PIN_PULLUP,
+       KXG03_DEVADDR, KXG03_GYRO_XOUT_L, 12 -->
+    <start_msg>
+      8,7,16,1,2,79,2,12
+      <channels>
+        <channel_1 name="Gyroscope" data="Gyro_X,Gyro_Y,Gyro_Z" SI_unit="degrees/s" SI_multiplier="2048 / 32768"></channel_1>
+        <channel_2 name="Accelerometer" data="Acc_X,Acc_Y,Acc_Z" SI_unit="m/s^2" SI_multiplier="9.8 / 16384"></channel_2>
+      </channels>
+    </start_msg>
+    <start_msg_2>8,7,13,1,2,31,20,12</start_msg_2> <!-- NOT YET USED FROM HERE, SET FROM CODE DIRECTLY -->
+</stream_config>

@@ -1,0 +1,122 @@
+{
+    "activate": [
+        [
+            "BM1422GMV", 
+            27, 
+            138, 
+            ""
+        ], 
+        [
+            "BM1422GMV", 
+            28, 
+            8, 
+            ""
+        ], 
+        [
+            "BM1422GMV", 
+            27, 
+            136, 
+            ""
+        ], 
+        [
+            "BM1422GMV", 
+            29, 
+            64, 
+            ""
+        ]
+    ], 
+    "start_req": {
+        "msg": [
+            [
+                4, 
+                31, 
+                7, 
+                0
+            ], 
+            [
+                6, 
+                11, 
+                0, 
+                42, 
+                1, 
+                0
+            ], 
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "BM1422GMV", 
+                    16, 
+                    6
+                ]
+            ], 
+            [
+                3, 
+                17, 
+                48
+            ]
+        ], 
+        "odr": 100, 
+        "type": "continuous", 
+        "fmt": "<Bhhh", 
+        "hdr": "ch!mx!my!mz"
+    }, 
+    "configure": [
+        [
+            "BM1422GMV", 
+            27, 
+            154, 
+            ""
+        ], 
+        [
+            "BM1422GMV", 
+            64, 
+            0, 
+            ""
+        ], 
+        [
+            "BM1422GMV", 
+            92, 
+            0, 
+            ""
+        ], 
+        [
+            "BM1422GMV", 
+            93, 
+            0, 
+            ""
+        ]
+    ], 
+    "structure_version": "2.0", 
+    "deactivate": [
+        [
+            "BM1422GMV", 
+            27, 
+            138, 
+            ""
+        ]
+    ], 
+    "doc": "Read magnetometer data from BM1422GMV at 100Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "uT", 
+            "data": "Mag_X,Mag_Y,Mag_Z", 
+            "name": "Magnetometer", 
+            "SI_multiplier": "0.042"
+        }
+    ], 
+    "register_dump": [], 
+    "stop_req": {
+        "msg": [
+            3, 
+            13, 
+            48
+        ]
+    }, 
+    "protocol_version": "2.0", 
+    "name": "BM1422GMV / 100Hz"
+}

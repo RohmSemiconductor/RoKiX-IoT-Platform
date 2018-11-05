@@ -1,0 +1,91 @@
+{
+    "structure_version": 1.0,
+    "protocol_version": 1.1,
+    "configuration": {
+        "name": "Kionix IoT node with KXG08 and KX122",
+        "doc": "Kionix IoT node including KXG08, KMX62, KX122 and BM1383AGLV",
+        "bus1": {
+            "connections": [{
+                "connection": "i2c",
+                "part_list": [{
+                    "name": "KMX62",
+                    "SAD": 14,
+                    "int1_gpio": 0
+                },
+                {
+                    "name": "KXG08",
+                    "SAD": 79,
+                    "int1_gpio": 16,
+                    "int2_gpio": 13
+                },
+                {
+                    "name": "KX122",
+                    "SAD": 31,
+                    "int1_gpio": 16,
+                    "int2_gpio": 13
+                },
+                {
+                    "name": "BM1383AGLV",
+                    "SAD": 93,
+                    "int1_gpio": 16
+                }
+                ]
+            }]
+        },
+        "bus2": {
+            "connections": [{
+                "connection": "USB",
+                "packet_per_second": 400,
+                "baud_rate": 460800,
+                "start_up_delay_ms": 0,
+                "com_port_name": ["USB Serial Port"]
+            },
+            {
+                "connection": "BLE",
+                "packet_per_second": 200
+            }]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_kx_iot_k1_build4"
+        },
+        "board_init": {
+            "reg_write": [["KX122",
+            25,
+            128],
+            ["KX122",
+            28,
+            32],
+            ["KX122",
+            32,
+            32],
+            ["KX122",
+            24,
+            128],
+            ["KMX62",
+            57,
+            8],
+            ["KMX62",
+            42,
+            16],
+            ["KMX62",
+            44,
+            0],
+            ["BM1383AGLV",
+            17,
+            128],
+            ["BM1383AGLV",
+            19,
+            0],
+            ["BM1383AGLV",
+            18,
+            0],
+            ["KXG08",
+            107,
+            128],
+            ["KXG08",
+            64,
+            136]
+            ]
+        }
+    }
+}

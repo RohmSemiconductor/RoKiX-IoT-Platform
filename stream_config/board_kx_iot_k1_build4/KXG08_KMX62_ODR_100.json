@@ -1,0 +1,252 @@
+{
+    "activate": [
+        [
+            "KXG08", 
+            110, 
+            58, 
+            "set_power_on/m.KXG08_STDBY_ACC_STDBY_MASK)"
+        ], 
+        [
+            "KXG08", 
+            110, 
+            56, 
+            "set_power_on/m.KXG08_STDBY_GYRO_FSTART_MASK)"
+        ], 
+        [
+            "KXG08", 
+            110, 
+            24, 
+            "set_power_on/self.reset_bit(r.KXG08_STDBY, b.KXG08_STDBY_TEMP_STDBY_DISABLED)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_range/self.set_bit_pattern(r.KMX62_CNTL2, range, m.KMX62_CNTL2_GSEL_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            "set_average/self.set_bit_pattern(r.KMX62_CNTL2, average, m.KMX62_CNTL2_RES_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            13, 
+            "set_power_on/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            15, 
+            "set_power_on/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            79, 
+            "set_power_on/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                16, 
+                1, 
+                2, 
+                [
+                    "KXG08", 
+                    2, 
+                    12, 
+                    "KMX62", 
+                    16, 
+                    6
+                ]
+            ], 
+            "odr": 100, 
+            "fmt": "<Bhhhhhhhhh", 
+            "type": "continuous", 
+            "hdr": "ch!gx!gy!gz!ax!ay!az!mx!my!mz"
+        }
+    ], 
+    "configure": [
+        [
+            "KXG08", 
+            107, 
+            128, 
+            "setup_serial_i2c/sensor.por()"
+        ], 
+        [
+            "KXG08", 
+            110, 
+            63, 
+            "set_power_off/self.set_bit(r.KXG08_STDBY, b.KXG08_STDBY_ACC_STDBY_DISABLED)"
+        ], 
+        [
+            "KXG08", 
+            110, 
+            59, 
+            "set_power_off/self.reset_bit(r.KXG08_STDBY, b.KXG08_STDBY_GYRO_FSTART_ENABLED)"
+        ], 
+        [
+            "KXG08", 
+            110, 
+            59, 
+            "set_power_off/self.set_bit(r.KXG08_STDBY, b.KXG08_STDBY_TEMP_STDBY_DISABLED)"
+        ], 
+        [
+            "KMX62", 
+            57, 
+            128, 
+            "<module>/sensor_kmx62.por()"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_power_off/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_power_off/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_power_off/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ], 
+        [
+            "KXG08", 
+            64, 
+            8, 
+            "enable_data_logging/m.KXG08_INT_PIN_CTL_IEL1_MASK)                       # both int pins active"
+        ], 
+        [
+            "KXG08", 
+            65, 
+            255, 
+            "enable_drdy/self.set_bit(r.KXG08_INT_PIN_SEL1, b.KXG08_INT_PIN_SEL1_DRDY_ACC_P1)"
+        ], 
+        [
+            "KXG08", 
+            68, 
+            194, 
+            "enable_drdy/self.set_bit(r.KXG08_INT_MASK1,         b.KXG08_INT_MASK1_DRDY_ACC)"
+        ], 
+        [
+            "KXG08", 
+            79, 
+            16, 
+            "wake_sleep/self.set_bit(r.KXG08_WAKE_SLEEP_CTL2, b.KXG08_WAKE_SLEEP_CTL2_MAN_WAKE)"
+        ], 
+        [
+            "KXG08", 
+            60, 
+            87, 
+            "set_average/self.reset_bit(r.KXG08_ACCEL_ODR, b.KXG08_ACCEL_ODR_LPMODEA)"
+        ], 
+        [
+            "KXG08", 
+            61, 
+            8, 
+            "set_BW/self.set_bit_pattern(r.KXG08_ACCEL_CTL, bw, m.KXG08_ACCEL_CTL_ACC_BW_MASK)"
+        ], 
+        [
+            "KXG08", 
+            62, 
+            7, 
+            "set_average/self.reset_bit(r.KXG08_GYRO_ODR, b.KXG08_GYRO_ODR_LPMODEG)"
+        ], 
+        [
+            "KXG08", 
+            63, 
+            5, 
+            "set_BW/self.set_bit_pattern(r.KXG08_GYRO_CTL, bw, m.KXG08_GYRO_CTL_GYRO_BW_MASK)"
+        ], 
+        [
+            "KMX62", 
+            56, 
+            51, 
+            "set_odr/self.set_bit_pattern(r.KMX62_ODCNTL, ODR, m.KMX62_ODCNTL_OSM_MASK)"
+        ], 
+        [
+            "KMX62", 
+            42, 
+            16, 
+            "enable_drdy/self.set_bit(r.KMX62_INC1, b.KMX62_INC1_DRDY_A1)"
+        ], 
+        [
+            "KMX62", 
+            44, 
+            0, 
+            "enable_data_logging/0xff)"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "KXG08", 
+            110, 
+            25, 
+            "set_power_off/self.set_bit(r.KXG08_STDBY, b.KXG08_STDBY_ACC_STDBY_DISABLED)"
+        ], 
+        [
+            "KXG08", 
+            110, 
+            25, 
+            "set_power_off/self.reset_bit(r.KXG08_STDBY, b.KXG08_STDBY_GYRO_FSTART_ENABLED)"
+        ], 
+        [
+            "KXG08", 
+            110, 
+            57, 
+            "set_power_off/self.set_bit(r.KXG08_STDBY, b.KXG08_STDBY_TEMP_STDBY_DISABLED)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            78, 
+            "set_power_off/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            76, 
+            "set_power_off/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            "set_power_off/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ]
+    ], 
+    "doc": "Read KXG08 accelerometer + gyroscope data and KMX62 magnetometer data at 100Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "degrees/s", 
+            "data": "Gyro_X,Gyro_Y,Gyro_Z", 
+            "name": "Gyroscope", 
+            "SI_multiplier": "2048 / 32768"
+        }, 
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 16384"
+        }, 
+        {
+            "SI_unit": "uT", 
+            "data": "Mag_X,Mag_Y,Mag_Z", 
+            "name": "Magnetometer", 
+            "SI_multiplier": "1200 / 32768"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "KXG08 + KMX62 / 100Hz"
+}
