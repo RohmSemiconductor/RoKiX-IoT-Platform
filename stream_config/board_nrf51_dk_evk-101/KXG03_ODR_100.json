@@ -1,0 +1,207 @@
+{
+    "activate": [
+        [
+            "KXG03", 
+            67, 
+            238, 
+            "set_power_on/m.KXG03_STDBY_ACC_STDBY_MASK)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            206, 
+            "set_power_on/m.KXG03_STDBY_GYRO_STDBY_S_MASK)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            204, 
+            "set_power_on/m.KXG03_STDBY_GYRO_STDBY_W_MASK)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            8, 
+            "set_power_on/m.KXG03_CTL_REG_1_TEMP_STDBY_S_MASK)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            0, 
+            "set_power_on/m.KXG03_CTL_REG_1_TEMP_STDBY_W_MASK)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                18, 
+                1, 
+                2, 
+                [
+                    "KXG03", 
+                    0, 
+                    14
+                ]
+            ], 
+            "odr": 100, 
+            "fmt": "<Bhhhhhhh", 
+            "type": "continuous", 
+            "hdr": "ch!temperature!gx!gy!gz!ax!ay!az"
+        }
+    ], 
+    "configure": [
+        [
+            "KXG03", 
+            68, 
+            128, 
+            "setup_serial_i2c/sensor.por()"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            239, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY, b.KXG03_STDBY_ACC_STDBY_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            239, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY,             b.KXG03_STDBY_GYRO_STDBY_S_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            239, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY,             b.KXG03_STDBY_GYRO_STDBY_W_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            24, 
+            "set_power_off/self.set_bit(r.KXG03_CTL_REG_1,         b.KXG03_CTL_REG_1_TEMP_STDBY_S_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            24, 
+            "set_power_off/self.set_bit(r.KXG03_CTL_REG_1,         b.KXG03_CTL_REG_1_TEMP_STDBY_W_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            64, 
+            0, 
+            "set_range/self.set_bit_pattern(r.KXG03_ACCEL_CTL, range_S, m.KXG03_ACCEL_CTL_ACC_FS_S_MASK)"
+        ], 
+        [
+            "KXG03", 
+            65, 
+            199, 
+            "set_BW/self.set_bit_pattern(r.KXG03_GYRO_ODR_WAKE,  reso_W, m.KXG03_GYRO_ODR_WAKE_GYRO_BW_W_MASK)"
+        ], 
+        [
+            "KXG03", 
+            66, 
+            7, 
+            "set_BW/self.set_bit_pattern(r.KXG03_GYRO_ODR_SLEEP, reso_S, m.KXG03_GYRO_ODR_SLEEP_GYRO_BW_S_MASK)"
+        ], 
+        [
+            "KXG03", 
+            69, 
+            72, 
+            "enable_data_logging/m.KXG03_INT_PIN_CTL_IEL1_MASK | m.KXG03_INT_PIN_CTL_IEL2_MASK)"
+        ], 
+        [
+            "KXG03", 
+            70, 
+            1, 
+            "enable_drdy/self.set_bit(r.KXG03_INT_PIN1_SEL,  b.KXG03_INT_PIN1_SEL_DRDY_GYRO_P1)"
+        ], 
+        [
+            "KXG03", 
+            71, 
+            255, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KXG03", 
+            72, 
+            1, 
+            "enable_drdy/self.set_bit(r.KXG03_INT_MASK1,         b.KXG03_INT_MASK1_DRDY_GYRO)"
+        ], 
+        [
+            "KXG03", 
+            75, 
+            16, 
+            "wake_sleep/sensor.set_bit(r.KXG03_WAKE_SLEEP_CTL1, b.KXG03_WAKE_SLEEP_CTL1_MAN_WAKE)"
+        ], 
+        [
+            "KXG03", 
+            62, 
+            87, 
+            "power_modes/m.KXG03_ACCEL_ODR_WAKE_LPMODE_W_MASK)"
+        ], 
+        [
+            "KXG03", 
+            63, 
+            87, 
+            "power_modes/m.KXG03_ACCEL_ODR_SLEEP_LPMODE_S_MASK)"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "KXG03", 
+            67, 
+            205, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY, b.KXG03_STDBY_ACC_STDBY_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            237, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY,             b.KXG03_STDBY_GYRO_STDBY_S_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            239, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY,             b.KXG03_STDBY_GYRO_STDBY_W_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            16, 
+            "set_power_off/self.set_bit(r.KXG03_CTL_REG_1,         b.KXG03_CTL_REG_1_TEMP_STDBY_S_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            24, 
+            "set_power_off/self.set_bit(r.KXG03_CTL_REG_1,         b.KXG03_CTL_REG_1_TEMP_STDBY_W_DISABLED)"
+        ]
+    ], 
+    "doc": "Read KXG03 sensor data; temperature, gyroscope and accelerometer at 100 Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "Celsius", 
+            "data": "Temp", 
+            "name": "Temperature", 
+            "SI_multiplier": "1 / 128"
+        }, 
+        {
+            "SI_unit": "degrees/s", 
+            "data": "Gyro_X,Gyro_Y,Gyro_Z", 
+            "name": "Gyroscope", 
+            "SI_multiplier": "2048 / 32768"
+        }, 
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 16384"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "KXG03 / 100Hz"
+}

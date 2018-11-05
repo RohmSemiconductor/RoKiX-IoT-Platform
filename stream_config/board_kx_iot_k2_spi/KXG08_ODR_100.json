@@ -1,0 +1,164 @@
+{
+    "activate": [
+        [
+            "KXG08", 
+            110, 
+            56, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            110, 
+            24, 
+            ""
+        ]
+    ], 
+    "start_req": {
+        "msg": [
+            [
+                4, 
+                31, 
+                7, 
+                0
+            ], 
+            [
+                6, 
+                11, 
+                0, 
+                47, 
+                1, 
+                0
+            ], 
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "KXG08", 
+                    0, 
+                    14
+                ]
+            ], 
+            [
+                3, 
+                17, 
+                48
+            ]
+        ], 
+        "odr": 100, 
+        "type": "continuous", 
+        "fmt": "<Bhhhhhhh", 
+        "hdr": "ch!temperature!gx!gy!gz!ax!ay!az"
+    }, 
+    "configure": [
+        [
+            "KXG08", 
+            110, 
+            57, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            64, 
+            72, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            65, 
+            255, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            68, 
+            194, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            79, 
+            16, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            60, 
+            87, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            61, 
+            9, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            62, 
+            7, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            63, 
+            5, 
+            ""
+        ]
+    ], 
+    "structure_version": "2.0", 
+    "deactivate": [
+        [
+            "KXG08", 
+            110, 
+            25, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            110, 
+            25, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            110, 
+            57, 
+            ""
+        ]
+    ], 
+    "doc": "Read KXG08 sensor data; gyroscope and accelerometer at 100 Hz ODR. Accelerometer range +-4g, gyro range +-2048dps ", 
+    "channels": [
+        {
+            "SI_unit": "Celsius", 
+            "data": "Temp", 
+            "name": "Temperature", 
+            "SI_multiplier": "1 / 256"
+        }, 
+        {
+            "SI_unit": "degrees/s", 
+            "data": "Gyro_X,Gyro_Y,Gyro_Z", 
+            "name": "Gyroscope", 
+            "SI_multiplier": "2048 / 32768"
+        }, 
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 16384"
+        }
+    ], 
+    "register_dump": [], 
+    "stop_req": {
+        "msg": [
+            3, 
+            13, 
+            48
+        ]
+    }, 
+    "protocol_version": "2.0", 
+    "name": "KXG08 / 100Hz / 4g / 2048dps"
+}

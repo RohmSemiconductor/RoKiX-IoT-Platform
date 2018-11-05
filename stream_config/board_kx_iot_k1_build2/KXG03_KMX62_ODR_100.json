@@ -1,0 +1,300 @@
+{
+    "activate": [
+        [
+            "KXG03", 
+            67, 
+            238, 
+            "set_power_on/m.KXG03_STDBY_ACC_STDBY_MASK)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            206, 
+            "set_power_on/m.KXG03_STDBY_GYRO_STDBY_S_MASK)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            204, 
+            "set_power_on/m.KXG03_STDBY_GYRO_STDBY_W_MASK)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            8, 
+            "set_power_on/m.KXG03_CTL_REG_1_TEMP_STDBY_S_MASK)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            0, 
+            "set_power_on/m.KXG03_CTL_REG_1_TEMP_STDBY_W_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_range/self.set_bit_pattern(r.KMX62_CNTL2, range, m.KMX62_CNTL2_GSEL_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            "set_average/self.set_bit_pattern(r.KMX62_CNTL2, average, m.KMX62_CNTL2_RES_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            13, 
+            "set_power_on/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            15, 
+            "set_power_on/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            79, 
+            "set_power_on/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                16, 
+                1, 
+                2, 
+                [
+                    "KXG03", 
+                    2, 
+                    12, 
+                    "KMX62", 
+                    16, 
+                    6
+                ]
+            ], 
+            "odr": 100, 
+            "fmt": "<Bhhhhhhhhh", 
+            "type": "continuous", 
+            "hdr": "ch!gx!gy!gz!ax!ay!az!mx!my!mz"
+        }
+    ], 
+    "configure": [
+        [
+            "KXG03", 
+            68, 
+            128, 
+            "setup_serial_i2c/sensor.por()"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            239, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY, b.KXG03_STDBY_ACC_STDBY_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            239, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY,             b.KXG03_STDBY_GYRO_STDBY_S_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            239, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY,             b.KXG03_STDBY_GYRO_STDBY_W_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            24, 
+            "set_power_off/self.set_bit(r.KXG03_CTL_REG_1,         b.KXG03_CTL_REG_1_TEMP_STDBY_S_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            24, 
+            "set_power_off/self.set_bit(r.KXG03_CTL_REG_1,         b.KXG03_CTL_REG_1_TEMP_STDBY_W_DISABLED)"
+        ], 
+        [
+            "KMX62", 
+            57, 
+            128, 
+            "<module>/sensor_kmx62.por()"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_power_off/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_power_off/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "set_power_off/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ], 
+        [
+            "KXG03", 
+            64, 
+            0, 
+            "set_range/self.set_bit_pattern(r.KXG03_ACCEL_CTL, range_S, m.KXG03_ACCEL_CTL_ACC_FS_S_MASK)"
+        ], 
+        [
+            "KXG03", 
+            65, 
+            199, 
+            "set_BW/self.set_bit_pattern(r.KXG03_GYRO_ODR_WAKE,  reso_W, m.KXG03_GYRO_ODR_WAKE_GYRO_BW_W_MASK)"
+        ], 
+        [
+            "KXG03", 
+            66, 
+            7, 
+            "set_BW/self.set_bit_pattern(r.KXG03_GYRO_ODR_SLEEP, reso_S, m.KXG03_GYRO_ODR_SLEEP_GYRO_BW_S_MASK)"
+        ], 
+        [
+            "KXG03", 
+            69, 
+            8, 
+            "enable_data_logging/m.KXG03_INT_PIN_CTL_IEL1_MASK | m.KXG03_INT_PIN_CTL_IEL2_MASK)"
+        ], 
+        [
+            "KXG03", 
+            70, 
+            1, 
+            "enable_drdy/self.set_bit(r.KXG03_INT_PIN1_SEL,  b.KXG03_INT_PIN1_SEL_DRDY_GYRO_P1)"
+        ], 
+        [
+            "KXG03", 
+            71, 
+            255, 
+            "enable_data_logging/kxg03_data_logger.enable_data_logging(sensor_kxg03, odr=odr, max_range_acc=max_range_acc)"
+        ], 
+        [
+            "KXG03", 
+            72, 
+            1, 
+            "enable_drdy/self.set_bit(r.KXG03_INT_MASK1,         b.KXG03_INT_MASK1_DRDY_GYRO)"
+        ], 
+        [
+            "KXG03", 
+            75, 
+            16, 
+            "wake_sleep/sensor.set_bit(r.KXG03_WAKE_SLEEP_CTL1, b.KXG03_WAKE_SLEEP_CTL1_MAN_WAKE)"
+        ], 
+        [
+            "KXG03", 
+            62, 
+            87, 
+            "power_modes/m.KXG03_ACCEL_ODR_WAKE_LPMODE_W_MASK)"
+        ], 
+        [
+            "KXG03", 
+            63, 
+            87, 
+            "power_modes/m.KXG03_ACCEL_ODR_SLEEP_LPMODE_S_MASK)"
+        ], 
+        [
+            "KMX62", 
+            56, 
+            51, 
+            "set_odr/self.set_bit_pattern(r.KMX62_ODCNTL, ODR, m.KMX62_ODCNTL_OSM_MASK)"
+        ], 
+        [
+            "KMX62", 
+            42, 
+            16, 
+            "enable_drdy/self.set_bit(r.KMX62_INC1, b.KMX62_INC1_DRDY_A1)"
+        ], 
+        [
+            "KMX62", 
+            44, 
+            0, 
+            "enable_data_logging/0xff)"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "KXG03", 
+            67, 
+            205, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY, b.KXG03_STDBY_ACC_STDBY_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            237, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY,             b.KXG03_STDBY_GYRO_STDBY_S_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            67, 
+            239, 
+            "set_power_off/self.set_bit(r.KXG03_STDBY,             b.KXG03_STDBY_GYRO_STDBY_W_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            16, 
+            "set_power_off/self.set_bit(r.KXG03_CTL_REG_1,         b.KXG03_CTL_REG_1_TEMP_STDBY_S_DISABLED)"
+        ], 
+        [
+            "KXG03", 
+            68, 
+            24, 
+            "set_power_off/self.set_bit(r.KXG03_CTL_REG_1,         b.KXG03_CTL_REG_1_TEMP_STDBY_W_DISABLED)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            78, 
+            "set_power_off/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            76, 
+            "set_power_off/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            "set_power_off/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ]
+    ], 
+    "doc": "Read KXG03 accelerometer + gyroscope data and KMX62 magnetometer data at 100Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "degrees/s", 
+            "data": "Gyro_X,Gyro_Y,Gyro_Z", 
+            "name": "Gyroscope", 
+            "SI_multiplier": "2048 / 32768"
+        }, 
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 16384"
+        }, 
+        {
+            "SI_unit": "uT", 
+            "data": "Mag_X,Mag_Y,Mag_Z", 
+            "name": "Magnetometer", 
+            "SI_multiplier": "1200 / 32768"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "KXG03 + KMX62 / 100Hz"
+}

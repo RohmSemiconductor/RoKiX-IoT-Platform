@@ -1,0 +1,135 @@
+{
+    "activate": [
+        [
+            "KMX62", 
+            58, 
+            0, 
+            "kmx62_test_fifo/sensor.set_bit_pattern(r.KMX62_CNTL2, b.KMX62_CNTL2_GSEL_2G, m.KMX62_CNTL2_GSEL_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            "kmx62_test_fifo/sensor.set_bit_pattern(r.KMX62_CNTL2, b.KMX62_CNTL2_RES_MAX2, m.KMX62_CNTL2_RES_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            13, 
+            "set_power_on/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            15, 
+            "set_power_on/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            79, 
+            "set_power_on/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                0, 
+                1, 
+                2, 
+                [
+                    "KMX62", 
+                    126, 
+                    16
+                ]
+            ], 
+            "odr": 800, 
+            "fmt": "<Bhhhhhhhh", 
+            "type": "continuous", 
+            "hdr": "ch!f1!f2!f3!f4!f5!f6!f7!f8"
+        }
+    ], 
+    "configure": [
+        [
+            "KMX62", 
+            57, 
+            128, 
+            "kmx62_test_fifo/sensor.por() # NOTE: Solves problems with register values"
+        ], 
+        [
+            "KMX62", 
+            42, 
+            32, 
+            "kmx62_test_fifo/sensor.set_bit(r.KMX62_INC1, b.KMX62_INC1_WMI1)         # water mark to int 1"
+        ], 
+        [
+            "KMX62", 
+            44, 
+            0, 
+            "<module>/kmx62_test_fifo(sensor, odr, axis=ax_dict[ax_key])"
+        ], 
+        [
+            "KMX62", 
+            120, 
+            2, 
+            "set_fifo_watermark_level/b.KMX62_BUF_CTRL_2_SMT_TH8)"
+        ], 
+        [
+            "KMX62", 
+            119, 
+            16, 
+            "kmx62_test_fifo/sensor.set_fifo_watermark_level(16)                     # bytes for 8 samples (1-axis)"
+        ], 
+        [
+            "KMX62", 
+            56, 
+            102, 
+            "set_odr/self.set_bit_pattern(r.KMX62_ODCNTL, ODR, m.KMX62_ODCNTL_OSM_MASK)"
+        ], 
+        [
+            "KMX62", 
+            121, 
+            4, 
+            "kmx62_test_fifo/axis )     # stream mode, buffer input mask (acc + mag)"
+        ], 
+        [
+            "KMX62", 
+            122, 
+            0, 
+            "kmx62_test_fifo/sensor.clear_buffer()"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "KMX62", 
+            58, 
+            78, 
+            "set_power_off/m.KMX62_CNTL2_ACCEL_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            76, 
+            "set_power_off/m.KMX62_CNTL2_MAG_EN_MASK)"
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            "set_power_off/m.KMX62_CNTL2_TEMP_EN_MASK)"
+        ]
+    ], 
+    "doc": "Read KMX62 sensor 1d my data at 800Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "uT", 
+            "data": "Mag_y", 
+            "name": "Magnetometer", 
+            "SI_multiplier": "1200 / 32768"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "KMX62 / ax / 800Hz"
+}

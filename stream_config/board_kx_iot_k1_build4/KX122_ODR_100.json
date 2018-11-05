@@ -1,0 +1,99 @@
+{
+    "activate": [
+        [
+            "KX122", 
+            24, 
+            0, 
+            "set_range/m.KX022_CNTL1_GSEL_MASK)"
+        ], 
+        [
+            "KX122", 
+            24, 
+            64, 
+            "enable_data_logging/sensor.set_bit(r.KX022_CNTL1, b.KX022_CNTL1_RES)"
+        ], 
+        [
+            "KX122", 
+            24, 
+            96, 
+            "enable_drdy/self.set_bit(r.KX022_CNTL1,  b.KX022_CNTL1_DRDYE)"
+        ], 
+        [
+            "KX122", 
+            24, 
+            224, 
+            "set_power_on/self.set_bit(r.KX022_CNTL1, b.KX022_CNTL1_PC1)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                16, 
+                1, 
+                2, 
+                [
+                    "KX122", 
+                    6, 
+                    6
+                ]
+            ], 
+            "odr": 100, 
+            "fmt": "<Bhhh", 
+            "type": "continuous", 
+            "hdr": "ch!ax!ay!az"
+        }
+    ], 
+    "configure": [
+        [
+            "KX122", 
+            25, 
+            128, 
+            "setup_serial_i2c/sensor.por()"
+        ], 
+        [
+            "KX122", 
+            24, 
+            0, 
+            "set_power_off/self.reset_bit(r.KX022_CNTL1, b.KX022_CNTL1_PC1)"
+        ], 
+        [
+            "KX122", 
+            27, 
+            3, 
+            "enable_iir/self.reset_bit(r.KX022_ODCNTL, b.KX022_ODCNTL_IIR_BYPASS)"
+        ], 
+        [
+            "KX122", 
+            28, 
+            32, 
+            "set_interrupt_polarity/self.reset_bit(r.KX022_INC1, b.KX022_INC1_IEA1)   # active low"
+        ], 
+        [
+            "KX122", 
+            31, 
+            16, 
+            "enable_drdy/self.set_bit(r.KX022_INC4, b.KX022_INC4_DRDYI1)     # data ready to int1"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "KX122", 
+            24, 
+            96, 
+            "set_power_off/self.reset_bit(r.KX022_CNTL1, b.KX022_CNTL1_PC1)"
+        ]
+    ], 
+    "doc": "Read accelerometer data from KX122 at 100 Hz ODR on 2g high performance mode", 
+    "channels": [
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 16384"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "KX122 / 100Hz"
+}

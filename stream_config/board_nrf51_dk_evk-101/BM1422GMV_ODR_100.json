@@ -1,0 +1,111 @@
+{
+    "activate": [
+        [
+            "BM1422GMV", 
+            27, 
+            136, 
+            "set_odr/self.set_bit_pattern(r.BM1422GMV_CNTL1, valuex, m.BM1422GMV_CNTL1_ODR_MASK)"
+        ], 
+        [
+            "BM1422GMV", 
+            28, 
+            12, 
+            "enable_drdy_pin/self.set_bit_pattern(r.BM1422GMV_CNTL2, b.BM1422GMV_CNTL2_DREN_ENABLED, m.BM1422GMV_CNTL2_DREN_MASK)"
+        ], 
+        [
+            "BM1422GMV", 
+            28, 
+            8, 
+            "set_drdy_low_active/self.set_bit_pattern(r.BM1422GMV_CNTL2, b.BM1422GMV_CNTL2_DRP_LOWACTIVE, m.BM1422GMV_CNTL2_DRP_MASK)"
+        ], 
+        [
+            "BM1422GMV", 
+            27, 
+            136, 
+            "start_continuous_measurement/self.set_bit_pattern(r.BM1422GMV_CNTL1, b.BM1422GMV_CNTL1_FS1_CONT, m.BM1422GMV_CNTL1_FS1_MASK)"
+        ], 
+        [
+            "BM1422GMV", 
+            29, 
+            64, 
+            "start_continuous_measurement/self.set_bit_pattern(r.BM1422GMV_CNTL3, b.BM1422GMV_CNTL3_FORCE_START, m.BM1422GMV_CNTL3_FORCE_MASK)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                12, 
+                1, 
+                2, 
+                [
+                    "BM1422GMV", 
+                    16, 
+                    6
+                ]
+            ], 
+            "odr": 100, 
+            "fmt": "<Bhhh", 
+            "type": "continuous", 
+            "hdr": "ch!mx!my!mz"
+        }
+    ], 
+    "configure": [
+        [
+            "BM1422GMV", 
+            27, 
+            32, 
+            "setup_serial_i2c/sensor.por()"
+        ], 
+        [
+            "BM1422GMV", 
+            27, 
+            160, 
+            "set_power_on/self.set_bit_pattern(r.BM1422GMV_CNTL1, b.BM1422GMV_CNTL1_PC1_ON, m.BM1422GMV_CNTL1_PC1_MASK)"
+        ], 
+        [
+            "BM1422GMV", 
+            27, 
+            128, 
+            "set_power_on/self.set_bit_pattern(r.BM1422GMV_CNTL1, b.BM1422GMV_CNTL1_RST_LV_RELEASE, m.BM1422GMV_CNTL1_RST_LV_MASK)"
+        ], 
+        [
+            "BM1422GMV", 
+            64, 
+            0, 
+            "set_averaging/self.set_bit_pattern(r.BM1422GMV_AVER, valuex, m.BM1422GMV_AVER_AVG_MASK)"
+        ], 
+        [
+            "BM1422GMV", 
+            92, 
+            0, 
+            "enable_data_logging/sensor.set_power_on()"
+        ], 
+        [
+            "BM1422GMV", 
+            93, 
+            0, 
+            "enable_data_logging/sensor.set_power_on()"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "BM1422GMV", 
+            27, 
+            138, 
+            "set_power_off/self.set_bit_pattern(r.BM1422GMV_CNTL1, b.BM1422GMV_CNTL1_FS1_SINGLE, m.BM1422GMV_CNTL1_FS1_MASK)"
+        ]
+    ], 
+    "doc": "Read magnetometer data from BM1422GMV at 100Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "uT", 
+            "data": "Mag_X,Mag_Y,Mag_Z", 
+            "name": "Magnetometer", 
+            "SI_multiplier": "0.042"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "BM1422GMV / 100Hz"
+}

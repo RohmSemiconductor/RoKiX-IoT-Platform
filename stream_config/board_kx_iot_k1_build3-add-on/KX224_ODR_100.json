@@ -1,0 +1,105 @@
+{
+    "activate": [
+        [
+            "KX224", 
+            24, 
+            0, 
+            "set_range/m.KX224_CNTL1_GSEL_MASK)"
+        ], 
+        [
+            "KX224", 
+            24, 
+            64, 
+            "enable_data_logging/sensor.set_bit(r.KX224_CNTL1, b.KX224_CNTL1_RES)    # high resolution"
+        ], 
+        [
+            "KX224", 
+            24, 
+            96, 
+            "enable_drdy/self.set_bit(r.KX224_CNTL1,  b.KX224_CNTL1_DRDYE)"
+        ], 
+        [
+            "KX224", 
+            24, 
+            224, 
+            "set_power_on/self.set_bit(r.KX224_CNTL1, b.KX224_CNTL1_PC1)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                16, 
+                1, 
+                2, 
+                [
+                    "KX224", 
+                    6, 
+                    6
+                ]
+            ], 
+            "odr": 100, 
+            "fmt": "<Bhhh", 
+            "type": "continuous", 
+            "hdr": "ch!ax!ay!az"
+        }
+    ], 
+    "configure": [
+        [
+            "KX224", 
+            25, 
+            128, 
+            "setup_serial_i2c/sensor.por()"
+        ], 
+        [
+            "KX224", 
+            24, 
+            0, 
+            "enable_data_logging/sensor.set_power_off()                                  # this sensor request PC=0 to PC=1 before valid settings"
+        ], 
+        [
+            "KX224", 
+            32, 
+            0, 
+            "enable_data_logging/sensor.reset_bit(r.KX224_INC5, b.KX224_INC5_IEA2)   # active low"
+        ], 
+        [
+            "KX224", 
+            27, 
+            3, 
+            "set_BW/self.reset_bit(r.KX224_ODCNTL, b.KX224_ODCNTL_LPRO) # BW odr /9 (default)"
+        ], 
+        [
+            "KX224", 
+            28, 
+            32, 
+            "enable_data_logging/sensor.reset_bit(r.KX224_INC1, b.KX224_INC1_IEA1)   # active low"
+        ], 
+        [
+            "KX224", 
+            31, 
+            16, 
+            "enable_drdy/self.set_bit(r.KX224_INC4, b.KX224_INC4_DRDYI1)     # data ready to int1"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "KX224", 
+            24, 
+            96, 
+            "make_stream_config/sensor.set_power_off()                      # power off the sensor and record write commands"
+        ]
+    ], 
+    "doc": "Read accelerometer data from KX224 at 100 Hz ODR on 8g high performance mode", 
+    "channels": [
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 4096"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "KX224 / 100Hz"
+}

@@ -1,0 +1,67 @@
+{
+    "structure_version": 1.0,
+    "protocol_version": 1.1,
+    "configuration": {
+        "name": "Nordic NRF51-DK with Rohm EVK-101",
+        "doc": "Nordic nRF51-DK board with Rohm EVK-101 including KMX62, KX122, KXG03, BM1383AGLV, BM1522GMV, RPR0521 and BH1745",
+        "bus1": {
+            "connections": [{
+                "connection": "i2c",
+                "part_list": [{
+                    "name": "KMX62",
+                    "SAD": 14,
+                    "int1_gpio": 23
+                },
+                {
+                    "name": "KX122",
+                    "SAD": 30,
+                    "int1_gpio": 28
+                },
+                {
+                    "name": "KXG03",
+                    "SAD": 79,
+                    "int1_gpio": 18
+                },
+                {
+                    "name": "BM1383AGLV",
+                    "SAD": 93,
+                    "int1_gpio": 19
+                },
+                {
+                    "name": "BM1422GMV",
+                    "SAD": 15,
+                    "int1_gpio": 12
+                },
+                {
+                    "name": "RPR0521",
+                    "SAD": 56,
+                    "int1_gpio": 20
+                },
+                {
+                    "name": "BH1745",
+                    "SAD": 57,
+                    "int1_gpio": 20
+                }]
+            }]
+        },
+        "bus2": {
+            "connections": [{
+                "connection": "USB",
+                "packet_per_second": 400,
+                "baud_rate": 460800,
+                "start_up_delay_ms": 0,
+                "com_port_name": ["JLink CDC UART Port","USB Serial Device","mbed Serial Port"]
+            },
+            {
+                "connection": "BLE",
+                "packet_per_second": 200
+            }]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_nrf51_dk_evk-101"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}
