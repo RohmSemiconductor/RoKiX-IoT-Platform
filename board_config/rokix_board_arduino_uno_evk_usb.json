@@ -54,7 +54,7 @@
             }]
         },
         "stream_config": {
-            "directory": "stream_config/board_arduino_uno_serial_com"
+            "directory": "stream_config/board_rokix_arduino_uno_evk"
         },
         "board_init": {
             "reg_write": []

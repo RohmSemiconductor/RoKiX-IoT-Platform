@@ -5,25 +5,23 @@
     ],
     "configuration": {
         "name": "Cypress CY8CKIT-059",
-        "doc": "Cypress CY8CKIT-059 with KX122, KMX62, or KXG07",
+        "doc": "Cypress CY8CKIT-059 + A1 with KX122, KMX62, KXG07, or KXR94",
         "board_id": 10,
         "cpu_freq_mhz": 74,
         "bus1": {
             "sensor_defaults": {
                 "polarity": "EVKIT_GPIO_PIN_SENSE_HIGH",
                 "pullup": "EVKIT_GPIO_PIN_NOPULL",
-                "protocol": 1,
                 "axis_map": []
             },
             "targets": [
                 {
-                    "name": "spi",
-                    "freq": 9000,
-                    "spi_mode": 0,
-                    "target": 1,
+                    "name": "i2c",
+                    "freq": 400,
+                    "target": 4,
                     "parts": {
                         "KX122": {
-                            "cs": 0,
+                            "SAD": 31,
                             "gpio1": 0,
                             "axis_map": [
                                 0,
@@ -31,8 +29,20 @@
                                 2
                             ]
                         },
+                        "KMX62": {
+                            "SAD": 15,
+                            "gpio1": 0,
+                            "axis_map": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        },
                         "KXG08": {
-                            "cs": 1,
+                            "SAD": 78,
                             "gpio1": 0,
                             "axis_map": [
                                 0,
@@ -99,7 +109,7 @@
             ]
         },
         "stream_config": {
-            "directory": "stream_config/board_cypress_serial_com"
+            "directory": "stream_config/board_rokix_cy8ckit059"
         },
         "board_init": {
             "reg_write": []
