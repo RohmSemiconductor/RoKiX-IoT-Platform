@@ -118,7 +118,7 @@
             ]
         },
         "stream_config": {
-            "directory": "stream_config/board_kx_iot_k2_i2c"
+            "directory": "stream_config/board_rokix_iot_i2c"
         },
         "board_init": {
             "reg_write": []

@@ -81,7 +81,7 @@
             }]
         },
         "stream_config": {
-            "directory": "stream_config/board_nrf51_dk_evk-001"
+            "directory": "stream_config/board_rokix_nrf51_dk_evk-001"
         },
         "board_init": {
             "reg_write": []
