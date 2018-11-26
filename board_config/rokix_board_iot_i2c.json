@@ -82,13 +82,23 @@
                                 ]
                             ]
                         },
-                        "Battery": {
-                            "gpio1": 3,
-                            "adc_gain": 1.0,
-                            "adc_ref_v": 2.5,
+                        "AnalogSensor": {
+                            "gpio1": 29,
+                            "adc_gain": 1,
+                            "adc_ref_v": 0.6,
                             "adc_offset_v": 0,
                             "adc_msg_resolution_int": 12,
-                            "adc_msg_gain_enum": 1,
+                            "adc_msg_gain_enum": 2,
+                            "adc_msg_conversion_time_us": 40,
+                            "adc_msg_oversampling_enum": 0
+                        },
+                        "Battery": {
+                            "gpio1": 3,
+                            "adc_gain": 0.25,
+                            "adc_ref_v": 0.6,
+                            "adc_offset_v": 0,
+                            "adc_msg_resolution_int": 12,
+                            "adc_msg_gain_enum": 3,
                             "adc_msg_conversion_time_us": 0,
                             "adc_msg_oversampling_enum": 0,
                             "gpio_conf": [

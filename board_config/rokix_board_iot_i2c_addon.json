@@ -58,7 +58,8 @@
                         },
                         "BM1383AGLV": {
                             "SAD": 93,
-                            "gpio1": 45
+                            "gpio1": 45,
+                            "pullup": "EVKIT_GPIO_PIN_PULLUP"
                         },
                         "BM1422GMV": {
                             "SAD": 14,
@@ -96,7 +97,7 @@
                 {
                     "name": "i2c",
                     "doc": "i2c on addonboard",
-                    "freq": 400,
+                    "freq": 250,
                     "target": 5,
                     "parts": {
                         "KX126": {
@@ -134,6 +135,11 @@
                                     1
                                 ]
                             ]
+                        },
+                        "BH1792GLC": {
+                            "SAD": 91,
+                            "gpio1": 44,
+                            "pullup": "EVKIT_GPIO_PIN_PULLUP"
                         }
                     }
                 }
