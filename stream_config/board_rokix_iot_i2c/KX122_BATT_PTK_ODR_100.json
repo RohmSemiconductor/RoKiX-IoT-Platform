@@ -130,7 +130,7 @@
             "SI_unit": "mV",
             "data": "Batt", 
             "name": "Battery",
-            "SI_multiplier": "0.853"
+            "SI_multiplier": "1.171875"
         },
         {
             "SI_unit": "count", 
