@@ -36,6 +36,8 @@
             "connections": [{
                 "connection": "USB",
                 "packet_per_second": 400,
+                "pid": 24597,
+                "vid": 1027,
                 "baud_rate": 460800,
                 "start_up_delay_ms": 0,
                 "com_port_name": ["USB Serial Port"]
