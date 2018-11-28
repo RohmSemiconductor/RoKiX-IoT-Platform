@@ -47,6 +47,8 @@
         "bus2": {
             "connections": [{
                 "connection": "USB",
+                "vid": 10755,
+                "pid": 67,
                 "packet_per_second": 400,
                 "baud_rate": 1000000,
                 "start_up_delay_ms": 2000,
