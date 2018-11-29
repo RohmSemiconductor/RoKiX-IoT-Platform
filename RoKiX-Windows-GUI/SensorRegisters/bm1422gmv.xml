@@ -1,0 +1,290 @@
+<root>
+ <sensor doc="Specification; BM1422GMV, rev 15" name="bm1422gmv" sad="15">
+  <register address="13" info="bypass" mode="INFO" name="REGISTER_DUMP_START">
+   <fields>
+   </fields>
+  </register>
+  <register address="13" doc="Information 16bit" mode="R" name="INFO" order="le" por="257" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="14" info="bypass" mode="R" name="INFO_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="15" doc="This register can be used for supplier recognition, as it can be factory written to a known byte value." mode="R" name="WHO_AM_I" por="65" value_type="uint8">
+   <fields>
+    <field mask="255" name="WIA" size="8" start_pos="0">
+     <enums>
+      <item doc="WHO_AM_I -value" name="ID" value="65">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="16" doc="Xch Output value" mode="R" name="DATAX" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="17" info="bypass" mode="R" name="DATAX_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="18" doc="Ych Output value" mode="R" name="DATAY" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="19" info="bypass" mode="R" name="DATAY_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="20" doc="Zch Output value" mode="R" name="DATAZ" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="21" info="bypass" mode="R" name="DATAZ_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="24" mode="R" name="STA1" por="0">
+   <fields>
+    <field doc="Data ready status" mask="64" name="DRDY" size="1" start_pos="6">
+     <enums>
+      <item name="ready" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="27" doc="Control setting" mode="R/W" name="CNTL1" por="34">
+   <fields>
+    <field doc="Power Control" mask="128" name="PC1" size="1" start_pos="7">
+     <enums>
+      <item doc="PowerDown" name="off" value="0">
+      </item>
+      <item doc="Active" name="on" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Output data bit setting" mask="64" name="OUT_BIT" size="1" start_pos="6">
+     <enums>
+      <item doc="12bit resolution" name="12" value="0">
+      </item>
+      <item doc="14bit resolution" name="14" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Reset release (RST_LV=0 &amp; RSTB_LV=1)" mask="32" name="RST_LV" size="1" start_pos="5">
+     <enums>
+      <item doc="Reset release" name="Release" value="0">
+      </item>
+      <item doc="Reset (POR)" name="Reset" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="24" name="ODR" size="2" start_pos="3">
+     <enums>
+      <item name="10" value="0">
+      </item>
+      <item name="100" value="1">
+      </item>
+      <item name="20" value="2">
+      </item>
+      <item name="1000" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Measurement mode" mask="2" name="FS1" size="1" start_pos="1">
+     <enums>
+      <item doc="Continuous mode" name="cont" value="0">
+      </item>
+      <item doc="Single mode" name="single" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="28" doc="Control setting 2" mode="R/W" name="CNTL2" por="4">
+   <fields>
+    <field doc="DRDY enable setting. (0:Disable, 1:Enable)" mask="8" name="DREN" size="1" start_pos="3">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="DRDY active setting. (0:Low active, 1:High active)" mask="4" name="DRP" size="1" start_pos="2">
+     <enums>
+      <item name="LowActive" value="0">
+      </item>
+      <item name="HighActive" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="29" doc="Control setting 3" mode="R/W" name="CNTL3" por="0">
+   <fields>
+    <field doc="AD start measurement trigger at continuous mode and single mode. (Autocleared)" mask="64" name="FORCE" size="1" start_pos="6">
+     <enums>
+      <item name="Start" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="48" doc="Preset time register" mode="R/W" name="PRET" por="0">
+   <fields>
+    <field doc='write "0"' mask="1" name="PS" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="64" doc="Average time setting" mode="R/W" name="AVER" por="0">
+   <fields>
+    <field mask="28" name="AVG" size="3" start_pos="2">
+     <enums>
+      <item name="4times" value="0">
+      </item>
+      <item name="1times" value="1">
+      </item>
+      <item name="2times" value="2">
+      </item>
+      <item name="8times" value="3">
+      </item>
+      <item name="16times" value="4">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="92" doc="Control setting. Reserved" mode="R/W" name="CNTL4_LSB" por="0">
+   <fields>
+   </fields>
+  </register>
+  <register address="93" doc="Control setting. RSTB_LV=1 when register written (data irrelevant), RSTB_LV=0 when PC1=0 written." mode="R/W" name="CNTL4_MSB" por="0">
+   <fields>
+   </fields>
+  </register>
+  <register address="96" doc="Temperature value" mode="R" name="TEMP" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="97" info="bypass" mode="R" name="TEMP_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="108" doc="Xch offset value" mode="R/W" name="OFF_X" por="48">
+   <fields>
+   </fields>
+  </register>
+  <register address="114" doc="Ych offset value" mode="R/W" name="OFF_Y" por="48">
+   <fields>
+   </fields>
+  </register>
+  <register address="120" doc="Zch offset value" mode="R/W" name="OFF_Z" por="48">
+   <fields>
+   </fields>
+  </register>
+  <register address="144" doc="DATAX value per OFF_X" mode="R" name="FINEOUTPUTX" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="145" info="bypass" mode="R" name="FINEOUTPUTX_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="146" doc="DATAY value per OFF_Y" mode="R" name="FINEOUTPUTY" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="147" info="bypass" mode="R" name="FINEOUTPUTY_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="148" doc="DATAZ value per OFF_Z" mode="R" name="FINEOUTPUTZ" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="149" info="bypass" mode="R" name="FINEOUTPUTZ_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="150" doc="Reserved" mode="R" name="SENSX" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="151" info="bypass" mode="R" name="SENSX_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="152" doc="Reserved" mode="R" name="SENSY" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="153" info="bypass" mode="R" name="SENSY_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="154" doc="Reserved" mode="R" name="SENSZ" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="155" info="bypass" mode="R" name="SENSZ_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="156" doc="Axis interference Xch to Zch" mode="R" name="GAIN_PARA_X_Z">
+   <fields>
+   </fields>
+  </register>
+  <register address="157" doc="Axis interference Xch to Ych" mode="R" name="GAIN_PARA_X_Y">
+   <fields>
+   </fields>
+  </register>
+  <register address="158" doc="Axis interference Ych to Zch" mode="R" name="GAIN_PARA_Y_Z">
+   <fields>
+   </fields>
+  </register>
+  <register address="159" doc="Axis interference Ych to Xch" mode="R" name="GAIN_PARA_Y_X">
+   <fields>
+   </fields>
+  </register>
+  <register address="160" doc="Axis interference Zch to Ych" mode="R" name="GAIN_PARA_Z_Y">
+   <fields>
+   </fields>
+  </register>
+  <register address="161" doc="Axis interference Zch to Xch" mode="R" name="GAIN_PARA_Z_X">
+   <fields>
+   </fields>
+  </register>
+  <register address="248" doc="Reserved" mode="R" name="OFFZEROX" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="249" info="bypass" mode="R" name="OFFZEROX_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="250" doc="Reserved" mode="R" name="OFFZEROY" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="251" info="bypass" mode="R" name="OFFZEROY_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="252" doc="Reserved" mode="R" name="OFFZEROZ" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="253" info="bypass" mode="R" name="OFFZEROZ_MSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="30" info="bypass" mode="INFO" name="REGISTER_DUMP_END">
+   <fields>
+   </fields>
+  </register>
+ </sensor>
+</root>

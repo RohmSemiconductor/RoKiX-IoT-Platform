@@ -1,0 +1,474 @@
+<root>
+ <sensor doc="Specification; KMX61G-1030, v2.0" name="KMX61" sad="28">
+  <register address="0" mode="R" name="WHO_AM_I" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="1" mode="R" name="INS1">
+   <fields>
+    <field doc="BFI - indicates that the buffer is full. This bit is cleared when the data is read or the interrupt" mask="64" name="BFI" size="1" start_pos="6">
+     <enums>
+      <item doc="Buffer is not full" name="buff_not_full" value="0">
+      </item>
+      <item doc="Buffer is full" name="buff_full" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="32" name="WMI" size="1" start_pos="5">
+     <enums>
+      <item doc="Buffer watermark not reached" name="mark_not_reached" value="0">
+      </item>
+      <item doc="Buffer watermark reached" name="mark_reached" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="16" name="DRDY_ACCEL" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="DRDY_MAG" size="1" start_pos="3">
+    </field>
+    <field mask="2" name="WUFS" size="1" start_pos="1">
+    </field>
+   </fields>
+  </register>
+  <register address="2" mode="R" name="INS2">
+   <fields>
+    <field mask="32" name="XNWU" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="XPWU" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="YNWU" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="YPWU" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="ZNWU" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="ZPWU" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="3" mode="R" name="STATUS_REG">
+   <fields>
+    <field mask="16" name="INT" size="1" start_pos="4">
+    </field>
+   </fields>
+  </register>
+  <register address="10" mode="R" name="ACCEL_XOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="11" info="bypass" mode="R" name="ACCEL_XOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="12" mode="R" name="ACCEL_YOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="13" info="bypass" mode="R" name="ACCEL_YOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="14" mode="R" name="ACCEL_ZOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="15" info="bypass" mode="R" name="ACCEL_ZOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="16" mode="R" name="TEMP_OUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="17" info="bypass" mode="R" name="TEMP_OUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="18" mode="R" name="MAG_XOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="19" info="bypass" mode="R" name="MAG_XOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="20" mode="R" name="MAG_YOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="21" info="bypass" mode="R" name="MAG_YOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="22" mode="R" name="MAG_ZOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="23" info="bypass" mode="R" name="MAG_ZOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="24" mode="R" name="XOUT_HPF_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="25" info="bypass" mode="R" name="XOUT_HPF_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="26" mode="R" name="YOUT_HPF_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="27" info="bypass" mode="R" name="YOUT_HPF_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="28" mode="R" name="ZOUT_HPF_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="29" info="bypass" mode="R" name="ZOUT_HPF_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="36" mode="R" name="SN_1" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="37" mode="R" name="SN_2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="38" mode="R" name="SN_3" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="39" mode="R" name="SN_4" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="40" mode="W" name="INL" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="41" mode="R/W" name="STBY_REG">
+   <fields>
+    <field mask="128" name="ACT_STBY" size="1" start_pos="7">
+     <enums>
+      <item name="OPERATING_MODE" value="0">
+      </item>
+      <item name="STAND_BY_MODE" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="2" name="MAG_STBY" size="1" start_pos="1">
+     <enums>
+      <item name="OPERATING_MODE" value="0">
+      </item>
+      <item name="STAND_BY_MODE" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="1" name="ACCEL_STBY" size="1" start_pos="0">
+     <enums>
+      <item name="OPERATING_MODE" value="0">
+      </item>
+      <item name="STAND_BY_MODE" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="42" mode="R/W" name="CNTL1">
+   <fields>
+    <field mask="128" name="BTSE" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="WUFE" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="DRDYE" size="1" start_pos="5">
+    </field>
+    <field mask="3" name="GSEL" size="2" start_pos="0">
+     <enums>
+      <item doc="2g 12 bit" name="2g" value="0">
+      </item>
+      <item doc="4g 12bit" name="4g" value="1">
+      </item>
+      <item doc="8g 12bit" name="8g" value="2">
+      </item>
+      <item doc="8g 14bit" name="8g14b" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="43" mode="R/W" name="CNTL2">
+   <fields>
+    <field doc="Software Reset function" mask="128" name="SRST" size="1" start_pos="7">
+    </field>
+    <field doc="ST polarity control" mask="64" name="STPOL" size="1" start_pos="6">
+    </field>
+    <field doc="enables the command test function" mask="16" name="COTC" size="1" start_pos="4">
+    </field>
+    <field doc="Output Data Rate at which the wake up (motion detection) performs its function" mask="7" name="OWUF" size="3" start_pos="0">
+     <enums>
+      <item name="0p781" value="0">
+      </item>
+      <item name="1p563" value="1">
+      </item>
+      <item name="3p125" value="2">
+      </item>
+      <item name="6p25" value="3">
+      </item>
+      <item name="12p5" value="4">
+      </item>
+      <item name="25" value="5">
+      </item>
+      <item name="50" value="6">
+      </item>
+      <item name="100" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="44" mode="R/W" name="ODCNTL">
+   <fields>
+    <field mask="240" name="OSM" size="4" start_pos="4">
+     <enums>
+      <item doc="12.5Hz" name="12p5" value="0">
+      </item>
+      <item doc="25Hz" name="25" value="1">
+      </item>
+      <item doc="50Hz" name="50" value="2">
+      </item>
+      <item doc="100Hz" name="100" value="3">
+      </item>
+      <item doc="200Hz" name="200" value="4">
+      </item>
+      <item doc="400Hz" name="400" value="5">
+      </item>
+      <item doc="800Hz" name="800" value="6">
+      </item>
+      <item doc="1600Hz" name="1600" value="7">
+      </item>
+      <item doc="0.781Hz" name="0p781" value="8">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="9">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="10">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="11">
+      </item>
+     </enums>
+    </field>
+    <field mask="15" name="OSA" size="4" start_pos="0">
+     <enums>
+      <item doc="12.5Hz" name="12p5" value="0">
+      </item>
+      <item doc="25Hz" name="25" value="1">
+      </item>
+      <item doc="50Hz" name="50" value="2">
+      </item>
+      <item doc="100Hz" name="100" value="3">
+      </item>
+      <item doc="200Hz" name="200" value="4">
+      </item>
+      <item doc="400Hz" name="400" value="5">
+      </item>
+      <item doc="800Hz" name="800" value="6">
+      </item>
+      <item doc="1600Hz" name="1600" value="7">
+      </item>
+      <item doc="0.781Hz" name="0p781" value="8">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="9">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="10">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="11">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="45" mode="R/W" name="INC1">
+   <fields>
+    <field mask="128" name="BFI1" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="WMI1" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="IEN1" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="IEA1" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="IEL1" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="DRDY_A1" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="DRDY_M1" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="WUFS_BTS1" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="46" mode="R/W" name="INC2">
+   <fields>
+    <field mask="128" name="BFI2" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="WMI2" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="IEN2" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="IEA2" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="IEL2" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="DRDY_A2" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="DRDY_M2" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="WUFS_BTS2" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="47" mode="R/W" name="INC3">
+   <fields>
+    <field mask="32" name="NXWUE" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="PXWUE" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="NYWUE" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="PYWUE" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="NZWUE" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="PZWUE" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="60" mode="R" name="COTR" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="61" mode="R/W" name="WUFTH" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="62" mode="R/W" name="WUFC" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="63" mode="R/W" name="BTH" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="64" mode="R/W" name="BTSC" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="76" mode="R/W" name="TEMP_EN_CNTL" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="96" mode="W" name="SELF_TEST" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="118" mode="R/W" name="BUF_THRESH_H" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="119" mode="R/W" name="BUF_THRESH_L" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="120" mode="R/W" name="BUF_CTRL1">
+   <fields>
+    <field mask="128" name="BUFE" size="1" start_pos="7">
+    </field>
+    <field mask="32" name="BUF_FIE" size="1" start_pos="5">
+    </field>
+    <field mask="3" name="BUF_M" size="2" start_pos="0">
+     <enums>
+      <item name="FIFO" value="0">
+      </item>
+      <item name="STREAM" value="1">
+      </item>
+      <item name="TRIGGER" value="2">
+      </item>
+      <item name="FILO" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="121" mode="R/W" name="BUF_CTRL2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="122" mode="W" name="BUF_CLEAR" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="123" mode="R/W" name="BUF_STATUS_REG" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="124" mode="R/W" name="BUF_STATUS_H" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="125" mode="R/W" name="BUF_STATUS_L" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="126" mode="R/W" name="BUF_READ" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+ </sensor>
+</root>

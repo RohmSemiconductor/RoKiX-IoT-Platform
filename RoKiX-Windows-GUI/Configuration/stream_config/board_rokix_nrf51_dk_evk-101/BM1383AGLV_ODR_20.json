@@ -1,0 +1,81 @@
+{
+    "activate": [
+        [
+            "BM1383AGLV", 
+            20, 
+            136, 
+            "set_odr/self.set_bit_pattern(r.BM1383AGLV_MODE_CONTROL_REG, valuex, m.BM1383AGLV_MODE_CONTROL_REG_AVE_NUM_MASK)"
+        ], 
+        [
+            "BM1383AGLV", 
+            20, 
+            152, 
+            "enable_drdy_pin/self.set_bit_pattern(r.BM1383AGLV_MODE_CONTROL_REG, b.BM1383AGLV_MODE_CONTROL_REG_DRDY_ENABLED, m.BM1383AGLV_MODE_CONTROL_REG_DRDY_MASK)"
+        ], 
+        [
+            "BM1383AGLV", 
+            20, 
+            154, 
+            "start_continuous_measurement/self.set_bit_pattern(r.BM1383AGLV_MODE_CONTROL_REG, b.BM1383AGLV_MODE_CONTROL_REG_MODE_CONTINUOUS, m.BM1383AGLV_MODE_CONTROL_REG_MODE_MASK)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                19, 
+                1, 
+                2, 
+                [
+                    "BM1383AGLV", 
+                    25, 
+                    6
+                ]
+            ], 
+            "odr": 20, 
+            "fmt": ">BBHBh", 
+            "type": "continuous", 
+            "hdr": "ch!stat!P_raw!P_raw_xlb!T_raw"
+        }
+    ], 
+    "configure": [
+        [
+            "BM1383AGLV", 
+            18, 
+            1, 
+            "enable_data_logging/sensor.set_power_on()"
+        ], 
+        [
+            "BM1383AGLV", 
+            19, 
+            1, 
+            "enable_data_logging/sensor.set_power_on()"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "BM1383AGLV", 
+            20, 
+            152, 
+            "set_power_off/self.set_bit_pattern(r.BM1383AGLV_MODE_CONTROL_REG, b.BM1383AGLV_MODE_CONTROL_REG_MODE_STANDBY, m.BM1383AGLV_MODE_CONTROL_REG_MODE_MASK)"
+        ]
+    ], 
+    "doc": "Read barometer data from BM1383AGLV at 20Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "bar", 
+            "data": "Pressure", 
+            "name": "Pressure", 
+            "SI_multiplier": "1 / 2048 / 1000"
+        }, 
+        {
+            "SI_unit": "C", 
+            "data": "Temperature", 
+            "name": "Temperature", 
+            "SI_multiplier": "1 / 32"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "BM1383AGLV / 20Hz"
+}

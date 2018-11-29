@@ -1,0 +1,132 @@
+<root>
+ <sensor doc="Specification BH1792TL OHR and Blood pressure module interface ver1.10" name="bh1792" sad="23">
+  <register address="137" mode="R" name="STATUS" por="0">
+   <fields>
+    <field mask="255" name="STATUS" size="8" start_pos="0">
+     <enums>
+      <item doc="Idle state" name="Idle" value="0">
+      </item>
+      <item doc="Busy state for reading sensors" name="SensorReading" value="1">
+      </item>
+      <item doc="Busy state for calculating blood pressure and heart rate" name="Calculating" value="4">
+      </item>
+      <item doc="Busy state for initializing itself" name="Initializing" value="254">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="144" mode="R" name="FIFO">
+   <fields>
+   </fields>
+  </register>
+  <register address="39" mode="W" name="PRM8_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="40" mode="W" name="PRM7_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="41" mode="W" name="PRM6_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="42" mode="W" name="PRM5_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="43" mode="W" name="PRM4_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="44" mode="W" name="PRM3_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="45" mode="W" name="PRM2_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="46" mode="W" name="PRM1_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="47" mode="W" name="PRM0_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="48" mode="W" name="CMD0_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="49" mode="W" name="CMD1_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="50" mode="W" name="ENT_W">
+   <fields>
+   </fields>
+  </register>
+  <register address="167" mode="R" name="PRM8_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="168" mode="R" name="PRM7_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="169" mode="R" name="PRM6_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="170" mode="R" name="PRM5_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="171" mode="R" name="PRM4_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="172" mode="R" name="PRM3_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="173" mode="R" name="PRM2_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="174" mode="R" name="PRM1_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="175" mode="R" name="PRM0_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="176" mode="R" name="CMD0_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="177" mode="R" name="CMD1_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="178" mode="R" name="ENT_R">
+   <fields>
+   </fields>
+  </register>
+  <register address="192" mode="R" name="RSLT00">
+   <fields>
+   </fields>
+  </register>
+  <register address="193" mode="R" name="RSLT01">
+   <fields>
+   </fields>
+  </register>
+  <register address="194" mode="R" name="RSLT02">
+   <fields>
+   </fields>
+  </register>
+ </sensor>
+</root>

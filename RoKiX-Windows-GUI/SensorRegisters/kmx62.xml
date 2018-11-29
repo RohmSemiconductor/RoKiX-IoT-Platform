@@ -1,0 +1,728 @@
+<root>
+ <sensor doc="Specification; KMX62-1031, rev 3.0" name="KMX62" sad="14">
+  <register address="0" doc="This register can be used for supplier recognition, as it can be factory written to a known byte value." mode="R/W" name="WHO_AM_I" por="25" value_type="uint8">
+   <fields>
+    <field mask="255" name="WIA" size="8" start_pos="0">
+     <enums>
+      <item doc="WHO_AM_I -value" name="ID" value="20">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="1" doc="This Register tells which function caused an interrupt." mode="R" name="INS1" por="0">
+   <fields>
+    <field doc="reports the combined (OR) interrupt information of all enabled interrupt." mask="128" name="INT" size="1" start_pos="7">
+     <enums>
+      <item doc="no interrupt event" name="NO_INT" value="0">
+      </item>
+      <item doc="interrupt event has occurred" name="INT" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="indicates that the buffer is full.  This bit is cleared when the data is read until the buffer is not full." mask="64" name="BFI" size="1" start_pos="6">
+     <enums>
+      <item doc="Buffer is not full" name="buff_not_full" value="0">
+      </item>
+      <item doc="Buffer is full" name="buff_full" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="indicates that user-defined buffer watermark has been reached.  This bit is cleared when the data is read until the sample level in the buffer is smaller than the watermark threshold." mask="32" name="WMI" size="1" start_pos="5">
+     <enums>
+      <item doc="Buffer watermark not reached" name="mark_not_reached" value="0">
+      </item>
+      <item doc="Buffer watermark reached" name="mark_reached" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="indicates that new acceleration data is available.  This bit is cleared when the data is read or the interrupt release register (INL Register) is read." mask="16" name="DRDY_A" size="1" start_pos="4">
+     <enums>
+      <item doc="New acceleration data not available" name="not_available" value="0">
+      </item>
+      <item doc="New acceleration data available" name="available" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="indicates that new magnetometer data is available.  This bit is cleared when the data is read or the interrupt release register (INL Register) is read." mask="8" name="DRDY_M" size="1" start_pos="3">
+     <enums>
+      <item doc="New magnetomter data not available" name="not_available" value="0">
+      </item>
+      <item doc="New magnetomter data available" name="available" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="4" name="FFI" size="1" start_pos="2">
+     <enums>
+      <item doc="No free fall" name="no_ffi" value="0">
+      </item>
+      <item doc="Free fall has activated the interrupt" name="ffi" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="2" name="AMI" size="1" start_pos="1">
+     <enums>
+      <item doc="No motion" name="no_motion" value="0">
+      </item>
+      <item doc="Motion has activated the interrupt" name="motion" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="1" name="MMI" size="1" start_pos="0">
+     <enums>
+      <item doc="No motion" name="no_motion" value="0">
+      </item>
+      <item doc="Motion has activated the interrupt" name="motion" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="2" mode="R" name="INS2" por="0">
+   <fields>
+    <field doc="x negative (x-)" mask="32" name="AXNI" size="1" start_pos="5">
+    </field>
+    <field doc="x positive (x+)" mask="16" name="AXPI" size="1" start_pos="4">
+    </field>
+    <field doc="y negative (y-)" mask="8" name="AYNI" size="1" start_pos="3">
+    </field>
+    <field doc="y positive (y+)" mask="4" name="AYPI" size="1" start_pos="2">
+    </field>
+    <field doc="z negative (z-)" mask="2" name="AZNI" size="1" start_pos="1">
+    </field>
+    <field doc="z positive (z+)" mask="1" name="AZPI" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="3" mode="R" name="INS3" por="0">
+   <fields>
+    <field doc="x negative (x-)" mask="32" name="MXNI" size="1" start_pos="5">
+    </field>
+    <field doc="x positive (x+)" mask="16" name="MXPI" size="1" start_pos="4">
+    </field>
+    <field doc="y negative (y-)" mask="8" name="MYNI" size="1" start_pos="3">
+    </field>
+    <field doc="y positive (y+)" mask="4" name="MYPI" size="1" start_pos="2">
+    </field>
+    <field doc="z negative (z-)" mask="2" name="MZNI" size="1" start_pos="1">
+    </field>
+    <field doc="z positive (z+)" mask="1" name="MZPI" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="5" mode="R" name="INL" por="0" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="10" mode="R" name="ACCEL_XOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="11" info="bypass" mode="R" name="ACCEL_XOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="12" mode="R" name="ACCEL_YOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="13" info="bypass" mode="R" name="ACCEL_YOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="14" mode="R" name="ACCEL_ZOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="15" info="bypass" mode="R" name="ACCEL_ZOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="16" mode="R" name="MAG_XOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="17" info="bypass" mode="R" name="MAG_XOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="18" mode="R" name="MAG_YOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="19" info="bypass" mode="R" name="MAG_YOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="20" mode="R" name="MAG_ZOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="21" info="bypass" mode="R" name="MAG_ZOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="22" mode="R" name="TEMP_OUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="23" info="bypass" mode="R" name="TEMP_OUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="42" doc="Interrupts reported on GPIO1." mode="R/W" name="INC1" por="0">
+   <fields>
+    <field doc="Buffer full interrupt reported on GPIO1" mask="64" name="BFI1" size="1" start_pos="6">
+    </field>
+    <field doc="Watermark interrupt reported on GPIO1" mask="32" name="WMI1" size="1" start_pos="5">
+    </field>
+    <field doc="Accelerometer Data ready reported on GPIO1" mask="16" name="DRDY_A1" size="1" start_pos="4">
+    </field>
+    <field doc="Magnetometer Data ready reported on GPIO1" mask="8" name="DRDY_M1" size="1" start_pos="3">
+    </field>
+    <field doc="Accelerometer Freefall interrupt reported on GPIO1" mask="4" name="FFI1" size="1" start_pos="2">
+    </field>
+    <field doc="Accelerometer motion interrupt reported on GPIO1" mask="2" name="AMI1" size="1" start_pos="1">
+    </field>
+    <field doc="Magnetometer motion interrupt reported on GPIO1" mask="1" name="MMI1" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="43" doc="Interrupts reported on GPIO2." mode="R/W" name="INC2" por="0">
+   <fields>
+    <field doc="Buffer full interrupt reported on GPIO2" mask="64" name="BFI2" size="1" start_pos="6">
+    </field>
+    <field doc="Watermark interrupt reported on GPIO2" mask="32" name="WMI2" size="1" start_pos="5">
+    </field>
+    <field doc="Accelerometer Data ready reported on GPIO2" mask="16" name="DRDY_A2" size="1" start_pos="4">
+    </field>
+    <field doc="Magnetometer Data ready reported on GPIO2" mask="8" name="DRDY_M2" size="1" start_pos="3">
+    </field>
+    <field doc="Accelerometer Freefall interrupt reported on GPIO2" mask="4" name="FFI2" size="1" start_pos="2">
+    </field>
+    <field doc="Accelerometer motion interrupt reported on GPIO2" mask="2" name="AMI2" size="1" start_pos="1">
+    </field>
+    <field doc="Magnetometer motion interrupt reported on GPIO2" mask="1" name="MMI2" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="44" doc="Interrupt control 3 GPIO pin configuration." mode="R/W" name="INC3" por="136">
+   <fields>
+    <field doc="Interrupt pin drive options for GPIO2" mask="128" name="IED2" size="1" start_pos="7">
+     <enums>
+      <item doc="push-pull" name="pushpull" value="0">
+      </item>
+      <item doc="open-drain" name="opendrain" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt active level control for interrupt GPIO2" mask="64" name="IEA2" size="1" start_pos="6">
+     <enums>
+      <item doc="active low" name="low" value="0">
+      </item>
+      <item doc="active high" name="high" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt latch control for interrupt GPIO2" mask="48" name="IEL2" size="2" start_pos="4">
+     <enums>
+      <item doc="latched/unlatched. Unlatched feature is available for FFI,MME and AMI. AND DRDY" name="latched" value="0">
+      </item>
+      <item doc="pulsed.  In pulse mode the pulse width is 50us for normal mode and 10us for debug mode (high ODR rates)." name="pulsed" value="1">
+      </item>
+      <item doc="trigger input for FIFO" name="fifo_trig" value="2">
+      </item>
+      <item doc="trigger input for FIFO" name="fifo_trig_2" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt pin drive options for GPIO1" mask="8" name="IED1" size="1" start_pos="3">
+     <enums>
+      <item doc="push-pull" name="pushpull" value="0">
+      </item>
+      <item doc="open-drain" name="opendrain" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt active level control for interrupt GPIO1" mask="4" name="IEA1" size="1" start_pos="2">
+     <enums>
+      <item doc="active low" name="low" value="0">
+      </item>
+      <item doc="active high" name="high" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt latch control for interrupt GPIO1" mask="3" name="IEL1" size="2" start_pos="0">
+     <enums>
+      <item doc="latched/unlatched. Unlatched feature is available for FFI,MME and AMI." name="latched" value="0">
+      </item>
+      <item doc="pulsed.  In pulse mode the pulse width is 50us for normal mode and 10us for debug mode (high ODR rates)." name="pulsed" value="1">
+      </item>
+      <item doc="trigger input for FIFO" name="fifo_trig" value="2">
+      </item>
+      <item doc="trigger input for FIFO" name="fifo_trig_2" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="45" doc="This register controls which accelerometer axis and direction of detected motion can cause an interrupt." mode="R/W" name="INC4" por="63">
+   <fields>
+    <field doc="x negative (x-) enable/disable" mask="32" name="AXNIE" size="1" start_pos="5">
+    </field>
+    <field doc="x positive (x+) enable/disable" mask="16" name="AXPIE" size="1" start_pos="4">
+    </field>
+    <field doc="y negative (y-) enable/disable" mask="8" name="AYNIE" size="1" start_pos="3">
+    </field>
+    <field doc="y positive (y+) enable/disable" mask="4" name="AYPIE" size="1" start_pos="2">
+    </field>
+    <field doc="z negative (z-) enable/disable" mask="2" name="AZNIE" size="1" start_pos="1">
+    </field>
+    <field doc="z positive (z+) enable/disable" mask="1" name="AZPIE" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="46" doc="This register controls which magnetometer axis and direction of detected motion can cause an interrupt." mode="R/W" name="INC5" por="63">
+   <fields>
+    <field doc="x negative (x-) enable/disable" mask="32" name="MXNIE" size="1" start_pos="5">
+    </field>
+    <field doc="x positive (x+) enable/disable" mask="16" name="MXPIE" size="1" start_pos="4">
+    </field>
+    <field doc="y negative (y-) enable/disable" mask="8" name="MYNIE" size="1" start_pos="3">
+    </field>
+    <field doc="y positive (y+) enable/disable" mask="4" name="MYPIE" size="1" start_pos="2">
+    </field>
+    <field doc="z negative (z-) enable/disable" mask="2" name="MZNIE" size="1" start_pos="1">
+    </field>
+    <field doc="z positive (z+) enable/disable" mask="1" name="MZPIE" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="47" mode="R/W" name="AMI_CNTL1" por="0" value_type="uint8">
+   <fields>
+    <field doc="This register has control settings for the accelerometer motion interrupt function." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="48" mode="R/W" name="AMI_CNTL2" por="0" value_type="uint8">
+   <fields>
+    <field doc="This register has control settings for the accelerometer motion interrupt function." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="49" doc="Accelerometer Motion Control 3: This register has control settings for the accelerometer motion interrupt function." mode="R/W" name="AMI_CNTL3" por="0">
+   <fields>
+    <field mask="128" name="AMI_EN" size="1" start_pos="7">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="AMIUL" size="1" start_pos="6">
+    </field>
+    <field mask="7" name="OAMI" size="3" start_pos="0">
+     <enums>
+      <item doc="0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="25Hz" name="25" value="5">
+      </item>
+      <item doc="50Hz" name="50" value="6">
+      </item>
+      <item doc="100Hz" name="100" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="50" mode="R/W" name="MMI_CNTL1" por="0" value_type="uint8">
+   <fields>
+    <field doc="Magnetometer Motion Control 1 This register has control settings for the magnetometer motion interrupt function." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="51" mode="R/W" name="MMI_CNTL2" por="0" value_type="uint8">
+   <fields>
+    <field doc="Magnetometer Motion Control 2 This register has control settings for the magnetometer motion interrupt function." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="52" doc="Magnetometer Motion Control 3 This register has control settings for the magnetometer motion interrupt function." mode="R/W" name="MMI_CNTL3" por="0">
+   <fields>
+    <field mask="128" name="MMI_EN" size="1" start_pos="7">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="MMIUL" size="1" start_pos="6">
+    </field>
+    <field mask="7" name="OMMI" size="3" start_pos="0">
+     <enums>
+      <item doc="0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="25Hz" name="25" value="5">
+      </item>
+      <item doc="50Hz" name="50" value="6">
+      </item>
+      <item doc="100Hz" name="100" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="53" mode="R/W" name="FFI_CNTL1" por="0" value_type="uint8">
+   <fields>
+    <field doc="Free Fall Control 1 This register has control settings for the free fall interrupt function." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="54" mode="R/W" name="FFI_CNTL2" por="0" value_type="uint8">
+   <fields>
+    <field doc="Free Fall Control 2 This register has control settings for the free fall interrupt function." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="55" doc="Free Fall Control 3 This register has control settings for the free fall interrupt function." mode="R/W" name="FFI_CNTL3" por="0">
+   <fields>
+    <field mask="128" name="FFI_EN" size="1" start_pos="7">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="FFIUL" size="1" start_pos="6">
+    </field>
+    <field mask="8" name="DCRM" size="1" start_pos="3">
+    </field>
+    <field mask="7" name="OFFI" size="3" start_pos="0">
+     <enums>
+      <item doc="12.5Hz" name="12p5" value="0">
+      </item>
+      <item doc="25Hz" name="25" value="1">
+      </item>
+      <item doc="50Hz" name="50" value="2">
+      </item>
+      <item doc="100Hz" name="100" value="3">
+      </item>
+      <item doc="200Hz" name="200" value="4">
+      </item>
+      <item doc="400Hz" name="400" value="5">
+      </item>
+      <item doc="800Hz" name="800" value="6">
+      </item>
+      <item doc="1600Hz" name="1600" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="56" doc="Output data control register" mode="R/W" name="ODCNTL" por="34">
+   <fields>
+    <field mask="15" name="OSA" size="4" start_pos="0">
+     <enums>
+      <item doc="12.5Hz" name="12p5" value="0">
+      </item>
+      <item doc="25Hz" name="25" value="1">
+      </item>
+      <item doc="50Hz" name="50" value="2">
+      </item>
+      <item doc="100Hz" name="100" value="3">
+      </item>
+      <item doc="200Hz" name="200" value="4">
+      </item>
+      <item doc="400Hz" name="400" value="5">
+      </item>
+      <item doc="800Hz" name="800" value="6">
+      </item>
+      <item doc="1600Hz" name="1600" value="7">
+      </item>
+      <item doc="0.781Hz" name="0p781" value="8">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="9">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="10">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="11">
+      </item>
+      <item doc="25.6kHz, ST 0.8kHz" name="25600st0p8" value="12">
+      </item>
+      <item doc="25.6kHz, ST 1.6kHz" name="25600st1p6" value="13">
+      </item>
+      <item doc="25.6kHz, ST 3.2kHz" name="25600st3p2" value="14">
+      </item>
+      <item doc="25.6kHz" name="25600" value="15">
+      </item>
+     </enums>
+    </field>
+    <field mask="240" name="OSM" size="4" start_pos="4">
+     <enums>
+      <item doc="12.5Hz" name="12p5" value="0">
+      </item>
+      <item doc="25Hz" name="25" value="1">
+      </item>
+      <item doc="50Hz" name="50" value="2">
+      </item>
+      <item doc="100Hz" name="100" value="3">
+      </item>
+      <item doc="200Hz" name="200" value="4">
+      </item>
+      <item doc="400Hz" name="400" value="5">
+      </item>
+      <item doc="800Hz" name="800" value="6">
+      </item>
+      <item doc="1600Hz" name="1600" value="7">
+      </item>
+      <item doc="0.781Hz" name="0p781" value="8">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="9">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="10">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="11">
+      </item>
+      <item doc="12.8kHz" name="12800a" value="12">
+      </item>
+      <item doc="12.8kHz" name="12800b" value="13">
+      </item>
+      <item doc="12.8kHz" name="12800c" value="14">
+      </item>
+      <item doc="12.8kHz" name="12800" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="57" doc="Control register 1 Control register that controls the main feature set." mode="R/W" name="CNTL1" por="0">
+   <fields>
+    <field doc="Start POR routine" mask="128" name="SRST" size="1" start_pos="7">
+    </field>
+    <field doc="This bit enables the self-test mode that will produce a change in both the accelerometer and magnetometer transducers and can be measured in the output registers" mask="64" name="STEN" size="1" start_pos="6">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Accelerometer and Magnetometer ST polarity." mask="32" name="STPOL" size="1" start_pos="5">
+    </field>
+    <field doc="enables the command test function" mask="8" name="COTC" size="1" start_pos="3">
+    </field>
+   </fields>
+  </register>
+  <register address="58" doc="Control register 2 This is used to enable and disable the sensors." mode="R/W" name="CNTL2" por="0">
+   <fields>
+    <field doc="controls the operating mode of the ASIC_AO’s temperature sensors. MAG_EN must also be enabled for temperature data to be converted. Output data rate is locked to the magnetometer’s OSM." mask="64" name="TEMP_EN" size="1" start_pos="6">
+     <enums>
+      <item doc="standby mode" name="standby_mode" value="0">
+      </item>
+      <item doc="operating mode, magnetometer and temperature output registers are updated at the selected output data rate" name="operating_mode" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="48" name="GSEL" size="2" start_pos="4">
+     <enums>
+      <item name="2g" value="0">
+      </item>
+      <item name="4g" value="1">
+      </item>
+      <item name="8g" value="2">
+      </item>
+      <item name="16g" value="3">
+      </item>
+     </enums>
+    </field>
+    <field mask="12" name="RES" size="2" start_pos="2">
+     <enums>
+      <item name="a4m2" value="0">
+      </item>
+      <item name="a32m16" value="1">
+      </item>
+      <item name="max1" value="2">
+      </item>
+      <item name="max2" value="3">
+      </item>
+     </enums>
+    </field>
+    <field mask="2" name="MAG_EN" size="1" start_pos="1">
+     <enums>
+      <item name="standby_mode" value="0">
+      </item>
+      <item name="operating_mode" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="1" name="ACCEL_EN" size="1" start_pos="0">
+     <enums>
+      <item name="standby_mode" value="0">
+      </item>
+      <item name="operating_mode" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="60" mode="R" name="COTR" por="85" value_type="uint8">
+   <fields>
+    <field mask="255" name="TEST_RESP" size="8" start_pos="0">
+     <enums>
+      <item name="default" value="85">
+      </item>
+      <item name="test" value="170">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="119" bit_pos="0:1:2:3:4:5:6:7:8:x:x:x:x:x:x:x" doc="These registers control the buffer sample buffer operation." mode="R/W" name="BUF_CTRL_1" order="le" por="0" size="16" style="int">
+   <fields>
+    <field doc="Sample Threshold - determines the number of data bytes that will trigger a watermark interrupt or will be saved prior to a trigger event.  The maximum number of data bytes is 384 (example - 32 samples of 3 axis of accl and 3 axis of mag by 2 bytes per axis)." mask="255" name="SMT_TH" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="120" doc="These registers control the buffer sample buffer operation." mode="R/W" name="BUF_CTRL_2" por="0">
+   <fields>
+    <field mask="6" name="BUF_M" size="2" start_pos="1">
+     <enums>
+      <item doc="The buffer collects 384 bytes of data until full, collecting new data only when the buffer is not full." name="fifo" value="0">
+      </item>
+      <item doc="The buffer holds the last 384 bytes of data.  Once the buffer is full, the oldest data is discarded to make room for newer data." name="stream" value="1">
+      </item>
+      <item doc="When a trigger event occurs (logic high input on TRIG pin), the buffer holds the last data set of SMP[6:0] samples before the trigger event and then continues to collect data until full.  New data is collected only when the buffer is not full." name="trigger" value="2">
+      </item>
+      <item doc="The buffer holds the last 384 bytes of data.  Once the buffer is full, the oldest data is discarded to make room for newer data.  Reading from the buffer in this mode will return the most recent data first." name="filo" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="8th bit of smt_th data" mask="1" name="SMT_TH8" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="121" doc="These registers control the buffer sample buffer operation." mode="R/W" name="BUF_CTRL_3" por="0">
+   <fields>
+    <field doc="controls the buffer full interrupt" mask="128" name="BFI_EN" size="1" start_pos="7">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="ax to be buffered" mask="64" name="BUF_AX" size="1" start_pos="6">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="ay to be buffered" mask="32" name="BUF_AY" size="1" start_pos="5">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="az to be buffered" mask="16" name="BUF_AZ" size="1" start_pos="4">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="mx to be buffered" mask="8" name="BUF_MX" size="1" start_pos="3">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="my to be buffered" mask="4" name="BUF_MY" size="1" start_pos="2">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="mz to be buffered" mask="2" name="BUF_MZ" size="1" start_pos="1">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="temperature to be buffered" mask="1" name="BUF_TEMP" size="1" start_pos="0">
+     <enums>
+      <item name="disabled" value="0">
+      </item>
+      <item name="enabled" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="122" mode="W" name="BUF_CLEAR" value_type="uint8">
+   <fields>
+    <field doc="Latched buffer status information and the entire sample buffer are cleared when any data is written to this register." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="123" bit_pos="0:1:2:3:4:5:6:7:8:x:x:x:x:x:x:x" mode="R" name="BUF_STATUS_1" order="le" size="16" style="int">
+   <fields>
+    <field doc="Sample Level; reports the number of data bytes that have been stored in the sample buffer.  If this register reads 0, no data has been stored in the buffer. If the buffer data is read past this level the part will return 32,767 (maximum value)." mask="255" name="SMP_LEV" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="124" bit_pos="x:x:2:3:4:5:6:7:8:9:10:11:12:13:14:15" mode="R" name="BUF_STATUS_2" order="le" size="16" style="int">
+   <fields>
+    <field doc="Sample over flow; reports the number of data bytes that have been missed since the sample buffer was filled.  If this register reads 0, the buffer has not over flowed. This is cleared for “BUF_CLEAR” command and when the data is read from “BUF_READ”" mask="255" name="SMP_PAST" size="8" start_pos="0">
+    </field>
+    <field doc="reports the status of the buffer’s trigger function if this mode has been selected.  When using trigger mode, a buffer read should only be performed after a trigger event." mask="2" name="BUF_TRIG" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="SMP_LEV_H" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="125" mode="R" name="BUF_STATUS_3" value_type="uint8">
+   <fields>
+    <field doc="Sample over flow; reports the number of data bytes that have been missed since the sample buffer was filled.  If this register reads 0, the buffer has not over flowed. This is cleared for “BUF_CLEAR” command and when the data is read from “BUF_READ”" mask="255" name="SMP_PAST_H" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="126" mode="R" name="BUF_READ" value_type="uint8">
+   <fields>
+    <field doc="Data in the buffer can be read according to the BUF_M settings in BUF_CTRL2 by executing this command.  More samples can be retrieved by continuing to toggle SCL after the read command is executed.  Data should by using auto-increment.  Additional samples cannot be written to the buffer while data is being read from the buffer using auto-increment mode.  Output data is in 2’s Complement format." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+ </sensor>
+</root>

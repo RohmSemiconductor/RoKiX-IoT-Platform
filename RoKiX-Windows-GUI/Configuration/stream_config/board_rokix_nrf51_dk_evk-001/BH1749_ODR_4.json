@@ -1,0 +1,87 @@
+{
+    "activate": [
+        [
+            "BH1749", 
+            66, 
+            16, 
+            "start_measurement/m.BH1749_MODE_CONTROL2_RGB_MEASUREMENT_MASK)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                14, 
+                1, 
+                2, 
+                [
+                    "BH1749", 
+                    80, 
+                    6, 
+                    "BH1749", 
+                    88, 
+                    4, 
+                    "BH1749", 
+                    96, 
+                    1
+                ]
+            ], 
+            "odr": 4, 
+            "fmt": "<BHHHHHB", 
+            "type": "continuous", 
+            "hdr": "ch!red!green!blue!ir!green2"
+        }
+    ], 
+    "configure": [
+        [
+            "BH1749", 
+            64, 
+            141, 
+            "soft_reset/m.BH1749_SYSTEM_CONTROL_SW_RESET_MASK)"
+        ], 
+        [
+            "BH1749", 
+            97, 
+            0, 
+            "set_interrupt_persistence/m.BH1749_PERSISTENCE_MODE_MASK)"
+        ], 
+        [
+            "BH1749", 
+            96, 
+            1, 
+            "enable_int_pin/m.BH1749_INTERRUPT_EN_MASK)"
+        ], 
+        [
+            "BH1749", 
+            65, 
+            43, 
+            "_set_ir_gain/m.BH1749_MODE_CONTROL1_IR_GAIN_MASK)"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "BH1749", 
+            64, 
+            141, 
+            "soft_reset/m.BH1749_SYSTEM_CONTROL_SW_RESET_MASK)"
+        ]
+    ], 
+    "doc": "Read color data from BH1749", 
+    "channels": [
+        {
+            "SI_unit": "Count", 
+            "data": "Red,Green,Blue", 
+            "name": "RGB", 
+            "SI_multiplier": "1"
+        }, 
+        {
+            "SI_unit": "Count", 
+            "data": "IR", 
+            "name": "IR", 
+            "SI_multiplier": "1"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "BH1749 / 8Hz"
+}

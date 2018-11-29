@@ -1,0 +1,92 @@
+{
+    "structure_version": 1.0,
+    "protocol_version": 1.1,
+    "configuration": {
+        "name": "Nordic NRF51-DK with Rohm SensorShield-EVK-001",
+        "doc": "Nordic nRF51-DK board with Rohm SensorShield-EVK-001",        
+        "bus1": {
+            "connections": [{
+                "connection": "i2c",
+                "part_list": [
+                {
+                    "name": "BH1745",
+                    "SAD": 57,
+                    "int1_gpio": 14
+                },
+				{
+                    "name": "BM1422GMV",
+                    "SAD": 14,
+                    "int1_gpio": 14
+                },
+				{
+                    "name": "BH1790",
+                    "SAD": 91,
+                    "int1_gpio": 14
+                },
+                {
+                    "name": "KXG03",
+                    "SAD": 78,
+                    "int1_gpio": 14
+                },
+                {
+                    "name": "KX022",
+                    "SAD": 30,
+                    "int1_gpio": 14
+                },
+                {
+                    "name": "KX122",
+                    "SAD": 30,
+                    "int1_gpio": 14
+                },
+                {
+                    "name": "RPR0521",
+                    "SAD": 56,
+                    "int1_gpio": 14
+                },
+				
+				{
+                    "name": "BH1726-nodrdy",
+                    "SAD": 41,
+                    "int1_gpio": 14
+                },
+				{
+                    "name": "BM1383GLV-nodrdy",
+                    "SAD": 93,
+                    "int1_gpio": 14
+                },
+				{
+                    "name": "BH1790 - no hw",
+                    "SAD": 91,
+                    "int1_gpio": 14
+                },
+				{
+                    "name": "BH1749",
+                    "SAD": 57,
+                    "int1_gpio": 0
+                }   
+				]
+            }]
+        },
+        "bus2": {
+            "connections": [{
+                "connection": "USB",
+                "vid": 4966,
+                "pid": 4117,
+                "packet_per_second": 400,
+                "baud_rate": 460800,
+                "start_up_delay_ms": 0,
+                "com_port_name": ["JLink CDC UART Port","USB Serial Device","mbed Serial Port"]
+            },
+            {
+                "connection": "BLE",
+                "packet_per_second": 200
+            }]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_rokix_nrf51_dk_evk-001"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}

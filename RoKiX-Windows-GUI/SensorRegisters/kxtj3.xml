@@ -1,0 +1,258 @@
+<root>
+ <sensor doc="Specification; KXTJ3-1057, rev2.2" name="KXTJ3" sad="15">
+  <register address="6" doc="output register x" mode="R" name="XOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="7" info="bypass" mode="R" name="XOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="8" doc="output register y" mode="R" name="YOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="9" info="bypass" mode="R" name="YOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="10" doc="output register z" mode="R" name="ZOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="11" info="bypass" mode="R" name="ZOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="12" doc="This register can be used to verify proper integrated circuit functionality" mode="R" name="DCST_RESP" por="85" value_type="uint8">
+   <fields>
+    <field mask="255" name="DCSTR" size="8" start_pos="0">
+     <enums>
+      <item doc="before set" name="BEFORE" value="85">
+      </item>
+      <item doc="after set" name="AFTER" value="170">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="15" doc="This register can be used for supplier recognition, as it can be factory written to a known byte value." mode="R" name="WHO_AM_I" por="53" value_type="uint8">
+   <fields>
+    <field mask="255" name="WIA" size="8" start_pos="0">
+     <enums>
+      <item doc="WHO_AM_I -value for KXTJ3" name="ID" value="53">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="22" doc="This register reports which function caused an interrupt." mode="R" name="INT_SOURCE1">
+   <fields>
+    <field doc="indicates that new acceleration data" mask="16" name="DRDY" size="1" start_pos="4">
+    </field>
+    <field doc="Wake up" mask="2" name="WUFS" size="1" start_pos="1">
+    </field>
+   </fields>
+  </register>
+  <register address="23" doc="This register reports the axis and direction of detected motion" mode="R" name="INT_SOURCE2">
+   <fields>
+    <field doc="x-" mask="32" name="XNWU" size="1" start_pos="5">
+    </field>
+    <field doc="x+" mask="16" name="XPWU" size="1" start_pos="4">
+    </field>
+    <field doc="y-" mask="8" name="YNWU" size="1" start_pos="3">
+    </field>
+    <field doc="y+" mask="4" name="YPWU" size="1" start_pos="2">
+    </field>
+    <field doc="z-" mask="2" name="ZNWU" size="1" start_pos="1">
+    </field>
+    <field doc="z+" mask="1" name="ZPWU" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="24" doc="This register reports the status of the interrupt" mode="R" name="STATUS_REG">
+   <fields>
+    <field doc="reports the combined (OR) interrupt information of DRDY and WUFS in the interrupt source register" mask="16" name="INT" size="1" start_pos="4">
+    </field>
+   </fields>
+  </register>
+  <register address="26" mode="R" name="INT_REL" value_type="uint8">
+   <fields>
+    <field doc="Latched interrupt source information" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="27" doc="Read/write control register that controls the main feature set" mode="R/W" name="CTRL_REG1" por="0">
+   <fields>
+    <field doc="controls the operating mode of the KXTJ3" mask="128" name="PC" size="1" start_pos="7">
+    </field>
+    <field doc="determines the performance mode of the KXTJ3" mask="64" name="RES" size="1" start_pos="6">
+    </field>
+    <field doc="enables the reporting of the availability of new acceleration data as an interrupt" mask="32" name="DRDYE" size="1" start_pos="5">
+    </field>
+    <field doc="selects the acceleration range of the accelerometer outputs" mask="28" name="GSEL" size="3" start_pos="2">
+     <enums>
+      <item doc="2g range" name="2G" value="0">
+      </item>
+      <item doc="16g range" name="16G" value="1">
+      </item>
+      <item doc="4g range" name="4G" value="2">
+      </item>
+      <item doc="16g range" name="16G2" value="3">
+      </item>
+      <item doc="8g range" name="8G" value="4">
+      </item>
+      <item doc="16g range" name="16G3" value="5">
+      </item>
+      <item doc="8g range with 14b resolution" name="8G_14" value="6">
+      </item>
+      <item doc="16g range with 14b resolution" name="16G_14" value="7">
+      </item>
+     </enums>
+    </field>
+    <field doc="enables 14-bit mode if GSEL = '11'" mask="4" name="EN16G" size="1" start_pos="2">
+    </field>
+    <field doc="enables the Wake Up (motion detect) function." mask="2" name="WUFE" size="1" start_pos="1">
+    </field>
+   </fields>
+  </register>
+  <register address="29" doc="Read/write control register that provides more feature set control" mode="R/W" name="CTRL_REG2" por="63">
+   <fields>
+    <field doc="initiates software reset" mask="128" name="SRST" size="1" start_pos="7">
+    </field>
+    <field doc="initiates the digital communication self-test function." mask="16" name="DCST" size="1" start_pos="4">
+    </field>
+    <field doc="sets the Output Data Rate for the Wake Up function" mask="7" name="OWUF" size="3" start_pos="0">
+     <enums>
+      <item doc="0.78Hz" name="0p781" value="0">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="25Hz" name="25" value="5">
+      </item>
+      <item doc="50Hz" name="50" value="6">
+      </item>
+      <item doc="100Hz" name="100" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="30" doc="This register controls the settings for the physical interrupt pin" mode="R/W" name="INT_CTRL_REG1" por="152">
+   <fields>
+    <field doc="enables/disables the physical interrupt pin" mask="32" name="IEN" size="1" start_pos="5">
+    </field>
+    <field doc="sets the polarity of the physical interrupt pin" mask="16" name="IEA" size="1" start_pos="4">
+    </field>
+    <field doc="sets the response of the physical interrupt pin" mask="8" name="IEL" size="1" start_pos="3">
+    </field>
+    <field doc="selftest polarity" mask="2" name="STPOL" size="1" start_pos="1">
+    </field>
+   </fields>
+  </register>
+  <register address="31" doc="This register controls which axis and direction of detected motion can cause an interrupt" mode="R/W" name="INT_CTRL_REG2" por="63">
+   <fields>
+    <field doc="Unlatched mode motion  interrupt; 0=disabled,1=enabled" mask="128" name="ULMODE" size="1" start_pos="7">
+    </field>
+    <field doc="x-" mask="32" name="XNWU" size="1" start_pos="5">
+    </field>
+    <field doc="x+" mask="16" name="XPWU" size="1" start_pos="4">
+    </field>
+    <field doc="y-" mask="8" name="YNWU" size="1" start_pos="3">
+    </field>
+    <field doc="y+" mask="4" name="YPWU" size="1" start_pos="2">
+    </field>
+    <field doc="z-" mask="2" name="ZNWU" size="1" start_pos="1">
+    </field>
+    <field doc="z+" mask="1" name="ZPWU" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="33" doc="Read/write control register that configures the acceleration outputs" mode="R/W" name="DATA_CTRL_REG" por="2">
+   <fields>
+    <field doc="sets the output data rate (ODR)" mask="15" name="OSA" size="4" start_pos="0">
+     <enums>
+      <item doc="12.5Hz" name="12p5" value="0">
+      </item>
+      <item doc="25Hz" name="25" value="1">
+      </item>
+      <item doc="50Hz" name="50" value="2">
+      </item>
+      <item doc="100Hz" name="100" value="3">
+      </item>
+      <item doc="200Hz" name="200" value="4">
+      </item>
+      <item doc="400Hz" name="400" value="5">
+      </item>
+      <item doc="800Hz" name="800" value="6">
+      </item>
+      <item doc="1600Hz" name="1600" value="7">
+      </item>
+      <item doc="0.78Hz" name="0p781" value="8">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="9">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="10">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="11">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="41" mode="R/W" name="WAKEUP_COUNTER" por="0" value_type="uint8">
+   <fields>
+    <field doc="This register sets the time motion must be present before a wake-up interrupt is set" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="42" mode="R/W" name="NA_COUNTER" por="0" value_type="uint8">
+   <fields>
+    <field doc="This register sets the non-activity time required before another wake-up interrupt can be set" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="58" doc="When 0xCA is written to this register, the MEMS self-test function is enabled" mode="R/W" name="SELF_TEST" por="0" value_type="uint8">
+   <fields>
+    <field mask="255" name="MEMS_TEST" size="8" start_pos="0">
+     <enums>
+      <item doc="charge on" name="ENABLE" value="202">
+      </item>
+      <item doc="charge off" name="DISABLE" value="0">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="106" mode="R/W" name="WAKEUP_THRESHOLD_H" por="8" value_type="uint8">
+   <fields>
+    <field doc="Those registers (12-bits)sets the threshold for wake-up (motion detect) interrupt is set" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="107" mode="R/W" name="WAKEUP_THRESHOLD_L" por="0">
+   <fields>
+    <field doc="lsb part" mask="240" size="4" start_pos="4">
+    </field>
+   </fields>
+  </register>
+ </sensor>
+ <sensor name="KXCJC" sad="15">
+  <register address="15" doc="This register can be used for supplier recognition, as it can be factory written to a known byte value." mode="R" name="WHO_AM_I" por="54" value_type="uint8">
+   <fields>
+    <field mask="255" name="WIA" size="8" start_pos="0">
+     <enums>
+      <item doc="WHO_AM_I -value for KXCJC" name="ID" value="54">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+ </sensor>
+</root>

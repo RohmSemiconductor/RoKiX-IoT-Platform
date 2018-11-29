@@ -1,0 +1,1398 @@
+<root>
+ <sensor doc="Specification KXG03, rev 1.2" name="KXG03" sad="78">
+  <register address="0" mode="R" name="TEMP_OUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="1" info="bypass" mode="R" name="TEMP_OUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="2" mode="R" name="GYRO_XOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="3" info="bypass" mode="R" name="GYRO_XOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="4" mode="R" name="GYRO_YOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="5" info="bypass" mode="R" name="GYRO_YOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="6" mode="R" name="GYRO_ZOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="7" info="bypass" mode="R" name="GYRO_ZOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="8" mode="R" name="ACC_XOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="9" info="bypass" mode="R" name="ACC_XOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="10" mode="R" name="ACC_YOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="11" info="bypass" mode="R" name="ACC_YOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="12" mode="R" name="ACC_ZOUT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="13" info="bypass" mode="R" name="ACC_ZOUT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="14" mode="R" name="AUX1_OUT1" value_type="uint8">
+   <fields>
+    <field doc="Auxiliary Sensor #1 output data bytes AUX1_OUT1 through AUX1_OUT6" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="15" mode="R" name="AUX1_OUT2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="16" mode="R" name="AUX1_OUT3" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="17" mode="R" name="AUX1_OUT4" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="18" mode="R" name="AUX1_OUT5" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="19" mode="R" name="AUX1_OUT6" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="20" mode="R" name="AUX2_OUT1" value_type="uint8">
+   <fields>
+    <field doc="Auxiliary Sensor #2 output data bytes AUX2_OUT1 through AUX2_OUT6" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="21" mode="R" name="AUX2_OUT2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="22" mode="R" name="AUX2_OUT3" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="23" mode="R" name="AUX2_OUT4" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="24" mode="R" name="AUX2_OUT5" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="25" mode="R" name="AUX2_OUT6" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="26" doc="Number of ODR cycles spent in wake state as measured in accelerometer ODRa_wake/ODRa_sleep periods. Data byte WAKE_CNT_L and WAKE_CNT_H." mode="R" name="WAKE_CNT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="27" info="bypass" mode="R" name="WAKE_CNT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="28" doc="Number of ODR cycles spent in sleep state as measured in accelerometer ODRa_wake/ODRa_sleep periods. Data byte SLEEP_CNT_L and SLEEP_CNT_H." mode="R" name="SLEEP_CNT_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="29" info="bypass" mode="R" name="SLEEP_CNT_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="30" doc="Reports the number of data packets (ODR cycles) currently stored in the buffer." mode="R" name="BUF_SMPLEV_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="31" info="bypass" mode="R" name="BUF_SMPLEV_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="32" doc="Reports the number of data packets lost since buffer has been filled." mode="R" name="BUF_PAST_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="33" info="bypass" mode="R" name="BUF_PAST_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="34" doc="Reports the status of Auxiliary Sensors AUX1 and AUX2." mode="R" name="AUX_STATUS">
+   <fields>
+    <field doc="Aux2 command sequence failure flag" mask="128" name="AUX2FAIL" size="1" start_pos="7">
+    </field>
+    <field doc="Aux2 data read error flag." mask="64" name="AUX2ERR" size="1" start_pos="6">
+    </field>
+    <field mask="48" name="AUX2ST" size="2" start_pos="4">
+     <enums>
+      <item doc="Aux1 has not been enabled or ASIC has successfully sent disable cmd." name="aux2_disabled" value="0">
+      </item>
+      <item doc="ASIC is attempting to enable aux sensor via enable sequence." name="aux2_waiting_enable" value="1">
+      </item>
+      <item doc="ASIC is attempting to disable aux sensor via disable sequence." name="aux2_waiting_disable" value="2">
+      </item>
+      <item doc="ASIC has successfully sent aux enable cmd." name="aux2_running" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Aux1 command sequence failure flag" mask="8" name="AUX1FAIL" size="1" start_pos="3">
+    </field>
+    <field doc="Aux1 data read error flag." mask="4" name="AUX1ERR" size="1" start_pos="2">
+    </field>
+    <field mask="3" name="AUX1ST" size="2" start_pos="0">
+     <enums>
+      <item doc="Aux1 has not been enabled or ASIC has successfully sent disable cmd." name="aux1_disabled" value="0">
+      </item>
+      <item doc="ASIC is attempting to enable aux sensor via enable sequence." name="aux1_waiting_enable" value="1">
+      </item>
+      <item doc="ASIC is attempting to disable aux sensor via disable sequence." name="aux1_waiting_disable" value="2">
+      </item>
+      <item doc="ASIC has successfully sent aux enable cmd." name="aux1_running" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="48" doc="WHO_AM_I" mode="R" name="WHO_AM_I" por="36" value_type="uint8">
+   <fields>
+    <field mask="255" name="WIA" size="8" start_pos="0">
+     <enums>
+      <item doc="WHO_AM_I -value" name="ID" value="36">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="49" mode="R" name="SN1_MIR" value_type="uint8">
+   <fields>
+    <field doc="Individual Identification (serial number)." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="50" mode="R" name="SN2_MIR" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="51" mode="R" name="SN3_MIR" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="52" mode="R" name="SN4_MIR" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="54" mode="R" name="STATUS1">
+   <fields>
+    <field doc="Reports logical OR of non-masked interrupt sources sent to INT1" mask="128" name="INT1" size="1" start_pos="7">
+    </field>
+    <field doc="Reset indicator." mask="64" name="POR" size="1" start_pos="6">
+    </field>
+    <field doc="Auxiliary sensor #2 active flag." mask="32" name="AUX2_ACT" size="1" start_pos="5">
+    </field>
+    <field doc="Auxiliary sensor #1 active flag." mask="16" name="AUX1_ACT" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="AUX_ERR" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="WAKE_SLEEP" size="1" start_pos="2">
+     <enums>
+      <item doc="Sleep mode status" name="sleep_mode" value="0">
+      </item>
+      <item doc="Wake mode status" name="wake_mode" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Gyro's run status" mask="2" name="GYRO_RUN" size="1" start_pos="1">
+    </field>
+    <field doc="Gyro's start status" mask="1" name="GYRO_START" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="55" mode="R" name="INT1_SRC1">
+   <fields>
+    <field doc="Buffer full interrupt." mask="128" name="INT1_BFI" size="1" start_pos="7">
+    </field>
+    <field doc="Buffer water mark interrupt." mask="64" name="INT1_WMI" size="1" start_pos="6">
+    </field>
+    <field doc="Wake up function interrupt." mask="32" name="INT1_WUFS" size="1" start_pos="5">
+    </field>
+    <field doc="Back to sleep interrupt." mask="16" name="INT1_BTS" size="1" start_pos="4">
+    </field>
+    <field doc="Aux2 data ready interrupt." mask="8" name="INT1_DRDY_AUX2" size="1" start_pos="3">
+    </field>
+    <field doc="Aux1 data ready interrupt." mask="4" name="INT1_DRDY_AUX1" size="1" start_pos="2">
+    </field>
+    <field doc="Accelerometer / Temperature data ready interrupt." mask="2" name="INT1_DRDY_ACCTEMP" size="1" start_pos="1">
+    </field>
+    <field doc="Gyro data ready interrupt." mask="1" name="INT1_DRDY_GYRO" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="56" mode="R" name="INT1_SRC2">
+   <fields>
+    <field doc="Wake up event detected on x-axis, negative direction" mask="32" name="INT1_XNWU" size="1" start_pos="5">
+    </field>
+    <field doc="Wake up event detected on x-axis, positive direction." mask="16" name="INT1_XPWU" size="1" start_pos="4">
+    </field>
+    <field doc="Wake up event detected on y-axis, negative direction" mask="8" name="INT1_YNWU" size="1" start_pos="3">
+    </field>
+    <field doc="Wake up event detected on y-axis, positive direction." mask="4" name="INT1_YPWU" size="1" start_pos="2">
+    </field>
+    <field doc="Wake up event detected on z-axis, negative direction." mask="2" name="INT1_ZNWU" size="1" start_pos="1">
+    </field>
+    <field doc="Wake up event detected on z-axis, positive direction." mask="1" name="INT1_ZPWU" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="57" mode="R" name="INT1_L" value_type="uint8">
+   <fields>
+    <field doc="Reading this register releases int1 source registers" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="58" mode="R" name="STATUS2">
+   <fields>
+    <field doc="Reports logical OR of non-masked interrupt sources sent to INT2" mask="128" name="INT2" size="1" start_pos="7">
+    </field>
+    <field doc="Reset indicator." mask="64" name="POR" size="1" start_pos="6">
+    </field>
+    <field doc="Auxiliary sensor #2 active flag." mask="32" name="AUX2_ACT" size="1" start_pos="5">
+    </field>
+    <field doc="Auxiliary sensor #1 active flag." mask="16" name="AUX1_ACT" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="AUX_ERR" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="WAKE_SLEEP" size="1" start_pos="2">
+     <enums>
+      <item doc="Sleep mode status" name="sleep_mode" value="0">
+      </item>
+      <item doc="Wake mode status" name="wake_mode" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Gyro's run status" mask="2" name="GYRO_RUN" size="1" start_pos="1">
+    </field>
+    <field doc="Gyro's start status" mask="1" name="GYRO_START" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="59" mode="R" name="INT2_SRC1">
+   <fields>
+    <field doc="Buffer full interrupt." mask="128" name="INT2_BFI" size="1" start_pos="7">
+    </field>
+    <field doc="Buffer water mark interrupt." mask="64" name="INT2_WMI" size="1" start_pos="6">
+    </field>
+    <field doc="Wake up function interrupt." mask="32" name="INT2_WUFS" size="1" start_pos="5">
+    </field>
+    <field doc="Back to sleep interrupt." mask="16" name="INT2_BTS" size="1" start_pos="4">
+    </field>
+    <field doc="Aux2 data ready interrupt." mask="8" name="INT2_DRDY_AUX2" size="1" start_pos="3">
+    </field>
+    <field doc="Aux1 data ready interrupt." mask="4" name="INT2_DRDY_AUX1" size="1" start_pos="2">
+    </field>
+    <field doc="Accelerometer / Temperature data ready interrupt." mask="2" name="INT2_DRDY_ACCTEMP" size="1" start_pos="1">
+    </field>
+    <field doc="Gyro data ready interrupt." mask="1" name="INT2_DRDY_GYRO" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="60" mode="R" name="INT2_SRC2">
+   <fields>
+    <field doc="Wake up event detected on x-axis, negative direction" mask="32" name="INT2_XNWU" size="1" start_pos="5">
+    </field>
+    <field doc="Wake up event detected on x-axis, positive direction." mask="16" name="INT2_XPWU" size="1" start_pos="4">
+    </field>
+    <field doc="Wake up event detected on y-axis, negative direction" mask="8" name="INT2_YNWU" size="1" start_pos="3">
+    </field>
+    <field doc="Wake up event detected on y-axis, positive direction." mask="4" name="INT2_YPWU" size="1" start_pos="2">
+    </field>
+    <field doc="Wake up event detected on z-axis, negative direction." mask="2" name="INT2_ZNWU" size="1" start_pos="1">
+    </field>
+    <field doc="Wake up event detected on z-axis, positive direction." mask="1" name="INT2_ZPWU" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="61" mode="R" name="INT2_L" value_type="uint8">
+   <fields>
+    <field doc="Reading this register releases int2 source registers" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="62" doc="Accelerometer Wake Mode Control register." mode="R/W" name="ACCEL_ODR_WAKE" por="214">
+   <fields>
+    <field mask="128" name="LPMODE_W" size="1" start_pos="7">
+     <enums>
+      <item doc="Accel low power mode is disabled in wake state. Accel operates at max sampling rate and navg_wake is ignored." name="DISABLED" value="0">
+      </item>
+      <item doc="Accel low power mode is enabled in wake state. Accel operates in duty cycle mode with number of samples set by navg_wake." name="ENABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="The max over sampling rate (or max number of samples averaged) varies with ODR" mask="112" name="NAVG_W" size="3" start_pos="4">
+     <enums>
+      <item doc="no average" name="no_avg" value="0">
+      </item>
+      <item name="2_sample_avg" value="1">
+      </item>
+      <item name="4_sample_avg" value="2">
+      </item>
+      <item name="8_sample_avg" value="3">
+      </item>
+      <item name="16_sample_avg" value="4">
+      </item>
+      <item name="32_sample_avg" value="5">
+      </item>
+      <item name="64_sample_avg" value="6">
+      </item>
+      <item name="128_sample_avg" value="7">
+      </item>
+     </enums>
+    </field>
+    <field doc="accelerometer ODR in wake mode" mask="15" name="ODRA_W" size="4" start_pos="0">
+     <enums>
+      <item doc="odr 0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="odr 1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="odr 3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="odr 6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="odr 12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="odr 25Hz" name="25" value="5">
+      </item>
+      <item doc="odr 50Hz" name="50" value="6">
+      </item>
+      <item doc="odr 100Hz" name="100" value="7">
+      </item>
+      <item doc="odr 200Hz" name="200" value="8">
+      </item>
+      <item doc="odr 400Hz" name="400" value="9">
+      </item>
+      <item doc="odr 800Hz" name="800" value="10">
+      </item>
+      <item doc="odr 1600Hz" name="1600" value="11">
+      </item>
+      <item doc="odr 3200Hz" name="3200" value="12">
+      </item>
+      <item doc="odr 6400Hz" name="6400" value="13">
+      </item>
+      <item doc="odr 12800Hz" name="12800" value="14">
+      </item>
+      <item doc="odr 51200Hz" name="51200" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="63" mode="R/W" name="ACCEL_ODR_SLEEP" por="214">
+   <fields>
+    <field mask="128" name="LPMODE_S" size="1" start_pos="7">
+     <enums>
+      <item name="DISABLED" value="0">
+      </item>
+      <item name="ENABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="112" name="NAVG_S" size="3" start_pos="4">
+     <enums>
+      <item name="no_avg" value="0">
+      </item>
+      <item name="2_sample_avg" value="1">
+      </item>
+      <item name="4_sample_avg" value="2">
+      </item>
+      <item name="8_sample_avg" value="3">
+      </item>
+      <item name="16_sample_avg" value="4">
+      </item>
+      <item name="32_sample_avg" value="5">
+      </item>
+      <item name="64_sample_avg" value="6">
+      </item>
+      <item name="128_sample_avg" value="7">
+      </item>
+     </enums>
+    </field>
+    <field mask="15" name="ODRA_S" size="4" start_pos="0">
+     <enums>
+      <item doc="odr 0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="odr 1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="odr 3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="odr 6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="odr 12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="odr 25Hz" name="25" value="5">
+      </item>
+      <item doc="odr 50Hz" name="50" value="6">
+      </item>
+      <item doc="odr 100Hz" name="100" value="7">
+      </item>
+      <item doc="odr 200Hz" name="200" value="8">
+      </item>
+      <item doc="odr 400Hz" name="400" value="9">
+      </item>
+      <item doc="odr 800Hz" name="800" value="10">
+      </item>
+      <item doc="odr 1600Hz" name="1600" value="11">
+      </item>
+      <item doc="odr 3200Hz" name="3200" value="12">
+      </item>
+      <item doc="odr 6400Hz" name="6400" value="13">
+      </item>
+      <item doc="odr 12800Hz" name="12800" value="14">
+      </item>
+      <item doc="odr 51200Hz" name="51200" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="64" mode="R/W" name="ACCEL_CTL" por="0">
+   <fields>
+    <field doc="Accelerometer sleep mode full scale range select." mask="192" name="ACC_FS_S" size="2" start_pos="6">
+     <enums>
+      <item name="2g" value="0">
+      </item>
+      <item name="4g" value="1">
+      </item>
+      <item name="8g" value="2">
+      </item>
+      <item name="16g" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Accelerometer wake mode full scale range select." mask="12" name="ACC_FS_W" size="2" start_pos="2">
+     <enums>
+      <item name="2g" value="0">
+      </item>
+      <item name="4g" value="1">
+      </item>
+      <item name="8g" value="2">
+      </item>
+      <item name="16g" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="65" doc="Gyroscope Wake Mode Control register." mode="R/W" name="GYRO_ODR_WAKE" por="6">
+   <fields>
+    <field doc="Gyroscope angular velocity range wake mode" mask="192" name="GYRO_FS_W" size="2" start_pos="6">
+     <enums>
+      <item doc="256dps" name="256" value="0">
+      </item>
+      <item doc="512dps" name="512" value="1">
+      </item>
+      <item doc="1024dps" name="1024" value="2">
+      </item>
+      <item doc="2048dps" name="2048" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Gyroscope bandwidth selection in wake mode." mask="48" name="GYRO_BW_W" size="2" start_pos="4">
+     <enums>
+      <item doc="10Hz" name="10" value="0">
+      </item>
+      <item doc="20Hz" name="20" value="1">
+      </item>
+      <item doc="40Hz" name="40" value="2">
+      </item>
+      <item doc="160Hz" name="160" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="gyroscope ODR in wake mode" mask="15" name="ODRG_W" size="4" start_pos="0">
+     <enums>
+      <item doc="odr 0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="odr 1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="odr 3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="odr 6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="odr 12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="odr 25Hz" name="25" value="5">
+      </item>
+      <item doc="odr 50Hz" name="50" value="6">
+      </item>
+      <item doc="odr 100Hz" name="100" value="7">
+      </item>
+      <item doc="odr 200Hz" name="200" value="8">
+      </item>
+      <item doc="odr 400Hz" name="400" value="9">
+      </item>
+      <item doc="odr 800Hz" name="800" value="10">
+      </item>
+      <item doc="odr 1600Hz" name="1600" value="11">
+      </item>
+      <item doc="odr 1600Hz" name="1600_2" value="12">
+      </item>
+      <item doc="odr 1600Hz" name="1600_3" value="13">
+      </item>
+      <item doc="odr 1600Hz" name="1600_4" value="14">
+      </item>
+      <item doc="odr 1600Hz" name="1600_5" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="66" mode="R/W" name="GYRO_ODR_SLEEP" por="6">
+   <fields>
+    <field doc="Gyroscope angular velocity range sleep mode" mask="192" name="GYRO_FS_S" size="2" start_pos="6">
+     <enums>
+      <item doc="256dps" name="256" value="0">
+      </item>
+      <item doc="512dps" name="512" value="1">
+      </item>
+      <item doc="1024dps" name="1024" value="2">
+      </item>
+      <item doc="2048dps" name="2048" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Gyroscope bandwidth selection in sleep mode." mask="48" name="GYRO_BW_S" size="2" start_pos="4">
+     <enums>
+      <item doc="10Hz" name="10" value="0">
+      </item>
+      <item doc="20Hz" name="20" value="1">
+      </item>
+      <item doc="40Hz" name="40" value="2">
+      </item>
+      <item doc="160Hz" name="160" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="gyroscope ODR in sleep mode" mask="15" name="ODRG_S" size="4" start_pos="0">
+     <enums>
+      <item doc="odr 0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="odr 1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="odr 3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="odr 6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="odr 12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="odr 25Hz" name="25" value="5">
+      </item>
+      <item doc="odr 50Hz" name="50" value="6">
+      </item>
+      <item doc="odr 100Hz" name="100" value="7">
+      </item>
+      <item doc="odr 200Hz" name="200" value="8">
+      </item>
+      <item doc="odr 400Hz" name="400" value="9">
+      </item>
+      <item doc="odr 800Hz" name="800" value="10">
+      </item>
+      <item doc="odr 1600Hz" name="1600" value="11">
+      </item>
+      <item doc="odr 1600Hz" name="1600_2" value="12">
+      </item>
+      <item doc="odr 1600Hz" name="1600_3" value="13">
+      </item>
+      <item doc="odr 1600Hz" name="1600_4" value="14">
+      </item>
+      <item doc="odr 1600Hz" name="1600_5" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="67" mode="R/W" name="STDBY" por="239">
+   <fields>
+    <field mask="128" name="AUX2_STDBY_S" size="1" start_pos="7">
+     <enums>
+      <item doc="Aux2 sensor is enabled in sleep state." name="ENABLED" value="0">
+      </item>
+      <item doc="Aux2 sensor is disabled in sleep state." name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="AUX1_STDBY_S" size="1" start_pos="6">
+     <enums>
+      <item doc="Aux1 sensor is enabled in sleep state." name="ENABLED" value="0">
+      </item>
+      <item doc="Aux1 sensor is disabled in sleep state." name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="32" name="GYRO_STDBY_S" size="1" start_pos="5">
+     <enums>
+      <item doc="Gyro sensor is enabled in sleep state." name="ENABLED" value="0">
+      </item>
+      <item doc="Gyro sensor is disabled in sleep state." name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="8" name="AUX2_STDBY_W" size="1" start_pos="3">
+     <enums>
+      <item doc="Aux2 sensor is enabled in wake state." name="ENABLED" value="0">
+      </item>
+      <item doc="Aux2 sensor is disabled in wake state." name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="4" name="AUX1_STDBY_W" size="1" start_pos="2">
+     <enums>
+      <item doc="Aux1 sensor is enabled in wake state." name="ENABLED" value="0">
+      </item>
+      <item doc="Aux1 sensor is disabled in wake state." name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="2" name="GYRO_STDBY_W" size="1" start_pos="1">
+     <enums>
+      <item doc="Gyro sensor is enabled in wake state." name="ENABLED" value="0">
+      </item>
+      <item doc="Gyro sensor is disabled in wake state." name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="1" name="ACC_STDBY" size="1" start_pos="0">
+     <enums>
+      <item doc="Accel sensor is enabled." name="ENABLED" value="0">
+      </item>
+      <item doc="Accel sensor is disabled." name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="68" doc="Special control register 1" mode="R/W" name="CTL_REG_1" por="24">
+   <fields>
+    <field doc="Active high soft reset." mask="128" name="RST" size="1" start_pos="7">
+    </field>
+    <field doc="Active high I2C disable bit" mask="32" name="I2C_DIS" size="1" start_pos="5">
+     <enums>
+      <item doc="I2C interface is not disabled" name="ENABLED" value="0">
+      </item>
+      <item doc="I2C interface is disabled" name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="16" name="TEMP_STDBY_S" size="1" start_pos="4">
+     <enums>
+      <item doc="Temperature output is enabled in sleep mode." name="ENABLED" value="0">
+      </item>
+      <item doc="Temperature output is disabled in sleep mode." name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="8" name="TEMP_STDBY_W" size="1" start_pos="3">
+     <enums>
+      <item doc="Temperature output is enabled in wake mode." name="ENABLED" value="0">
+      </item>
+      <item doc="Temperature output is disabled in wake mode." name="DISABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="2" name="ACC_STPOL" size="1" start_pos="1">
+     <enums>
+      <item doc="Accel self-test polarity is not inverted.." name="NOT_INVERTED" value="0">
+      </item>
+      <item doc="Accel self-test polarity is inverted.." name="INVERTED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Accel self-test is enabled." mask="1" name="ACC_ST" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="69" mode="R/W" name="INT_PIN_CTL" por="68">
+   <fields>
+    <field doc="Active high enable for INT2 pin." mask="128" name="IEN2" size="1" start_pos="7">
+    </field>
+    <field doc="Interrupt polarity select for INT2 pin." mask="64" name="IEA2" size="1" start_pos="6">
+     <enums>
+      <item name="ACTIVE_LOW" value="0">
+      </item>
+      <item name="ACTIVE_HIGH" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt latch mode select for INT2 pin" mask="48" name="IEL2" size="2" start_pos="4">
+     <enums>
+      <item name="LATCHED" value="0">
+      </item>
+      <item name="PULSED_40US" value="1">
+      </item>
+      <item name="PULSED_160US" value="2">
+      </item>
+      <item name="REALTIME" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Active high enable for INT1 pin." mask="8" name="IEN1" size="1" start_pos="3">
+    </field>
+    <field doc="Interrupt polarity select for INT1 pin." mask="4" name="IEA1" size="1" start_pos="2">
+     <enums>
+      <item name="ACTIVE_LOW" value="0">
+      </item>
+      <item name="ACTIVE_HIGH" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt latch mode select for INT1 pin" mask="3" name="IEL1" size="2" start_pos="0">
+     <enums>
+      <item name="LATCHED" value="0">
+      </item>
+      <item name="PULSED_40US" value="1">
+      </item>
+      <item name="PULSED_160US" value="2">
+      </item>
+      <item name="REALTIME" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="70" doc="Physical interrupt pin INT1 select register." mode="R/W" name="INT_PIN1_SEL" por="255">
+   <fields>
+    <field doc="Buffer Full Interrupt for INT1 pin." mask="128" name="BFI_P1" size="1" start_pos="7">
+    </field>
+    <field doc="Water Mark Interrupt for INT1 pin." mask="64" name="WMI_P1" size="1" start_pos="6">
+    </field>
+    <field doc="Wake Up Function Interrupt for INT1 pin." mask="32" name="WUF_P1" size="1" start_pos="5">
+    </field>
+    <field doc="Back To Sleep Function Interrupt for INT1 pin." mask="16" name="BTS_P1" size="1" start_pos="4">
+    </field>
+    <field doc="Data Ready Aux2 Interrupt for INT1 pin." mask="8" name="DRDY_AUX2_P1" size="1" start_pos="3">
+    </field>
+    <field doc="Data Ready AUX1 Interrupt for INT1 pin." mask="4" name="DRDY_AUX1_P1" size="1" start_pos="2">
+    </field>
+    <field doc="Data Ready Accelerometer Interrupt for INT1 pin." mask="2" name="DRDY_ACCTEMP_P1" size="1" start_pos="1">
+    </field>
+    <field doc="Data Ready Gyroscope Interrupt for INT1 pin." mask="1" name="DRDY_GYRO_P1" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="71" doc="Physical interrupt pin INT2 select register." mode="R/W" name="INT_PIN2_SEL" por="0">
+   <fields>
+    <field doc="Buffer Full Interrupt for INT2 pin." mask="128" name="BFI_P2" size="1" start_pos="7">
+    </field>
+    <field doc="Water Mark Interrupt for INT2 pin." mask="64" name="WMI_P2" size="1" start_pos="6">
+    </field>
+    <field doc="Wake Up Function Interrupt for INT2 pin." mask="32" name="WUF_P2" size="1" start_pos="5">
+    </field>
+    <field doc="Back To Sleep Function Interrupt for INT2 pin." mask="16" name="BTS_P2" size="1" start_pos="4">
+    </field>
+    <field doc="Data Ready Aux2 Interrupt for INT2 pin." mask="8" name="DRDY_AUX2_P2" size="1" start_pos="3">
+    </field>
+    <field doc="Data Ready AUX1 Interrupt for INT2 pin." mask="4" name="DRDY_AUX1_P2" size="1" start_pos="2">
+    </field>
+    <field doc="Data Ready Accelerometer Interrupt for INT2 pin." mask="2" name="DRDY_ACCTEMP_P2" size="1" start_pos="1">
+    </field>
+    <field doc="Data Ready Gyroscope Interrupt for INT2 pin." mask="1" name="DRDY_GYRO_P2" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="72" doc="Buffer Full Interrupt enable/mask bit." mode="R/W" name="INT_MASK1" por="192">
+   <fields>
+    <field doc="Buffer Full Interrupt enable/mask bit." mask="128" name="BFIE" size="1" start_pos="7">
+    </field>
+    <field doc="Water Mark Interrupt enable/mask bit" mask="64" name="WMIE" size="1" start_pos="6">
+    </field>
+    <field doc="Wake-up Function Interrupt enable/mask bit." mask="32" name="WUFE" size="1" start_pos="5">
+    </field>
+    <field doc="Back-to-sleep Function Interrupt enable/mask bit." mask="16" name="BTSE" size="1" start_pos="4">
+    </field>
+    <field doc="Data Ready Aux2 Interrupt enable/mask bit." mask="8" name="DRDY_AUX2" size="1" start_pos="3">
+    </field>
+    <field doc="Data Ready AUX1 Interrupt enable/mask bit." mask="4" name="DRDY_AUX1" size="1" start_pos="2">
+    </field>
+    <field doc="Data Ready Accelerometer / Temperature Interrupt enable/mask bit." mask="2" name="DRDY_ACCTEMP" size="1" start_pos="1">
+    </field>
+    <field doc="Data Ready Gyroscope Interrupt enable/mask bit." mask="1" name="DRDY_GYRO" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="73" doc="which axis and direction of detected motion can cause an interrupt." mode="R/W" name="INT_MASK2" por="192">
+   <fields>
+    <field doc="x negative (x-) mask for WUF/BTS" mask="32" name="NXWUE" size="1" start_pos="5">
+    </field>
+    <field doc="x positive (x+) mask for WUF/BTS" mask="16" name="PXWUE" size="1" start_pos="4">
+    </field>
+    <field doc="y negative (y-) mask for WUF/BTS" mask="8" name="NYWUE" size="1" start_pos="3">
+    </field>
+    <field doc="y positive (y+) mask for WUF/BTS" mask="4" name="PYWUE" size="1" start_pos="2">
+    </field>
+    <field doc="z negative (z-) mask for WUF/BTS" mask="2" name="NZWUE" size="1" start_pos="1">
+    </field>
+    <field doc="z positive (z+) mask for WUF/BTS" mask="1" name="PZWUE" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="74" doc="External Synchronous control register." mode="R/W" name="FSYNC_CTL" por="0">
+   <fields>
+    <field mask="48" name="FSYNC_MODE" size="2" start_pos="4">
+     <enums>
+      <item doc="FSYNC is disabled. SYNC pin is tri-stated." name="disabled" value="0">
+      </item>
+      <item doc="FSYNC is enabled. Sync pin is onfigured as input pin. Buffer is updated in sync with external clock applied at SYNC pin." name="input_ext" value="1">
+      </item>
+      <item doc="FSYNC is enabled. Sync pin is configured as input pin.State of SYNC pin is stored in selected sensor's LSB bit." name="input" value="2">
+      </item>
+      <item doc="FSYNC is disabled. SYNC pin is configured as output pin." name="output" value="3">
+      </item>
+     </enums>
+    </field>
+    <field mask="7" name="FSYNC_SEL" size="3" start_pos="0">
+     <enums>
+      <item doc="Definition according FSYNC_MODE selection" name="SEL000" value="0">
+      </item>
+      <item doc="Definition according FSYNC_MODE selection" name="SEL001" value="1">
+      </item>
+      <item doc="Definition according FSYNC_MODE selection" name="SEL010" value="2">
+      </item>
+      <item doc="Definition according FSYNC_MODE selection" name="SEL011" value="3">
+      </item>
+      <item doc="Definition according FSYNC_MODE selection" name="SEL100" value="4">
+      </item>
+      <item doc="Definition according FSYNC_MODE selection" name="SEL101" value="5">
+      </item>
+      <item doc="Definition according FSYNC_MODE selection" name="SEL110" value="6">
+      </item>
+      <item doc="Definition according FSYNC_MODE selection" name="SEL111" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="75" mode="R/W" name="WAKE_SLEEP_CTL1" por="0">
+   <fields>
+    <field doc="Active high back-to-sleep function enable" mask="128" name="BTS_EN" size="1" start_pos="7">
+    </field>
+    <field doc="Active high wake-up function enable." mask="64" name="WUF_EN" size="1" start_pos="6">
+    </field>
+    <field doc="Forces transition to sleep state." mask="32" name="MAN_SLEEP" size="1" start_pos="5">
+    </field>
+    <field doc="Forces transition to wake state." mask="16" name="MAN_WAKE" size="1" start_pos="4">
+    </field>
+    <field doc="the Output Data Rate for the wake up (motion detection)." mask="7" name="OWUF" size="3" start_pos="0">
+     <enums>
+      <item doc="odr 0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="odr 1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="odr 3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="odr 6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="odr 12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="odr 25Hz" name="25" value="5">
+      </item>
+      <item doc="odr 50Hz" name="50" value="6">
+      </item>
+      <item doc="odr 100Hz" name="100" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="76" doc="WUF and BTS threshold mode." mode="R/W" name="WAKE_SLEEP_CTL2" por="2">
+   <fields>
+    <field mask="2" name="TH_MODE" size="1" start_pos="1">
+     <enums>
+      <item name="ABSOLUTE_THRESHOLD" value="0">
+      </item>
+      <item name="RELATIVE_THRESHOLD" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="debounce counter clear mode." mask="1" name="C_MODE" size="1" start_pos="0">
+     <enums>
+      <item name="COUNTER_CLEAR" value="0">
+      </item>
+      <item name="COUNTER_DECREASE" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="77" mode="R/W" name="WUF_TH" por="8" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="78" mode="R/W" name="WUF_COUNTER" por="0" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="79" mode="R/W" name="BTS_TH" por="8" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="80" mode="R/W" name="BTS_COUNTER" por="0" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="81" mode="R/W" name="AUX_I2C_CTL_REG" por="2">
+   <fields>
+    <field doc="Defines control bit polarity for aux2 enable/disable command sequences." mask="32" name="AUX_CTL_POL2" size="1" start_pos="5">
+    </field>
+    <field doc="Defines control bit polarity for aux1 enable/disable command sequences." mask="16" name="AUX_CTL_POL1" size="1" start_pos="4">
+    </field>
+    <field doc="Sets I2C bus speed." mask="8" name="AUX_BUS_SPD" size="1" start_pos="3">
+     <enums>
+      <item doc="FS speed" name="100HZ" value="0">
+      </item>
+      <item doc="HS speed" name="400HZ" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Active high pull up enable." mask="4" name="AUX_PULL_UP" size="1" start_pos="2">
+     <enums>
+      <item doc="Pull up disabled" name="DISABLED" value="0">
+      </item>
+      <item doc="Internal 1.5kohm pullup resistor enabled" name="ENABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Active high bypass enable" mask="2" name="AUX_BYPASS" size="1" start_pos="1">
+     <enums>
+      <item doc="AUX I2C not bypassed" name="BYPASSED" value="0">
+      </item>
+      <item doc="AUX I2C connected to main I2C pins. Pull up disabled" name="NOT_BYPASSED" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="82" mode="R/W" name="AUX_I2C_SAD1" por="0" value_type="uint8">
+   <fields>
+    <field doc="Read/Write that should be used to store the SAD for auxiliary I2C device 1" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="83" mode="R/W" name="AUX_I2C_REG1" por="0" value_type="uint8">
+   <fields>
+    <field doc="Read/Write that should be used to store the starting data register address for auxiliary I2C device 1" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="84" mode="R/W" name="AUX_I2C_CTL1" por="0" value_type="uint8">
+   <fields>
+    <field doc="Register address for enable/disable control register for auxiliary I2C device" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="85" mode="R/W" name="AUX_I2C_BIT1" por="0" value_type="uint8">
+   <fields>
+    <field doc="Defines bits to toggle in the control register for auxiliary I2C device 1" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="86" doc="Defines register read controls for auxiliary I2C device 1" mode="R/W" name="AUX_I2C_ODR1_W" por="6">
+   <fields>
+    <field doc="Number of bytes read back via Auxiliary I2C bus from device 1" mask="112" name="AUX1_D" size="3" start_pos="4">
+     <enums>
+      <item doc="No read back" name="NO_READ_BACK" value="0">
+      </item>
+      <item doc="1 read back" name="1_READ_BACK" value="1">
+      </item>
+      <item doc="2 read back" name="2_READ_BACK" value="2">
+      </item>
+      <item doc="3 read back" name="3_READ_BACK" value="3">
+      </item>
+      <item doc="4 read back" name="4_READ_BACK" value="4">
+      </item>
+      <item doc="5 read back" name="5_READ_BACK" value="5">
+      </item>
+      <item doc="6 read back" name="6_READ_BACK" value="6">
+      </item>
+      <item doc="DNE" name="DNE" value="7">
+      </item>
+     </enums>
+    </field>
+    <field doc="Determines rate at which aux1 output is polled by ASIC in aux1 wake state" mask="15" name="AUX1ODRW" size="4" start_pos="0">
+     <enums>
+      <item doc="odr 0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="odr 1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="odr 3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="odr 6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="odr 12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="odr 25Hz" name="25" value="5">
+      </item>
+      <item doc="odr 50Hz" name="50" value="6">
+      </item>
+      <item doc="odr 100Hz" name="100" value="7">
+      </item>
+      <item doc="odr 200Hz" name="200" value="8">
+      </item>
+      <item doc="odr 400Hz" name="400" value="9">
+      </item>
+      <item doc="odr 800Hz" name="800" value="10">
+      </item>
+      <item doc="odr 1600Hz" name="1600" value="11">
+      </item>
+      <item doc="odr 1600Hz" name="1600_2" value="12">
+      </item>
+      <item doc="odr 1600Hz" name="1600_3" value="13">
+      </item>
+      <item doc="odr 1600Hz" name="1600_4" value="14">
+      </item>
+      <item doc="odr 1600Hz" name="1600_5" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="87" doc="Defines register read controls for auxiliary I2C device 1" mode="R/W" name="AUX_I2C_ODR1_S" por="6">
+   <fields>
+    <field doc="Determines rate at which aux1 output is polled by ASIC in aux1 sleep" mask="15" name="AUX1ODRS" size="4" start_pos="0">
+     <enums>
+      <item doc="odr 0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="odr 1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="odr 3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="odr 6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="odr 12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="odr 25Hz" name="25" value="5">
+      </item>
+      <item doc="odr 50Hz" name="50" value="6">
+      </item>
+      <item doc="odr 100Hz" name="100" value="7">
+      </item>
+      <item doc="odr 200Hz" name="200" value="8">
+      </item>
+      <item doc="odr 400Hz" name="400" value="9">
+      </item>
+      <item doc="odr 800Hz" name="800" value="10">
+      </item>
+      <item doc="odr 1600Hz" name="1600" value="11">
+      </item>
+      <item doc="odr 1600Hz" name="1600_2" value="12">
+      </item>
+      <item doc="odr 1600Hz" name="1600_3" value="13">
+      </item>
+      <item doc="odr 1600Hz" name="1600_4" value="14">
+      </item>
+      <item doc="odr 1600Hz" name="1600_5" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="88" mode="R/W" name="AUX_I2C_SAD2" por="0" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="89" mode="R/W" name="AUX_I2C_REG2" por="0" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="90" mode="R/W" name="AUX_I2C_CTL2" por="0" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="91" mode="R/W" name="AUX_I2C_BIT2" por="0" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="92" mode="R/W" name="AUX_I2C_ODR2_W" por="6">
+   <fields>
+    <field doc="Number of bytes read back via Auxiliary I2C bus from device 2" mask="112" name="AUX2_D" size="3" start_pos="4">
+     <enums>
+      <item doc="No read back" name="NO_READ_BACK" value="0">
+      </item>
+      <item doc="1 read back" name="1_READ_BACK" value="1">
+      </item>
+      <item doc="2 read back" name="2_READ_BACK" value="2">
+      </item>
+      <item doc="3 read back" name="3_READ_BACK" value="3">
+      </item>
+      <item doc="4 read back" name="4_READ_BACK" value="4">
+      </item>
+      <item doc="5 read back" name="5_READ_BACK" value="5">
+      </item>
+      <item doc="6 read back" name="6_READ_BACK" value="6">
+      </item>
+      <item doc="DNE" name="DNE" value="7">
+      </item>
+     </enums>
+    </field>
+    <field doc="Determines rate at which aux2 output is polled by ASIC in aux2 wake state" mask="15" name="AUX2ODRW" size="4" start_pos="0">
+     <enums>
+      <item doc="odr 0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="odr 1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="odr 3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="odr 6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="odr 12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="odr 25Hz" name="25" value="5">
+      </item>
+      <item doc="odr 50Hz" name="50" value="6">
+      </item>
+      <item doc="odr 100Hz" name="100" value="7">
+      </item>
+      <item doc="odr 200Hz" name="200" value="8">
+      </item>
+      <item doc="odr 400Hz" name="400" value="9">
+      </item>
+      <item doc="odr 800Hz" name="800" value="10">
+      </item>
+      <item doc="odr 1600Hz" name="1600" value="11">
+      </item>
+      <item doc="odr 1600Hz" name="1600_2" value="12">
+      </item>
+      <item doc="odr 1600Hz" name="1600_3" value="13">
+      </item>
+      <item doc="odr 1600Hz" name="1600_4" value="14">
+      </item>
+      <item doc="odr 1600Hz" name="1600_5" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="87" doc="Defines register read controls for auxiliary I2C device 1" mode="R/W" name="AUX_I2C_ODR1_S" por="6">
+   <fields>
+    <field doc="Determines rate at which aux2 output is polled by ASIC in aux2 sleep" mask="15" name="AUX2ODRS" size="4" start_pos="0">
+     <enums>
+      <item doc="odr 0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="odr 1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="odr 3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="odr 6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="odr 12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="odr 25Hz" name="25" value="5">
+      </item>
+      <item doc="odr 50Hz" name="50" value="6">
+      </item>
+      <item doc="odr 100Hz" name="100" value="7">
+      </item>
+      <item doc="odr 200Hz" name="200" value="8">
+      </item>
+      <item doc="odr 400Hz" name="400" value="9">
+      </item>
+      <item doc="odr 800Hz" name="800" value="10">
+      </item>
+      <item doc="odr 1600Hz" name="1600" value="11">
+      </item>
+      <item doc="odr 1600Hz" name="1600_2" value="12">
+      </item>
+      <item doc="odr 1600Hz" name="1600_3" value="13">
+      </item>
+      <item doc="odr 1600Hz" name="1600_4" value="14">
+      </item>
+      <item doc="odr 1600Hz" name="1600_5" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="117" mode="R/W" name="BUF_WMITH_L" por="0" value_type="uint8">
+   <fields>
+    <field doc="Buffer watermark threshold level L" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="118" mode="R/W" name="BUF_WMITH_H" por="0" value_type="uint8">
+   <fields>
+    <field doc="Buffer watermark threshold level H" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="119" mode="R/W" name="BUF_TRIGTH_L" por="0" value_type="uint8">
+   <fields>
+    <field doc="Buffer Trigger mode threshold L" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="120" mode="R/W" name="BUF_TRIGTH_H" por="0" value_type="uint8">
+   <fields>
+    <field doc="Buffer Trigger mode threshold H" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="121" doc="Read/write control register that controls sample buffer input in wake mode." mode="R/W" name="BUF_CTL2" por="0">
+   <fields>
+    <field doc="controls the Temperature input into the sample buffer" mask="64" name="BUF_TEMP_W" size="1" start_pos="6">
+    </field>
+    <field doc="controls the Accelerometer axis input into the sample buffer" mask="32" name="BUF_ACC_W_X" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="BUF_ACC_W_Y" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="BUF_ACC_W_Z" size="1" start_pos="3">
+    </field>
+    <field doc="controls the Gyroscope axis input into the sample buffer." mask="4" name="BUF_GYR_W_X" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="BUF_GYR_W_Y" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="BUF_GYR_W_Z" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="122" doc="Read/write control register that controls sample buffer input in sleep mode" mode="R/W" name="BUF_CTL3" por="0">
+   <fields>
+    <field doc="controls the Temperature input into the sample buffer." mask="64" name="BUF_TEMP_S" size="1" start_pos="6">
+    </field>
+    <field doc="controls the Accelerometer axis input into the sample buffer." mask="32" name="BUF_ACC_S_X" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="BUF_ACC_S_Y" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="BUF_ACC_S_Z" size="1" start_pos="3">
+    </field>
+    <field doc="controls the Gyroscope axis input into the sample buffer." mask="4" name="BUF_GYR_S_X" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="BUF_GYR_S_Y" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="BUF_GYR_S_Z" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="123" doc="Read/write control register that controls aux1 and aux2 buffer input." mode="R/W" name="BUF_CTL4" por="0">
+   <fields>
+    <field doc="controls the aux2 input into the sample buffer in sleep mode." mask="8" name="BUF_AUX2_S" size="1" start_pos="3">
+    </field>
+    <field doc="controls the aux1 axis input into the sample buffer in sleep mode" mask="4" name="BUF_AUX1_S" size="1" start_pos="2">
+    </field>
+    <field doc="controls the aux2 input into the sample buffer in wake mode." mask="2" name="BUF_AUX2_W" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="BUF_AUX1_W" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="124" doc="Read/write control register that controls sample buffer operation." mode="R/W" name="BUF_EN" por="0">
+   <fields>
+    <field mask="128" name="BUFE" size="1" start_pos="7">
+    </field>
+    <field doc="Symbol mode select." mask="12" name="BUF_SYM" size="2" start_pos="2">
+     <enums>
+      <item name="SYMBOL_MODE_DISABLED" value="0">
+      </item>
+      <item name="SINGLE_SYMBOL_MODE_ENABLED" value="1">
+      </item>
+      <item name="DUAL_SYMBOL_TRANS_MODE_ENABLED" value="2">
+      </item>
+      <item name="DUAL_SYMBOL_FRAME_MODE_ENABLED" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="selects the operating mode of the sample buffer" mask="3" name="BUF_M" size="2" start_pos="0">
+     <enums>
+      <item name="FIFO" value="0">
+      </item>
+      <item name="STREAM" value="1">
+      </item>
+      <item name="TRIGGER" value="2">
+      </item>
+      <item name="FILO" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="125" doc="This register reports the status of the sample buffer trigger function." mode="R/W" name="BUF_STATUS">
+   <fields>
+    <field mask="128" name="BUF_TRIG" size="1" start_pos="7">
+    </field>
+   </fields>
+  </register>
+  <register address="126" mode="R/W" name="BUF_CLEAR" value_type="uint8">
+   <fields>
+    <field doc="Latched buffer status information and the entire sample buffer are cleared when any data is written to this register." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="127" mode="R" name="BUF_READ" value_type="uint8">
+   <fields>
+    <field doc="Data from the buffer should be read using a single SAD+R command" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+ </sensor>
+</root>

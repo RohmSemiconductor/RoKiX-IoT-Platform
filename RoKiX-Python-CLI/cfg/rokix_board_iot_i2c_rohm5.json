@@ -1,0 +1,151 @@
+{
+    "structure_version": "2.0",
+    "protocol_version": [
+        "2.0"
+    ],
+    "configuration": {
+        "name": "RoKiX IoT node with KX122",
+        "doc": "RoKiX IoT node including KXG08, KMX62, KX122, BM1383AGLV and BM1422AGMV",
+        "board_id": 7,
+        "cpu_freq_mhz": 64,
+        "bus1": {
+            "sensor_defaults": {
+                "polarity": "EVKIT_GPIO_PIN_SENSE_LOW",
+                "pullup": "EVKIT_GPIO_PIN_NOPULL",
+                "axis_map": []
+            },
+            "targets": [
+                {
+                    "name": "i2c",
+                    "freq": 400,
+                    "target": 4,
+                    "parts": {
+                        "KX122": {
+                            "SAD": 31,
+                            "gpio1": 34,
+                            "gpio2": 43,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KMX62": {
+                            "SAD": 15,
+                            "gpio1": 46,
+                            "gpio2": 39,
+                            "axis_map": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        },
+                        "KXG08": {
+                            "SAD": 79,
+                            "gpio1": 47,
+                            "gpio2": 38,
+                            "axis_map": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        },
+                        "BM1383AGLV": {
+                            "SAD": 93,
+                            "gpio1": 45
+                        },
+                        "BM1422GMV": {
+                            "SAD": 14,
+                            "gpio1": 42
+                        }
+                    }
+                },
+                {
+                    "name": "adc",
+                    "doc": "Battery level monitor and analog sensors.",
+                    "target": 8,
+                    "parts": {
+                        "Disable ADC": {
+                            "gpio_conf": [
+                                [
+                                    30
+                                ],
+                                [
+                                    0
+                                ]
+                            ]
+                        },
+                        "Battery": {
+                            "gpio1": 3,
+                            "adc_gain": 1.0,
+                            "adc_ref_v": 2.5,
+                            "adc_offset_v": 0,
+                            "adc_msg_resolution_int": 12,
+                            "adc_msg_gain_enum": 1,
+                            "adc_msg_conversion_time_us": 0,
+                            "adc_msg_oversampling_enum": 0
+                        }
+                    }
+                },
+                {
+                    "name": "i2c",
+                    "doc": "i2c on addonboard",
+                    "freq": 400,
+                    "target": 5,
+                    "parts": {
+                        "KX224": {
+                            "SAD": 30,
+                            "gpio1": 33,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ],
+                            "gpio_conf": [
+                                [
+                                    15
+                                ],
+                                [
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "bus2": {
+            "connections": [
+                {
+                    "connection": "USB_SERIAL",
+                    "vid": 1205,
+                    "pid": 1538,
+                    "packet_per_second": 400,
+                    "baud_rate": 1000000,
+                    "xonxoff": false,
+                    "rtscts": false,
+                    "start_up_delay_ms": 0,
+                    "com_port_name": [
+                        "USB Serial Device"
+                    ]
+                },
+                {
+                    "connection": "BLE",
+                    "packet_per_second": 200
+                }
+            ]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_rokix_iot_i2c"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}

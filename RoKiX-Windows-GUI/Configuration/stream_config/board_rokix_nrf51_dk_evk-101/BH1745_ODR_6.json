@@ -1,0 +1,126 @@
+{
+    "activate": [
+        [
+            "BH1745", 
+            66, 
+            0, 
+            "stop_measurement/self.set_bit_pattern(r.BH1745_MODE_CONTROL2, b.BH1745_MODE_CONTROL2_RGBC_MEASUREMENT_INACTIVE, m.BH1745_MODE_CONTROL2_RGBC_MEASUREMENT_MASK)"
+        ], 
+        [
+            "BH1745", 
+            66, 
+            0, 
+            "set_adc_gain/self.set_bit_pattern(r.BH1745_MODE_CONTROL2, gain, m.BH1745_MODE_CONTROL2_ADC_GAIN_MASK)"
+        ], 
+        [
+            "BH1745", 
+            66, 
+            16, 
+            "start_measurement/self.set_bit_pattern(r.BH1745_MODE_CONTROL2, b.BH1745_MODE_CONTROL2_RGBC_MEASUREMENT_ACTIVE, m.BH1745_MODE_CONTROL2_RGBC_MEASUREMENT_MASK)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                20, 
+                1, 
+                2, 
+                [
+                    "BH1745", 
+                    80, 
+                    8, 
+                    "BH1745", 
+                    96, 
+                    1
+                ]
+            ], 
+            "odr": 6, 
+            "fmt": "<BHHHHB", 
+            "type": "continuous", 
+            "hdr": "ch!red!green!blue!clear!int"
+        }
+    ], 
+    "configure": [
+        [
+            "BH1745", 
+            64, 
+            139, 
+            "soft_reset/self.set_bit_pattern(r.BH1745_SYSTEM_CONTROL, b.BH1745_SYSTEM_CONTROL_SW_RESET_START, m.BH1745_SYSTEM_CONTROL_SW_RESET_MASK)"
+        ], 
+        [
+            "BH1745", 
+            65, 
+            0, 
+            "set_measurement_time/self.set_bit_pattern(r.BH1745_MODE_CONTROL1, time, m.BH1745_MODE_CONTROL1_ODR_MASK)"
+        ], 
+        [
+            "BH1745", 
+            98, 
+            0, 
+            "enable_data_logging/sensor.write_interrupt_tresholds(1, 0)      # always interrupt, kind of DRDY mode"
+        ], 
+        [
+            "BH1745", 
+            99, 
+            0, 
+            "enable_data_logging/sensor.write_interrupt_tresholds(1, 0)      # always interrupt, kind of DRDY mode"
+        ], 
+        [
+            "BH1745", 
+            100, 
+            1, 
+            "enable_data_logging/sensor.write_interrupt_tresholds(1, 0)      # always interrupt, kind of DRDY mode"
+        ], 
+        [
+            "BH1745", 
+            101, 
+            0, 
+            "enable_data_logging/sensor.write_interrupt_tresholds(1, 0)      # always interrupt, kind of DRDY mode"
+        ], 
+        [
+            "BH1745", 
+            97, 
+            0, 
+            "set_interrupt_persistence/self.set_bit_pattern(r.BH1745_PERSISTENCE, persistence, m.BH1745_PERSISTENCE_OF_INTERRUPT_MASK)"
+        ], 
+        [
+            "BH1745", 
+            96, 
+            1, 
+            "enable_int_pin/self.set_bit_pattern(r.BH1745_INTERRUPT, b.BH1745_INTERRUPT_PIN_ENABLE, m.BH1745_INTERRUPT_PIN_MASK)"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "BH1745", 
+            66, 
+            128, 
+            "stop_measurement/self.set_bit_pattern(r.BH1745_MODE_CONTROL2, b.BH1745_MODE_CONTROL2_RGBC_MEASUREMENT_INACTIVE, m.BH1745_MODE_CONTROL2_RGBC_MEASUREMENT_MASK)"
+        ], 
+        [
+            "BH1745", 
+            65, 
+            64, 
+            "disable_int_pin_active_state/self.set_bit_pattern(r.BH1745_MODE_CONTROL1, b.BH1745_SYSTEM_CONTROL_INT_PIN_INACTIVE, m.BH1745_SYSTEM_CONTROL_INT_PIN_MASK)"
+        ]
+    ], 
+    "doc": "Read color data from BH1745 at 6Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "Count", 
+            "data": "Red,Green,Blue", 
+            "name": "RGB", 
+            "SI_multiplier": "1"
+        }, 
+        {
+            "SI_unit": "Count", 
+            "data": "Clear", 
+            "name": "Clear", 
+            "SI_multiplier": "1"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "BH1745 / 6Hz"
+}

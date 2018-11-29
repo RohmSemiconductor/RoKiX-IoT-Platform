@@ -1,0 +1,108 @@
+{
+    "structure_version": "2.0",
+    "protocol_version": [
+        "2.0"
+    ],
+    "configuration": {
+        "name": "Cypress CY8CKIT-059",
+        "doc": "Cypress CY8CKIT-059 with KX122, KMX62, or KXG07",
+        "board_id": 10,
+        "cpu_freq_mhz": 74,
+        "bus1": {
+            "sensor_defaults": {
+                "polarity": "EVKIT_GPIO_PIN_SENSE_HIGH",
+                "pullup": "EVKIT_GPIO_PIN_NOPULL",
+                "protocol": 1,
+                "axis_map": []
+            },
+            "targets": [
+                {
+                    "name": "spi",
+                    "freq": 9000,
+                    "spi_mode": 0,
+                    "target": 1,
+                    "parts": {
+                        "KX122": {
+                            "cs": 0,
+                            "gpio1": 0,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KXG08": {
+                            "cs": 1,
+                            "gpio1": 0,
+                            "axis_map": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "adc",
+                    "target": 8,
+                    "parts": {
+                        "KXR94": {
+                            "gpio1": 5,
+                            "gpio2": 6,
+                            "gpio3": 7,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ],
+                            "adc_gain": 1.0,
+                            "adc_ref_v": 3.3,
+                            "adc_offset_v": 1.65,
+                            "adc_msg_resolution_int": 12,
+                            "adc_msg_gain_enum": 0,
+                            "adc_msg_conversion_time_us": 0,
+                            "adc_msg_oversampling_enum": 0,
+                            "gpio_conf": [
+                                [
+                                    15,
+                                    16
+                                ],
+                                [
+                                    1,
+                                    0
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "bus2": {
+            "connections": [
+                {
+                    "connection": "USB_SERIAL",
+                    "vid": 1205,
+                    "pid": 1537,
+                    "packet_per_second": 400,
+                    "baud_rate": 1000000,
+                    "xonxoff": false,
+                    "rtscts": false,
+                    "start_up_delay_ms": 0,
+                    "com_port_name": [
+                        "Cypress USB UART",
+                        "USB Serial Device"
+                    ]
+                }
+            ]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_rokix_cy8ckit059"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}

@@ -1,0 +1,640 @@
+<root>
+ <sensor doc="Specification; KXCNL-1010, rev 1.0" name="KXCNL">
+  <register address="13" mode="R" name="INFO1" value_type="uint8">
+   <fields>
+    <field doc="This register can be used for optional supplier information." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="14" mode="R" name="INFO2" value_type="uint8">
+   <fields>
+    <field doc="A second register can be used for optional supplier information." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="15" doc="This register can be used for supplier recognition (Who I Am ID)," mode="R" name="WIA" por="11" value_type="uint8">
+   <fields>
+    <field mask="255" name="WIA" size="8" start_pos="0">
+     <enums>
+      <item doc="WHO_AM_I -value" name="ID" value="11">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="16" mode="R" name="OUTX_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="17" info="bypass" mode="R" name="OUTX_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="18" mode="R" name="OUTY_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="19" info="bypass" mode="R" name="OUTY_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="20" mode="R" name="OUTZ_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="21" info="bypass" mode="R" name="OUTZ_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="22" doc="These two registers contain up to 16-bits of long counter information." mode="R" name="LC_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="23" info="bypass" mode="R/W" name="LC_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="24" doc="This register reports the status of the accelerometer outputs" mode="R" name="STAT">
+   <fields>
+    <field doc="is the long counter interrupt and is common to both State Programs" mask="128" name="LONG" size="1" start_pos="7">
+    </field>
+    <field doc="provides common information for OUTW host action waiting" mask="64" name="SYNCW" size="1" start_pos="6">
+    </field>
+    <field doc="reports the synchronization status of State Program 1." mask="32" name="SYNC1" size="1" start_pos="5">
+    </field>
+    <field doc="reports the synchronization status of State Program 2." mask="16" name="SYNC2" size="1" start_pos="4">
+    </field>
+    <field doc="reports the interrupt status of State Program 1" mask="8" name="INT_SM1" size="1" start_pos="3">
+    </field>
+    <field doc="reports the interrupt status of State Program 2." mask="4" name="INT_SM2" size="1" start_pos="2">
+    </field>
+    <field doc="reports a data overrun condition" mask="2" name="DOR" size="1" start_pos="1">
+    </field>
+    <field doc="reports the data ready condition" mask="1" name="DRDY" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="25" mode="R" name="PEAK1" value_type="uint8">
+   <fields>
+    <field doc="Peak detector value for Next condition of State Program 1." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="26" mode="R" name="PEAK2" value_type="uint8">
+   <fields>
+    <field doc="Peak detector value for Next condition of State Program 2" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="27" doc="Read/write control register that controls the main feature set" mode="R/W" name="CNTL1">
+   <fields>
+    <field doc="controls the operating mode of the KXCNL." mask="128" name="PC" size="1" start_pos="7">
+    </field>
+    <field doc="sets the g-range for the accelerometer outputs" mask="96" name="SC" size="2" start_pos="5">
+     <enums>
+      <item doc="2g" name="2g" value="0">
+      </item>
+      <item doc="4g" name="4g" value="1">
+      </item>
+      <item doc="6g" name="6g" value="2">
+      </item>
+      <item doc="8g" name="8g" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="sets the output data rate for the accelerometer outputs" mask="28" name="ODR" size="3" start_pos="2">
+     <enums>
+      <item doc="3.125Hz" name="3p125" value="0">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="1">
+      </item>
+      <item doc="12.5Hz" name="12p5" value="2">
+      </item>
+      <item doc="25Hz" name="25" value="3">
+      </item>
+      <item doc="50Hz" name="50" value="4">
+      </item>
+      <item doc="100Hz" name="100" value="5">
+      </item>
+      <item doc="400Hz" name="400" value="6">
+      </item>
+      <item doc="1600Hz" name="1600" value="7">
+      </item>
+     </enums>
+    </field>
+    <field doc="controls the State Program Step Debug mode" mask="2" name="DEBUG" size="1" start_pos="1">
+    </field>
+    <field doc="is the main interrupt enable switch" mask="1" name="IEN" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="28" doc="Read/write control register that controls the State Program 1." mode="R/W" name="CNTL2">
+   <fields>
+    <field doc="sets the (unsigned) hysteresis limit" mask="224" name="HYST1" size="3" start_pos="5">
+    </field>
+    <field doc="controls the routing of the State Program 1 interrupt." mask="8" name="SM1_PIN" size="1" start_pos="3">
+    </field>
+    <field doc="enables State Program 1." mask="1" name="SM1_EN" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="29" doc="Read/write control register that controls the State Program 2." mode="R/W" name="CNTL3">
+   <fields>
+    <field doc="sets the (unsigned) hysteresis limit" mask="224" name="HYST2" size="3" start_pos="5">
+    </field>
+    <field doc="controls the routing of the State Program 1 interrupt." mask="8" name="SM2_PIN" size="1" start_pos="3">
+    </field>
+    <field doc="enables State Program 1." mask="1" name="SM2_EN" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="30" doc="Read/write control register that controls several functions of the KXCNL." mode="R/W" name="CNTL4">
+   <fields>
+    <field doc="sends the data ready signal (DRDY) to the INT1 pin." mask="128" name="DR_EN" size="1" start_pos="7">
+    </field>
+    <field doc="controls the polarity of interrupt signals" mask="64" name="IEA" size="1" start_pos="6">
+    </field>
+    <field doc="controls the latching state of interrupt signals" mask="32" name="IEL" size="1" start_pos="5">
+    </field>
+    <field doc="enables the INT2 pin." mask="16" name="INT2_EN" size="1" start_pos="4">
+    </field>
+    <field doc="enables the INT1/DRDY pin." mask="8" name="INT1_EN" size="1" start_pos="3">
+    </field>
+    <field doc="enables or disables the Vector Filter" mask="4" name="VFILT" size="1" start_pos="2">
+    </field>
+    <field doc="controls the activation of self test" mask="2" name="STP" size="1" start_pos="1">
+    </field>
+    <field doc="performs a Soft Reset" mask="1" name="STRT" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="31" mode="R/W" name="THRS3" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="32" mode="R/W" name="OFF_X" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="33" mode="R/W" name="OFF_Y" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="34" mode="R/W" name="OFF_Z" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="36" mode="R/W" name="CS_X" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="37" mode="R/W" name="CS_Y" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="38" mode="R/W" name="CS_Z" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="40" mode="R/W" name="X_DEBUG" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="41" mode="R/W" name="Y_DEBUG" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="42" mode="R/W" name="Z_DEBUG" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="44" mode="R/W" name="VFC_1" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="45" mode="R/W" name="VFC_2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="46" mode="R/W" name="VFC_3" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="47" mode="R/W" name="VFC_4" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="64" mode="R/W" name="ST1_1">
+   <fields>
+    <field mask="240" name="reset" size="4" start_pos="4">
+     <enums>
+      <item name="NOP" value="0">
+      </item>
+      <item name="TI1" value="1">
+      </item>
+      <item name="TI2" value="2">
+      </item>
+      <item name="TI3" value="3">
+      </item>
+      <item name="TI4" value="4">
+      </item>
+      <item name="GNTH1" value="5">
+      </item>
+      <item name="GNTH2" value="6">
+      </item>
+      <item name="LNTH1" value="7">
+      </item>
+      <item name="LNTH2" value="8">
+      </item>
+      <item name="GTTH1" value="9">
+      </item>
+      <item name="LLTH2" value="10">
+      </item>
+      <item name="GRTH1" value="11">
+      </item>
+      <item name="LRTH1" value="12">
+      </item>
+      <item name="GRTH2" value="13">
+      </item>
+      <item name="LRTH2" value="14">
+      </item>
+      <item name="NZERO" value="15">
+      </item>
+     </enums>
+    </field>
+    <field mask="15" name="next" size="4" start_pos="0">
+     <enums>
+      <item name="NOP" value="0">
+      </item>
+      <item name="TI1" value="1">
+      </item>
+      <item name="TI2" value="2">
+      </item>
+      <item name="TI3" value="3">
+      </item>
+      <item name="TI4" value="4">
+      </item>
+      <item name="GNTH1" value="5">
+      </item>
+      <item name="GNTH2" value="6">
+      </item>
+      <item name="LNTH1" value="7">
+      </item>
+      <item name="LNTH2" value="8">
+      </item>
+      <item name="GTTH1" value="9">
+      </item>
+      <item name="LLTH2" value="10">
+      </item>
+      <item name="GRTH1" value="11">
+      </item>
+      <item name="LRTH1" value="12">
+      </item>
+      <item name="GRTH2" value="13">
+      </item>
+      <item name="LRTH2" value="14">
+      </item>
+      <item name="NZERO" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="80" mode="R/W" name="TIM4_1" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="81" mode="R/W" name="TIM3_1" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="82" mode="R/W" name="TIM2_1_L" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="83" mode="R/W" name="TIM2_1_H" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="84" mode="R/W" name="TIM1_1_L" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="85" mode="R/W" name="TIM1_1_H" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="86" mode="R/W" name="THRS2_1" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="87" mode="R/W" name="THRS1_1" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="89" mode="R/W" name="SA1">
+   <fields>
+    <field mask="128" name="P_X" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="N_X" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="P_Y" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="N_Y" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="P_Z" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="N_Z" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="P_V" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="N_V" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="90" mode="R/W" name="MA1">
+   <fields>
+    <field mask="128" name="P_X" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="N_X" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="P_Y" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="N_Y" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="P_Z" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="N_Z" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="P_V" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="N_V" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="91" mode="R/W" name="SETT1">
+   <fields>
+    <field mask="128" name="P_DET" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="THR3_SA" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="ABS" size="1" start_pos="5">
+     <enums>
+      <item name="UNSIGNED" value="0">
+      </item>
+      <item name="SIGNED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="4" name="THR3_MA" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="R_TAM" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="SITR" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="92" mode="R/W" name="PPRP1">
+   <fields>
+    <field mask="240" name="RESET_POINT" size="4" start_pos="4">
+    </field>
+    <field mask="15" name="PROGRAM_COUNTER" size="4" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="93" mode="R" name="TC1_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="94" info="bypass" mode="R/W" name="TC1_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="95" mode="R/W" name="OUTS1">
+   <fields>
+    <field mask="128" name="P_X" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="N_X" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="P_Y" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="N_Y" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="P_Z" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="N_Z" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="P_V" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="N_V" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="96" mode="R/W" name="ST1_2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="112" mode="R/W" name="TIM4_2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="113" mode="R/W" name="TIM3_2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="114" mode="R/W" name="TIM2_2_L" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="115" mode="R/W" name="TIM2_2_H" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="116" mode="R/W" name="TIM1_2_L" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="117" mode="R/W" name="TIM1_2_H" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="118" mode="R/W" name="THRS2_2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="119" mode="R/W" name="THRS1_2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="120" mode="R/W" name="DES2" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="121" mode="R/W" name="SA2">
+   <fields>
+    <field mask="128" name="P_X" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="N_X" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="P_Y" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="N_Y" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="P_Z" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="N_Z" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="P_V" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="N_V" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="122" mode="R/W" name="MA2">
+   <fields>
+    <field mask="128" name="P_X" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="N_X" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="P_Y" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="N_Y" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="P_Z" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="N_Z" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="P_V" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="N_V" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="123" mode="R/W" name="SETT2">
+   <fields>
+    <field mask="128" name="P_DET" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="THR3_SA" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="ABS" size="1" start_pos="5">
+     <enums>
+      <item name="UNSIGNED" value="0">
+      </item>
+      <item name="SIGNED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="16" name="RADI" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="D_CS" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="THR3_MA" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="R_TAM" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="SITR" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="124" mode="R/W" name="PPRP2">
+   <fields>
+    <field mask="240" name="RESET_POINT" size="4" start_pos="4">
+    </field>
+    <field mask="15" name="PROGRAM_COUNTER" size="4" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="125" mode="R" name="TC2_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="126" info="bypass" mode="R/W" name="TC2_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="127" mode="R/W" name="OUTS2">
+   <fields>
+    <field mask="128" name="P_X" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="N_X" size="1" start_pos="6">
+    </field>
+    <field mask="32" name="P_Y" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="N_Y" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="P_Z" size="1" start_pos="3">
+    </field>
+    <field mask="4" name="N_Z" size="1" start_pos="2">
+    </field>
+    <field mask="2" name="P_V" size="1" start_pos="1">
+    </field>
+    <field mask="1" name="N_V" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+ </sensor>
+</root>

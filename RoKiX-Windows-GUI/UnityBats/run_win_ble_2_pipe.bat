@@ -1,0 +1,1 @@
+..\\RoKiX.exe --cli --pipe --quaternion -c "win_ble"

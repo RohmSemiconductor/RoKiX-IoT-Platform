@@ -1,0 +1,146 @@
+<root>
+ <sensor doc="Specification bh1790glc, rev 003" name="bh1790" sad="91">
+  <register address="15" info="bypass" mode="INFO" name="REGISTER_DUMP_START">
+   <fields>
+   </fields>
+  </register>
+  <register address="15" mode="R" name="MANUFACTURER_ID" por="224" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="16" mode="R" name="PART_ID" por="13" value_type="uint8">
+   <fields>
+    <field mask="255" size="8" start_pos="0">
+    </field>
+    <field mask="255" name="WIA" size="8" start_pos="0">
+     <enums>
+      <item doc="WHO_AM_I -value" name="ID" value="13">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="64" doc="Soft reset" mode="R/W" name="RESET" por="0">
+   <fields>
+    <field doc="1 : Software reset is performed" mask="128" name="SWRESET" size="1" start_pos="7">
+    </field>
+   </fields>
+  </register>
+  <register address="65" doc="System control setting" mode="R/W" name="MEAS_CONTROL1" por="0">
+   <fields>
+    <field doc="1 : OSC block is active" mask="128" name="RDY" size="1" start_pos="7">
+     <enums>
+      <item doc="OSC block is inactive" name="Disable" value="0">
+      </item>
+      <item doc="OSC block is active" name="Enable" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Select LED omitting frequency" mask="4" name="LED_LIGHTING_FREQ" size="1" start_pos="2">
+     <enums>
+      <item name="128Hz" value="0">
+      </item>
+      <item name="64Hz" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Select Data reading frequency" mask="3" name="RCYCLE" size="2" start_pos="0">
+     <enums>
+      <item name="Prohibited1" value="0">
+      </item>
+      <item name="64Hz" value="1">
+      </item>
+      <item name="32Hz" value="2">
+      </item>
+      <item name="Prohibited2" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="66" doc="Measurement control setting" mode="R/W" name="MEAS_CONTROL2" por="0">
+   <fields>
+    <field doc="LED driver mode" mask="128" name="LED2_EN" size="1" start_pos="7">
+     <enums>
+      <item name="PULSED" value="0">
+      </item>
+      <item name="CONSTANT" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="LED driver mode" mask="64" name="LED1_EN" size="1" start_pos="6">
+     <enums>
+      <item name="PULSED" value="0">
+      </item>
+      <item name="CONSTANT" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="LED emitting time" mask="32" name="LED_ON_TIME" size="1" start_pos="5">
+     <enums>
+      <item doc="us" name="216t_osc" value="0">
+      </item>
+      <item doc="us" name="432t_osc" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="LED lighting current" mask="15" name="LED_CURRENT" size="4" start_pos="0">
+     <enums>
+      <item name="0mA" value="0">
+      </item>
+      <item name="1mA" value="8">
+      </item>
+      <item name="2mA" value="9">
+      </item>
+      <item name="3mA" value="10">
+      </item>
+      <item name="6mA" value="11">
+      </item>
+      <item name="10mA" value="12">
+      </item>
+      <item name="20mA" value="13">
+      </item>
+      <item name="30mA" value="14">
+      </item>
+      <item name="60mA" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="67" doc="Measurement start" mode="R/W" name="MEAS_START" por="0">
+   <fields>
+    <field doc="Flag of start measurement. (Write RDY=1 before this to start measurement)" mask="1" name="MEAS_ST" size="1" start_pos="0">
+     <enums>
+      <item name="Stop" value="0">
+      </item>
+      <item name="Start" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="84" mode="R" name="DATAOUT_LEDOFF_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="85" info="bypass" mode="R" name="DATAOUT_LEDOFF_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="86" mode="R" name="DATAOUT_LEDON_L" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="87" doc="Restarts measurement." info="bypass" mode="R" name="DATAOUT_LEDON_H" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="87" info="bypass" mode="INFO" name="REGISTER_DUMP_END">
+   <fields>
+   </fields>
+  </register>
+ </sensor>
+</root>

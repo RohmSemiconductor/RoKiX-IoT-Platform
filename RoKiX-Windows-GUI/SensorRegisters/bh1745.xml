@@ -1,0 +1,262 @@
+<root>
+ <sensor name="bh1745" sad="57">
+  <register address="64" info="bypass" mode="INFO" name="REGISTER_DUMP_START">
+   <fields>
+   </fields>
+  </register>
+  <register address="64" mode="R/W" name="SYSTEM_CONTROL" por="11">
+   <fields>
+    <field doc="In specification named as SW_RESET" mask="128" name="SW_RESET" size="1" start_pos="7">
+     <enums>
+      <item doc="Initial reset is not started" name="not_started" value="0">
+      </item>
+      <item doc="Initial reset is started" name="start" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="INT_PIN" size="1" start_pos="6">
+     <enums>
+      <item doc='In specification "not_initialized"' name="active" value="0">
+      </item>
+      <item doc="high impedance" name="inactive" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="63" name="PART" size="6" start_pos="0">
+     <enums>
+      <item name="id" value="11">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="65" doc="Writing MODE_CONTROL1/2/3 restarts measurement if any." mode="R/W" name="MODE_CONTROL1" por="0">
+   <fields>
+    <field mask="248" name="RESERVED" size="5" start_pos="3">
+     <enums>
+      <item name="write00000" value="0">
+      </item>
+     </enums>
+    </field>
+    <field mask="7" name="ODR" size="3" start_pos="0">
+     <enums>
+      <item doc="160msec" name="6p25" value="0">
+      </item>
+      <item doc="320msec" name="3p125" value="1">
+      </item>
+      <item doc="640msec" name="1p5625" value="2">
+      </item>
+      <item doc="1280msec" name="0p78125" value="3">
+      </item>
+      <item doc="2560msec" name="0p390625" value="4">
+      </item>
+      <item doc="5120msec" name="0p1953125" value="5">
+      </item>
+      <item doc="forbidden6" name="forbidden6" value="6">
+      </item>
+      <item doc="forbidden7" name="forbidden7" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="66" mode="R/W" name="MODE_CONTROL2" por="0">
+   <fields>
+    <field doc="Is the RGBC data updated after last MODE_CONTROL1/2 reg writing or MODE_CONTROL2 reading. In specification named as VALID." mask="128" name="DATA_UPDATED" size="1" start_pos="7">
+     <enums>
+      <item name="no" value="0">
+      </item>
+      <item name="yes" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="write 00" mask="96" name="RESERVED65" size="2" start_pos="5">
+     <enums>
+      <item name="write00" value="0">
+      </item>
+     </enums>
+    </field>
+    <field doc="In specification named as RGBC_EN" mask="16" name="RGBC_MEASUREMENT" size="1" start_pos="4">
+     <enums>
+      <item name="inactive" value="0">
+      </item>
+      <item name="active" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="write 00" mask="12" name="RESERVED32" size="2" start_pos="2">
+     <enums>
+      <item name="write00" value="0">
+      </item>
+     </enums>
+    </field>
+    <field doc="RGBC measurement ADC gain (multiplier)" mask="3" name="ADC_GAIN" size="2" start_pos="0">
+     <enums>
+      <item name="1x" value="0">
+      </item>
+      <item name="2x" value="1">
+      </item>
+      <item name="16x" value="2">
+      </item>
+      <item name="forbidden3" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="68" doc="Always write 02h" mode="R/W" name="MODE_CONTROL3" por="2" value_type="uint8">
+   <fields>
+    <field mask="255" name="always" size="8" start_pos="0">
+     <enums>
+      <item name="02h" value="2">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="80" doc="Least significant byte of uint16 RED measurement value" mode="R" name="RED_DATA_LSBs" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="81" doc="Most significant byte of uint16 RED measurement value" info="bypass" mode="R" name="RED_DATA_MSBs" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="82" mode="R" name="GREEN_DATA_LSBs" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="83" info="bypass" mode="R" name="GREEN_DATA_MSBs" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="84" mode="R" name="BLUE_DATA_LSBs" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="85" info="bypass" mode="R" name="BLUE_DATA_MSBs" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="86" mode="R" name="CLEAR_DATA_LSBs" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="87" info="bypass" mode="R" name="CLEAR_DATA_MSBs" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="88" doc="DINT data is used for internal calculation of BH1745NUC." mode="R" name="DINT_DATA_LSBs" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="89" doc="DINT registers are used for IC test only." info="bypass" mode="R" name="DINT_DATA_MSBs" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="96" mode="R/W" name="INTERRUPT" por="0">
+   <fields>
+    <field doc="INT status of RGBC (read only)" mask="128" name="STATUS" size="1" start_pos="7">
+     <enums>
+      <item name="inactive" value="0">
+      </item>
+      <item name="active" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="96" name="RESERVED65" size="2" start_pos="5">
+     <enums>
+      <item name="write00" value="0">
+      </item>
+     </enums>
+    </field>
+    <field doc="In specification named as INT LATCH" mask="16" name="LATCH" size="1" start_pos="4">
+     <enums>
+      <item doc="INT pin is latched until INTERRUPT register is read or initialized" name="enable" value="0">
+      </item>
+      <item doc="INT pin is updated after each measurement" name="disable" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="12" name="SOURCE" size="2" start_pos="2">
+     <enums>
+      <item doc="red channel" name="select_red" value="0">
+      </item>
+      <item doc="green channel" name="select_green" value="1">
+      </item>
+      <item doc="blue channel" name="select_blue" value="2">
+      </item>
+      <item doc="clear channel" name="select_clear" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Write 0" mask="2" name="RESERVED1" size="1" start_pos="1">
+     <enums>
+      <item name="write0" value="0">
+      </item>
+     </enums>
+    </field>
+    <field doc="In specification named as INT ENABLE" mask="1" name="PIN" size="1" start_pos="0">
+     <enums>
+      <item name="disable" value="0">
+      </item>
+      <item name="enable" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="97" mode="R/W" name="PERSISTENCE" por="1">
+   <fields>
+    <field mask="252" name="RESERVED72" size="6" start_pos="2">
+     <enums>
+      <item name="write000000" value="0">
+      </item>
+     </enums>
+    </field>
+    <field doc="In specification named as PERSISTENCE" mask="3" name="OF_INTERRUPT" size="2" start_pos="0">
+     <enums>
+      <item doc="Interrupt status is toggled at each measurement end." name="status_toggle_after_measurement" value="0">
+      </item>
+      <item doc="Interrupt status is updated at each measurement end." name="status_update_after_measurement" value="1">
+      </item>
+      <item doc="Interrupt status is updated if 4 consecutive threshold judgements are the same" name="status_update_after_4_same" value="2">
+      </item>
+      <item doc="Interrupt status is updated if 8 consecutive threshold judgements are the same" name="status_update_after_8_same" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="98" mode="R/W" name="TH_LSBs" por="255">
+   <fields>
+   </fields>
+  </register>
+  <register address="99" mode="R/W" name="TH_MSBs" por="255">
+   <fields>
+   </fields>
+  </register>
+  <register address="100" mode="R/W" name="TL_LSBs" por="0">
+   <fields>
+   </fields>
+  </register>
+  <register address="101" mode="R/W" name="TL_MSBs" por="0">
+   <fields>
+   </fields>
+  </register>
+  <register address="146" mode="R" name="ID_REG" por="224" value_type="uint8">
+   <fields>
+    <field mask="255" name="MANUFACTURER" size="8" start_pos="0">
+     <enums>
+      <item name="id" value="224">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="146" info="bypass" mode="INFO" name="REGISTER_DUMP_END">
+   <fields>
+   </fields>
+  </register>
+ </sensor>
+</root>

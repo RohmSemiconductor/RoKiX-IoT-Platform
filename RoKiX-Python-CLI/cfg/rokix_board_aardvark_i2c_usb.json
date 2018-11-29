@@ -1,0 +1,55 @@
+{
+    "structure_version": "2.0",
+    "protocol_version": [
+        "2.0"
+    ],
+    "configuration": {
+        "name": "Aardvark I2C connection",
+        "doc": "Aardvark I2C connection",
+        "board_id": -1,
+        "bus1": {
+            "sensor_defaults": {
+                "polarity": "EVKIT_GPIO_PIN_SENSE_HIGH",
+                "pullup": "EVKIT_GPIO_PIN_NOPULL",
+                "axis_map": []
+            },
+            "targets": [
+                {
+                    "target": -1,
+                    "freq": -1,
+                    "name": "i2c",
+                    "port_index": 0,
+                    "aa_gpio_direction": 0,
+                    "aa_gpio_pullup": 0,
+                    "aa_i2c_pullup": "AA_I2C_PULLUP_BOTH",
+                    "aa_target_power": "AA_TARGET_POWER_BOTH",
+                    "bitrate_i2c": 400,
+                    "polarity": "RISING_FALLING",
+                    "phase": "SAMPLE_SETUP",
+                    "bitorder": "MSB",
+                    "ss_polarity": "ACTIVE_LOW",
+                    "bitrate_spi": 4000,
+                    "parts": {
+                        "KX122": {
+                            "SAD": 31,
+                            "gpio1": 1,
+                            "gpio2": 2,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "bus2": {
+            "connections": [
+                {
+                    "connection": "USB_AARDVARK"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,93 @@
+{
+    "activate": [
+        [
+            "KXTJ3", 
+            27, 
+            0, 
+            "set_power_off/self.reset_bit(r.KXTJ3_CTRL_REG1, b.KXTJ3_CTRL_REG1_PC)"
+        ], 
+        [
+            "KXTJ3", 
+            33, 
+            3, 
+            "set_odr/self.set_bit_pattern(r.KXTJ3_DATA_CTRL_REG, osa, m.KXTJ3_DATA_CTRL_REG_OSA_MASK)"
+        ], 
+        [
+            "KXTJ3", 
+            27, 
+            0, 
+            "set_range/self.set_bit_pattern(r.KXTJ3_CTRL_REG1, gsel, m.KXTJ3_CTRL_REG1_GSEL_MASK)"
+        ], 
+        [
+            "KXTJ3", 
+            27, 
+            64, 
+            "enable_data_logging/sensor.set_bit(r.KXTJ3_CTRL_REG1, b.KXTJ3_CTRL_REG1_RES)# high resolution mode"
+        ], 
+        [
+            "KXTJ3", 
+            27, 
+            96, 
+            "enable_drdy/self.set_bit(r.KXTJ3_CTRL_REG1, b.KXTJ3_CTRL_REG1_DRDYE)"
+        ], 
+        [
+            "KXTJ3", 
+            27, 
+            224, 
+            "set_power_on/self.set_bit(r.KXTJ3_CTRL_REG1, b.KXTJ3_CTRL_REG1_PC)"
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                16, 
+                1, 
+                2, 
+                [
+                    "KXTJ3", 
+                    6, 
+                    6
+                ]
+            ], 
+            "odr": 100, 
+            "fmt": "<Bhhh", 
+            "type": "continuous", 
+            "hdr": "ch!ax!ay!az"
+        }
+    ], 
+    "configure": [
+        [
+            "KXTJ3", 
+            29, 
+            128, 
+            "por/self.set_bit(r.KXTJ3_CTRL_REG2, b.KXTJ3_CTRL_REG2_SRST)"
+        ], 
+        [
+            "KXTJ3", 
+            30, 
+            32, 
+            "enable_data_logging/sensor.reset_bit(r.KXTJ3_INT_CTRL_REG1, b.KXTJ3_INT_CTRL_REG1_IEA)# active low"
+        ]
+    ], 
+    "structure_version": "1.0", 
+    "deactivate": [
+        [
+            "KXTJ3", 
+            27, 
+            96, 
+            "set_power_off/self.reset_bit(r.KXTJ3_CTRL_REG1, b.KXTJ3_CTRL_REG1_PC)"
+        ]
+    ], 
+    "doc": "Read accelerometer data from KXTJ3 at 100 Hz ODR on 2g high performance mode", 
+    "channels": [
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 1024"
+        }
+    ], 
+    "register_dump": [], 
+    "protocol_version": "1.1", 
+    "name": "KXTJ3 / 100Hz"
+}

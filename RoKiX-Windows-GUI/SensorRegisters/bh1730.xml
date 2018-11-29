@@ -1,0 +1,164 @@
+<root>
+ <sensor name="bh1730" sad="41">
+  <register address="128" mode="R/W" name="CONTROL" por="0">
+   <fields>
+    <field mask="32" name="ADC_INTR" size="1" start_pos="5">
+     <enums>
+      <item name="inactive" value="0">
+      </item>
+      <item name="active" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="16" name="ADC_VALID" size="1" start_pos="4">
+    </field>
+    <field mask="8" name="ONE_TIME" size="1" start_pos="3">
+     <enums>
+      <item name="continous" value="0">
+      </item>
+      <item name="onetime" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="4" name="DATA_SEL" size="1" start_pos="2">
+     <enums>
+      <item name="type0_and_1" value="0">
+      </item>
+      <item name="type0" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="2" name="ADC_EN" size="1" start_pos="1">
+     <enums>
+      <item name="Disable" value="0">
+      </item>
+      <item name="Enable" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="1" name="POWER" size="1" start_pos="0">
+     <enums>
+      <item name="Disable" value="0">
+      </item>
+      <item name="Enable" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="129" mode="R/W" name="TIMING" por="218" value_type="uint8">
+   <fields>
+    <field doc="ITIME. Integration time is (256-ITIME)*2,7ms (0 means manual integration)" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="130" mode="R/W" name="INTERRUPT" por="0">
+   <fields>
+    <field doc="reset by writing 0" mask="128" name="RES7" size="1" start_pos="7">
+    </field>
+    <field mask="64" name="INT_STOP" size="1" start_pos="6">
+     <enums>
+      <item name="continuous" value="0">
+      </item>
+      <item name="stopped" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="reset by writing 0" mask="32" name="RES5" size="1" start_pos="5">
+    </field>
+    <field mask="16" name="INT_EN" size="1" start_pos="4">
+     <enums>
+      <item name="invalid" value="0">
+      </item>
+      <item name="valid" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Threshold persistent. Samples to cross threshold before interrupt updated. Zero means interrupt active at each measurement end." mask="15" name="PERSIST" size="4" start_pos="0">
+     <enums>
+      <item name="toggle_after_measurement" value="0">
+      </item>
+      <item name="update_after_measurement" value="1">
+      </item>
+      <item name="update_after_2_same" value="2">
+      </item>
+      <item name="update_after_3_same" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="131" mode="R" name="THLLOW" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="132" info="bypass" mode="R/W" name="THLHIGH" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="133" mode="R" name="THHLOW" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="134" info="bypass" mode="R/W" name="THHHIGH" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="135" mode="R/W" name="GAIN" por="0">
+   <fields>
+    <field mask="248" name="RES" size="5" start_pos="3">
+     <enums>
+      <item name="Write00000" value="0">
+      </item>
+     </enums>
+    </field>
+    <field mask="7" name="GAIN" size="3" start_pos="0">
+     <enums>
+      <item name="X1_gain" value="0">
+      </item>
+      <item name="X2_gain" value="1">
+      </item>
+      <item name="X64_gain" value="2">
+      </item>
+      <item name="X128_gain" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="146" mode="R" name="OPART_ID" por="113" value_type="uint8">
+   <fields>
+    <field mask="255" name="WIA" size="8" start_pos="0">
+     <enums>
+      <item doc="WHO_AM_I -value" name="ID" value="113">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="148" mode="R" name="DATA0LOW" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="149" info="bypass" mode="R" name="DATA0HIGH" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="150" mode="R" name="DATA1LOW" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="151" info="bypass" mode="R" name="DATA1HIGH" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="225" doc="Reset interrupt" mode="R/W" name="INT_RESET" por="0">
+   <fields>
+   </fields>
+  </register>
+  <register address="228" doc="Software reset" mode="R/W" name="RESET" por="0">
+   <fields>
+   </fields>
+  </register>
+ </sensor>
+</root>

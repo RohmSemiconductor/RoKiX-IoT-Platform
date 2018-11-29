@@ -1,0 +1,344 @@
+<root>
+ <sensor doc="Specification rev 003 (RPR0018E)" name="rpr0521" sad="56">
+  <register address="64" info="bypass" mode="INFO" name="REGISTER_DUMP_START">
+   <fields>
+   </fields>
+  </register>
+  <register address="64" mode="R/W" name="SYSTEM_CONTROL" por="10">
+   <fields>
+    <field mask="128" name="sw_reset" size="1" start_pos="7">
+     <enums>
+      <item name="not_started" value="0">
+      </item>
+      <item name="start" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="int_pin" size="1" start_pos="6">
+     <enums>
+      <item name="no_init" value="0">
+      </item>
+      <item name="hi_z" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="63" name="part" size="6" start_pos="0">
+     <enums>
+      <item name="id" value="10">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="65" mode="R/W" name="MODE_CONTROL" por="0">
+   <fields>
+    <field mask="128" name="als_en" size="1" start_pos="7">
+     <enums>
+      <item name="false" value="0">
+      </item>
+      <item name="true" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="ps_en" size="1" start_pos="6">
+     <enums>
+      <item name="false" value="0">
+      </item>
+      <item name="true" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="32" name="ps_pulse" size="1" start_pos="5">
+     <enums>
+      <item name="200us" value="0">
+      </item>
+      <item name="330us" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="16" name="ps_operating_mode" size="1" start_pos="4">
+     <enums>
+      <item name="normal" value="0">
+      </item>
+      <item name="double_measurement" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="(ALS)ms_(PS)ms" mask="15" name="measurement_time" size="4" start_pos="0">
+     <enums>
+      <item name="off_off" value="0">
+      </item>
+      <item name="off_10ms" value="1">
+      </item>
+      <item name="off_40ms" value="2">
+      </item>
+      <item name="off_100ms" value="3">
+      </item>
+      <item name="off_400ms" value="4">
+      </item>
+      <item name="100ms_50ms" value="5">
+      </item>
+      <item name="100ms_100ms" value="6">
+      </item>
+      <item name="100ms_400ms" value="7">
+      </item>
+      <item doc="ALS measurement time is 100ms, sleep time is 300ms" name="400ms_50ms" value="8">
+      </item>
+      <item doc="ALS measurement time is 100ms, sleep time is 300ms" name="400ms_100ms" value="9">
+      </item>
+      <item doc="Measurement time 400ms, high sensitivity mode." name="400ms_off" value="10">
+      </item>
+      <item name="400ms_400ms" value="11">
+      </item>
+      <item doc="Additional sw process is necessary. Check P.18" name="50ms_50ms" value="12">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="66" mode="R/W" name="ALS_PS_CONTROL" por="2">
+   <fields>
+    <field mask="192" name="reserved67" size="2" start_pos="6">
+     <enums>
+      <item name="write_00" value="0">
+      </item>
+     </enums>
+    </field>
+    <field mask="48" name="als_data0_gain" size="2" start_pos="4">
+     <enums>
+      <item name="x1" value="0">
+      </item>
+      <item name="x2" value="1">
+      </item>
+      <item name="x64" value="2">
+      </item>
+      <item name="x128" value="3">
+      </item>
+     </enums>
+    </field>
+    <field mask="12" name="als_data1_gain" size="2" start_pos="2">
+     <enums>
+      <item name="x1" value="0">
+      </item>
+      <item name="x2" value="1">
+      </item>
+      <item name="x64" value="2">
+      </item>
+      <item name="x128" value="3">
+      </item>
+     </enums>
+    </field>
+    <field mask="3" name="led_current" size="2" start_pos="0">
+     <enums>
+      <item name="25ma" value="0">
+      </item>
+      <item name="50ma" value="1">
+      </item>
+      <item name="100ma" value="2">
+      </item>
+      <item name="200ma" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="67" mode="R/W" name="PS_CONTROL" por="1">
+   <fields>
+    <field mask="192" name="ambient_ir_flag" size="2" start_pos="6">
+     <enums>
+      <item name="low" value="0">
+      </item>
+      <item name="high" value="1">
+      </item>
+      <item name="too_high" value="2">
+      </item>
+     </enums>
+    </field>
+    <field mask="48" name="ps_gain" size="2" start_pos="4">
+     <enums>
+      <item name="x1" value="0">
+      </item>
+      <item name="x2" value="1">
+      </item>
+      <item name="x4" value="2">
+      </item>
+     </enums>
+    </field>
+    <field mask="15" name="persistence" size="4" start_pos="0">
+     <enums>
+      <item name="drdy" value="0">
+      </item>
+      <item name="consecutive_1" value="1">
+      </item>
+      <item name="consecutive_2" value="2">
+      </item>
+      <item name="consecutive_3" value="3">
+      </item>
+      <item name="consecutive_4" value="4">
+      </item>
+      <item name="consecutive_5" value="5">
+      </item>
+      <item name="consecutive_6" value="6">
+      </item>
+      <item name="consecutive_7" value="7">
+      </item>
+      <item name="consecutive_8" value="8">
+      </item>
+      <item name="consecutive_9" value="9">
+      </item>
+      <item name="consecutive_10" value="10">
+      </item>
+      <item name="consecutive_11" value="11">
+      </item>
+      <item name="consecutive_12" value="12">
+      </item>
+      <item name="consecutive_13" value="13">
+      </item>
+      <item name="consecutive_14" value="14">
+      </item>
+      <item name="consecutive_15" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="68" mode="R" name="PS_DATA_LSBs" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="69" info="bypass" mode="R" name="PS_DATA_MSBs" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="70" mode="R" name="ALS_DATA0_LSBs" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="71" info="bypass" mode="R" name="ALS_DATA0_MSBs" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="72" mode="R" name="ALS_DATA1_LSBs" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="73" info="bypass" mode="R" name="ALS_DATA1_MSBs" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="74" mode="R/W" name="INTERRUPT" por="0">
+   <fields>
+    <field mask="128" name="ps_int_status" size="1" start_pos="7">
+     <enums>
+      <item name="inactive" value="0">
+      </item>
+      <item name="active" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="als_int_status" size="1" start_pos="6">
+     <enums>
+      <item name="inactive" value="0">
+      </item>
+      <item name="active" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="48" name="int_mode" size="2" start_pos="4">
+     <enums>
+      <item name="ps_th_h_active" value="0">
+      </item>
+      <item name="ps_th_hysteresis" value="1">
+      </item>
+      <item name="ps_th_outside_detection" value="2">
+      </item>
+      <item name="forbidden" value="3">
+      </item>
+     </enums>
+    </field>
+    <field mask="8" name="int_assert" size="1" start_pos="3">
+     <enums>
+      <item name="stable" value="0">
+      </item>
+      <item name="reint" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="4" name="int_latch" size="1" start_pos="2">
+     <enums>
+      <item name="enabled" value="0">
+      </item>
+      <item name="disabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="3" name="int_trig" size="2" start_pos="0">
+     <enums>
+      <item name="inactive" value="0">
+      </item>
+      <item name="by_ps" value="1">
+      </item>
+      <item name="by_als" value="2">
+      </item>
+      <item name="by_both" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="75" doc="low 8bit" mode="R" name="PS_TH_LSBS" order="le" por="4095" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="76" doc="high 4bit" info="bypass" mode="R/W" name="PS_TH_MSBS" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="77" doc="low 8bit" mode="R" name="PS_TL_LSBS" order="le" por="0" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="78" doc="high 4bit" info="bypass" mode="R/W" name="PS_TL_MSBS" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="79" doc="low 8bit" mode="R" name="ALS_DATA0_TH_LSBS" order="le" por="65535" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="80" doc="high 8bit" info="bypass" mode="R/W" name="ALS_DATA0_TH_MSBS" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="81" doc="low 8bit" mode="R" name="ALS_DATA0_TL_LSBS" order="le" por="0" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="82" doc="high 8bit" info="bypass" mode="R/W" name="ALS_DATA0_TL_MSBS" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="83" doc="low 8bit" mode="R" name="PS_OFFSET_LSBS" order="le" por="0" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="84" doc="high 2bit" info="bypass" mode="R/W" name="PS_OFFSET_MSBS" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="146" mode="R" name="MANUFACT" por="224" value_type="uint8">
+   <fields>
+    <field mask="255" name="id" size="8" start_pos="0">
+     <enums>
+      <item name="e0h" value="224">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="84" info="bypass" mode="INFO" name="REGISTER_DUMP_END">
+   <fields>
+   </fields>
+  </register>
+ </sensor>
+</root>

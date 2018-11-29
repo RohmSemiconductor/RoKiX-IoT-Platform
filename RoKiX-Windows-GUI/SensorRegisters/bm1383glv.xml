@@ -1,0 +1,250 @@
+<root>
+ <sensor name="bm1383glv" sad="93">
+  <register address="300" doc="[hPa]" info="bypass" mode="INFO" name="PRESSURE_MIN">
+   <fields>
+   </fields>
+  </register>
+  <register address="1100" doc="[hPa]" info="bypass" mode="INFO" name="PRESSURE_MAX">
+   <fields>
+   </fields>
+  </register>
+  <register address="16" info="bypass" mode="INFO" name="REGISTER_DUMP_START">
+   <fields>
+   </fields>
+  </register>
+  <register address="16" mode="R" name="ID_REG" por="1">
+   <fields>
+    <field mask="240" name="MANUFACTURER" size="4" start_pos="4">
+     <enums>
+      <item name="id" value="3">
+      </item>
+     </enums>
+    </field>
+    <field mask="15" name="PART" size="4" start_pos="0">
+     <enums>
+      <item name="id" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="17" doc="All control registers are accessible only when POWER is UP and SLEEP is OFF." mode="R/W" name="RESET_CONTROL_REG" por="0">
+   <fields>
+    <field mask="128" name="SW_RESET" size="1" start_pos="7">
+     <enums>
+      <item name="none" value="0">
+      </item>
+      <item name="execute" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="INT_RESET" size="1" start_pos="6">
+     <enums>
+      <item name="active" value="0">
+      </item>
+      <item doc="int terminal high impedance on inactive state" name="inactive" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="63" name="RESERVED" size="6" start_pos="0">
+     <enums>
+      <item doc="write 000000" name="write0" value="0">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="18" mode="R/W" name="POWER_REG" por="0">
+   <fields>
+    <field mask="254" name="RESERVED" size="7" start_pos="1">
+     <enums>
+      <item name="write0" value="0">
+      </item>
+     </enums>
+    </field>
+    <field mask="1" name="POWER" size="1" start_pos="0">
+     <enums>
+      <item name="down" value="0">
+      </item>
+      <item name="up" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="19" mode="R/W" name="SLEEP_REG" por="0">
+   <fields>
+    <field mask="254" name="RESERVED" size="7" start_pos="1">
+     <enums>
+      <item name="write0" value="0">
+      </item>
+     </enums>
+    </field>
+    <field mask="1" name="SLEEP" size="1" start_pos="0">
+     <enums>
+      <item name="on" value="0">
+      </item>
+      <item name="off" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="20" mode="R/W" name="MODE_CONTROL_REG" por="0">
+   <fields>
+    <field mask="224" name="AVE_NUM" size="3" start_pos="5">
+     <enums>
+      <item name="single" value="0">
+      </item>
+      <item name="2_times" value="1">
+      </item>
+      <item name="4_times" value="2">
+      </item>
+      <item name="8_times" value="3">
+      </item>
+      <item name="16_times" value="4">
+      </item>
+      <item name="32_times" value="5">
+      </item>
+      <item name="64_times" value="6">
+      </item>
+     </enums>
+    </field>
+    <field mask="24" name="RESERVED" size="2" start_pos="3">
+     <enums>
+      <item doc="write 00" name="write0" value="0">
+      </item>
+     </enums>
+    </field>
+    <field mask="7" name="MODE" size="3" start_pos="0">
+     <enums>
+      <item name="standby" value="0">
+      </item>
+      <item name="one_shot" value="1">
+      </item>
+      <item name="50ms" value="2">
+      </item>
+      <item name="100ms" value="3">
+      </item>
+      <item name="200ms" value="4">
+      </item>
+      <item name="prohibited5" value="5">
+      </item>
+      <item name="prohibited6" value="6">
+      </item>
+      <item name="prohibited7" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="21" doc="MSB of the high threshold value for pressure interrupt generation." mode="R/W" name="INT_HIGH_TRESHOLD_MSB" por="255">
+   <fields>
+   </fields>
+  </register>
+  <register address="22" doc="LSB of the high threshold value for pressure interrupt generation." mode="R/W" name="INT_HIGH_TRESHOLD_LSB" por="255">
+   <fields>
+   </fields>
+  </register>
+  <register address="23" mode="R/W" name="INT_LOW_TRESHOLD_MSB" por="0">
+   <fields>
+   </fields>
+  </register>
+  <register address="24" mode="R/W" name="INT_LOW_TRESHOLD_LSB" por="0">
+   <fields>
+   </fields>
+  </register>
+  <register address="25" mode="R/W" name="INT_CONTROL_REG" por="0">
+   <fields>
+    <field mask="128" name="TRESHOLD_HIGH" size="1" start_pos="7">
+     <enums>
+      <item name="in_limits" value="0">
+      </item>
+      <item name="crossed" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="64" name="TRESHOLD_LOW" size="1" start_pos="6">
+     <enums>
+      <item name="in_limits" value="0">
+      </item>
+      <item name="crossed" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="32" name="INT_HIGH" size="1" start_pos="5">
+     <enums>
+      <item name="disable" value="0">
+      </item>
+      <item name="enable" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="16" name="INT_LOW" size="1" start_pos="4">
+     <enums>
+      <item name="disable" value="0">
+      </item>
+      <item name="enable" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="8" name="INT_PULLUP" size="1" start_pos="3">
+     <enums>
+      <item doc="pull up resistor in INT terminals" name="enable" value="0">
+      </item>
+      <item doc="no pull up resistor in INT terminals" name="disable" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="4" name="RESERVED" size="1" start_pos="2">
+     <enums>
+      <item name="res" value="0">
+      </item>
+     </enums>
+    </field>
+    <field mask="2" name="INTERRUPT_STATE" size="1" start_pos="1">
+     <enums>
+      <item doc="terminal is latched until interrupt is cleared" name="keep_until_cleared" value="0">
+      </item>
+      <item doc="terminal is updated after each measurement" name="continuous_update" value="1">
+      </item>
+     </enums>
+    </field>
+    <field mask="1" name="INTERRUPT" size="1" start_pos="0">
+     <enums>
+      <item name="disable" value="0">
+      </item>
+      <item name="enable" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="26" doc="TEMP_OUT: [15] sign ; [14:5] integer ; [4:0] decimal (2's complement numbers)" mode="R" name="TEMPERATURE_OUT_MSB" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="27" doc="Temperature value [°C]= TEMP_OUT[15:0]/32" info="bypass" mode="R" name="TEMPERATURE_OUT_LSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="28" doc="PRESS_OUT[15:5] integer part of pressure value" mode="R" name="PRESSURE_OUT_MSB" order="le" size="16" style="int" value_type="int16lsb">
+   <fields>
+   </fields>
+  </register>
+  <register address="29" doc="PRESS_OUT[4:0] PRESS_OUT_XL[5:0] decimal part of pressure value" info="bypass" mode="R" name="PRESSURE_OUT_LSB" value_type="int16msb">
+   <fields>
+   </fields>
+  </register>
+  <register address="30" mode="R" name="PRESSURE_OUT_DECIMAL">
+   <fields>
+    <field doc="Pressurevalue[hPa] = { PRESS_OUT[15:8] PRESS_OUT[7:0] PRESS_OUT_XL[5:0] } / 2048" mask="63" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="30" info="bypass" mode="INFO" name="REGISTER_DUMP_END">
+   <fields>
+   </fields>
+  </register>
+ </sensor>
+</root>
