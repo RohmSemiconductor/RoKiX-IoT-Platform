@@ -1,0 +1,3 @@
+configparser
+pyserial
+six
