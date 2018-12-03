@@ -12,5 +12,6 @@ The RoKiX IoT Platform is the leading Internet of Things (IoT) technology platfo
 
 **Release**
 * [Latest release: (2.0.0, Nov 29 2018)](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/releases/latest)
+  * Direct link to Windows installer: [RoKiX_IoT_Platform_Setup.exe](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/releases/download/v2.0.0/RoKiX_IoT_Platform_Setup.exe)
 * Please check [RokiX Platform Users Guide.pdf](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/blob/v2.0.0/RoKiX%20Platform%20Users%20Guide.pdf) for further details.
 * Please give feedback and ask questions in [Issues](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/issues)
