@@ -1,0 +1,236 @@
+{
+    "activate": [
+        [
+            "KX132", 
+            27, 
+            16, 
+            "set_range/m.KX132_CNTL1_GSEL_MASK)"
+        ], 
+        [
+            "KX132", 
+            27, 
+            80, 
+            "enable_data_logging/sensor.set_bit(r.KX132_CNTL1, b.KX132_CNTL1_RES)"
+        ], 
+        [
+            "KX132", 
+            27, 
+            112, 
+            "enable_drdy/self.set_bit(r.KX132_CNTL1,  b.KX132_CNTL1_DRDYE)"
+        ], 
+        [
+            "KX132", 
+            27, 
+            240, 
+            "set_power_on/self.set_bit(r.KX132_CNTL1, b.KX132_CNTL1_PC1)"
+        ]
+    ],
+    "start_req": {
+        "msg": [
+            [
+                4, 
+                31, 
+                7, 
+                0
+            ], 
+            [
+                6, 
+                11, 
+                0, 
+                46, 
+                1, 
+                0
+            ], 
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "KX132", 
+                    2, 
+                    14
+                ]
+            ],
+            [
+                3, 
+                17, 
+                48
+            ]
+        ], 
+        "odr": 800, 
+        "type": "continuous", 
+        "fmt": "<Bhhhhhhh", 
+        "hdr": "ch!adp_x!adp_y!adp_z!ax!ay!az!temp"
+    },
+    "configure": [
+        [
+            "KX132", 
+            28, 
+            128, 
+            "setup_serial_i2c/sensor.por()"
+        ], 
+        [
+            "KX132", 
+            27, 
+            0, 
+            "enable_rms_data_logging/sensor.set_power_off()"
+        ], 
+        [
+            "KX132", 
+            33, 
+            10, 
+            "enable_iir/self.reset_bit(r.KX132_ODCNTL, b.KX132_ODCNTL_IIR_BYPASS)"
+        ], 
+        [
+            "KX132", 
+            34, 
+            32, 
+            "set_interrupt_polarity/self.reset_bit(r.KX132_INC1, b.KX132_INC1_IEA1)# active low"
+        ], 
+        [
+            "KX132", 
+            100, 
+            26, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            101, 
+            3, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            102, 
+            27, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            103, 
+            94, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            104, 
+            199, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            105, 
+            125, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            106, 
+            35, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            107, 
+            162, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            108, 
+            123, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            109, 
+            11, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            110, 
+            125, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            111, 
+            229, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            112, 
+            124, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            117, 
+            7, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            118, 
+            7, 
+            "make_stream_config/init_func(sensor, init_param)"
+        ], 
+        [
+            "KX132", 
+            31, 
+            20, 
+            "set_power_on/self.set_bit(r.KX132_CNTL5, b.KX132_CNTL5_TSE)"
+        ], 
+        [
+            "KX132", 
+            37, 
+            16, 
+            "enable_drdy/self.set_bit(r.KX132_INC4, b.KX132_INC4_DRDYI1)     # data ready to int1"
+        ]
+    ], 
+    "structure_version": "2.0", 
+    "deactivate": [
+        [
+            "KX132", 
+            27, 
+            112, 
+            "make_stream_config/sensor.set_power_off()                      # power off the sensor and record write commands"
+        ]
+    ], 
+    "doc": "Read KX132 sensor data; advanced data path, accelerometer and temperature data at 800 Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "m/s^2", 
+            "data": "ADP_X,ADP_Y,ADP_Z", 
+            "name": "Advanced Data Path", 
+            "SI_multiplier": "9.8 / 16384"
+        },
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 16384"
+        },
+        {
+            "SI_unit": "Celsius", 
+            "data": "Temp", 
+            "name": "Temperature", 
+            "SI_multiplier": "1 / 256"
+        }        
+    ], 
+    "register_dump": [], 
+    "stop_req": {
+        "msg": [
+            3, 
+            13, 
+            48
+        ]
+    }, 
+    "protocol_version": "2.0", 
+    "name": "KX132 / 800Hz"
+}

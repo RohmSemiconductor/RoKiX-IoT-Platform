@@ -4,7 +4,7 @@
         "2.0"
     ],
     "configuration": {
-        "name": "RoKiX IoT node with KX122",
+        "name": "RoKiX IoT node with KX122 and add-on board",
         "doc": "RoKiX IoT node including KXG08, KMX62, KX122, BM1383AGLV and BM1422AGMV",
         "board_id": 7,
         "cpu_freq_mhz": 64,
@@ -140,7 +140,17 @@
                             "SAD": 91,
                             "gpio1": 44,
                             "pullup": "EVKIT_GPIO_PIN_PULLUP"
-                        }
+                        },
+                        "KX132": {
+                            "SAD": 31,
+                            "gpio1": 44,
+                            "gpio2": 13,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        }    
                     }
                 }
             ]
