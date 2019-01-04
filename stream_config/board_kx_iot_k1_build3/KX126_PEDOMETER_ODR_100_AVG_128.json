@@ -145,7 +145,14 @@
         ]
     ], 
     "doc": "Read step indications from KX126 at 100Hz ODR with 128 samples averaged", 
-    "channels": [], 
+    "channels": [
+        {
+            "SI_unit": "", 
+            "data": "ins1,ins2,ins3,stat,N/A,rel", 
+            "name": "Pedometer", 
+            "SI_multiplier": "1"
+        }
+    ], 
     "register_dump": [
         [
             "KX126", 
