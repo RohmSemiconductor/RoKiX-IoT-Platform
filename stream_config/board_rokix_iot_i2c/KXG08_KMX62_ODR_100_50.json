@@ -1,0 +1,297 @@
+{
+    "activate": [
+        [
+            "KXG08", 
+            110, 
+            56, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            110, 
+            24, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            13, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            15, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            79, 
+            ""
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                [
+                    4, 
+                    31, 
+                    7, 
+                    0
+                ], 
+                [
+                    6, 
+                    11, 
+                    0, 
+                    47, 
+                    1, 
+                    0
+                ], 
+                [
+                    9, 
+                    15, 
+                    48, 
+                    129, 
+                    1, 
+                    4, 
+                    [
+                        "KXG08", 
+                        0, 
+                        14
+                    ]
+                ], 
+                [
+                    3, 
+                    17, 
+                    48
+                ]
+            ], 
+            "odr": 100, 
+            "type": "continuous", 
+            "fmt": "<Bhhhhhhh", 
+            "hdr": "ch!temperature!gx!gy!gz!ax!ay!az"
+        }, 
+        {
+            "msg": [
+                [
+                    6, 
+                    11, 
+                    0, 
+                    46, 
+                    1, 
+                    0
+                ], 
+                [
+                    9, 
+                    15, 
+                    49, 
+                    129, 
+                    1, 
+                    4, 
+                    [
+                        "KMX62", 
+                        10, 
+                        14
+                    ]
+                ], 
+                [
+                    3, 
+                    17, 
+                    49
+                ]
+            ], 
+            "odr": 50, 
+            "type": "continuous", 
+            "fmt": "<Bhhhhhhh", 
+            "hdr": "ch!ax!ay!az!mx!my!mz!temp"
+        }
+    ], 
+    "configure": [
+        [
+            "KXG08", 
+            110, 
+            57, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            64, 
+            72, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            65, 
+            255, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            68, 
+            194, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            79, 
+            16, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            60, 
+            87, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            61, 
+            8, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            62, 
+            7, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            63, 
+            3, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            56, 
+            34, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            42, 
+            16, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            44, 
+            0, 
+            ""
+        ]
+    ], 
+    "structure_version": "3.0", 
+    "deactivate": [
+        [
+            "KXG08", 
+            110, 
+            25, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            110, 
+            25, 
+            ""
+        ], 
+        [
+            "KXG08", 
+            110, 
+            57, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            78, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            76, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            ""
+        ]
+    ], 
+    "doc": "Read KXG08 temperature, gyroscope and accelerometer data at 100 Hz ODR and KMX62 accelerometer, magnetometer and temperature data at 50 Hz ODR", 
+    "channels": [
+        [
+            {
+                "SI_unit": "Celsius", 
+                "data": "KXG08_Temp", 
+                "name": "KXG08 Temperature", 
+                "SI_multiplier": "1 / 256"
+            }, 
+            {
+                "SI_unit": "degrees/s", 
+                "data": "KXG08_Gyro_X,KXG08_Gyro_Y,KXG08_Gyro_Z", 
+                "name": "KXG08 Gyroscope", 
+                "SI_multiplier": "2048 / 32768"
+            }, 
+            {
+                "SI_unit": "m/s^2", 
+                "data": "KXG08_Acc_X,KXG08_Acc_Y,KXG08_Acc_Z", 
+                "name": "KXG08 Accelerometer", 
+                "SI_multiplier": "9.8 / 16384"
+            }
+        ], 
+        [
+            {
+                "SI_unit": "m/s^2", 
+                "data": "KMX62_Acc_X,KMX62_Acc_Y,KMX62_Acc_Z", 
+                "name": "KMX62 Accelerometer", 
+                "SI_multiplier": "9.8 / 16384"
+            }, 
+            {
+                "SI_unit": "uT", 
+                "data": "KMX62_Mag_X,KMX62_Mag_Y,KMX62_Mag_Z", 
+                "name": "KMX62 Magnetometer", 
+                "SI_multiplier": "1200 / 32768"
+            }, 
+            {
+                "SI_unit": "Celsius", 
+                "data": "KMX62_Temp", 
+                "name": "KMX62 Temperature", 
+                "SI_multiplier": "1 / 256"
+            }
+        ]
+    ], 
+    "register_dump": [], 
+    "stop_req": [
+        {
+            "msg": [
+                3, 
+                13, 
+                48
+            ]
+        }, 
+        {
+            "msg": [
+                3, 
+                13, 
+                49
+            ]
+        }
+    ], 
+    "protocol_version": "2.0", 
+    "name": "KXG08 / 100Hz & KMX62 / 50Hz"
+}

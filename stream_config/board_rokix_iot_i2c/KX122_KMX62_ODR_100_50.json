@@ -1,0 +1,243 @@
+{
+    "activate": [
+        [
+            "KX122", 
+            24, 
+            96, 
+            ""
+        ], 
+        [
+            "KX122", 
+            24, 
+            224, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            13, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            15, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            79, 
+            ""
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                [
+                    4, 
+                    31, 
+                    7, 
+                    0
+                ], 
+                [
+                    6, 
+                    11, 
+                    0, 
+                    34, 
+                    1, 
+                    0
+                ], 
+                [
+                    9, 
+                    15, 
+                    48, 
+                    129, 
+                    1, 
+                    4, 
+                    [
+                        "KX122", 
+                        6, 
+                        6
+                    ]
+                ], 
+                [
+                    3, 
+                    17, 
+                    48
+                ]
+            ], 
+            "odr": 100, 
+            "type": "continuous", 
+            "fmt": "<Bhhh", 
+            "hdr": "ch!ax!ay!az"
+        }, 
+        {
+            "msg": [
+                [
+                    6, 
+                    11, 
+                    0, 
+                    46, 
+                    1, 
+                    0
+                ], 
+                [
+                    9, 
+                    15, 
+                    49, 
+                    129, 
+                    1, 
+                    4, 
+                    [
+                        "KMX62", 
+                        10, 
+                        14
+                    ]
+                ], 
+                [
+                    3, 
+                    17, 
+                    49
+                ]
+            ], 
+            "odr": 50, 
+            "type": "continuous", 
+            "fmt": "<Bhhhhhhh", 
+            "hdr": "ch!ax!ay!az!mx!my!mz!temp"
+        }
+    ], 
+    "configure": [
+        [
+            "KX122", 
+            24, 
+            96, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            ""
+        ], 
+        [
+            "KX122", 
+            27, 
+            3, 
+            ""
+        ], 
+        [
+            "KX122", 
+            28, 
+            32, 
+            ""
+        ], 
+        [
+            "KX122", 
+            31, 
+            16, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            56, 
+            34, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            42, 
+            16, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            44, 
+            0, 
+            ""
+        ]
+    ], 
+    "structure_version": "3.0", 
+    "deactivate": [
+        [
+            "KX122", 
+            24, 
+            96, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            78, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            76, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            ""
+        ]
+    ], 
+    "doc": "Read KX122 accelerometer data at 100 Hz ODR and KMX62 accelerometer, magnetometer and temperature data at 50 Hz ODR", 
+    "channels": [
+        [
+            {
+                "SI_unit": "m/s^2", 
+                "data": "KX122_Acc_X,KX122_Acc_Y,KX122_Acc_Z", 
+                "name": "KX122 Accelerometer", 
+                "SI_multiplier": "9.8 / 16384"
+            }
+        ], 
+        [
+            {
+                "SI_unit": "m/s^2", 
+                "data": "KMX62_Acc_X,KMX62_Acc_Y,KMX62_Acc_Z", 
+                "name": "KMX62 Accelerometer", 
+                "SI_multiplier": "9.8 / 16384"
+            }, 
+            {
+                "SI_unit": "uT", 
+                "data": "KMX62_Mag_X,KMX62_Mag_Y,KMX62_Mag_Z", 
+                "name": "KMX62 Magnetometer", 
+                "SI_multiplier": "1200 / 32768"
+            }, 
+            {
+                "SI_unit": "Celsius", 
+                "data": "KMX62_Temp", 
+                "name": "KMX62 Temperature", 
+                "SI_multiplier": "1 / 256"
+            }
+        ]
+    ], 
+    "register_dump": [], 
+    "stop_req": [
+        {
+            "msg": [
+                3, 
+                13, 
+                48
+            ]
+        }, 
+        {
+            "msg": [
+                3, 
+                13, 
+                49
+            ]
+        }
+    ], 
+    "protocol_version": "2.0", 
+    "name": "KX122 / 100Hz & KMX62 / 50Hz"
+}
