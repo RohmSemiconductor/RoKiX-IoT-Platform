@@ -99,7 +99,7 @@
         [
             "KX132", 
             104, 
-            246, 
+            0, 
             ""
         ], 
         [
@@ -196,7 +196,7 @@
             ""
         ]
     ], 
-    "doc": "Read KX132 ADP sensor data; Accelerometer at 3200 Hz ODR.Accelerometer range +-8g.RMS ODR at 3200 Hz. Filter 1 & 2 settings LP_ODR_4 & HP_ODR_16 ", 
+    "doc": "Read KX132 ADP sensor data; Accelerometer at 3200 Hz ODR.Accelerometer range +-8g.ADP ODR at 3200 Hz. Filter 1 & 2 settings LP_ODR_4 & HP_ODR_16 ", 
     "channels": [
         {
             "SI_unit": "m/s^2", 
