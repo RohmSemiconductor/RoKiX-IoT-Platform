@@ -454,7 +454,8 @@ class ConnectionManager(object):
             # verify that configuration is found
             if sensor_driver.resource is None:
                 raise EvaluationKitException(
-                    "Sensor '%s' not found from board configuration file '%s'." % (
+                    ("Sensor '%s' not found from board configuration file '%s'. Possible reason is"+
+                    " that wrong board configuration file selected in rokix_settings.cfg") % (
                         sensor_driver.name, self.__board_config_json))
 
             _probe_status = sensor_driver.probe()
