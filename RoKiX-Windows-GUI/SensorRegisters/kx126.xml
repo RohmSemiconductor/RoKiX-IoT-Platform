@@ -632,21 +632,21 @@
     </field>
     <field doc="OFFI&lt;2:0&gt; - Freefall function output data rate" mask="7" name="OFFI" size="3" start_pos="0">
      <enums>
-      <item doc="000 = 0.781Hz" name="0p781" value="0">
+      <item doc="000 = 12.5Hz" name="12p5" value="0">
       </item>
-      <item doc="001 = 1.563Hz" name="1p563" value="1">
+      <item doc="001 = 25Hz" name="25" value="1">
       </item>
-      <item doc="010 = 3.125Hz" name="3p125" value="2">
+      <item doc="010 = 50Hz" name="50" value="2">
       </item>
-      <item doc="011 = 6.25Hz" name="6p25" value="3">
+      <item doc="011 = 100Hz" name="100" value="3">
       </item>
-      <item doc="100 = 12.5Hz" name="12p5" value="4">
+      <item doc="100 = 200Hz" name="200" value="4">
       </item>
-      <item doc="101 = 25Hz" name="25" value="5">
+      <item doc="101 = 400Hz" name="400" value="5">
       </item>
-      <item doc="110 = 50Hz" name="50" value="6">
+      <item doc="110 = 800Hz" name="800" value="6">
       </item>
-      <item doc="111 = 100Hz" name="100" value="7">
+      <item doc="111 = 1600Hz" name="1600" value="7">
       </item>
      </enums>
     </field>

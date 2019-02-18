@@ -1,0 +1,110 @@
+{
+    "activate": [
+        [
+            "KX224", 
+            24, 
+            96, 
+            ""
+        ], 
+        [
+            "KX224", 
+            24, 
+            224, 
+            ""
+        ]
+    ], 
+    "start_req": {
+        "msg": [
+            [
+                4, 
+                31, 
+                7, 
+                0
+            ], 
+            [
+                6, 
+                11, 
+                0, 
+                33, 
+                1, 
+                0
+            ], 
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                5, 
+                [
+                    "KX224", 
+                    6, 
+                    6
+                ]
+            ], 
+            [
+                3, 
+                17, 
+                48
+            ]
+        ], 
+        "odr": 12800, 
+        "type": "continuous", 
+        "fmt": "<Bhhh", 
+        "hdr": "ch!ax!ay!az"
+    }, 
+    "configure": [
+        [
+            "KX224", 
+            24, 
+            96, 
+            ""
+        ], 
+        [
+            "KX224", 
+            27, 
+            14, 
+            ""
+        ], 
+        [
+            "KX224", 
+            28, 
+            32, 
+            ""
+        ], 
+        [
+            "KX224", 
+            31, 
+            16, 
+            ""
+        ]
+    ], 
+    "structure_version": "2.0", 
+    "deactivate": [
+        [
+            "KX224", 
+            24, 
+            96, 
+            ""
+        ]
+    ], 
+    "doc": "Read accelerometer data from KX224 at 12800 Hz ODR", 
+    "channels": [
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 16384"
+        }
+    ], 
+    "register_dump": [], 
+    "stop_req": {
+        "msg": [
+            3, 
+            13, 
+            48
+        ]
+    }, 
+    "protocol_version": "2.0", 
+    "name": "KX224 / 12800Hz"
+}

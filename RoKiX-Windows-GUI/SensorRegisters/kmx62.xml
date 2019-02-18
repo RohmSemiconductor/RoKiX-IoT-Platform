@@ -598,7 +598,7 @@
     </field>
    </fields>
   </register>
-  <register address="119" bit_pos="0:1:2:3:4:5:6:7:8:x:x:x:x:x:x:x" doc="These registers control the buffer sample buffer operation." mode="R/W" name="BUF_CTRL_1" order="le" por="0" size="16" style="int">
+  <register address="119" bit_pos="0:1:2:3:4:5:6:7:8:x:x:x:x:x:x:x" doc="These registers control the buffer sample buffer operation." mode="R/W" name="BUF_CTRL_1" order="le" por="0" size="9" style="int">
    <fields>
     <field doc="Sample Threshold - determines the number of data bytes that will trigger a watermark interrupt or will be saved prior to a trigger event.  The maximum number of data bytes is 384 (example - 32 samples of 3 axis of accl and 3 axis of mag by 2 bytes per axis)." mask="255" name="SMT_TH" size="8" start_pos="0">
     </field>
@@ -696,13 +696,13 @@
     </field>
    </fields>
   </register>
-  <register address="123" bit_pos="0:1:2:3:4:5:6:7:8:x:x:x:x:x:x:x" mode="R" name="BUF_STATUS_1" order="le" size="16" style="int">
+  <register address="123" bit_pos="0:1:2:3:4:5:6:7:8:x:x:x:x:x:x:x" mode="R" name="BUF_STATUS_1" order="le" size="9" style="int">
    <fields>
     <field doc="Sample Level; reports the number of data bytes that have been stored in the sample buffer.  If this register reads 0, no data has been stored in the buffer. If the buffer data is read past this level the part will return 32,767 (maximum value)." mask="255" name="SMP_LEV" size="8" start_pos="0">
     </field>
    </fields>
   </register>
-  <register address="124" bit_pos="x:x:2:3:4:5:6:7:8:9:10:11:12:13:14:15" mode="R" name="BUF_STATUS_2" order="le" size="16" style="int">
+  <register address="124" bit_pos="x:x:2:3:4:5:6:7:8:9:10:11:12:13:14:15" mode="R" name="BUF_STATUS_2" order="le" size="14" style="int">
    <fields>
     <field doc="Sample over flow; reports the number of data bytes that have been missed since the sample buffer was filled.  If this register reads 0, the buffer has not over flowed. This is cleared for “BUF_CLEAR” command and when the data is read from “BUF_READ”" mask="255" name="SMP_PAST" size="8" start_pos="0">
     </field>

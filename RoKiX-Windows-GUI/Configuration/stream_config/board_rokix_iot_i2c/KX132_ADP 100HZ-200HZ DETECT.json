@@ -1,0 +1,230 @@
+{
+    "activate": [
+        [
+            "KX132", 
+            27, 
+            48, 
+            ""
+        ], 
+        [
+            "KX132", 
+            27, 
+            176, 
+            ""
+        ]
+    ], 
+    "start_req": {
+        "msg": [
+            [
+                4, 
+                31, 
+                7, 
+                0
+            ], 
+            [
+                6, 
+                11, 
+                0, 
+                44, 
+                1, 
+                0
+            ], 
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                5, 
+                [
+                    "KX132", 
+                    2, 
+                    14
+                ]
+            ], 
+            [
+                3, 
+                17, 
+                48
+            ]
+        ], 
+        "odr": 800, 
+        "type": "continuous", 
+        "fmt": "<Bhhhhhhh", 
+        "hdr": "ch!ax!ay!az!adp_x!adp_y!adp_z!temp"
+    }, 
+    "configure": [
+        [
+            "KX132", 
+            27, 
+            48, 
+            ""
+        ], 
+        [
+            "KX132", 
+            33, 
+            138, 
+            ""
+        ], 
+        [
+            "KX132", 
+            34, 
+            32, 
+            ""
+        ], 
+        [
+            "KX132", 
+            100, 
+            58, 
+            ""
+        ], 
+        [
+            "KX132", 
+            37, 
+            16, 
+            ""
+        ], 
+        [
+            "KX132", 
+            102, 
+            22, 
+            ""
+        ], 
+        [
+            "KX132", 
+            103, 
+            0, 
+            ""
+        ], 
+        [
+            "KX132", 
+            104, 
+            0, 
+            ""
+        ], 
+        [
+            "KX132", 
+            105, 
+            0, 
+            ""
+        ], 
+        [
+            "KX132", 
+            106, 
+            26, 
+            ""
+        ], 
+        [
+            "KX132", 
+            107, 
+            246, 
+            ""
+        ], 
+        [
+            "KX132", 
+            108, 
+            21, 
+            ""
+        ], 
+        [
+            "KX132", 
+            109, 
+            1, 
+            ""
+        ], 
+        [
+            "KX132", 
+            110, 
+            181, 
+            ""
+        ], 
+        [
+            "KX132", 
+            111, 
+            5, 
+            ""
+        ], 
+        [
+            "KX132", 
+            112, 
+            53, 
+            ""
+        ], 
+        [
+            "KX132", 
+            117, 
+            2, 
+            ""
+        ], 
+        [
+            "KX132", 
+            118, 
+            2, 
+            ""
+        ], 
+        [
+            "KX132", 
+            58, 
+            115, 
+            ""
+        ], 
+        [
+            "KX132", 
+            31, 
+            16, 
+            ""
+        ], 
+        [
+            "KX132", 
+            101, 
+            3, 
+            ""
+        ]
+    ], 
+    "structure_version": "2.0", 
+    "deactivate": [
+        [
+            "KX132", 
+            27, 
+            48, 
+            ""
+        ], 
+        [
+            "KX132", 
+            31, 
+            16, 
+            ""
+        ]
+    ], 
+    "doc": "Read KX132 ADP sensor data; Accelerometer at 800 Hz ODR.Accelerometer range +-8g.ADP ODR at 800 Hz. Filter 1 & 2 settings LP_ODR_4 & HP_ODR_8 ", 
+    "channels": [
+        {
+            "SI_unit": "m/s^2", 
+            "data": "ADP_X,ADP_Y,ADP_Z", 
+            "name": "Advanced Data Path", 
+            "SI_multiplier": "9.8 / 4096"
+        }, 
+        {
+            "SI_unit": "m/s^2", 
+            "data": "Acc_X,Acc_Y,Acc_Z", 
+            "name": "Accelerometer", 
+            "SI_multiplier": "9.8 / 4096"
+        }, 
+        {
+            "SI_unit": "Celsius", 
+            "data": "Temp", 
+            "name": "Temperature", 
+            "SI_multiplier": "1 / 256"
+        }
+    ], 
+    "register_dump": [], 
+    "stop_req": {
+        "msg": [
+            3, 
+            13, 
+            48
+        ]
+    }, 
+    "protocol_version": "2.0", 
+    "name": "KX132 / 800Hz / 8g Filter 1 LP_ODR_4 / Filter 2 HP_ODR_8"
+}
