@@ -39,7 +39,7 @@
                 [
                     "KX132", 
                     2, 
-                    14
+                    12
                 ]
             ], 
             [
@@ -50,8 +50,8 @@
         ], 
         "odr": 800, 
         "type": "continuous", 
-        "fmt": "<Bhhhhhhh", 
-        "hdr": "ch!ax!ay!az!adp_x!adp_y!adp_z!temp"
+        "fmt": "<Bhhhhhh", 
+        "hdr": "ch!adp_x!adp_y!adp_z!ax!ay!az"
     }, 
     "configure": [
         [
@@ -209,12 +209,6 @@
             "data": "Acc_X,Acc_Y,Acc_Z", 
             "name": "Accelerometer", 
             "SI_multiplier": "9.8 / 16384"
-        }, 
-        {
-            "SI_unit": "Celsius", 
-            "data": "Temp", 
-            "name": "Temperature", 
-            "SI_multiplier": "1 / 256"
         }
     ], 
     "register_dump": [], 

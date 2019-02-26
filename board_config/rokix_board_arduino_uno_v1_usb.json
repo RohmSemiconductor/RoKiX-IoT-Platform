@@ -18,6 +18,11 @@
                     "int1_gpio": 2
                 },
                 {
+                    "name": "KX126",
+                    "SAD": 31,
+                    "int1_gpio": 2
+                },
+                {
                     "name": "KXG03",
                     "SAD": 79,
                     "int1_gpio": 2
