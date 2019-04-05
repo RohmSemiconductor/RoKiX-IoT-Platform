@@ -164,7 +164,7 @@
             ]
         },
         "stream_config": {
-            "directory": "stream_config/board_rokix_iot_spi"
+            "directory": "stream_config/board_rokix_iot_spi-add-on"
         },
         "board_init": {
             "reg_write": []
