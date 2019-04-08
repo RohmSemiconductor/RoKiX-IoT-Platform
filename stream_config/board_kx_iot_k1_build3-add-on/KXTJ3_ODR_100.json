@@ -84,7 +84,7 @@
             "SI_unit": "m/s^2", 
             "data": "Acc_X,Acc_Y,Acc_Z", 
             "name": "Accelerometer", 
-            "SI_multiplier": "9.8 / 1024"
+            "SI_multiplier": "9.8 / 16384"
         }
     ], 
     "register_dump": [], 
