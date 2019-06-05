@@ -1,0 +1,126 @@
+{
+    "structure_version": "3.0", 
+    "protocol_version": "2.0", 
+    "name": "Accel & Mag data 50Hz \u00b12g & \u00b11200\u00b5T high resolution", 
+    "doc": "Operating at 50Hz ODR measuring acceleration on\u00b12g and magnetic flux density at \u00b11200\u00b5T range high resolution mode", 
+    "execute": [], 
+    "channels": [
+        [
+            {
+                "SI_unit": "m/s^2", 
+                "data": "Acc_X,Acc_Y,Acc_Z", 
+                "name": "KMX62 Accelerometer", 
+                "SI_multiplier": "9.8 / 16384"
+            }, 
+            {
+                "SI_unit": "uT", 
+                "data": "Mag_X,Mag_Y,Mag_Z", 
+                "name": "KMX62 Magnetometer", 
+                "SI_multiplier": "1200 / 32768"
+            }, 
+            {
+                "SI_unit": "Celsius", 
+                "data": "Temp", 
+                "name": "KMX62 Temperature", 
+                "SI_multiplier": "1 / 256"
+            }
+        ]
+    ], 
+    "configure": [
+        [
+            "KMX62", 
+            56, 
+            34, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            79, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            44, 
+            0, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            42, 
+            16, 
+            ""
+        ]
+    ], 
+    "activate": [], 
+    "start_req": [
+        {
+            "msg": [
+                [
+                    4, 
+                    31, 
+                    7, 
+                    1
+                ], 
+                [
+                    6, 
+                    11, 
+                    0, 
+                    46, 
+                    1, 
+                    2
+                ], 
+                [
+                    9, 
+                    15, 
+                    48, 
+                    129, 
+                    1, 
+                    4, 
+                    [
+                        "KMX62", 
+                        10, 
+                        14
+                    ]
+                ], 
+                [
+                    3, 
+                    17, 
+                    48
+                ]
+            ], 
+            "fmt": "<Bhhhhhhh", 
+            "type": "continuous", 
+            "hdr": "ch!ax!ay!az!mx!my!mz!temp", 
+            "odr": 50
+        }
+    ], 
+    "stop_req": [
+        [
+            3, 
+            13, 
+            48
+        ]
+    ], 
+    "deactivate": [
+        [
+            "KMX62", 
+            58, 
+            78, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            76, 
+            ""
+        ], 
+        [
+            "KMX62", 
+            58, 
+            12, 
+            ""
+        ]
+    ], 
+    "register_dump": []
+}

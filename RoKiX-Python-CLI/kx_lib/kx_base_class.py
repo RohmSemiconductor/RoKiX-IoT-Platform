@@ -7,6 +7,7 @@ from kx_lib.kx_exception import EvaluationKitException
 from kx_lib import kx_logger
 LOGGER = kx_logger.get_logger(__name__)
 
+
 class KxAdapterBase(object):
 
     def __init__(self, bus2=None):
@@ -66,4 +67,3 @@ class KxAdapterBase(object):
     def get_firmware_id(self):
         return 0
 
-# TODO 3 move sensor base to here

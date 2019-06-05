@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Rohm Semiconductor
+# Copyright (c) 2018 Kionix Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -44,34 +44,34 @@
 class register_base: pass
 class registers(register_base):
 	def __init__(self):
-		self.KX022_XHP_L                                          = 0x00         # x- hp filter output
-		self.KX022_XHP_H                                          = 0x01         
+		self.KX022_XHP_L                                          = 0x00         # x- hp filter output.
+		self.KX022_XHP_H                                          = 0x01         # msb
 		self.KX022_YHP_L                                          = 0x02         # y- hp filter output
-		self.KX022_YHP_H                                          = 0x03         
+		self.KX022_YHP_H                                          = 0x03         # msb
 		self.KX022_ZHP_L                                          = 0x04         # z- hpfilteroutput
-		self.KX022_ZHP_H                                          = 0x05         
+		self.KX022_ZHP_H                                          = 0x05         # msb
 		self.KX022_XOUT_L                                         = 0x06         # output register x
-		self.KX022_XOUT_H                                         = 0x07         
+		self.KX022_XOUT_H                                         = 0x07         # msb
 		self.KX022_YOUT_L                                         = 0x08         # output register y
-		self.KX022_YOUT_H                                         = 0x09         
+		self.KX022_YOUT_H                                         = 0x09         # msb
 		self.KX022_ZOUT_L                                         = 0x0A         # output register z
-		self.KX022_ZOUT_H                                         = 0x0B         
+		self.KX022_ZOUT_H                                         = 0x0B         # msb
 		self.KX022_COTR                                           = 0x0C         # communication selftest
-		self.KX022_WHO_AM_I                                       = 0x0F         
-		self.KX022_TSCP                                           = 0x10         # current sixfacet posititions
-		self.KX022_TSPP                                           = 0x11         # previous six facet positions
-		self.KX022_INS1                                           = 0x12         # This register indicates the triggering axis when a tap/double tap interrupt occurs.
+		self.KX022_WHO_AM_I                                       = 0x0F         # This register can be used for supplier recognition
+		self.KX022_TSCP                                           = 0x10         # Current Tilt Position Register.
+		self.KX022_TSPP                                           = 0x11         # Previous Tilt Positon Register.
+		self.KX022_INS1                                           = 0x12         # This register indicates the triggering axis when a tap/double tap interrupt occurs
 		self.KX022_INS2                                           = 0x13         # This register tells witch function caused an interrupt.
 		self.KX022_INS3                                           = 0x14         # This register reports the axis and direction of detected motion.
 		self.KX022_STATUS_REG                                     = 0x15         # This register reports the status of the interrupt.
 		self.KX022_INT_REL                                        = 0x17         # Latched interrupt source information (INS1,INS2, INS3 except WMI/BFI and INT when WMI/BFI is zero) is cleared and physical interrupt latched pin is changed to its inactive state when this register is read. Read value is dummy.
 		self.KX022_CNTL1                                          = 0x18         # Read/write control register that controls the main feature set.
-		self.KX022_CNTL2                                          = 0x19         # 2' control register
-		self.KX022_CNTL3                                          = 0x1A         # 3' controlregister
+		self.KX022_CNTL2                                          = 0x19         # Read/write control register that provides more feature set control.
+		self.KX022_CNTL3                                          = 0x1A         # Read/write control register that provides more feature set control.
 		self.KX022_ODCNTL                                         = 0x1B         # This register is responsible for configuring ODR (output data rate) and filter settings
 		self.KX022_INC1                                           = 0x1C         # This register controls the settings for the physical interrupt pin INT1
 		self.KX022_INC2                                           = 0x1D         # This register controls which axis and direction of detected motion can cause an interrupt.
-		self.KX022_INC3                                           = 0x1E         # This register controls which axis and direction of tap/double tap can cause an interrup
+		self.KX022_INC3                                           = 0x1E         # This register controls which axis and direction of tap/double tap can cause an interrupt.
 		self.KX022_INC4                                           = 0x1F         # This register controls routing of an interrupt reporting to physical interrupt pin INT1
 		self.KX022_INC5                                           = 0x20         # This register controls the settings for the physical interrupt pin INT2.
 		self.KX022_INC6                                           = 0x21         # This register controls routing of interrupt reporting to physical interrupt pin INT2
@@ -88,7 +88,7 @@ class registers(register_base):
 		self.KX022_ATH                                            = 0x30         # This register sets the threshold for wake-up (motion detect) interrupt is set.
 		self.KX022_TILT_ANGLE_LL                                  = 0x32         # This register sets the low level threshold for tilt angle detection.
 		self.KX022_TILT_ANGLE_HL                                  = 0x33         # This register sets the high level threshold for tilt angle detection.
-		self.KX022_HYST_SET                                       = 0x34         
+		self.KX022_HYST_SET                                       = 0x34         # This register sets the Hysteresis that is placed in between the Screen Rotation states
 		self.KX022_LP_CNTL                                        = 0x35         # Low Power Control sets the number of samples of accelerometer output to be average
 		self.KX022_BUF_CNTL1                                      = 0x3A         # Read/write control register that controls the buffer sample threshold
 		self.KX022_BUF_CNTL2                                      = 0x3B         # Read/write control register that controls sample buffer operation
@@ -97,8 +97,8 @@ class registers(register_base):
 		self.KX022_BUF_CLEAR                                      = 0x3E         # Latched buffer status information and the entire sample buffer are cleared when any data is written to this register.
 		self.KX022_BUF_READ                                       = 0x3F         # Buffer output register
 		self.KX022_SELF_TEST                                      = 0x60         # When 0xCA is written to this register, the MEMS self-test function is enabled. Electrostatic-actuation of the accelerometer, results in a DC shift of the X, Y and Z axis outputs. Writing 0x00 to this register will return the accelerometer to normal operation
-		self.KX012_WHO_AM_I                                       = 0x0F         
-		self.KX023_WHO_AM_I                                       = 0x0F         
+		self.KX012_WHO_AM_I                                       = 0x0F         # This register can be used for supplier recognition
+		self.KX023_WHO_AM_I                                       = 0x0F         # This register can be used for supplier recognition
 class bits(register_base):
 	def __init__(self):
 		self.KX022_COTR_DCSTR_BEFORE                              = (0x55 << 0)  # before set
@@ -236,7 +236,6 @@ class bits(register_base):
 		self.KX022_LP_CNTL_AVC_32_SAMPLE_AVG                      = (0x05 << 4)  # 32 Samples Averaged
 		self.KX022_LP_CNTL_AVC_64_SAMPLE_AVG                      = (0x06 << 4)  # 64 Samples Averaged
 		self.KX022_LP_CNTL_AVC_128_SAMPLE_AVG                     = (0x07 << 4)  # 128 Samples Averaged
-		self.KX022_BUF_CNTL1_SMP_TH0_6                            = (0x7F << 0)  # count of samples to buffer
 		self.KX022_BUF_CNTL2_BUFE                                 = (0x01 << 7)  # controls activation of the sample buffer
 		self.KX022_BUF_CNTL2_BRES                                 = (0x01 << 6)  # determines the resolution of the acceleration data samples collected by the sample
 		self.KX022_BUF_CNTL2_BFIE                                 = (0x01 << 5)  # buffer full interrupt enable bit
@@ -244,7 +243,6 @@ class bits(register_base):
 		self.KX022_BUF_CNTL2_BUF_M_STREAM                         = (0x01 << 0)  # The buffer holds the last 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values. Once the buffer is full, the oldest data is discarded to make room for newer data.
 		self.KX022_BUF_CNTL2_BUF_M_TRIGGER                        = (0x02 << 0)  # When a trigger event occurs, the buffer holds the last data set of SMP[9:0] samples before the trigger event and then continues to collect data until full. New data is collected only when the buffer is not full.
 		self.KX022_BUF_CNTL2_BUF_M_FILO                           = (0x03 << 0)  # The buffer holds the last 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values. Once the buffer is full, the oldest data is discarded to make room for newer data. Reading from the buffer in this mode will return the most recent data first.
-		self.KX022_BUF_STATUS_1_SMP_LEV0_7                        = (0xFF << 0)  
 		self.KX022_BUF_STATUS_2_BUF_TRIG                          = (0x01 << 7)  # reports the status of the buffers trigger function if this mode has been selected
 		self.KX022_SELF_TEST_MEMS_TEST_OFF                        = (0x00 << 0)  # MEMS Test OFF
 		self.KX022_SELF_TEST_MEMS_TEST_ON                         = (0xCA << 0)  # MEMS Test ON
@@ -339,8 +337,8 @@ class enums(register_base):
 		}
 class masks(register_base):
 	def __init__(self):
-		self.KX022_COTR_DCSTR_MASK                                = 0xFF         
-		self.KX022_WHO_AM_I_WIA_MASK                              = 0xFF         
+		self.KX022_COTR_DCSTR_MASK                                = 0xFF         # test value
+		self.KX022_WHO_AM_I_WIA_MASK                              = 0xFF         # WHO_AM_I -value
 		self.KX022_INS2_TDTS_MASK                                 = 0x0C         # status of tap/double tap, bit is released when interrupt release register INT_REL is read.
 		self.KX022_CNTL1_GSEL_MASK                                = 0x18         # selects the acceleration range of the accelerometer outputs
 		self.KX022_CNTL3_OTP_MASK                                 = 0xC0         # sets the output data rate for the Tilt Position function
@@ -349,15 +347,25 @@ class masks(register_base):
 		self.KX022_ODCNTL_IIR_BYPASS_MASK                         = 0x80         # filter bypass mode
 		self.KX022_ODCNTL_LPRO_MASK                               = 0x40         # low-pass filter roll off control
 		self.KX022_ODCNTL_OSA_MASK                                = 0x0F         # acceleration output data rate.
-		self.KX022_INC2_WUE_MASK                                  = 0x3F         
-		self.KX022_INC3_TM_MASK                                   = 0x3F         # tap directions
-		self.KX022_HYST_SET_HYST_MASK                             = 0x3F         
+		self.KX022_TILT_TIMER_TSC_MASK                            = 0xFF         # This register is the initial count register for the tilt position state timer
+		self.KX022_WUFC_WUFC_MASK                                 = 0xFF         # This register is the initial count register for the motion detection timer
+		self.KX022_TDTC_TDTC_MASK                                 = 0xFF         # This register contains counter information for the detection of a double tap event.
+		self.KX022_TTH_TTH_MASK                                   = 0xFF         # This register represents the 8-bit jerk high threshold to determine if a tap is detected.
+		self.KX022_TTL_TTL_MASK                                   = 0xFF         # This register represents the 8-bit (0d 255d) jerk low threshold to determine if a tap is detected.
+		self.KX022_FTD_FTDH_MASK                                  = 0xF8         # High part of FTD
+		self.KX022_FTD_FTDL_MASK                                  = 0x07         # Low part of FTD
+		self.KX022_STD_STD_MASK                                   = 0xFF         # This register contains counter information for the detection of a double tap event
+		self.KX022_TLT_TLT_MASK                                   = 0xFF         # This register contains counter information for the detection of a tap event.
+		self.KX022_TWS_TWS_MASK                                   = 0xFF         # This register contains counter information for the detection of single and double taps.
+		self.KX022_ATH_ATH_MASK                                   = 0xFF         # This register sets the threshold for wake-up (motion detect) interrupt is set.
+		self.KX022_TILT_ANGLE_LL_TA_MASK                          = 0xFF         # This register sets the low level threshold for tilt angle detection.
+		self.KX022_TILT_ANGLE_HL_HL_MASK                          = 0xFF         # This register sets the high level threshold for tilt angle detection.
+		self.KX022_HYST_SET_RES_MASK                              = 0xC0         # This register sets the Hysteresis that is placed in between the Screen Rotation states
+		self.KX022_HYST_SET_HYST_MASK                             = 0x3F         # This register sets the Hysteresis that is placed in between the Screen Rotation states
 		self.KX022_LP_CNTL_AVC_MASK                               = 0x70         # Averaging Filter Control
-		self.KX022_BUF_CNTL1_SMP_TH0_MASK                         = 0x7F         
-		self.KX022_BUF_CNTL1_SMP_TH0_6_MASK                       = 0x7F         
+		self.KX022_BUF_CNTL1_SMP_TH0_6_MASK                       = 0x7F         # buffer sample control threshold
 		self.KX022_BUF_CNTL2_BUF_M_MASK                           = 0x03         # selects the operating mode of the sample buffer
-		self.KX022_BUF_STATUS_1_SMP_LEV0_MASK                     = 0xFF         
-		self.KX022_BUF_STATUS_1_SMP_LEV0_7_MASK                   = 0xFF         
-		self.KX022_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         
+		self.KX022_BUF_STATUS_1_SMP_LEV0_7_MASK                   = 0xFF         # buffer status sample level
+		self.KX022_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         # Self test value
 		self.KX012_WHO_AM_I_WIA_MASK                              = 0xFF         
 		self.KX023_WHO_AM_I_WIA_MASK                              = 0xFF         

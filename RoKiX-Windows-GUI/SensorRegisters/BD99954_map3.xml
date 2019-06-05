@@ -1,0 +1,924 @@
+<root version="3.0">
+ <sensor name="BD99954" order="little-endian" sad="9" size="16" style="int">
+  <register address="0" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM00" por="0" size="16">
+   <fields>
+    <field doc="ICHG_TRIM000_4_0" mask="7936" name="ICHG_TRIM000_4_0" size="5" start_pos="8">
+    </field>
+    <field doc="OTP_DEPMON_1_0" mask="3" name="OTP_DEPMON_1_0" size="2" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="1" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM01" por="0" size="16">
+   <fields>
+    <field doc="ICHG_TRIM200_4_0" mask="7936" name="ICHG_TRIM200_4_0" size="5" start_pos="8">
+    </field>
+    <field doc="ICHG_TRIM100_4_0" mask="31" name="ICHG_TRIM100_4_0" size="5" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="2" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM02" por="0" size="16">
+   <fields>
+    <field doc="ICHG_TRIM400_4_0" mask="7936" name="ICHG_TRIM400_4_0" size="5" start_pos="8">
+    </field>
+    <field doc="ICHG_TRIM300_4_0" mask="31" name="ICHG_TRIM300_4_0" size="5" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="3" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM03" por="0" size="16">
+   <fields>
+    <field doc="ICHG_OFF_TRIM_6_0" mask="32512" name="ICHG_OFF_TRIM_6_0" size="7" start_pos="8">
+    </field>
+    <field doc="ICHG_TRIM500_4_0" mask="31" name="ICHG_TRIM500_4_0" size="5" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="4" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM04" por="0" size="16">
+   <fields>
+    <field doc="IUSB_TRIM150_5_0" mask="16128" name="IUSB_TRIM150_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="IUSB_TRIM100_5_0" mask="63" name="IUSB_TRIM100_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="5" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM05" por="0" size="16">
+   <fields>
+    <field doc="IUSB_TRIM250_5_0" mask="16128" name="IUSB_TRIM250_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="IUSB_TRIM200_5_0" mask="63" name="IUSB_TRIM200_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="6" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM06" por="0" size="16">
+   <fields>
+    <field doc="IUSB_TRIM350_5_0" mask="16128" name="IUSB_TRIM350_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="IUSB_TRIM300_5_0" mask="63" name="IUSB_TRIM300_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="7" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM07" por="0" size="16">
+   <fields>
+    <field doc="IUSB_TRIM450_5_0" mask="16128" name="IUSB_TRIM450_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="IUSB_TRIM400_5_0" mask="63" name="IUSB_TRIM400_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="8" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM08" por="0" size="16">
+   <fields>
+    <field doc="IUSB_OFF_7_0" mask="65280" name="IUSB_OFF_7_0" size="8" start_pos="8">
+    </field>
+    <field doc="IUSB_TRIM500_5_0" mask="63" name="IUSB_TRIM500_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="9" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM09" por="0" size="16">
+   <fields>
+    <field doc="VSYS_TRIM2_5_0" mask="16128" name="VSYS_TRIM2_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="VSYS_TRIM1_5_0" mask="63" name="VSYS_TRIM1_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="10" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM10" por="0" size="16">
+   <fields>
+    <field doc="VSYS_TRIM4_5_0" mask="16128" name="VSYS_TRIM4_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="VSYS_TRIM3_5_0" mask="63" name="VSYS_TRIM3_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="11" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM11" por="0" size="16">
+   <fields>
+    <field doc="DCHG_OFF_TRIM_6_0" mask="32512" name="DCHG_OFF_TRIM_6_0" size="7" start_pos="8">
+    </field>
+    <field doc="VSYS_OVP_TRIM_3_0" mask="15" name="VSYS_OVP_TRIM_3_0" size="4" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="12" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM12" por="0" size="16">
+   <fields>
+    <field doc="VOTG_TRIM2_5_0" mask="16128" name="VOTG_TRIM2_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="VOTG_TRIM1_5_0" mask="63" name="VOTG_TRIM1_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="13" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM13" por="0" size="16">
+   <fields>
+    <field doc="VOTG_TRIM4_5_0" mask="16128" name="VOTG_TRIM4_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="VOTG_TRIM3_5_0" mask="63" name="VOTG_TRIM3_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="14" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM14" por="0" size="16">
+   <fields>
+    <field doc="IRB_TRIM150_5_0" mask="16128" name="IRB_TRIM150_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="IRB_TRIM100_5_0" mask="63" name="IRB_TRIM100_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="15" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM15" por="0" size="16">
+   <fields>
+    <field doc="IRB_TRIM250_5_0" mask="16128" name="IRB_TRIM250_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="IRB_TRIM200_5_0" mask="63" name="IRB_TRIM200_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="16" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM16" por="0" size="16">
+   <fields>
+    <field doc="IRB_TRIM350_5_0" mask="16128" name="IRB_TRIM350_5_0" size="6" start_pos="8">
+    </field>
+    <field doc="IRB_TRIM300_5_0" mask="63" name="IRB_TRIM300_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="17" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM17" por="0" size="16">
+   <fields>
+    <field doc="IRB_TRIM400_5_0" mask="63" name="IRB_TRIM400_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="18" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM18" por="0" size="16">
+   <fields>
+    <field doc="IRB_OFF_7_0" mask="65280" name="IRB_OFF_7_0" size="8" start_pos="8">
+    </field>
+   </fields>
+  </register>
+  <register address="19" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM19" por="0" size="16">
+   <fields>
+    <field doc="AVREF_TRIM_4_0" mask="7936" name="AVREF_TRIM_4_0" size="5" start_pos="8">
+    </field>
+    <field doc="AVREF_UVLO_TRIM_3_0" mask="15" name="AVREF_UVLO_TRIM_3_0" size="4" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="20" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM20" por="514" size="16">
+   <fields>
+    <field doc="REVERSE_COMP_OTP_DD2_4_0" mask="7936" name="REVERSE_COMP_OTP_DD2_4_0" size="5" start_pos="8">
+    </field>
+    <field doc="REVERSE_COMP_OTP_DD1_4_0" mask="31" name="REVERSE_COMP_OTP_DD1_4_0" size="5" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="21" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM21" por="258" size="16">
+   <fields>
+    <field doc="PROD_SEL" mask="256" name="PROD_SEL" size="1" start_pos="8">
+    </field>
+    <field doc="VBATDEAD_HYS_SEL_1_0" mask="3" name="VBATDEAD_HYS_SEL_1_0" size="2" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="22" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM22" por="0" size="16">
+   <fields>
+    <field doc="VBAT_TRIM2_6_0" mask="32512" name="VBAT_TRIM2_6_0" size="7" start_pos="8">
+    </field>
+    <field doc="VBAT_TRIM1_6_0" mask="127" name="VBAT_TRIM1_6_0" size="7" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="23" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM23" por="0" size="16">
+   <fields>
+    <field doc="VBAT_TRIM4_6_0" mask="32512" name="VBAT_TRIM4_6_0" size="7" start_pos="8">
+    </field>
+    <field doc="VBAT_TRIM3_6_0" mask="127" name="VBAT_TRIM3_6_0" size="7" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="24" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM24" por="18247" size="16">
+   <fields>
+    <field doc="OTP_IODACVREF2_6_0" mask="32512" name="OTP_IODACVREF2_6_0" size="7" start_pos="8">
+    </field>
+    <field doc="OTP_IODACVREF1_6_0" mask="127" name="OTP_IODACVREF1_6_0" size="7" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="25" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM25" por="78" size="16">
+   <fields>
+    <field doc="OTP_REGN_OVP_3_0" mask="61440" name="OTP_REGN_OVP_3_0" size="4" start_pos="12">
+    </field>
+    <field doc="OTP_UVLOREGN_3_0" mask="3840" name="OTP_UVLOREGN_3_0" size="4" start_pos="8">
+    </field>
+    <field doc="OTP_PSYSDAC_6_0" mask="127" name="OTP_PSYSDAC_6_0" size="7" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="26" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM26" por="0" size="16">
+   <fields>
+    <field doc="BOOT_UVLO_DisEN" mask="128" name="BOOT_UVLO_DisEN" size="1" start_pos="7">
+    </field>
+    <field doc="REVCOMP_DisEN" mask="64" name="REVCOMP_DisEN" size="1" start_pos="6">
+    </field>
+    <field doc="REVCOMP_NUM_1_0" mask="48" name="REVCOMP_NUM_1_0" size="2" start_pos="4">
+    </field>
+    <field doc="MAXDUTY_SEL" mask="4" name="MAXDUTY_SEL" size="1" start_pos="2">
+    </field>
+    <field doc="MAXDUTY_NUM_1_0" mask="3" name="MAXDUTY_NUM_1_0" size="2" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="28" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM28" por="0" size="16">
+   <fields>
+    <field doc="OTP_ITRIOFF_3_0" mask="15" name="OTP_ITRIOFF_3_0" size="4" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="30" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM30" por="257" size="16">
+   <fields>
+    <field doc="OTP_ATEST" mask="32768" name="OTP_ATEST" size="1" start_pos="15">
+    </field>
+    <field doc="OTP_REGN_4_0" mask="7936" name="OTP_REGN_4_0" size="5" start_pos="8">
+    </field>
+    <field doc="OTP_BATREG_4_0" mask="31" name="OTP_BATREG_4_0" size="5" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="32" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM32" por="0" size="16">
+   <fields>
+    <field doc="UCD2_TRIM_6_0" mask="32512" name="UCD2_TRIM_6_0" size="7" start_pos="8">
+    </field>
+    <field doc="UCD1_TRIM_6_0" mask="127" name="UCD1_TRIM_6_0" size="7" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="34" doc="Analog Trimming" mode="R/W" name="ANALOG_TRIM34" por="0" size="16">
+   <fields>
+    <field doc="OTP_OSC6M_6_0" mask="127" name="OTP_OSC6M_6_0" size="7" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="38" doc="Digital Trimming （VCC電圧測定値のオフセット補正）" mode="R/W" name="VMT_VCC_OFFSET" por="0" size="16">
+   <fields>
+    <field doc="VMT_VCC_OFFSET_10_0" mask="2047" name="VMT_VCC_OFFSET_10_0" size="11" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="39" doc="Digital Trimming　（VBAT電圧測定値のオフセット補正）" mode="R/W" name="VMT_VBAT_OFFSET" por="0" size="16">
+   <fields>
+    <field doc="VMT_VBAT_OFFSET_10_0" mask="2047" name="VMT_VBAT_OFFSET_10_0" size="11" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="40" doc="Digital Trimming　（VBUS電圧測定値の傾き補正）" mode="R/W" name="VMT_VBUS_COEF" por="0" size="16">
+   <fields>
+    <field doc="VMT_VBUS_COEF_11_0" mask="4095" name="VMT_VBUS_COEF_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="41" doc="Digital Trimming　（VCC電圧測定値の傾き補正）" mode="R/W" name="VMT_VCC_COEF" por="0" size="16">
+   <fields>
+    <field doc="VMT_VCC_COEF_11_0" mask="4095" name="VMT_VCC_COEF_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="42" doc="Digital Trimming　（VACP電圧測定値の傾き補正）" mode="R/W" name="VMT_VACP_COEF" por="0" size="16">
+   <fields>
+    <field doc="VMT_VACP_COEF_11_0" mask="4095" name="VMT_VACP_COEF_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="43" doc="Digital Trimming　（VACP電流測定値の傾き補正）" mode="R/W" name="VMT_IACP_COEF" por="0" size="16">
+   <fields>
+    <field doc="VMT_IACP_COEF_12_0" mask="8191" name="VMT_IACP_COEF_12_0" size="13" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="44" doc="Digital Trimming　（VBATチャージ電流測定値の傾き補正）" mode="R/W" name="VMT_IBATP_COEF" por="0" size="16">
+   <fields>
+    <field doc="VMT_IBATP_COEF_12_0" mask="8191" name="VMT_IBATP_COEF_12_0" size="13" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="45" doc="Digital Trimming　（VBATディスチャージ電流測定値の傾き補正）" mode="R/W" name="VMT_IBATM_COEF" por="0" size="16">
+   <fields>
+    <field doc="VMT_IBATM_COEF_12_0" mask="8191" name="VMT_IBATM_COEF_12_0" size="13" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="46" doc="Digital Trimming　（VSYS電圧測定値の傾き補正）" mode="R/W" name="VMT_VSYS_COEF" por="0" size="16">
+   <fields>
+    <field doc="VMT_VSYS_COEF_11_0" mask="4095" name="VMT_VSYS_COEF_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="47" doc="Digital Trimming　（VBAT電圧測定値の傾き補正）" mode="R/W" name="VMT_VBAT_COEF" por="0" size="16">
+   <fields>
+    <field doc="VMT_VBAT_COEF_11_0" mask="4095" name="VMT_VBAT_COEF_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="48" doc="Digital Trimming　（VBUS電圧測定値のオフセット補正）" mode="R/W" name="VMT_VBUS_OFFSET" por="0" size="16">
+   <fields>
+    <field doc="VMT_VBUS_OFFSET_10_0" mask="2047" name="VMT_VBUS_OFFSET_10_0" size="11" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="49" doc="Digital Trimming　（VACP電圧測定値のオフセット補正）" mode="R/W" name="VMT_VACP_OFFSET" por="0" size="16">
+   <fields>
+    <field doc="VMT_VACP_OFFSET_10_0" mask="2047" name="VMT_VACP_OFFSET_10_0" size="11" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="50" doc="Digital Trimming　（VAPC電流測定値のオフセット補正）" mode="R/W" name="VMT_IACP_OFFSET" por="0" size="16">
+   <fields>
+    <field doc="VMT_IACP_OFFSET_11_0" mask="4095" name="VMT_IACP_OFFSET_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="51" doc="Digital Trimming　（VBATチャージ電流測定値のオフセット補正）" mode="R/W" name="VMT_IBATP_OFFSET" por="0" size="16">
+   <fields>
+    <field doc="VMT_IBATP_OFFSET_11_0" mask="4095" name="VMT_IBATP_OFFSET_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="52" doc="Digital Trimming　（VBATディスチャージ電流測定値のオフセット補正）" mode="R/W" name="VMT_IBATM_OFFSET" por="0" size="16">
+   <fields>
+    <field doc="VMT_IBATM_OFFSET_11_0" mask="4095" name="VMT_IBATM_OFFSET_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="53" doc="Digital Trimming　（VSYS電圧測定値のオフセット補正）" mode="R/W" name="VMT_VSYS_OFFSET" por="0" size="16">
+   <fields>
+    <field doc="VMT_VSYS_OFFSET_10_0" mask="2047" name="VMT_VSYS_OFFSET_10_0" size="11" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="54" doc="Digital Trimming　（SAR-ADC測定値の傾き補正）" mode="R/W" name="VMT_SARADC_COEF" por="0" size="16">
+   <fields>
+    <field doc="VMT_SARADC_COEF_8_0" mask="511" name="VMT_SARADC_COEF_8_0" size="9" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="55" doc="Analog Trimming" mode="R/W" name="ITRI_PRE_TRIM" por="17" size="16">
+   <fields>
+    <field doc="ITRI_PRE_TRIM_4_0" mask="31" name="ITRI_PRE_TRIM_4_0" size="5" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="56" doc="Digital Trimming　（SDP検出時の入力電流制限設定値、SDP_500_SEL=1時）" mode="R/W" name="ISDP_LIM_SET" por="480" size="16">
+   <fields>
+    <field doc="ISDP_LIM_SET_13_5" mask="16352" name="ISDP_LIM_SET_13_5" size="9" start_pos="5">
+    </field>
+   </fields>
+  </register>
+  <register address="57" doc="Digital Trimming　（DCP検出時の入力電流制限、DCP_2500_SEL=1時）" mode="R/W" name="IDCP_LIM_SET" por="2496" size="16">
+   <fields>
+    <field doc="IDCP_LIM_SET_13_5" mask="16352" name="IDCP_LIM_SET_13_5" size="9" start_pos="5">
+    </field>
+   </fields>
+  </register>
+  <register address="58" doc="Digital Trimming　（サーミスタ傾き補正）" mode="R" name="VMT_TMP_COEF" por="122" size="16">
+   <fields>
+    <field doc="VMT_TMP_COEF_8_0" mask="511" name="VMT_TMP_COEF_8_0" size="9" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="59" doc="Digital Trimming　（サーミスタオフセット補正）" mode="R" name="VMT_TMP_OFFSET" por="98" size="16">
+   <fields>
+    <field doc="VMT_TMP_OFFSET_7_0" mask="255" name="VMT_TMP_OFFSET_7_0" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="60" doc="Digital Trimming　（IADP端子、TSENSE端子のオフセット補正）" mode="R" name="VMT_EXTICHG_OFFSET/TSENSE_OFFSET" por="0" size="16">
+   <fields>
+    <field doc="EXTICHG_OFFSET_7_0" mask="65280" name="EXTICHG_OFFSET_7_0" size="8" start_pos="8">
+    </field>
+    <field doc="TSENSE_OFFSET_7_0" mask="255" name="TSENSE_OFFSET_7_0" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="61" doc="VACP UVLO Threshold Setting" mode="R/W" name="VACP_UVLO_TH_SET" por="3712" size="16">
+   <fields>
+    <field doc="VACP_UVLO_TH_SET_14_0" mask="32767" name="VACP_UVLO_TH_SET_14_0" size="15" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="62" doc="Access Un-protect Setting for Address FCh and FEh" mode="R/W" name="PROTECT_SET" por="0" size="16">
+   <fields>
+    <field doc="PROTECT_SET_15_0" mask="65535" name="PROTECT_SET_15_0" size="16" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="63" doc="Change Command Code Map to Debug Command Code Map" mode="R/W" name="MAP_SET" por="0" size="16">
+   <fields>
+    <field doc="MAPSEL_15_0" mask="65535" name="MAPSEL_15_0" size="16" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="64" doc="OTP Store Data 1/0" mode="R/W" name="OTP_WDATA0/1" por="0" size="16">
+   <fields>
+    <field doc="OTPWDATA1_7_0" mask="65280" name="OTPWDATA1_7_0" size="8" start_pos="8">
+    </field>
+    <field doc="OTPWDATA0_7_0" mask="255" name="OTPWDATA0_7_0" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="65" doc="OTP Store Data 3/2" mode="R/W" name="OTP_WDATA2/3" por="0" size="16">
+   <fields>
+    <field doc="OTPWDATA3_7_0" mask="65280" name="OTPWDATA3_7_0" size="8" start_pos="8">
+    </field>
+    <field doc="OTPWDATA2_7_0" mask="255" name="OTPWDATA2_7_0" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="66" doc="OTP Store Data 5/4" mode="R/W" name="OTP_WDATA4/5" por="0" size="16">
+   <fields>
+    <field doc="OTPWDATA5_7_0" mask="65280" name="OTPWDATA5_7_0" size="8" start_pos="8">
+    </field>
+    <field doc="OTPWDATA4_7_0" mask="255" name="OTPWDATA4_7_0" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="67" doc="OTP Area Setting" mode="R/W" name="OTP_AREA" por="0" size="16">
+   <fields>
+    <field doc="OTPAREA_7_0" mask="255" name="OTPAREA_7_0" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="68" doc="OTP Control 1" mode="R/W" name="OTP_CTRL1" por="0" size="16">
+   <fields>
+    <field doc="OTP_VPP_FORCE_EN" mask="256" name="OTP_VPP_FORCE_EN" size="1" start_pos="8">
+    </field>
+    <field doc="USRB" mask="16" name="USRB" size="1" start_pos="4">
+    </field>
+    <field doc="OTPSTORE" mask="1" name="OTPSTORE" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="69" doc="OTP Control 2" mode="R/W" name="OTP_CTRL2" por="0" size="16">
+   <fields>
+    <field doc="VWLIN" mask="32768" name="VWLIN" size="1" start_pos="15">
+    </field>
+    <field doc="TSTONSEL_2_0" mask="28672" name="TSTONSEL_2_0" size="3" start_pos="12">
+    </field>
+    <field doc="TSTON" mask="2048" name="TSTON" size="1" start_pos="11">
+    </field>
+    <field doc="STDIAG" mask="1024" name="STDIAG" size="1" start_pos="10">
+    </field>
+    <field doc="CCUR" mask="512" name="CCUR" size="1" start_pos="9">
+    </field>
+    <field doc="DIAG" mask="256" name="DIAG" size="1" start_pos="8">
+    </field>
+    <field doc="MOSADR_5_0" mask="63" name="MOSADR_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="72" doc="Analog Test Control/ Monitor" mode="R/W" name="ANALOG_DBG1" por="0" size="16">
+   <fields>
+    <field doc="SCP_OFF" mask="32768" name="SCP_OFF" size="1" start_pos="15">
+    </field>
+    <field doc="TSD_UVLO_MASK" mask="16384" name="TSD_UVLO_MASK" size="1" start_pos="14">
+    </field>
+    <field doc="EDS_PWMSYSTEM_DD_3_0" mask="3840" name="EDS_PWMSYSTEM_DD_3_0" size="4" start_pos="8">
+    </field>
+    <field doc="REVERSE_COMP_DD1_I" mask="16" name="REVERSE_COMP_DD1_I" size="1" start_pos="4">
+    </field>
+    <field doc="BOOT_UVLO_DD2" mask="2" name="BOOT_UVLO_DD2" size="1" start_pos="1">
+    </field>
+    <field doc="BOOT_UVLO_DD1" mask="1" name="BOOT_UVLO_DD1" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="73" doc="Analog Test Control/ Monitor" mode="R/W" name="ANALOG_DBG2" por="0" size="16">
+   <fields>
+    <field doc="ERROR_1_0" mask="12288" name="ERROR_1_0" size="2" start_pos="12">
+    </field>
+    <field doc="BATAMP_1_0" mask="768" name="BATAMP_1_0" size="2" start_pos="8">
+    </field>
+    <field doc="TEST_INCUR_1_0" mask="48" name="TEST_INCUR_1_0" size="2" start_pos="4">
+    </field>
+    <field doc="TEST_CHGCUR_1_0" mask="3" name="TEST_CHGCUR_1_0" size="2" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="75" doc="Analog Test Control/ Monitor" mode="R/W" name="CHARGER_DBG" por="0" size="16">
+   <fields>
+    <field doc="FMODE" mask="128" name="FMODE" size="1" start_pos="7">
+    </field>
+    <field doc="FORCE_STATE_6_0" mask="127" name="FORCE_STATE_6_0" size="7" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="77" doc="Analog Test Control/ Monitor" mode="R/W" name="OVP_DBG" por="0" size="16">
+   <fields>
+    <field doc="VCC_CP_OFF" mask="4096" name="VCC_CP_OFF" size="1" start_pos="12">
+    </field>
+    <field doc="VCC_PG_ON2" mask="1024" name="VCC_PG_ON2" size="1" start_pos="10">
+    </field>
+    <field doc="VCC_PG_ON1" mask="512" name="VCC_PG_ON1" size="1" start_pos="9">
+    </field>
+    <field doc="VCC_PP_OFF" mask="256" name="VCC_PP_OFF" size="1" start_pos="8">
+    </field>
+    <field doc="VBUS_CP_OFF" mask="16" name="VBUS_CP_OFF" size="1" start_pos="4">
+    </field>
+    <field doc="VBUS_PG_ON2" mask="4" name="VBUS_PG_ON2" size="1" start_pos="2">
+    </field>
+    <field doc="VBUS_PG_ON1" mask="2" name="VBUS_PG_ON1" size="1" start_pos="1">
+    </field>
+    <field doc="VBUS_PP_OFF" mask="1" name="VBUS_PP_OFF" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="80" doc="VCC UCD Test Control/ Monitor" mode="R/W" name="UCD1_DBG1" por="0" size="16">
+   <fields>
+    <field doc="FMODE_UCD1" mask="128" name="FMODE_UCD1" size="1" start_pos="7">
+    </field>
+    <field doc="FORCE_STATE_UCD1_2_0" mask="112" name="FORCE_STATE_UCD1_2_0" size="3" start_pos="4">
+    </field>
+    <field doc="FMODE_IDD1" mask="8" name="FMODE_IDD1" size="1" start_pos="3">
+    </field>
+    <field doc="FORCE_STATE_IDD1_2_0" mask="7" name="FORCE_STATE_IDD1_2_0" size="3" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="81" doc="VCC UCD Test Control/ Monitor" mode="R/W" name="UCD1_DBG2" por="0" size="16">
+   <fields>
+    <field doc="UCDSWEN" mask="1024" name="UCDSWEN" size="1" start_pos="10">
+    </field>
+    <field doc="RREF_EN" mask="512" name="RREF_EN" size="1" start_pos="9">
+    </field>
+    <field doc="DPPU_EN" mask="256" name="DPPU_EN" size="1" start_pos="8">
+    </field>
+    <field doc="DPREF_EN" mask="128" name="DPREF_EN" size="1" start_pos="7">
+    </field>
+    <field doc="DMREF_EN" mask="64" name="DMREF_EN" size="1" start_pos="6">
+    </field>
+    <field doc="DPDET_EN" mask="32" name="DPDET_EN" size="1" start_pos="5">
+    </field>
+    <field doc="DMDET_EN" mask="16" name="DMDET_EN" size="1" start_pos="4">
+    </field>
+    <field doc="DPSINK_EN" mask="8" name="DPSINK_EN" size="1" start_pos="3">
+    </field>
+    <field doc="DMSINK_EN" mask="4" name="DMSINK_EN" size="1" start_pos="2">
+    </field>
+    <field doc="DP_BUFF_EN" mask="2" name="DP_BUFF_EN" size="1" start_pos="1">
+    </field>
+    <field doc="DM_BUFF_EN" mask="1" name="DM_BUFF_EN" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="82" doc="VCC UCD Test Control/ Monitor" mode="R/W" name="UCD1_DBG3" por="0" size="16">
+   <fields>
+    <field doc="EXTCLKENBL" mask="32768" name="EXTCLKENBL" size="1" start_pos="15">
+    </field>
+    <field doc="PLSTESTEN" mask="16384" name="PLSTESTEN" size="1" start_pos="14">
+    </field>
+    <field doc="UCDSWEN_TSTENB" mask="1024" name="UCDSWEN_TSTENB" size="1" start_pos="10">
+    </field>
+    <field doc="RREF_EN_TSTENB" mask="512" name="RREF_EN_TSTENB" size="1" start_pos="9">
+    </field>
+    <field doc="DPPU_EN_TSTENB" mask="256" name="DPPU_EN_TSTENB" size="1" start_pos="8">
+    </field>
+    <field doc="DPREF_EN_TSTENB" mask="128" name="DPREF_EN_TSTENB" size="1" start_pos="7">
+    </field>
+    <field doc="DMREF_EN_TSTENB" mask="64" name="DMREF_EN_TSTENB" size="1" start_pos="6">
+    </field>
+    <field doc="DPDET_EN_TSTENB" mask="32" name="DPDET_EN_TSTENB" size="1" start_pos="5">
+    </field>
+    <field doc="DMDET_EN_TSTENB" mask="16" name="DMDET_EN_TSTENB" size="1" start_pos="4">
+    </field>
+    <field doc="DPSINK_EN_TSTENB" mask="8" name="DPSINK_EN_TSTENB" size="1" start_pos="3">
+    </field>
+    <field doc="DMSINK_EN_TSTENB" mask="4" name="DMSINK_EN_TSTENB" size="1" start_pos="2">
+    </field>
+    <field doc="DP_BUFF_EN_TSTENB" mask="2" name="DP_BUFF_EN_TSTENB" size="1" start_pos="1">
+    </field>
+    <field doc="DM_BUFF_EN_TSTENB" mask="1" name="DM_BUFF_EN_TSTENB" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="83" doc="VCC UCD Test Control/ Monitor" mode="R/W" name="UCD1_DBG4" por="0" size="16">
+   <fields>
+    <field doc="CNT_PU_L_TSTENB" mask="8192" name="CNT_PU_L_TSTENB" size="1" start_pos="13">
+    </field>
+    <field doc="IDRDETEN_TSTENB" mask="4096" name="IDRDETEN_TSTENB" size="1" start_pos="12">
+    </field>
+    <field doc="COMPHEN_TSTENB" mask="1024" name="COMPHEN_TSTENB" size="1" start_pos="10">
+    </field>
+    <field doc="CNT_PU_TSTENB" mask="512" name="CNT_PU_TSTENB" size="1" start_pos="9">
+    </field>
+    <field doc="ADC_CNT_TSTENB" mask="256" name="ADC_CNT_TSTENB" size="1" start_pos="8">
+    </field>
+    <field doc="CNT_PU_L" mask="32" name="CNT_PU_L" size="1" start_pos="5">
+    </field>
+    <field doc="IDRDETEN" mask="16" name="IDRDETEN" size="1" start_pos="4">
+    </field>
+    <field doc="COMPHEN" mask="4" name="COMPHEN" size="1" start_pos="2">
+    </field>
+    <field doc="CNT_PU" mask="2" name="CNT_PU" size="1" start_pos="1">
+    </field>
+    <field doc="ADC_CNT" mask="1" name="ADC_CNT" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="84" doc="VCC UCD Test Control/ Monitor" mode="R/W" name="UCD1_DBG5" por="0" size="16">
+   <fields>
+    <field doc="CNT_SW_TSTENB1" mask="8192" name="CNT_SW_TSTENB1" size="1" start_pos="13">
+    </field>
+    <field doc="CNT_SW_TSTENB0" mask="7936" name="CNT_SW_TSTENB0" size="5" start_pos="8">
+    </field>
+    <field doc="FD_FU_SELECT" mask="64" name="FD_FU_SELECT" size="1" start_pos="6">
+    </field>
+    <field doc="FS_5_0" mask="63" name="FS_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="85" doc="VCC UCD Test Control/ Monitor" mode="R/W" name="UCD1_DBG6" por="0" size="16">
+   <fields>
+    <field doc="ANLGSIGSEL4" mask="4096" name="ANLGSIGSEL4" size="1" start_pos="12">
+    </field>
+    <field doc="ANLGSIGSEL3" mask="2048" name="ANLGSIGSEL3" size="1" start_pos="11">
+    </field>
+    <field doc="ANLGSIGSEL2" mask="1024" name="ANLGSIGSEL2" size="1" start_pos="10">
+    </field>
+    <field doc="ANLGSIGSEL1" mask="512" name="ANLGSIGSEL1" size="1" start_pos="9">
+    </field>
+    <field doc="ANLGSIGSEL0" mask="256" name="ANLGSIGSEL0" size="1" start_pos="8">
+    </field>
+    <field doc="ANLGSINSEL3" mask="8" name="ANLGSINSEL3" size="1" start_pos="3">
+    </field>
+    <field doc="ANLGSINSEL2" mask="4" name="ANLGSINSEL2" size="1" start_pos="2">
+    </field>
+    <field doc="ANLGSINSEL1" mask="2" name="ANLGSINSEL1" size="1" start_pos="1">
+    </field>
+    <field doc="ANLGSINSEL0" mask="1" name="ANLGSINSEL0" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="86" doc="VCC UCD Test Control/ Monitor" mode="R/W" name="UCD1_DBG7" por="0" size="16">
+   <fields>
+    <field doc="COMPH_TSTENB" mask="8192" name="COMPH_TSTENB" size="1" start_pos="13">
+    </field>
+    <field doc="IDDET_TSTENB" mask="4096" name="IDDET_TSTENB" size="1" start_pos="12">
+    </field>
+    <field doc="IDRDET_TSTENB" mask="2048" name="IDRDET_TSTENB" size="1" start_pos="11">
+    </field>
+    <field doc="DMDET_TSTENB" mask="512" name="DMDET_TSTENB" size="1" start_pos="9">
+    </field>
+    <field doc="DPDET_TSTENB" mask="256" name="DPDET_TSTENB" size="1" start_pos="8">
+    </field>
+    <field doc="COMPH" mask="32" name="COMPH" size="1" start_pos="5">
+    </field>
+    <field doc="IDDET" mask="16" name="IDDET" size="1" start_pos="4">
+    </field>
+    <field doc="IDRDET" mask="8" name="IDRDET" size="1" start_pos="3">
+    </field>
+    <field doc="DMDET" mask="2" name="DMDET" size="1" start_pos="1">
+    </field>
+    <field doc="DPDET" mask="1" name="DPDET" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="87" doc="VCC UCD Test Control/ Monitor" mode="R/W" name="UCD1_DBG8" por="0" size="16">
+   <fields>
+    <field doc="FD_FU_VREFSEL" mask="32" name="FD_FU_VREFSEL" size="1" start_pos="5">
+    </field>
+    <field doc="FSVREF_4_1" mask="30" name="FSVREF_4_1" size="4" start_pos="1">
+    </field>
+    <field doc="VCC_LOAD_FORCE_EN" mask="1" name="VCC_LOAD_FORCE_EN" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="88" doc="VBUS UCD Test Control/ Monitor" mode="R/W" name="UCD2_DBG1" por="0" size="16">
+   <fields>
+    <field doc="FMODE_UCD2" mask="128" name="FMODE_UCD2" size="1" start_pos="7">
+    </field>
+    <field doc="FORCE_STATE_UCD2_2_0" mask="112" name="FORCE_STATE_UCD2_2_0" size="3" start_pos="4">
+    </field>
+    <field doc="FMODE_IDD2" mask="8" name="FMODE_IDD2" size="1" start_pos="3">
+    </field>
+    <field doc="FORCE_STATE_IDD2_2_0" mask="7" name="FORCE_STATE_IDD2_2_0" size="3" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="89" doc="VBUS UCD Test Control/ Monitor" mode="R/W" name="UCD2_DBG2" por="0" size="16">
+   <fields>
+    <field doc="UCDSWEN" mask="1024" name="UCDSWEN" size="1" start_pos="10">
+    </field>
+    <field doc="RREF_EN" mask="512" name="RREF_EN" size="1" start_pos="9">
+    </field>
+    <field doc="DPPU_EN" mask="256" name="DPPU_EN" size="1" start_pos="8">
+    </field>
+    <field doc="DPREF_EN" mask="128" name="DPREF_EN" size="1" start_pos="7">
+    </field>
+    <field doc="DMREF_EN" mask="64" name="DMREF_EN" size="1" start_pos="6">
+    </field>
+    <field doc="DPDET_EN" mask="32" name="DPDET_EN" size="1" start_pos="5">
+    </field>
+    <field doc="DMDET_EN" mask="16" name="DMDET_EN" size="1" start_pos="4">
+    </field>
+    <field doc="DPSINK_EN" mask="8" name="DPSINK_EN" size="1" start_pos="3">
+    </field>
+    <field doc="DMSINK_EN" mask="4" name="DMSINK_EN" size="1" start_pos="2">
+    </field>
+    <field doc="DP_BUFF_EN" mask="2" name="DP_BUFF_EN" size="1" start_pos="1">
+    </field>
+    <field doc="DM_BUFF_EN" mask="1" name="DM_BUFF_EN" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="90" doc="VBUS UCD Test Control/ Monitor" mode="R/W" name="UCD2_DBG3" por="0" size="16">
+   <fields>
+    <field doc="EXTCLKENBL" mask="32768" name="EXTCLKENBL" size="1" start_pos="15">
+    </field>
+    <field doc="PLSTESTEN" mask="16384" name="PLSTESTEN" size="1" start_pos="14">
+    </field>
+    <field doc="UCDSWEN_TSTENB" mask="1024" name="UCDSWEN_TSTENB" size="1" start_pos="10">
+    </field>
+    <field doc="RREF_EN_TSTENB" mask="512" name="RREF_EN_TSTENB" size="1" start_pos="9">
+    </field>
+    <field doc="DPPU_EN_TSTENB" mask="256" name="DPPU_EN_TSTENB" size="1" start_pos="8">
+    </field>
+    <field doc="DPREF_EN_TSTENB" mask="128" name="DPREF_EN_TSTENB" size="1" start_pos="7">
+    </field>
+    <field doc="DMREF_EN_TSTENB" mask="64" name="DMREF_EN_TSTENB" size="1" start_pos="6">
+    </field>
+    <field doc="DPDET_EN_TSTENB" mask="32" name="DPDET_EN_TSTENB" size="1" start_pos="5">
+    </field>
+    <field doc="DMDET_EN_TSTENB" mask="16" name="DMDET_EN_TSTENB" size="1" start_pos="4">
+    </field>
+    <field doc="DPSINK_EN_TSTENB" mask="8" name="DPSINK_EN_TSTENB" size="1" start_pos="3">
+    </field>
+    <field doc="DMSINK_EN_TSTENB" mask="4" name="DMSINK_EN_TSTENB" size="1" start_pos="2">
+    </field>
+    <field doc="DP_BUFF_EN_TSTENB" mask="2" name="DP_BUFF_EN_TSTENB" size="1" start_pos="1">
+    </field>
+    <field doc="DM_BUFF_EN_TSTENB" mask="1" name="DM_BUFF_EN_TSTENB" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="91" doc="VBUS UCD Test Control/ Monitor" mode="R/W" name="UCD2_DBG4" por="0" size="16">
+   <fields>
+    <field doc="CNT_PU_L_TSTENB" mask="8192" name="CNT_PU_L_TSTENB" size="1" start_pos="13">
+    </field>
+    <field doc="IDRDETEN_TSTENB" mask="4096" name="IDRDETEN_TSTENB" size="1" start_pos="12">
+    </field>
+    <field doc="COMPHEN_TSTENB" mask="1024" name="COMPHEN_TSTENB" size="1" start_pos="10">
+    </field>
+    <field doc="CNT_PU_TSTENB" mask="512" name="CNT_PU_TSTENB" size="1" start_pos="9">
+    </field>
+    <field doc="ADC_CNT_TSTENB" mask="256" name="ADC_CNT_TSTENB" size="1" start_pos="8">
+    </field>
+    <field doc="CNT_PU_L" mask="32" name="CNT_PU_L" size="1" start_pos="5">
+    </field>
+    <field doc="IDRDETEN" mask="16" name="IDRDETEN" size="1" start_pos="4">
+    </field>
+    <field doc="COMPHEN" mask="4" name="COMPHEN" size="1" start_pos="2">
+    </field>
+    <field doc="CNT_PU" mask="2" name="CNT_PU" size="1" start_pos="1">
+    </field>
+    <field doc="ADC_CNT" mask="1" name="ADC_CNT" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="92" doc="VBUS UCD Test Control/ Monitor" mode="R/W" name="UCD2_DBG5" por="0" size="16">
+   <fields>
+    <field doc="CNT_SW_TSTENB1" mask="8192" name="CNT_SW_TSTENB1" size="1" start_pos="13">
+    </field>
+    <field doc="CNT_SW_TSTENB0" mask="7936" name="CNT_SW_TSTENB0" size="5" start_pos="8">
+    </field>
+    <field doc="FD_FU_SELECT" mask="64" name="FD_FU_SELECT" size="1" start_pos="6">
+    </field>
+    <field doc="FS_5_0" mask="63" name="FS_5_0" size="6" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="93" doc="VBUS UCD Test Control/ Monitor" mode="R/W" name="UCD2_DBG6" por="0" size="16">
+   <fields>
+    <field doc="ANLGSIGSEL4" mask="4096" name="ANLGSIGSEL4" size="1" start_pos="12">
+    </field>
+    <field doc="ANLGSIGSEL3" mask="2048" name="ANLGSIGSEL3" size="1" start_pos="11">
+    </field>
+    <field doc="ANLGSIGSEL2" mask="1024" name="ANLGSIGSEL2" size="1" start_pos="10">
+    </field>
+    <field doc="ANLGSIGSEL1" mask="512" name="ANLGSIGSEL1" size="1" start_pos="9">
+    </field>
+    <field doc="ANLGSIGSEL0" mask="256" name="ANLGSIGSEL0" size="1" start_pos="8">
+    </field>
+    <field doc="ANLGSINSEL3" mask="8" name="ANLGSINSEL3" size="1" start_pos="3">
+    </field>
+    <field doc="ANLGSINSEL2" mask="4" name="ANLGSINSEL2" size="1" start_pos="2">
+    </field>
+    <field doc="ANLGSINSEL1" mask="2" name="ANLGSINSEL1" size="1" start_pos="1">
+    </field>
+    <field doc="ANLGSINSEL0" mask="1" name="ANLGSINSEL0" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="94" doc="VBUS UCD Test Control/ Monitor" mode="R/W" name="UCD2_DBG7" por="0" size="16">
+   <fields>
+    <field doc="COMPH_TSTENB" mask="8192" name="COMPH_TSTENB" size="1" start_pos="13">
+    </field>
+    <field doc="IDDET_TSTENB" mask="4096" name="IDDET_TSTENB" size="1" start_pos="12">
+    </field>
+    <field doc="IDRDET_TSTENB" mask="2048" name="IDRDET_TSTENB" size="1" start_pos="11">
+    </field>
+    <field doc="DMDET_TSTENB" mask="512" name="DMDET_TSTENB" size="1" start_pos="9">
+    </field>
+    <field doc="DPDET_TSTENB" mask="256" name="DPDET_TSTENB" size="1" start_pos="8">
+    </field>
+    <field doc="COMPH" mask="32" name="COMPH" size="1" start_pos="5">
+    </field>
+    <field doc="IDDET" mask="16" name="IDDET" size="1" start_pos="4">
+    </field>
+    <field doc="IDRDET" mask="8" name="IDRDET" size="1" start_pos="3">
+    </field>
+    <field doc="DMDET" mask="2" name="DMDET" size="1" start_pos="1">
+    </field>
+    <field doc="DPDET" mask="1" name="DPDET" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="95" doc="VBUS UCD Test Control/ Monitor" mode="R/W" name="UCD2_DBG8" por="0" size="16">
+   <fields>
+    <field doc="FD_FU_VREFSEL" mask="32" name="FD_FU_VREFSEL" size="1" start_pos="5">
+    </field>
+    <field doc="FSVREF_4_1" mask="30" name="FSVREF_4_1" size="4" start_pos="1">
+    </field>
+    <field doc="VBUS_LOAD_FORCE_EN" mask="1" name="VBUS_LOAD_FORCE_EN" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="96" doc="Analog Test Control/ Monitor" mode="R/W" name="TEST_MONITOR" por="0" size="16">
+   <fields>
+    <field doc="TEST_MON_6_0" mask="32512" name="TEST_MON_6_0" size="7" start_pos="8">
+    </field>
+    <field doc="TEST_MON2_3_0" mask="240" name="TEST_MON2_3_0" size="4" start_pos="4">
+    </field>
+    <field doc="TEST_MON1_3_0" mask="15" name="TEST_MON1_3_0" size="4" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="97" doc="Analog Test Control/ Monitor" mode="R/W" name="TEST_CTRL" por="0" size="16">
+   <fields>
+    <field doc="SIM_QUICK" mask="8" name="SIM_QUICK" size="1" start_pos="3">
+    </field>
+    <field doc="ID_SW_CTRL_1_0" mask="3" name="ID_SW_CTRL_1_0" size="2" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="100" doc="SAR-ADC Test Control/Monitor" mode="R/W" name="SAR_ADC_TEST1" por="0" size="16">
+   <fields>
+    <field doc="T_BYPASS_MODE" mask="2048" name="T_BYPASS_MODE" size="1" start_pos="11">
+    </field>
+    <field doc="TST3" mask="1024" name="TST3" size="1" start_pos="10">
+    </field>
+    <field doc="TST2" mask="512" name="TST2" size="1" start_pos="9">
+    </field>
+    <field doc="TST1" mask="256" name="TST1" size="1" start_pos="8">
+    </field>
+    <field doc="QUICK_1SCNT" mask="128" name="QUICK_1SCNT" size="1" start_pos="7">
+    </field>
+    <field doc="QUICK_100MSCNT" mask="64" name="QUICK_100MSCNT" size="1" start_pos="6">
+    </field>
+    <field doc="QUICK_10MSCNT" mask="32" name="QUICK_10MSCNT" size="1" start_pos="5">
+    </field>
+    <field doc="QUICK_1MSCNT" mask="16" name="QUICK_1MSCNT" size="1" start_pos="4">
+    </field>
+    <field doc="AD12INSL_3_0" mask="15" name="AD12INSL_3_0" size="4" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="101" doc="SAR-ADC Test Control/Monitor" mode="R" name="SAR_ADC_TEST2" por="0" size="16">
+   <fields>
+    <field doc="AD12DAT_OD_11_0" mask="4095" name="AD12DAT_OD_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="102" doc="SAR-ADC Test Control/Monitor" mode="R/W" name="SAR_ADC_TEST3" por="0" size="16">
+   <fields>
+    <field doc="AD12DAT_ID_11_0" mask="4095" name="AD12DAT_ID_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="120" doc="Reserved Register 0 (for future use)" mode="R/W" name="RESERVE_REG0" por="0" size="16">
+   <fields>
+    <field doc="RESERVE_REG0_15_0" mask="65535" name="RESERVE_REG0_15_0" size="16" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="121" doc="Reserved Register 1 (for future use)" mode="R/W" name="RESERVE_REG1" por="0" size="16">
+   <fields>
+    <field doc="RESERVE_REG1_15_0" mask="65535" name="RESERVE_REG1_15_0" size="16" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="122" doc="Input current limit degradation setting when anti-collapse occurs" mode="R/W" name="RESERVE_OTPREG0" por="0" size="16">
+   <fields>
+    <field doc="RESERVE_OTPREG0_15_12" mask="61440" name="RESERVE_OTPREG0_15_12" size="4" start_pos="12">
+    </field>
+    <field doc="ILIM_DECREASE_11_0" mask="4095" name="ILIM_DECREASE_11_0" size="12" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="123" doc="Reserved OTP-loaded Register 1 (for future use)" mode="R/W" name="RESERVE_OTPREG1" por="0" size="16">
+   <fields>
+    <field doc="RESERVE_OTPREG1_15_0" mask="65535" name="RESERVE_OTPREG1_15_0" size="16" start_pos="0">
+    </field>
+   </fields>
+  </register>
+ </sensor>
+</root>

@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "rokix-configuration-releases",
+    "private_key_id": "a634b9e393547c0f27a4a5198052b8d175433747",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDVf/CVwfHBr1Fn\nVfh20tnfIJqRHtwadBdoQnS1eh1fODUcyJZF1lgVE+KjRT+l14FeiZQL4WJXkQvM\nld4p2IM+un1gDlt4oi21pgt55IlV6EZx7960seAJ5PQ9DktNwAk8x5Qc8NMPC+ry\nJKvlULlfc7/XqaHzUC+TzMq5wzp8OZ9reyCeaDMOm5mAqxuBlSxRvVZHzB9rB/D9\nUzN1E2ut6qDN1bBGG9BhS9TrEE7q6d4xcvBk6C0Z2ipfzoE7itEeAX9Zy6cmNg9G\niCVpCxPZQE25j5wTtYITRTr3oykR+r6vTh6y6fEKoPLOTzqrec1nTVNOlWN7cj0q\nQf2Lh0UbAgMBAAECggEAQLN+IJRfBJhx7gQSwUfS+RizXulgQLAP6+u/3MN+JT4u\ncmOjjtSPawvUsjApQsQVk6XT9Om/2NO/JKgCZOIVnCv+FN8k/2D+wz7n2W/V4u/6\ncUsFTfNd9wGottwfHBfndMDy9PZSsAunjuxoH52gH/o/GEdzKf6R/JOimDs+/SgX\ndqQaItwoI9siajw0AClHkYQSEfAVloNh4Yypztidr9k4iC/EqtwC7pQmGhd9lLA/\nSGzXU+Khz5aHDvpNScLL1Ep5XowmymFuGqORY+FKMrvrhQIKONkcaSoLCoSVgez6\nhNNBZHY31wh5hI84aW4LonzshAy2j/90xJ+4Uk0/GQKBgQD1eZws64XxHLyKmu20\nGsgjUMVv9kUpyZW6CGMbbP6CekOqDSFIfY7kcJyZaIqM/c2Vl6pCY/i+VFKddLax\nWBfcdLz2A7eGeAlvEELCyr4s3vQH653t5tDFlNYe7LKCWFKWojo+MYVPfVBg0fKX\nAJh9WyQBT6nVTWt+RgaKV4qaJQKBgQDep1yg1QZIsuOoAgzgxy+D22ZeZdA64PDM\nVcUxVxOTkf4D5RaPu6byyjH2dQ7hkV1Zv4KW3tEsAC+E6EqUqPfJw3fkmB492wOr\nXE/65ytZg6XW0C383iJEkM8H+rQ5fglJX4kDwxin7dqIgvIEXqHh2PuJVMMFzIDn\nPCIFAn8ePwKBgFQ+9FaGTmW9kweOvF2/g0h7hAc04e/Be11pW3oiIgbtpyNJdk7G\nqK/F5jjQJBzXTiM09f3rCYdosSHQ2JJsxWOnvOJBzE6eC77OOdtYcYQ80EuXlY/8\nU1I8DnB2k50gate/vXVy0WnCfD9+Tl98mNkM2oKIsKS/+VBRABWijbLxAoGBAMaq\nNnAbI1xCofcKvUri73aLkS+xULb4dmMcNLLtqz4FCc2X3yWonjIMT8BEel6yQcUO\nqArODX1hPQUt7z3t9gpFKvkA8hrnDMMdvw90rK1WVebyIdZ6rcDYJKJOA/k4iDi7\n0ZlVvu43wMIFdMSJW5AU93t18f1+l5W7he9KZvopAoGBAOn/yFuSuq8B2MYsS0Un\nxjkO0+3S5LERPxgWIut5yFKzweIA0ucTD+2IesRU4YKbzTyt3/xU6pfHGtsX6zVE\nXc0FsPd60KrWRd7BIwxfVD/zgWlUPqn4LNqPEBomZ9sPDcTx5CUlJQCZwljklnLU\n8CozvyUxDwdroc6k3zMWHbdA\n-----END PRIVATE KEY-----\n",
+    "client_email": "public-configurations-reader@rokix-configuration-releases.iam.gserviceaccount.com",
+    "client_id": "106977043131298224616",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/public-configurations-reader%40rokix-configuration-releases.iam.gserviceaccount.com",
+    "bucket": "rokix-platform-configurations-public"
+}

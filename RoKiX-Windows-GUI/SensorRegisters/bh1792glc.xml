@@ -1,48 +1,48 @@
-<root>
- <sensor doc="Specification bh1792glc, rev 001 (03.Aug.2017)" name="bh1792" sad="91">
-  <register address="15" info="bypass" mode="INFO" name="REGISTER_DUMP_START">
+<root version="3.0">
+ <sensor doc="BH1792GLC Datasheet Rev.002" name="BH1792GLC" sad="91" size="8">
+  <register address="15" info="bypass" mode="INFO" name="REGISTER_DUMP_START" size="8">
    <fields>
    </fields>
   </register>
-  <register address="15" mode="R" name="MANUFACTURER_REG" por="224" value_type="uint8">
+  <register address="15" doc="Manufacturer ID : 0xE0" mode="R" name="MANUFACTURER_ID" por="224" size="8">
    <fields>
-    <field mask="255" name="MANUFACTURER" size="8" start_pos="0">
+    <field mask="255" name="MANUFACTURER_ID" size="8" start_pos="0">
      <enums>
-      <item name="id" value="224">
+      <item doc="Manufacturer ID : 0xE0" name="id" value="224">
       </item>
      </enums>
     </field>
    </fields>
   </register>
-  <register address="16" doc="WHO_AM_I -value" mode="R" name="PARTID_REG" por="14" value_type="uint8">
+  <register address="16" doc="Part ID : 0x0E" mode="R" name="PART_ID" por="14" size="8">
    <fields>
-    <field mask="255" name="PART" size="8" start_pos="0">
+    <field mask="255" name="PART_ID" size="8" start_pos="0">
      <enums>
-      <item name="id" value="14">
+      <item doc="Part ID : 0x0E" name="id" value="14">
       </item>
      </enums>
     </field>
    </fields>
   </register>
-  <register address="64" doc="Soft reset" mode="R/W" name="RESET" por="0">
+  <register address="64" doc="Soft reset" mode="R/W" name="RESET" por="0" size="8">
    <fields>
     <field doc="1 : Software reset is performed" mask="128" name="SWRESET" size="1" start_pos="7">
     </field>
    </fields>
   </register>
-  <register address="65" doc="System control setting" mode="R/W" name="MEAS_CONTROL1" por="0">
+  <register address="65" doc="System control setting" mode="R/W" name="MEAS_CONTROL1" por="0" size="8">
    <fields>
     <field doc="1 : OSC block is active, 0: prohibited" mask="128" name="RDY" size="1" start_pos="7">
     </field>
     <field doc="Select LED omitting frequency" mask="16" name="SEL_ADC" size="1" start_pos="4">
      <enums>
-      <item doc="Green mode, leds 1 &amp; 2 active" name="GREEN" value="0">
+      <item doc="GREEN Measurement Mode. LED1 and LED2 drivers are active." name="GREEN" value="0">
       </item>
-      <item doc="IR mode, led 3 active. Can be used only in single and non synch modes." name="IR" value="1">
+      <item doc="IR Measurement Mode. LED3 driver is active. Only works in Non-Synchronized and Single Measurement modes." name="IR" value="1">
       </item>
      </enums>
     </field>
-    <field doc="Measurement mode" mask="7" name="MSR" size="3" start_pos="0">
+    <field doc="Select Measurement Mode" mask="7" name="MSR" size="3" start_pos="0">
      <enums>
       <item doc="32 Hz synchronous mode" name="32Hz" value="0">
       </item>
@@ -52,19 +52,19 @@
       </item>
       <item doc="256 Hz synchronous mode" name="256Hz" value="3">
       </item>
-      <item name="Prohibited" value="4">
+      <item doc="Prohibited" name="Prohibited" value="4">
       </item>
       <item doc="1024 Hz synchronous mode" name="1024Hz" value="5">
       </item>
-      <item doc="non synchronized measurement mode" name="non_synch_mode" value="6">
+      <item doc="Non Synchronized Measurement Mode" name="non_synch_mode" value="6">
       </item>
-      <item doc="single measurement mode" name="single_meas_mode" value="7">
+      <item doc="Single Measurement Mode" name="single_meas_mode" value="7">
       </item>
      </enums>
     </field>
    </fields>
   </register>
-  <register address="66" doc="LED 1 &amp; 2 control register" mode="R/W" name="MEAS_CONTROL2" por="0">
+  <register address="66" doc="LED 1 &amp; 2 control register" mode="R/W" name="MEAS_CONTROL2" por="0" size="8">
    <fields>
     <field doc="LED driver mode, for usage see datasheet" mask="192" name="LED_EN1" size="2" start_pos="6">
     </field>
@@ -72,7 +72,7 @@
     </field>
    </fields>
   </register>
-  <register address="67" doc="LED 3 control register" mode="R/W" name="MEAS_CONTROL3" por="0">
+  <register address="67" doc="LED 3 control register" mode="R/W" name="MEAS_CONTROL3" por="0" size="8">
    <fields>
     <field doc="LED driver mode, for usage see datasheet" mask="128" name="LED_EN2" size="1" start_pos="7">
     </field>
@@ -80,15 +80,19 @@
     </field>
    </fields>
   </register>
-  <register address="68" doc="IR Interrupt Threshold Value [7:0]" mode="R" name="MEAS_CONTROL4_L" order="le" por="0" size="16" style="int" value_type="int16lsb">
+  <register address="68" doc="IR Interrupt Threshold Value (LSB)" mode="R/W" name="MEAS_CONTROL4_LSB" por="65532" size="8">
    <fields>
+    <field bit_pos="0@7:6:5:4:3:2:1:0:15:14:13:12:11:10:9:8" doc="IR Interrupt Threshold Value" name="TH_IR" size="16">
+    </field>
    </fields>
   </register>
-  <register address="69" doc="IR Interrupt Threshold Value [15:8]" info="bypass" mode="R/W" name="MEAS_CONTROL4_H" por="0" value_type="int16msb">
+  <register address="69" doc="IR Interrupt Threshold Value (MSB)" info="bypass" mode="INFO" name="MEAS_CONTROL4_MSB" size="8">
    <fields>
+    <field doc="IR Interrupt Threshold Value [15:8]" mask="255" name="TH_IR" size="8" start_pos="0">
+    </field>
    </fields>
   </register>
-  <register address="70" mode="R/W" name="MEAS_CONTROL5" por="0">
+  <register address="70" doc="INT pin interrupt factor control register" mode="R/W" name="MEAS_CONTROL5" por="0" size="8">
    <fields>
     <field doc="Interrupt function select" mask="3" name="INT_SEL" size="2" start_pos="0">
      <enums>
@@ -96,85 +100,87 @@
       </item>
       <item doc="Watermark interrupt FIFO, fires when number of stored samples reaches 32. Cleared when number of samples falls below 32." name="fifo_watermark" value="1">
       </item>
-      <item doc="IR threshold judgement interrupt. Used in non synchroniozed mode." name="IR_threshold" value="2">
+      <item doc="IR threshold judgement interrupt. Used only in Non Synchronized mode." name="IR_threshold" value="2">
       </item>
-      <item doc="Measurement completion interrupt. In single mode." name="on_complete" value="3">
+      <item doc="Measurement completion interrupt. Used only in Single Measurement mode." name="on_complete" value="3">
       </item>
      </enums>
     </field>
    </fields>
   </register>
-  <register address="71" mode="R/W" name="MEAS_START" por="0">
+  <register address="71" doc="Measurement start register" mode="R/W" name="MEAS_START" por="0" size="8">
    <fields>
     <field doc="Flag of start measurement. MEAS_ST=1 after RDY=1 starts measurement. In single measurement mode MEAS_ST=1 restarts measurement." mask="1" name="MEAS_ST" size="1" start_pos="0">
     </field>
    </fields>
   </register>
-  <register address="72" mode="W" name="MEAS_SYNC" por="0">
+  <register address="72" doc="Input measurement synchronization signal register" mode="R/W" name="MEAS_SYNC" por="0" size="8">
    <fields>
-    <field doc="Used in synhcronized measurement mode. Write once per second." mask="1" name="MEAS_SYNC" size="1" start_pos="0">
+    <field doc="Input measurement synchronization signal. Write to 1 once every second." mask="1" name="MEAS_SYNC" size="1" start_pos="0">
     </field>
    </fields>
   </register>
-  <register address="75" mode="R" name="FIFO_LEV" por="0">
+  <register address="75" doc="GDATA FIFO" mode="R" name="FIFO_LEV" por="0" size="8">
    <fields>
-    <field doc="Number of stored samples in FIFO, 0=FIFO empty, 0x23=FIFO full" mask="63" name="LEVEL" size="6" start_pos="0">
+    <field doc="Number of stored samples in FIFO; 0x00=FIFO empty, 0x23=FIFO full" mask="63" name="FIFO_LEV" size="6" start_pos="0">
     </field>
    </fields>
   </register>
-  <register address="76" doc="FIFO Output data 0 [7:0]" mode="R" name="FIFO_DATA0_L" order="le" por="0" size="16" style="int" value_type="int16lsb">
+  <register address="76" doc="FIFO Output Data 0 [7:0]" mode="R" name="FIFODATA0_LSB" order="little-endian" por="0" size="16" style="int">
    <fields>
    </fields>
   </register>
-  <register address="77" doc="FIFO Output data 0 [15:8]" info="bypass" mode="R" name="FIFO_DATA0_H" por="0" value_type="int16msb">
+  <register address="77" doc="FIFO Output Data 0 [15:8]" info="bypass" mode="R" name="FIFODATA0_MSB" por="0" size="8">
    <fields>
    </fields>
   </register>
-  <register address="78" doc="FIFO Output data 1 [7:0]" mode="R" name="FIFO_DATA1_L" order="le" por="0" size="16" style="int" value_type="int16lsb">
+  <register address="78" doc="FIFO Output Data 1 [7:0]" mode="R" name="FIFODATA1_LSB" order="little-endian" por="0" size="16" style="int">
    <fields>
    </fields>
   </register>
-  <register address="79" doc="FIFO Output data 1 [15:8]" info="bypass" mode="R" name="FIFO_DATA1_H" por="0" value_type="int16msb">
+  <register address="79" doc="FIFO Output Data 1 [15:8]" info="bypass" mode="R" name="FIFODATA1_MSB" por="0" size="8">
    <fields>
    </fields>
   </register>
-  <register address="80" doc="IR Data Count Value during no LED emission [7:0]" mode="R" name="IRDATA_LEDOFF_L" order="le" por="0" size="16" style="int" value_type="int16lsb">
+  <register address="80" doc="IR Data Count Value during no LED emission [7:0]" mode="R" name="IRDATA_LEDOFF_LSB" order="little-endian" por="0" size="16" style="int">
    <fields>
    </fields>
   </register>
-  <register address="81" doc="IR Data Count Value during no LED emission [15:8]" info="bypass" mode="R" name="IRDATA_LEDOFF_H" por="0" value_type="int16msb">
+  <register address="81" doc="IR Data Count Value during no LED emission [15:8]" info="bypass" mode="R" name="IRDATA_LEDOFF_MSB" por="0" size="8">
    <fields>
    </fields>
   </register>
-  <register address="82" doc="IR Data Count Value during LED emission [7:0]" mode="R" name="IRDATA_LEDON_L" order="le" por="0" size="16" style="int" value_type="int16lsb">
+  <register address="82" doc="IR Data Count Value during LED emission - IR Data Count Value during no LED emission [7:0]" mode="R" name="IRDATA_LEDON_LSB" order="little-endian" por="0" size="16" style="int">
    <fields>
    </fields>
   </register>
-  <register address="83" doc="IR Data Count Value during LED emission [15:8]" info="bypass" mode="R" name="IRDATA_LEDON_H" por="0" value_type="int16msb">
+  <register address="83" doc="IR Data Count Value during LED emission - IR Data Count Value during no LED emission [15:8]" info="bypass" mode="R" name="IRDATA_LEDON_MSB" por="0" size="8">
    <fields>
    </fields>
   </register>
-  <register address="84" doc="Green Data Count Value during no LED emission [7:0]" mode="R" name="DATAOUT_LEDOFF_L" order="le" por="0" size="16" style="int" value_type="int16lsb">
+  <register address="84" doc="Green Data Count Value during no LED emission [7:0]" mode="R" name="GDATA_LEDOFF_LSB" order="little-endian" por="0" size="16" style="int">
    <fields>
    </fields>
   </register>
-  <register address="85" doc="Green Data Count Value during no LED emission [15:8]" info="bypass" mode="R" name="DATAOUT_LEDOFF_H" por="0" value_type="int16msb">
+  <register address="85" doc="Green Data Count Value during no LED emission [15:8]" info="bypass" mode="R" name="GDATA_LEDOFF_MSB" por="0" size="8">
    <fields>
    </fields>
   </register>
-  <register address="86" doc="Green Data Count Value during LED emission [7:0]" mode="R" name="DATAOUT_LEDON_L" order="le" por="0" size="16" style="int" value_type="int16lsb">
+  <register address="86" doc="Green Data Count Value during LED emission [7:0]" mode="R" name="GDATA_LEDON_LSB" order="little-endian" por="0" size="16" style="int">
    <fields>
    </fields>
   </register>
-  <register address="87" doc="Green Data Count Value during LED emission [15:8]" info="bypass" mode="R" name="DATAOUT_LEDON_H" por="0" value_type="int16msb">
+  <register address="87" doc="Green Data Count Value during LED emission [15:8]" info="bypass" mode="R" name="GDATA_LEDON_MSB" por="0" size="8">
    <fields>
    </fields>
   </register>
-  <register address="88" doc="IR threshold judgement and measurement completion interrupt is cleared when reading this register." mode="R" name="INT_CLEAR">
+  <register address="88" mode="R" name="INT_CLEAR" size="8">
    <fields>
+    <field doc="IR threshold judgement and measurement completion interrupt is cleared when reading this register." mask="255" size="8" start_pos="0">
+    </field>
    </fields>
   </register>
-  <register address="88" info="bypass" mode="INFO" name="REGISTER_DUMP_END">
+  <register address="88" info="bypass" mode="INFO" name="REGISTER_DUMP_END" size="8">
    <fields>
    </fields>
   </register>

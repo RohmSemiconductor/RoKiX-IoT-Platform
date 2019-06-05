@@ -1,0 +1,195 @@
+{
+    "activate": [], 
+    "start_req": {
+        "msg": [
+            [
+                6, 
+                11, 
+                1, 
+                2, 
+                5, 
+                0
+            ],
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "BD99954",
+                    80,
+                    2
+                ]
+            ],
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "BD99954",
+                    82,
+                    2
+                ]
+            ],
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "BD99954",
+                    84,
+                    2
+                ]
+            ],
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "BD99954",
+                    88,
+                    2
+                ]
+            ],
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "BD99954",
+                    90,
+                    2
+                ]
+            ],
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "BD99954",
+                    92,
+                    2
+                ]
+            ],
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "BD99954",
+                    94,
+                    2
+                ]
+            ],
+            [
+                9, 
+                15, 
+                48, 
+                129, 
+                1, 
+                4, 
+                [
+                    "BD99954",
+                    96,
+                    2
+                ]
+            ],
+            [
+                3, 
+                17, 
+                48
+            ]
+        ], 
+        "odr": 0, 
+        "type": "continuous", 
+        "fmt": "<Bhhhhhhhh", 
+        "hdr": "ch!IBATP_VAL!IBATM_VAL!VBAT_VAL!IACP_VAL!VACP_VAL!VBUS_VAL!VCC_VAL!VSYS_VAL"
+    }, 
+    "configure": [
+        [
+            "BD99954", 
+            63, 
+            1, 
+            "MAP 2"
+        ]
+        ], 
+    "structure_version": "2.0", 
+    "deactivate": [], 
+    "doc": "Read battery management data at 200Hz",
+    "channels": [
+        {
+            "SI_unit": "mA", 
+            "data": "IBATP_VAL", 
+            "name": "IBATP_VAL", 
+            "SI_multiplier": "1 / 1"
+        },
+        {
+            "SI_unit": "mA", 
+            "data": "IBATM_VAL", 
+            "name": "IBATM_VAL", 
+            "SI_multiplier": "1 / 1"
+        },
+        {
+            "SI_unit": "mV", 
+            "data": "VBAT_VAL", 
+            "name": "VBAT_VAL", 
+            "SI_multiplier": "1 / 1"
+        },
+        {
+            "SI_unit": "mA", 
+            "data": "IACP_VAL", 
+            "name": "IACP_VAL", 
+            "SI_multiplier": "1 / 1"
+        },
+        {
+            "SI_unit": "mV", 
+            "data": "VACP_VAL", 
+            "name": "VACP_VAL", 
+            "SI_multiplier": "1 / 1"
+        },
+        {
+            "SI_unit": "mV", 
+            "data": "VBUS_VAL", 
+            "name": "VBUS_VAL", 
+            "SI_multiplier": "1 / 1"
+        },
+        {
+            "SI_unit": "mV", 
+            "data": "VCC_VAL", 
+            "name": "VCC_VAL", 
+            "SI_multiplier": "1 / 1"
+        },
+        {
+            "SI_unit": "mV", 
+            "data": "VSYS_VAL", 
+            "name": "VSYS_VAL", 
+            "SI_multiplier": "1 / 1"
+        }
+    ], 
+    "register_dump": [], 
+    "stop_req": {
+        "msg": []
+    }, 
+    "protocol_version": "2.0", 
+    "name": "Battery management data 200Hz"
+}

@@ -1,0 +1,110 @@
+{
+    "structure_version": "2.1",
+    "protocol_version": ["2.0"],
+    "configuration": {
+        "name": "Arduino / EVK-00x",
+        "doc": "Arduino Uno R3 with Rohm EVK-00x. Int1 routed to Arduino pin2 and int2 to Arduino pin3",
+        "board_id": 9,
+        "cpu_freq_mhz": 16,
+        "bus1": {
+            "sensor_defaults": {
+                "polarity": "EVKIT_GPIO_PIN_SENSE_LOW",
+                "pullup": "EVKIT_GPIO_PIN_PULLUP",
+                "axis_map": []
+            },
+            "targets": [
+                {
+                    "name": "i2c",
+                    "freq": -1,
+                    "target": 4,
+                    "parts": {
+                        "KMX62": {
+                            "SAD": 14,
+                            "gpio1": 2,
+                            "axis_map": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        },
+                        "KX224": {
+                            "SAD": 30,
+                            "gpio1": 2,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KX122": {
+                            "SAD": 30,
+                            "gpio1": 2,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KXTJ3": {
+							"SAD": 14,
+							"gpio1": 2,
+							"axis_map": [
+							    0,
+							    1,
+							    2
+                            ]			
+						},
+                        "BH1792GLC": {
+                            "SAD": 91,
+                            "gpio1": 2                            
+                        },
+                        "BM1422AGMV": {
+                            "SAD": 14,
+                            "gpio1": 2
+                        },
+                        "BM1383AGLV": {
+                            "SAD": 93,
+                            "gpio1": 2
+                        },
+                        "BH1749NUC": {
+                            "SAD": 57,
+                            "gpio1": 2
+                        }          
+                    }
+                }
+            ]
+        },
+        "bus2": {
+            "connections": [
+                {
+                    "connection": "USB_SERIAL",
+                    "packet_per_second": 400,
+                    "hw_id": [
+                        {
+                            "vid": 10755,
+                            "pid": 67
+                        },
+                        {
+                            "vid": 9025,
+                            "pid": 579
+                        }
+                    ],
+                    "baud_rate": 1000000,
+                    "xonxoff": false,
+                    "rtscts": true,
+                    "start_up_delay_ms": 2000,
+                    "com_port_name": ["Arduino Uno"]
+                }
+            ]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_arduino_uno_evk-00x"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}

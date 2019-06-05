@@ -1,0 +1,117 @@
+{
+    "structure_version": "2.1",
+    "protocol_version": [
+        "2.0"
+    ],
+    "configuration": {
+        "name": "CY8CKIT-059 / RoKiX adapter A3 / I2C",
+        "doc": "Cypress CY8CKIT-059 with RoKiX Adapter board A3 and I2C connected sensor on Kionix Sensor evaluation board.",
+        "board_id": 10,
+        "cpu_freq_mhz": 74,
+        "bus1": {
+            "sensor_defaults": {
+                "polarity": "EVKIT_GPIO_PIN_SENSE_LOW",
+                "pullup": "EVKIT_GPIO_PIN_PULLUP",
+                "axis_map": []
+            },
+            "targets": [
+                {
+                    "name": "i2c",
+                    "freq": 400,
+                    "target": 4,
+                    "parts": {
+                        "KX122": {
+                            "SAD": 31,
+                            "gpio1": 0,
+                            "gpio2": 11,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KX126": {
+                            "SAD": 31,
+                            "gpio1": 0,
+                            "gpio2": 11,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KX132-1211": {
+                            "SAD": 31,
+                            "gpio1": 0,
+                            "gpio2": 11,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KX224": {
+                            "SAD": 31,
+                            "gpio1": 0,
+                            "gpio2": 11,                            
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KXTJ3": {
+                            "SAD": 15,
+                            "gpio1": 0,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KMX62": {
+                            "SAD": 15,
+                            "gpio1": 0,
+                            "axis_map": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "bus2": {
+            "connections": [
+                {
+                    "connection": "USB_SERIAL",
+                    "hw_id": [
+                        {
+                            "vid": 1205,
+                            "pid": 1537
+                        }
+                    ],
+                    "packet_per_second": 400,
+                    "baud_rate": 1000000,
+                    "xonxoff": false,
+                    "rtscts": false,
+                    "start_up_delay_ms": 0,
+                    "com_port_name": [
+                        "Cypress USB UART",
+                        "USB Serial Device"
+                    ]
+                }
+            ]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_cy8ckit059_i2c_evkv3"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}

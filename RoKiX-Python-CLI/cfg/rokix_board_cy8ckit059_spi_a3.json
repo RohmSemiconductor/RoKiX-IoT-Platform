@@ -1,0 +1,98 @@
+{
+    "structure_version": "2.1",
+    "protocol_version": [
+        "2.0"
+    ],
+    "configuration": {
+        "name": "CY8CKIT-059 / RoKiX adapter A3 / SPI",
+        "doc": "Cypress CY8CKIT-059 with RoKiX Adapter board A3 and SPI connected sensor on Kionix Sensor evaluation board.",
+        "board_id": 10,
+        "cpu_freq_mhz": 74,
+        "bus1": {
+            "sensor_defaults": {
+                "polarity": "EVKIT_GPIO_PIN_SENSE_LOW",
+                "pullup": "EVKIT_GPIO_PIN_PULLUP",
+                "protocol": 1,
+                "axis_map": []
+            },
+            "targets": [
+                {
+                    "name": "spi",
+                    "freq": 9000,
+                    "spi_mode": 0,
+                    "target": 1,
+                    "parts": {
+                        "KX122": {
+                            "cs": 0,
+                            "gpio1": 0,
+                            "gpio2": 11,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KX126": {
+                            "cs": 0,
+                            "gpio1": 0,
+                            "gpio2": 11,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KX224": {
+                            "SAD": 0,
+                            "gpio1": 0,
+                            "gpio2": 11,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KX132-1211": {
+                            "cs": 0,
+                            "gpio1": 0,
+                            "gpio2": 11,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "bus2": {
+            "connections": [
+                {
+                    "connection": "USB_SERIAL",
+                    "hw_id": [
+                        {
+                            "vid": 1205,
+                            "pid": 1537
+                        }
+                    ],
+                    "packet_per_second": 400,
+                    "baud_rate": 1000000,
+                    "xonxoff": false,
+                    "rtscts": false,
+                    "start_up_delay_ms": 0,
+                    "com_port_name": [
+                        "Cypress USB UART",
+                        "USB Serial Device"
+                    ]
+                }
+            ]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_cy8ckit059_spi_evkv3"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}

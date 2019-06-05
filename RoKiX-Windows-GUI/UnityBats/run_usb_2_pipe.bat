@@ -1,1 +1,0 @@
-..\\RoKiX.exe --cli --pipe --quaternion -c "usb"

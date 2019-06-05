@@ -20,47 +20,52 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
 # THE SOFTWARE.
 """
-BM1383aglv data logger application
+BM1383AGLV data logger application
 """
-import imports  # pylint: disable=unused-import,relative-import
+# pylint: disable=duplicate-code
+import imports  # pylint: disable=unused-import
 from kx_lib import kx_logger
 from kx_lib.kx_exception import EvaluationKitException
 from kx_lib.kx_data_stream import StreamConfig
-from kx_lib.kx_util import get_datalogger_args, get_pin_index, evkit_config
-from kx_lib.kx_board import ConnectionManager
-from kx_lib.kx_data_logger import SensorDataLogger
-from bm1383aglv.bm1383aglv_driver import bm1383aglv_driver, r, e
+from kx_lib.kx_util import get_drdy_pin_index, get_drdy_timer, evkit_config
+from kx_lib.kx_configuration_enum import ADAPTER_GPIO1_INT, ADAPTER_GPIO2_INT
+from kx_lib.kx_data_logger import SingleChannelReader
+from bm1383aglv.bm1383aglv_driver import BM1383AGLVDriver, r, e
 
-_CODE_FORMAT_VERSION = 3.0
 
 LOGGER = kx_logger.get_logger(__name__)
 # LOGGER.setLevel(kx_logger.DEBUG)
 
+_CODE_FORMAT_VERSION = 3.0
 
-class BM1383aglvDataStream(StreamConfig):
-    def __init__(self, sensor, pin_index=None):
-        StreamConfig.__init__(self, sensor)
 
+class BM1383AGLVDataStream(StreamConfig):
+    fmt = ">BBBBBh"
+    hdr = "ch!stat!P_msb!P_lsb!P_xl!T_raw"
+    reg = r.BM1383AGLV_STATUS
+
+    def __init__(self, sensors, pin_index=None, timer=None):
+        "DRDY and timer data stream"
+        assert sensors[0].name in BM1383AGLVDriver.supported_parts
+        StreamConfig.__init__(self, sensors[0])
+
+        # get pin_index if it is not given and timer is not used
         if pin_index is None:
-            pin_index = get_pin_index()
+            pin_index = get_drdy_pin_index()
+
+        if timer is None:
+            timer = get_drdy_timer()
 
         self.define_request_message(
-            fmt=">BBBBBh",
-            hdr="ch!stat!P_msb!P_lsb!P_xl!T_raw",
-            reg=r.BM1383AGLV_STATUS_REG,
-            pin_index=pin_index)
+            fmt=self.fmt,
+            hdr=self.hdr,
+            reg=self.reg,
+            pin_index=pin_index,
+            timer=timer
+        )
 
-class BM1383aglvTimerDataStream(StreamConfig):
-    def __init__(self, sensor, timer):
-        StreamConfig.__init__(self, sensor)
 
-        self.define_request_message(
-            fmt=">BBBBBh",
-            hdr="ch!stat!P_msb!P_lsb!P_xl!T_raw",
-            reg=r.BM1383AGLV_STATUS_REG,
-            timer=timer)
-
-def enable_data_logging(sensor, odr=17):
+def enable_data_logging(sensor, odr, meas_time_ms=None):
 
     LOGGER.info('enable_data_logging start')
 
@@ -69,24 +74,41 @@ def enable_data_logging(sensor, odr=17):
     #
     # parameter validation
     #
-    
-    if odr >= 17:
-        odrkey = 'AVG_16_50MS'
-    elif odr == 8:
-        odrkey = 'AVG_32_100MS'
-    else:  # odr == 4
-        odrkey = 'AVG_64_200MS'
 
-    sensor.set_odr(e.BM1383AGLV_MODE_CONTROL_REG_AVE_NUM[odrkey])
+    if meas_time_ms is None:
+        if odr == 17:
+            meas_time_ms = 60
+        elif odr == 8:
+            meas_time_ms = 120
+        elif odr == 4:
+            meas_time_ms = 240
+        else:
+            raise ValueError('invalid ODR')
 
+    ave_num_map = {
+        (17, 6): 'AVG_1_60MS',
+        (17, 9): 'AVG_2_60MS',
+        (17, 16): 'AVG_4_60MS',
+        (17, 30): 'AVG_8_60MS',
+        (17, 60): 'AVG_16_60MS',
+        (8, 120): 'AVG_32_120MS',
+        (4, 240): 'AVG_64_240MS',
+    }
+    try:
+        odrkey = ave_num_map[(odr, meas_time_ms)]
+    except KeyError:
+        raise ValueError('invalid measurement time or ODR')
+
+    sensor.set_odr(e.BM1383AGLV_MODE_CONTROL_AVE_NUM[odrkey])
 
     #
     # interrupts settings
     #
-
-    if evkit_config.get('generic', 'drdy_operation') == 'ADAPTER_GPIO1_INT':
+    if evkit_config.drdy_function_mode == ADAPTER_GPIO1_INT:
         sensor.enable_drdy_pin()
-        sensor.reset_drdy_pin()
+        sensor.release_interrupts()
+    elif evkit_config.drdy_function_mode == ADAPTER_GPIO2_INT:
+        raise EvaluationKitException("ADAPTER_GPIO2_INT not supported.")
 
     #
     # Turn on measurement
@@ -97,65 +119,21 @@ def enable_data_logging(sensor, odr=17):
     LOGGER.info('enable_data_logging done')
 
 
-def read_with_polling(sensor, loop):
+class BM1383AGLVDataLogger(SingleChannelReader):
 
-    count = 0
-    dl = SensorDataLogger()
-    dl.add_channel('ch!P_msb!P_mid!P_lsb!P_xl!T_raw')
-    dl.start()
+    def override_config_parameters(self):
+        SingleChannelReader.override_config_parameters(self)
+        evkit_config.odr = 17
 
-    try:
-        while (loop is None) or (count < loop):
-            count += 1
-            sensor.drdy_function()
-            p_msb, p_lsb, p_xl, t_raw = sensor.read_data()
-            dl.feed_values((10, p_msb, p_lsb, p_xl, t_raw))
-
-    except KeyboardInterrupt:
-        dl.stop()
+    def enable_data_logging(self, **kwargs):
+        enable_data_logging(self.sensors[0], **kwargs)
 
 
-def read_with_stream(sensor, loop, timer=None):
-    if timer:
-        stream = BM1383aglvTimerDataStream(sensor, timer=timer)
-    else:
-        stream = BM1383aglvDataStream(sensor)
-
-    stream.read_data_stream(loop)
-    return stream
-
-
-def app_main(odr=17):
-
-    args = get_datalogger_args()
-    if args.odr:
-        odr = args.odr
-
-    # For continuous more there 3 possible odr values: 17Hz, 8Hz and 4Hz
-    allowed_odrs = (17, 8, 4)
-
-    assert odr in allowed_odrs, \
-        "Invalid odr, valid values {}".format(allowed_odrs)
-
-    sensor = bm1383aglv_driver()
-    connection_manager = ConnectionManager(odr=odr)
-
-    connection_manager.add_sensor(sensor)
-
-    enable_data_logging(sensor, odr=odr)
-
-    if args.stream_mode:
-        read_with_stream(sensor, args.loop)
-
-    elif args.timer_stream_mode:
-        read_with_stream(sensor, args.loop, timer=1./odr)
-
-    else:
-        read_with_polling(sensor, args.loop)
-
-    sensor.set_power_off()
-    connection_manager.disconnect()
+def main():
+    logger = BM1383AGLVDataLogger([BM1383AGLVDriver])
+    logger.enable_data_logging(odr=evkit_config.odr)
+    logger.run(BM1383AGLVDataStream)
 
 
 if __name__ == '__main__':
-    app_main()
+    main()

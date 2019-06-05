@@ -4,21 +4,17 @@
 import struct
 from kx_lib.kx_util import DelayedKeyboardInterrupt
 from kx_lib.kx_sensor_base import AxisMapper
-from kx_lib.kx_exception import ProtocolBus1Exception, EvaluationKitException
+from kx_lib.kx_exception import ProtocolBus1Exception, EvaluationKitException, ProtocolTimeoutException
 from kx_lib import kx_logger
 from kx_lib.kx_configuration_enum import BUS1_I2C, BUS1_SPI, BUS1_ADC, BUS1_GPIO, \
     CFG_SAD, CFG_CS, CFG_TARGET, CFG_ADC_RESOLUTION, CFG_SPI_PROTOCOL, \
     CFG_POLARITY, EVKIT_GPIO_PIN_SENSE_HIGH, EVKIT_GPIO_PIN_SENSE_LOW, \
-     CFG_PULLUP, EVKIT_GPIO_PIN_NOPULL, EVKIT_GPIO_PIN_PULLDOWN, EVKIT_GPIO_PIN_PULLUP, CFG_AXIS_MAP
+    CFG_PULLUP, EVKIT_GPIO_PIN_NOPULL, EVKIT_GPIO_PIN_PULLDOWN, EVKIT_GPIO_PIN_PULLUP, CFG_AXIS_MAP
 from kx_lib.kx_data_logger import SensorDataLogger
 LOGGER = kx_logger.get_logger(__name__)
 
 # LOGGER.setLevel(kx_logger.DEBUG)
 # LOGGER.setLevel(kx_logger.INFO)
-
-class DataDim(object): pass # TODO 1
-class SensorDataDim(DataDim): pass # TODO 1
-class PacketCounterDim(DataDim): pass # TODO 1
 
 class ExtraData(object):
     "Extra data what can be subscribed in stream request messages"
@@ -45,7 +41,6 @@ class RequestMessageDefinition(object):
             timer+gpio_pin: read ADC when timer triggers
 
         """
-        # TODO 3 is it needed to have "read ADC when interrupt triggers"?
         if pin_index is not None:
             self.gpio_pin = sensor.connection_manager.get_physical_pin_for_sensor(sensor, pin_index)
             if isinstance(pin_index, int):
@@ -73,11 +68,10 @@ class RequestMessageDefinition(object):
 
 
 class StreamConfig(object):
-    def __init__(self, sensor=None):
-        # FIXME: Add support for protocol 1 when using stream_config_utils.py for generating streams
+    def __init__(self, sensor=None, stream_type='continuous'):
+        self.stream_type = stream_type
 
         # if sensor not defined here then must be defined on define_request_message()
-        # TODO 2 does not work if sensor not defined here, make test for this use case
         self.sensor = sensor
         self.macro_id_list = []  # list of all data streams requested. Integer list.
         self.msg_ind_dict = {}  # {macro_id_list:RequestMessageDefinition}
@@ -100,22 +94,19 @@ class StreamConfig(object):
         else:
             raise EvaluationKitException('Unsupported protocol engine version.')
 
-        protocol = self.adapter.protocol # kx_protocol or kx_protocol_2 module
+        protocol = self.adapter.protocol  # kx_protocol or kx_protocol_2 module
 
-        # TODO 2 move to protocol
         self.sense_dict = {
-            EVKIT_GPIO_PIN_SENSE_HIGH : protocol.EVKIT_GPIO_PIN_SENSE_HIGH,
-            EVKIT_GPIO_PIN_SENSE_LOW : protocol.EVKIT_GPIO_PIN_SENSE_LOW
+            EVKIT_GPIO_PIN_SENSE_HIGH: protocol.EVKIT_GPIO_PIN_SENSE_HIGH,
+            EVKIT_GPIO_PIN_SENSE_LOW: protocol.EVKIT_GPIO_PIN_SENSE_LOW
         }
-        # TODO 2 move to protocol
         self.pullup_dict = {
-            EVKIT_GPIO_PIN_NOPULL : protocol.EVKIT_GPIO_PIN_NOPULL,
-            EVKIT_GPIO_PIN_PULLDOWN : protocol.EVKIT_GPIO_PIN_PULLDOWN,
-            EVKIT_GPIO_PIN_PULLUP : protocol.EVKIT_GPIO_PIN_PULLUP
+            EVKIT_GPIO_PIN_NOPULL: protocol.EVKIT_GPIO_PIN_NOPULL,
+            EVKIT_GPIO_PIN_PULLDOWN: protocol.EVKIT_GPIO_PIN_PULLDOWN,
+            EVKIT_GPIO_PIN_PULLUP: protocol.EVKIT_GPIO_PIN_PULLUP
         }
 
 #    def add_channel(self,[dim_list]):
-#        pass # TODO 1
 
     def _define_request_message_v2(self, sensor=None, fmt=None, hdr=None, reg=None, pin_index=None, timer=None):
         """Construct stream request message
@@ -138,9 +129,9 @@ class StreamConfig(object):
 
         if sensor is None:
             sensor = self.sensor
-
+        # assert not (timer and pin_index), 'timer and pin_index must be given cannot be used at same time.'
         if timer is None:
-            assert pin_index in sensor.int_pins, 'Sensor does not have interrput pin %d.' % pin_index
+            assert pin_index in sensor.int_pins, 'Sensor does not have interrput pin %s.' % pin_index
 
         LOGGER.debug('Stream request for {}'.format(self.sensor.name))
         message = RequestMessageDefinition(sensor, fmt, hdr, reg, pin_index, timer)
@@ -154,27 +145,14 @@ class StreamConfig(object):
         #
         # Create macro request
         #
-
-        if message.reg is None:
-            # FOR ADC reading?
-            LOGGER.debug('EVKIT_MACRO_TYPE_POLL {}'.format(message.gpio_pin))
-            # TODO 2 determine timer scale dynamically
+        if message.reg is None or message.timer is not None:
+            # FOR ADC reading or FOR timer polling digital bus
+            LOGGER.debug('EVKIT_MACRO_TYPE_INTR %s' % (str(message.gpio_pin) if hasattr(message, 'gpio_pin') else 'ADC'))
+            time_unit, time_val = protocol.seconds_to_proto_time(message.timer)
             req = protocol.create_macro_req(
                 trigger_type=protocol.EVKIT_MACRO_TYPE_POLL,
-                timer_scale=protocol.EVKIT_TIME_SCALE_MS,
-                timer_value=int(message.timer * 1000)
-                )
-
-        elif message.timer is not None:
-            # FOR timer polling digital bus
-            # TODO 2 combine these two?
-            LOGGER.debug('EVKIT_MACRO_TYPE_POLL {}seconds'.format(message.timer))
-            # TODO 2 determine timer scale dynamically
-            req = protocol.create_macro_req(
-                trigger_type=protocol.EVKIT_MACRO_TYPE_POLL,
-                timer_scale=protocol.EVKIT_TIME_SCALE_MS,
-                timer_value=int(message.timer * 1000)
-                )
+                timer_scale=time_unit,
+                timer_value=time_val)
 
         elif message.gpio_pin is not None:
 
@@ -184,18 +162,17 @@ class StreamConfig(object):
                 gpio_pin=message.gpio_pin,
                 gpio_sense=self.sense_dict[sensor.resource[CFG_POLARITY]],
                 gpio_pullup=self.pullup_dict[sensor.resource[CFG_PULLUP]]
-                )
-            # TODO 2 update _pin_mode_cache.
+            )
 
         else:
-            raise EvaluationKitException('No rule to make request.')
+            raise EvaluationKitException('No timer or interrupt request could be created pin_index:%s, timer:%s.' % (pin_index, timer))
 
         #
         # send macro request and store macro
         #
 
         self.adapter.send_message(req)
-        _, macro_id = self.adapter.receive_message(waif_for_message=protocol.EVKIT_MSG_CREATE_MACRO_RESP) #  message_type, macro_id
+        _, macro_id = self.adapter.receive_message(wait_for_message=protocol.EVKIT_MSG_CREATE_MACRO_RESP)  # message_type, macro_id
         self.macro_id_list.append(macro_id)
         self.msg_ind_dict[macro_id] = message
         message.msg_req.append(req)
@@ -219,7 +196,7 @@ class StreamConfig(object):
 
             LOGGER.debug(req)
             self.adapter.send_message(req)
-            self.adapter.receive_message(waif_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
+            self.adapter.receive_message(wait_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
             message.msg_req.append(req)
 
         elif bus1_name == BUS1_SPI:
@@ -242,7 +219,7 @@ class StreamConfig(object):
             LOGGER.debug(req)
             self.adapter.send_message(req)
             message.msg_req.append(req)
-            self.adapter.receive_message(waif_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
+            self.adapter.receive_message(wait_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
 
         elif bus1_name == BUS1_ADC:
             LOGGER.debug("EVKIT_MACRO_ACTION_ADC_READ")
@@ -268,20 +245,19 @@ class StreamConfig(object):
                 LOGGER.debug(req2)
                 self.adapter.send_message(req2)
                 message.msg_req.append(req2)
-                self.adapter.receive_message(waif_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
+                self.adapter.receive_message(wait_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
 
         elif bus1_name == BUS1_GPIO:
-            # TODO 3 BUS1_GPIO data stream
             raise EvaluationKitException('Unsupported bus1 {}'.format(bus1_name))
         else:
             raise EvaluationKitException('Unsupported bus1 {}'.format(bus1_name))
-
 
         LOGGER.debug('<')
 
     def _define_request_message_v1(self, sensor=None, fmt=None, hdr=None, reg=None, pin_index=None, timer=None):
 
         assert not None in [fmt, hdr, reg], 'All values must be defined'
+        assert not timer, 'Timer not supported'
 
         if timer is not None:
             raise EvaluationKitException('Timer not supported in this firmware version')
@@ -327,7 +303,6 @@ class StreamConfig(object):
                 sense=self.sense_dict[request.sensor.resource[CFG_POLARITY]],
                 pull=self.pullup_dict[request.sensor.resource[CFG_PULLUP]])
 
-            # TODO 2 update _pin_mode_cache.
 
             LOGGER.debug(req)
             self.adapter.send_message(req)
@@ -361,7 +336,7 @@ class StreamConfig(object):
             req = self.adapter.protocol.start_macro_action_req(macro_id)
             LOGGER.debug(req)
             self.adapter.send_message(req)
-            self.adapter.receive_message(waif_for_message=self.adapter.protocol.EVKIT_MSG_START_MACRO_RESP)
+            self.adapter.receive_message(wait_for_message=self.adapter.protocol.EVKIT_MSG_START_MACRO_RESP)
             self.msg_ind_dict[macro_id].msg_req.append(req)
         LOGGER.debug("<_start_streaming")
 
@@ -378,7 +353,7 @@ class StreamConfig(object):
             self.adapter.send_message(req)
 
             # NOTE using dont_cache=True could do same flush
-            result = self.adapter.receive_message(waif_for_message=self.adapter.protocol.EVKIT_MSG_REMOVE_MACRO_RESP)
+            result = self.adapter.receive_message(wait_for_message=self.adapter.protocol.EVKIT_MSG_REMOVE_MACRO_RESP)
 
             self.msg_ind_dict[macro_id].msg_req.append(req)
             LOGGER.debug(result)
@@ -393,7 +368,7 @@ class StreamConfig(object):
                          console=True,
                          log_file_name=None,
                          callback=None,
-                         max_timeout_count=0,
+                         max_timeout_count=1,
                          additional_info=None):
         """Main loop for reading stream data after data streams are activated.
 
@@ -402,16 +377,16 @@ class StreamConfig(object):
             concole(bool): print values to console (defaults to True)
             log_file_name(string/None): Log file to write. (defaults to None)
             callback(function): function to call after new data is received.
-            max_timeout_count(int/None): break after bus2 time out count is reached. If none then loop forever regardless timeouts
+            max_timeout_count(int/None): break after bus2 time out count is reached. If None then loop forever regardless timeouts
             additional_info(string): info passed to SensorDataLogger instance
 
         """
         count = 0  # count of received data samples
-        timeout_count = 0  # how many timeouts received
+        timeout_count = 0  # how many successive timeouts received
 
-        data_logger = SensorDataLogger(console=console,
-                                       log_file_name=log_file_name,
-                                       additional_info=additional_info)
+        self.data_logger = SensorDataLogger(console=console,
+                                            log_file_name=log_file_name,
+                                            additional_info=additional_info)
 
         # subscribe sensor data from FW
         self._start_streaming()
@@ -419,17 +394,18 @@ class StreamConfig(object):
         # On FW1 channels are known only after that _start_streaming()
         # print out header text, replace text "ch" with channel number
         for channel, request in iter(self.msg_ind_dict.items()):
-            data_logger.add_channel(request.msg_hdr, channel)
+            self.data_logger.add_channel(request.msg_hdr, channel)
 
-        data_logger.start()
+        self.data_logger.start()
 
         try:
             # main loop for reading the data
             while (loop is None) or (count < loop):
                 with DelayedKeyboardInterrupt():
-                    # TODO 3 error handling if message was not macro message : macro_index >= EVKIT_MSG_MACRO_IND_BASE etc. logic
-                    macro_index, resp = self.adapter.receive_message()
-
+                    try:
+                        macro_index, resp = self.adapter.receive_message()
+                    except ProtocolTimeoutException:
+                        resp = None
                 if resp is None:
                     LOGGER.debug("Timeout when receiving data")
                     timeout_count += 1
@@ -440,6 +416,8 @@ class StreamConfig(object):
                         raise ProtocolBus1Exception('Timeout when receiving data. Max timeout count reached.')
 
                     continue
+
+                timeout_count = 0  # reset counter every time data is received
 
                 # find correct message type to get information how message is interpreted
                 received_messsage_type = self.msg_ind_dict[macro_index]
@@ -453,7 +431,7 @@ class StreamConfig(object):
                     # rotate if 3d data
                     data = self.msg_ind_dict[macro_index].axis_mapper.map_xyz_axis(data)
                     # log the data
-                    data_logger.feed_values(data)
+                    self.data_logger.feed_values(data)
 
                     count += 1
 
@@ -472,7 +450,7 @@ class StreamConfig(object):
             # unsibscribe data from FW
             self._stop_streaming()
 
-            data_logger.stop()
+            self.data_logger.stop()
 
             if count == 0:
                 LOGGER.error("No stream data received.")

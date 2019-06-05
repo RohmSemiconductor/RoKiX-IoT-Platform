@@ -1,0 +1,102 @@
+{
+    "structure_version": "3.0", 
+    "protocol_version": "2.0", 
+    "name": "Baro & temp data 17Hz, 9 ms meas. time", 
+    "doc": "Read pressure and temperature data at 17Hz ODR with 9 ms measurement time", 
+    "execute": [], 
+    "channels": [
+        [
+            {
+                "SI_unit": "mbar", 
+                "data": "Pressure", 
+                "name": "Pressure", 
+                "SI_multiplier": "1 / 2048"
+            }, 
+            {
+                "SI_unit": "C", 
+                "data": "Temperature", 
+                "name": "Temperature", 
+                "SI_multiplier": "1 / 32"
+            }
+        ]
+    ], 
+    "configure": [
+        [
+            "BM1383AGLV", 
+            18, 
+            1, 
+            ""
+        ], 
+        [
+            "BM1383AGLV", 
+            19, 
+            1, 
+            ""
+        ], 
+        [
+            "BM1383AGLV", 
+            20, 
+            58, 
+            ""
+        ]
+    ], 
+    "activate": [], 
+    "start_req": [
+        {
+            "msg": [
+                [
+                    4, 
+                    31, 
+                    7, 
+                    1
+                ], 
+                [
+                    6, 
+                    11, 
+                    0, 
+                    45, 
+                    1, 
+                    2
+                ], 
+                [
+                    9, 
+                    15, 
+                    48, 
+                    129, 
+                    1, 
+                    4, 
+                    [
+                        "BM1383AGLV", 
+                        25, 
+                        6
+                    ]
+                ], 
+                [
+                    3, 
+                    17, 
+                    48
+                ]
+            ], 
+            "fmt": ">BBBBBh", 
+            "type": "continuous", 
+            "hdr": "ch!stat!P_msb!P_lsb!P_xl!T_raw", 
+            "odr": 17
+        }
+    ], 
+    "stop_req": [
+        [
+            3, 
+            13, 
+            48
+        ]
+    ], 
+    "deactivate": [
+        [
+            "BM1383AGLV", 
+            20, 
+            56, 
+            ""
+        ]
+    ], 
+    "register_dump": []
+}

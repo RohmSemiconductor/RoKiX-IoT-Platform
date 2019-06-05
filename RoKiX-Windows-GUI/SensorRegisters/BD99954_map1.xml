@@ -1,0 +1,40 @@
+<root version="3.0">
+ <sensor name="BD99954" order="little-endian" sad="9" size="16" style="int">
+  <register address="20" doc="The Battery, System Host or other master device sends the desired charging rate (mA)." mode="R/W" name="ChargingCurrent" por="0" size="16">
+   <fields>
+    <field doc="ICHG_SET_13_6" mask="16320" name="ICHG_SET_13_6" size="8" start_pos="6">
+    </field>
+   </fields>
+  </register>
+  <register address="21" doc="The Battery, System Host or other master device sends the desired charging voltage to the Smart Battery Charger (mV)." mode="R/W" name="ChargingVoltage" por="0" size="16">
+   <fields>
+    <field doc="VFASTCHG_REG_SET1_14_4" mask="32752" name="VFASTCHG_REG_SET1_14_4" size="11" start_pos="4">
+    </field>
+   </fields>
+  </register>
+  <register address="60" doc="IBUS Input Current Limit Setting" mode="R/W" name="IBUS_LIM_SET" por="0" size="16">
+   <fields>
+    <field doc="IBUS_LIM_SET1_13_5" mask="16352" name="IBUS_LIM_SET1_13_5" size="9" start_pos="5">
+    </field>
+   </fields>
+  </register>
+  <register address="61" doc="ICC Input Current Limit Setting" mode="R/W" name="ICC_LIM_SET" por="0" size="16">
+   <fields>
+    <field doc="ICC_LIM_SET1_13_5" mask="16352" name="ICC_LIM_SET1_13_5" size="9" start_pos="5">
+    </field>
+   </fields>
+  </register>
+  <register address="62" doc="Access Un-protect Setting for Address FCh and FEh" mode="R/W" name="PROTECT_SET" por="0" size="16">
+   <fields>
+    <field doc="PROTECT_SET_15_0" mask="65535" name="PROTECT_SET_15_0" size="16" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="63" doc="Change Command Code Map to Debug Command Code Map" mode="R/W" name="MAP_SET" por="0" size="16">
+   <fields>
+    <field doc="MAPSEL_15_0" mask="65535" name="MAPSEL_15_0" size="16" start_pos="0">
+    </field>
+   </fields>
+  </register>
+ </sensor>
+</root>

@@ -1,0 +1,109 @@
+{
+    "structure_version": "3.0", 
+    "protocol_version": "2.0", 
+    "name": "Accel data 100Hz \u00b116g high resolution", 
+    "doc": "Read accelerometer data at 100Hz ODR, \u00b116g high resolution ", 
+    "execute": [], 
+    "channels": [
+        [
+            {
+                "SI_unit": "m/s^2", 
+                "data": "Acc_X,Acc_Y,Acc_Z", 
+                "name": "Accelerometer", 
+                "SI_multiplier": "9.8 / 2048"
+            }
+        ]
+    ], 
+    "configure": [
+        [
+            "KX224", 
+            24, 
+            72, 
+            ""
+        ], 
+        [
+            "KX224", 
+            27, 
+            3, 
+            ""
+        ], 
+        [
+            "KX224", 
+            28, 
+            32, 
+            ""
+        ], 
+        [
+            "KX224", 
+            31, 
+            16, 
+            ""
+        ]
+    ], 
+    "activate": [
+        [
+            "KX224", 
+            24, 
+            232, 
+            ""
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                [
+                    4, 
+                    31, 
+                    7, 
+                    0
+                ], 
+                [
+                    6, 
+                    11, 
+                    0, 
+                    44, 
+                    1, 
+                    2
+                ], 
+                [
+                    9, 
+                    15, 
+                    48, 
+                    129, 
+                    1, 
+                    5, 
+                    [
+                        "KX224", 
+                        6, 
+                        6
+                    ]
+                ], 
+                [
+                    3, 
+                    17, 
+                    48
+                ]
+            ], 
+            "fmt": "<Bhhh", 
+            "type": "continuous", 
+            "hdr": "ch!ax!ay!az", 
+            "odr": 100
+        }
+    ], 
+    "stop_req": [
+        [
+            3, 
+            13, 
+            48
+        ]
+    ], 
+    "deactivate": [
+        [
+            "KX224", 
+            24, 
+            104, 
+            ""
+        ]
+    ], 
+    "register_dump": []
+}

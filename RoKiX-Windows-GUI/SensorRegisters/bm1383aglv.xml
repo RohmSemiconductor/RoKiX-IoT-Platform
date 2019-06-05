@@ -1,64 +1,52 @@
-<root>
- <sensor name="bm1383aglv" sad="93">
-  <register address="300" doc="[hPa]" info="bypass" mode="INFO" name="PRESSURE_MIN">
+<root version="3.0">
+ <sensor name="BM1383AGLV" sad="93" size="8">
+  <register address="300" doc="[hPa]" info="bypass" mode="INFO" name="PRESSURE_MIN" size="8">
    <fields>
    </fields>
   </register>
-  <register address="1100" doc="[hPa]" info="bypass" mode="INFO" name="PRESSURE_MAX">
+  <register address="1100" doc="[hPa]" info="bypass" mode="INFO" name="PRESSURE_MAX" size="8">
    <fields>
    </fields>
   </register>
-  <register address="15" info="bypass" mode="INFO" name="REGISTER_DUMP_START">
+  <register address="15" info="bypass" mode="INFO" name="REGISTER_DUMP_START" size="8">
    <fields>
    </fields>
   </register>
-  <register address="15" mode="R" name="ID1_REG" por="224" value_type="uint8">
+  <register address="15" doc="Identifier 1" mode="R" name="ID1" por="224" size="8">
    <fields>
-    <field mask="255" name="MANUFACTURER" size="8" start_pos="0">
+    <field mask="255" name="ID1" size="8" start_pos="0">
      <enums>
-      <item name="id1" value="224">
+      <item doc="Identifier 1" name="id1" value="224">
       </item>
      </enums>
     </field>
    </fields>
   </register>
-  <register address="16" mode="R" name="ID2_REG" por="50" value_type="uint8">
+  <register address="16" doc="Identifier 2" mode="R" name="ID2" por="50" size="8">
    <fields>
-    <field mask="255" name="MANUFACTURER" size="8" start_pos="0">
+    <field mask="255" name="ID2" size="8" start_pos="0">
      <enums>
-      <item name="id2" value="50">
+      <item doc="Identifier 2" name="id2" value="50">
       </item>
      </enums>
     </field>
    </fields>
   </register>
-  <register address="18" mode="R/W" name="POWER_REG" por="0">
+  <register address="18" doc="Power mode register" mode="R/W" name="POWER_DOWN" por="0" size="8">
    <fields>
-    <field mask="254" name="RESERVED" size="7" start_pos="1">
+    <field doc="Power enable" mask="1" name="PWR_DOWN" size="1" start_pos="0">
      <enums>
-      <item doc="write 0" name="write0" value="0">
+      <item doc="power down" name="down" value="0">
       </item>
-     </enums>
-    </field>
-    <field doc="Named as PWR_DOWN in specification" mask="1" name="POWER" size="1" start_pos="0">
-     <enums>
-      <item name="down" value="0">
-      </item>
-      <item name="up" value="1">
+      <item doc="active" name="up" value="1">
       </item>
      </enums>
     </field>
    </fields>
   </register>
-  <register address="19" mode="R/W" name="RESET_REG" por="0">
+  <register address="19" doc="Measurement control block reset register" mode="R/W" name="RESET" por="0" size="8">
    <fields>
-    <field mask="254" name="RESERVED" size="7" start_pos="1">
-     <enums>
-      <item doc="write 0" name="write0" value="0">
-      </item>
-     </enums>
-    </field>
-    <field doc="Named as RESET in specification" mask="1" name="MODE" size="1" start_pos="0">
+    <field doc="Measurement control block reset" mask="1" name="RSTB" size="1" start_pos="0">
      <enums>
       <item doc="Measurement control block is reset" name="reset" value="0">
       </item>
@@ -68,101 +56,99 @@
     </field>
    </fields>
   </register>
-  <register address="20" doc="This register can be accessed when power is up and measurement control block is not in reset." mode="R/W" name="MODE_CONTROL_REG" por="0">
+  <register address="20" doc="This register can be accessed when power is up and measurement control block is not in reset." mode="R/W" name="MODE_CONTROL" por="8" size="8">
    <fields>
-    <field mask="224" name="AVE_NUM" size="3" start_pos="5">
+    <field doc="Set the average number of measurement data" mask="224" name="AVE_NUM" size="3" start_pos="5">
      <enums>
-      <item doc="Measurement time 3 [ms] ; interval 50 [ms]" name="avg_1_50ms" value="0">
+      <item doc="single (meas. time max 6 [ms] ; max interval 60 [ms])" name="avg_1_60ms" value="0">
       </item>
-      <item doc="5 [ms] ; 50 [ms]" name="avg_2_50ms" value="1">
+      <item doc="average of 2 times (9 [ms] ; 60 [ms])" name="avg_2_60ms" value="1">
       </item>
-      <item doc="10 [ms] ; 50 [ms]" name="avg_4_50ms" value="2">
+      <item doc="average of 4 times (16 [ms] ; 60 [ms])" name="avg_4_60ms" value="2">
       </item>
-      <item doc="19 [ms] ; 50 [ms]" name="avg_8_50ms" value="3">
+      <item doc="average of 8 times (30 [ms] ; 60 [ms])" name="avg_8_60ms" value="3">
       </item>
-      <item doc="37 [ms] ; 50 [ms]" name="avg_16_50ms" value="4">
+      <item doc="average of 16 times (60 [ms] ; 60 [ms])" name="avg_16_60ms" value="4">
       </item>
-      <item doc="74 [ms] ; 100 [ms]" name="avg_32_100ms" value="5">
+      <item doc="average of 32 times (120 [ms] ; 120 [ms])" name="avg_32_120ms" value="5">
       </item>
-      <item doc="147 [ms] ; 200 [ms]" name="avg_64_200ms" value="6">
+      <item doc="average of 64 times (240 [ms] ; 240 [ms])" name="avg_64_240ms" value="6">
       </item>
      </enums>
     </field>
-    <field doc="Named as DREN in specification" mask="16" name="DRDY" size="1" start_pos="4">
+    <field doc="DRDY pin Enable" mask="16" name="DREN" size="1" start_pos="4">
      <enums>
-      <item name="disabled" value="0">
+      <item doc="DRDY pin Disable" name="disabled" value="0">
       </item>
-      <item name="enabled" value="1">
+      <item doc="DRDY pin Enable" name="enabled" value="1">
       </item>
      </enums>
     </field>
-    <field mask="8" name="RESERVED3" size="1" start_pos="3">
+    <field doc="Reserved" mask="8" name="RESERVED3" size="1" start_pos="3">
      <enums>
       <item doc="write 1" name="write_1" value="1">
       </item>
      </enums>
     </field>
-    <field mask="4" name="RESERVED2" size="1" start_pos="2">
+    <field doc="Reserved; write 0" mask="4" name="RESERVED2" size="1" start_pos="2">
      <enums>
       <item doc="write 0" name="write_0" value="0">
       </item>
      </enums>
     </field>
-    <field mask="3" name="MODE" size="2" start_pos="0">
+    <field doc="Set measurement mode" mask="3" name="MODE" size="2" start_pos="0">
      <enums>
-      <item name="standby" value="0">
+      <item doc="Stand by" name="standby" value="0">
       </item>
-      <item name="one_shot" value="1">
+      <item doc="One shot" name="one_shot" value="1">
       </item>
-      <item name="continuous" value="2">
+      <item doc="Continuous" name="continuous" value="2">
       </item>
-      <item name="prohibited" value="3">
+      <item doc="Prohibition" name="prohibited" value="3">
       </item>
      </enums>
     </field>
    </fields>
   </register>
-  <register address="25" doc="Reading this REG resets DRDY pin" mode="R/W" name="STATUS_REG" por="0">
+  <register address="25" doc="Reading this REG resets DRDY pin" mode="R" name="STATUS" por="0" size="8">
    <fields>
-    <field mask="254" name="RESERVED" size="7" start_pos="1">
+    <field doc="Pressure and temperature measurement data ready bit" mask="1" name="RD_DRDY" size="1" start_pos="0">
      <enums>
-      <item doc="write 0" name="write0" value="0">
+      <item doc="Data is not ready" name="not_ready" value="0">
       </item>
-     </enums>
-    </field>
-    <field doc="Named as RD_DRDY in specification" mask="1" name="DRDY" size="1" start_pos="0">
-     <enums>
-      <item name="not_ready" value="0">
-      </item>
-      <item name="ready" value="1">
+      <item doc="Data is ready" name="ready" value="1">
       </item>
      </enums>
     </field>
    </fields>
   </register>
-  <register address="26" doc="PRESS_OUT[15:5] integer part of pressure value" mode="R" name="PRESSURE_OUT_MSB" order="le" size="16" style="int" value_type="int16lsb">
+  <register address="26" doc="The upper part of pressure data" mode="R" name="PRESSURE_MSB" por="0" size="8">
    <fields>
-   </fields>
-  </register>
-  <register address="27" doc="PRESS_OUT[4:0] PRESS_OUT_XL[7:2] decimal part of pressure value" info="bypass" mode="R" name="PRESSURE_OUT_LSB" value_type="int16msb">
-   <fields>
-   </fields>
-  </register>
-  <register address="28" mode="R" name="PRESSURE_OUT_DECIMAL">
-   <fields>
-    <field doc="Pressurevalue[hPa] = { PRESS_OUT[15:8] PRESS_OUT[7:0] PRESS_OUT_XL[7:2] } / 2048" mask="252" size="6" start_pos="2">
+    <field bit_pos="0@15:14:13:12:11:10:9:8:7:6:5:4:3:2:1:0" doc="The upper part of pressure data" name="PRESS_OUT" size="16">
     </field>
    </fields>
   </register>
-  <register address="29" doc="TEMP_OUT: [15] sign ; [14:5] integer ; [4:0] decimal (2's complement numbers)" mode="R" name="TEMPERATURE_OUT_MSB" order="le" size="16" style="int" value_type="int16lsb">
+  <register address="27" doc="The lower part of pressure data" info="bypass" mode="INFO" name="PRESSURE_LSB" por="0" size="8">
+   <fields>
+    <field doc="The lower part of pressure data" mask="255" name="PRESS_OUT" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="28" doc="Pressurevalue[hPa] = { PRESS_OUT[15:8] PRESS_OUT[7:0] PRESS_OUT_XL[7:2] } / 2048" mode="R" name="PRESSURE_LSB2" por="0" size="8">
+   <fields>
+    <field doc="Pressure data output (decimal extension 6bit)" mask="252" name="PRESS_OUT_XL" size="6" start_pos="2">
+    </field>
+   </fields>
+  </register>
+  <register address="29" doc="TEMP_OUT: [15] sign ; [14:5] integer ; [4:0] decimal (2's complement numbers)" mode="R" name="TEMPERATURE_MSB" order="little-endian" por="0" size="16" style="int">
    <fields>
    </fields>
   </register>
-  <register address="30" doc="Temperature value [°C]= TEMP_OUT[15:0]/32" info="bypass" mode="R" name="TEMPERATURE_OUT_LSB" value_type="int16msb">
+  <register address="30" doc="Temperature value [°C]= TEMP_OUT[15:0]/32" info="bypass" mode="R" name="TEMPERATURE_LSB" por="0" size="8">
    <fields>
    </fields>
   </register>
-  <register address="30" info="bypass" mode="INFO" name="REGISTER_DUMP_END">
+  <register address="30" info="bypass" mode="INFO" name="REGISTER_DUMP_END" size="8">
    <fields>
    </fields>
   </register>

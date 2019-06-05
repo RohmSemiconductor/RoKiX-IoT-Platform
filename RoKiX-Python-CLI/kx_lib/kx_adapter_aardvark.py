@@ -7,18 +7,17 @@ from kx_lib import kx_logger
 from kx_lib.kx_base_class import KxAdapterBase
 from kx_lib.kx_configuration_enum import BUS1_I2C, BUS1_SPI
 LOGGER = kx_logger.get_logger(__name__)
-#LOGGER.setLevel(kx_logger.DEBUG)
+# LOGGER.setLevel(kx_logger.DEBUG)
 
 AARDVARK_FOUND = False
 try:
     from kx_lib import aardvark_py as aa
     AARDVARK_FOUND = True
 except (ImportError, SyntaxError):
-    # TODO 3 try to import linux aardvark if running in Linux environment
     LOGGER.debug('Aadvark found {}'.format(AARDVARK_FOUND))
 
+
 class KxAdapterAardvark(KxAdapterBase):
-    # TODO 3 demonstarte how to put sensor to hs mode
 
     def __init__(self, bus1config):
         LOGGER.debug('>init')
@@ -28,7 +27,7 @@ class KxAdapterAardvark(KxAdapterBase):
         KxAdapterBase.__init__(self)
         self.fw_protocol_version = "2.0"
         self.bus1config = bus1config
-        self._adapter_configured = None # None / BUS1_I2C / BUS1_SPI
+        self._adapter_configured = None  # None / BUS1_I2C / BUS1_SPI
 
         self.bus_gpio_list = [1, 2]
         self._has_gpio = True
@@ -85,20 +84,19 @@ class KxAdapterAardvark(KxAdapterBase):
 
     def adapter_read_gpio(self, gpio_pin):
         LOGGER.debug('<')
-        # TODO 3 more logic needed to read int pins with aardvark
         assert self._adapter_configured is not None
         assert gpio_pin in self.bus_gpio_list
 
         if self._adapter_configured == BUS1_SPI:
-            if gpio_pin == 1: # int1
+            if gpio_pin == 1:  # int1
                 return 0 if (aa.aa_gpio_get(self._handle) & aa.AA_GPIO_SCL) == 0 else 1
-            else: # int2
+            else:  # int2
                 return 0 if (aa.aa_gpio_get(self._handle) & aa.AA_GPIO_SDA) == 0 else 1
         else:
             # i2c
-            if gpio_pin == 1: # int1
+            if gpio_pin == 1:  # int1
                 return 0 if (aa.aa_gpio_get(self._handle) & aa.AA_GPIO_SCK) == 0 else 1
-            else: # int2
+            else:  # int2
                 return 0 if (aa.aa_gpio_get(self._handle) & aa.AA_GPIO_MOSI) == 0 else 1
 
     def configure_i2c(self):
@@ -111,7 +109,6 @@ class KxAdapterAardvark(KxAdapterBase):
         # aa.aa_gpio_pullup(self._handle, aa.AA_GPIO_SCK | aa.AA_GPIO_MOSI) # pullup for gpio lines
         aa.aa_gpio_pullup(self._handle, self.bus1config['aa_gpio_pullup'])
 
-        # TODO 3 slave address selection GPIO to output. this can be hadled with 'gpio_conf'
 
         # Ensure that the I2C subsystem is enabled
         aa.aa_configure(self._handle, aa.AA_CONFIG_GPIO_I2C)
@@ -127,7 +124,7 @@ class KxAdapterAardvark(KxAdapterBase):
         aa.aa_target_power(self._handle, self._aa_target_power[self.bus1config['aa_target_power']])
 
         # Set the bitrate
-        self._bitrate = self.bus1config['bitrate_i2c'] # TODO 3 change to 'freq'
+        self._bitrate = self.bus1config['bitrate_i2c']
         requested = self._bitrate
         self._bitrate = aa.aa_i2c_bitrate(self._handle, self._bitrate)
         if requested != self._bitrate:
@@ -164,10 +161,9 @@ class KxAdapterAardvark(KxAdapterBase):
         aa.aa_spi_master_ss_polarity(self._handle,
                                      self._ss_polarity[self.bus1config['ss_polarity']])
 
-
         # Set the bitrate
         LOGGER.debug('bitrate_spi %d' % self.bus1config['bitrate_spi'])
-        self._bitrate = self.bus1config['bitrate_spi']  # TODO 3 change to 'freq'
+        self._bitrate = self.bus1config['bitrate_spi']
 
         requested = self._bitrate
         self._bitrate = aa.aa_spi_bitrate(self._handle, self._bitrate)
@@ -195,7 +191,6 @@ class KxAdapterAardvark(KxAdapterBase):
             length = 1 + len(values)
             data_out = array('B', [register] + values)
 
-        # TODO 3 test below option
         elif register is None:
             # special case : write without dedicated register address
             length = len(values)
@@ -205,7 +200,6 @@ class KxAdapterAardvark(KxAdapterBase):
 
         res = aa.aa_i2c_write(self._handle, sad, aa.AA_I2C_NO_FLAGS, data_out)
         if res != length:
-            # TODO 3 add sensor name to error message
             raise EvaluationKitException('Unable write to I2C slave at address 0x%x' % sad)
 
     def adapter_read_sensor_register_i2c(self, _, sad, register, length=1):
@@ -225,8 +219,6 @@ class KxAdapterAardvark(KxAdapterBase):
             self.configure_spi()
         assert self._adapter_configured == BUS1_SPI
 
-        # TODO 3 how to handle chip select
-        # TODO 3 "target" can be used for selecting between i2c and spi but currently no needs for it.
         data_in = aa.array_u08(1 + length)
         data_out = array('B', [register] + [0] * length)
 
@@ -241,13 +233,10 @@ class KxAdapterAardvark(KxAdapterBase):
 
     def adapter_write_sensor_register_spi(self, _, chip_select, register, values):
 
-        # TODO 3 how to handle chip select
-        # TODO 3 "target" is not in use
         LOGGER.debug('<')
         if register is None:  # Pure SPI command write without address
-            # TODO 3 test this
             data_out = array('B', [values])
-            length = 1  ## TODO 3 support for multi byte write?
+            length = 1
 
         elif isinstance(values, int):
             length = 2
@@ -266,7 +255,6 @@ class KxAdapterAardvark(KxAdapterBase):
         LOGGER.debug('>')
 
     def configure_pin_as_input(self, gpio_pin, drivemode):
-        # TODO 3 configure_pin_as_input(). 
         # Pins are set input in configure_i2c() and configure_spi() no need to do anything here
         # unless there is need to use pins also for output
         pass

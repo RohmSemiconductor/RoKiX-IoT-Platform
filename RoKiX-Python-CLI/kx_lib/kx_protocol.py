@@ -28,7 +28,7 @@ def write_req(_, sad, register, value):
     msg = KxMessageContainer(EVKIT_MSG_WRITE_REQ)
     msg.append_payload(sad)
     msg.append_payload(register)
-    if value is not None: # only one byte write
+    if value is not None:  # only one byte write
         msg.append_payload(value)
     return msg.get_message()
 
@@ -81,8 +81,8 @@ def interrupt_enable_req(pin,
 
 def gpio_config_req(
         pin,
-        direction=EVKIT_MSG_GPIO_PIN_INPUT,
-        input_connected=EVKIT_MSG_GPIO_PIN_DISCONNECTED,
+        direction=EVKIT_GPIO_PIN_INPUT,
+        input_connected=EVKIT_GPIO_PIN_DISCONNECTED,
         io_config=EVKIT_GPIO_PIN_NOPULL):
     msg = KxMessageContainer(EVKIT_MSG_GPIO_CONFIG_REQ)
     msg.append_payload(pin)
@@ -119,7 +119,6 @@ class KxMessageContainer(object):
 
     def append_payload(self, data):
         "accepts int8 or string lenght of 1 or more"
-        # TODO 3  replace string with array for faster operation
         if isinstance(data, array):
             self.payload += data
             self.len += len(data)
@@ -240,40 +239,40 @@ class ProtocolEngine(object):
     def get_message_type(self, message):
         return message[1]
 
-    def receive_single_message(self, waif_for_message=None, cache_messages=True):
+    def receive_single_message(self, wait_for_message=None, cache_messages=True):
         """Receive message from bus.
 
-        Receive message. If message type is defined in waif_for_message argument
+        Receive message. If message type is defined in wait_for_message argument
         then it can be selected wether to store messages (cache_messages) received
         before receiving the message what is waited.
 
         Keyword arguments:
 
-        waif_for_message -- which message to wait. (Default None, e.g. accept
+        wait_for_message -- which message to wait. (Default None, e.g. accept
                             first message which is received.
 
         cache_messages -- Store received messages to FIFO if other than
-                            expected message (defined in waif_for_message)
+                            expected message (defined in wait_for_message)
                             is received (default True)
 
         """
         retry_count = self.max_fifo_size  # max size of FIFO
 
         # check if wanted message already received and can be found from FIFO
-        if self.message_fifo: # if len > 0
+        if self.message_fifo:  # if len > 0
             for fifo_index in range(len(self.message_fifo)):
                 received_message = self.message_fifo[fifo_index]
 
-                if waif_for_message is None or \
-                   self.get_message_type(received_message) == waif_for_message:
+                if wait_for_message is None or \
+                   self.get_message_type(received_message) == wait_for_message:
                     self.message_fifo.pop(fifo_index)  # remove this message from fifo
                     return received_message
 
         # continue to receive new messages if wanted message was not in FIFO
         while retry_count:
             received_message = self._receive_single_message()
-            if waif_for_message is None or \
-               self.get_message_type(received_message) == waif_for_message:
+            if wait_for_message is None or \
+               self.get_message_type(received_message) == wait_for_message:
                 return received_message
 
             # not an error message?
@@ -295,7 +294,8 @@ class ProtocolEngine(object):
         received_message = array('B')
         partial_message = array('B')
         retry_count = self.max_retry_count
-        length_byte = array('B', self.connection.read(1))
+        #BLE_PYGATT returns strings, windows
+        length_byte = array('B',  [ord(self.connection.read(1))])
         if not length_byte:
             raise ProtocolTimeoutException('Timeout on message receiving 1.')
 
@@ -303,6 +303,8 @@ class ProtocolEngine(object):
         while retry_count:
             partial_message = self.connection.read(message_length - len(partial_message))
             retry_count -= 1
+            if isinstance(partial_message, str):
+                partial_message = [ord(msg_item) for msg_item in partial_message]
             received_message += array('B', partial_message)
             if len(partial_message) == message_length:
                 if len(received_message) < 1:

@@ -1,0 +1,103 @@
+{
+    "structure_version": "3.0", 
+    "protocol_version": "2.0", 
+    "name": "Accel data 50Hz \u00b12g high resolution", 
+    "doc": "Read accelerometer data at 50Hz ODR, \u00b12g high resolution ", 
+    "execute": [], 
+    "channels": [
+        [
+            {
+                "SI_unit": "m/s^2", 
+                "data": "Acc_X,Acc_Y,Acc_Z", 
+                "name": "Accelerometer", 
+                "SI_multiplier": "9.8 / 16384"
+            }
+        ]
+    ], 
+    "configure": [
+        [
+            "KXTJ3", 
+            27, 
+            64, 
+            ""
+        ], 
+        [
+            "KXTJ3", 
+            33, 
+            2, 
+            ""
+        ], 
+        [
+            "KXTJ3", 
+            30, 
+            32, 
+            ""
+        ]
+    ], 
+    "activate": [
+        [
+            "KXTJ3", 
+            27, 
+            224, 
+            ""
+        ]
+    ], 
+    "start_req": [
+        {
+            "msg": [
+                [
+                    4, 
+                    31, 
+                    7, 
+                    1
+                ], 
+                [
+                    6, 
+                    11, 
+                    0, 
+                    44, 
+                    1, 
+                    2
+                ], 
+                [
+                    9, 
+                    15, 
+                    48, 
+                    129, 
+                    1, 
+                    5, 
+                    [
+                        "KXTJ3", 
+                        6, 
+                        6
+                    ]
+                ], 
+                [
+                    3, 
+                    17, 
+                    48
+                ]
+            ], 
+            "fmt": "<Bhhh", 
+            "type": "continuous", 
+            "hdr": "ch!ax!ay!az", 
+            "odr": 50
+        }
+    ], 
+    "stop_req": [
+        [
+            3, 
+            13, 
+            48
+        ]
+    ], 
+    "deactivate": [
+        [
+            "KXTJ3", 
+            27, 
+            96, 
+            ""
+        ]
+    ], 
+    "register_dump": []
+}

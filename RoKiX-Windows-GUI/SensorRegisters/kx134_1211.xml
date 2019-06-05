@@ -1,0 +1,1052 @@
+<root version="3.0">
+ <sensor name="KX134-1211" sad="30" size="8">
+  <register address="0" mode="R" name="MAN_ID" size="8">
+   <fields>
+    <field doc='A burst read (reading using the auto-increment) of 4 bytes starting at address 00, returns the manufacturing ID: "K" "i" "o" "n" in ascii codes "0x4B" "0x69" "0x6F" "0x6E"' mask="255" name="MANID" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="1" mode="R" name="PART_ID" size="8">
+   <fields>
+    <field doc='A burst read (reading using the auto-increment) of 2 bytes starting at address 01, returns Who-Am-I value ("WAI") as the first byte (LSB) and a 2nd byte (MSB) that returns silicon specific ID.' mask="255" name="PARTID" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="2" doc="ADP accelerometer output x." mode="R" name="XADP_L" order="little-endian" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="3" doc="msb" info="bypass" mode="R" name="XADP_H" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="4" doc="ADP accelerometer output y" mode="R" name="YADP_L" order="little-endian" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="5" doc="msb" info="bypass" mode="R" name="YADP_H" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="6" doc="ADP accelerometer output z" mode="R" name="ZADP_L" order="little-endian" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="7" doc="msb" info="bypass" mode="R" name="ZADP_H" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="8" doc="Accelerometer output register x" mode="R" name="XOUT_L" order="little-endian" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="9" doc="msb" info="bypass" mode="R" name="XOUT_H" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="10" doc="Accelerometeroutput register y" mode="R" name="YOUT_L" order="little-endian" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="11" doc="msb" info="bypass" mode="R" name="YOUT_H" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="12" doc="Accelerometer output register z" mode="R" name="ZOUT_L" order="little-endian" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="13" doc="msb" info="bypass" mode="R" name="ZOUT_H" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="14" doc="16-bit temperature sensor output register" mode="R" name="TEMP_OUT_L" order="little-endian" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="15" doc="msb" info="bypass" mode="R" name="TEMP_OUT_H" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="18" doc="The Command Test Response (COTR) register is used to verify proper integrated circuit functionality." mode="R" name="COTR" por="85" size="8">
+   <fields>
+    <field doc="Command Test Responses" mask="255" name="DCSTR" size="8" start_pos="0">
+     <enums>
+      <item doc="before set" name="BEFORE" value="85">
+      </item>
+      <item doc="after set" name="AFTER" value="170">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="19" doc="This register can be used for supplier recognition" mode="R" name="WHO_AM_I" por="70" size="8">
+   <fields>
+    <field doc="WAI value" mask="255" name="WAI" size="8" start_pos="0">
+     <enums>
+      <item doc="WAI value for KX134-1211" name="ID" value="70">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="20" doc="Current Tilt Position Register." mode="R" name="TSCP" por="32" size="8">
+   <fields>
+    <field doc="Left state X' negative (x-)" mask="32" name="LE" size="1" start_pos="5">
+    </field>
+    <field doc="Right state X' positive (x+)" mask="16" name="RI" size="1" start_pos="4">
+    </field>
+    <field doc="Down state Y' negative (y-)" mask="8" name="DO" size="1" start_pos="3">
+    </field>
+    <field doc="Up state Y' positive (y+)" mask="4" name="UP" size="1" start_pos="2">
+    </field>
+    <field doc="Face Down state Z negative (z-)" mask="2" name="FD" size="1" start_pos="1">
+    </field>
+    <field doc="Face Up Z positive (z+)" mask="1" name="FU" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="21" doc="Previous Tilt Position Register." mode="R" name="TSPP" por="32" size="8">
+   <fields>
+    <field doc="Left state X' negative (x-)" mask="32" name="LE" size="1" start_pos="5">
+    </field>
+    <field doc="Right state X' positive (x+)" mask="16" name="RI" size="1" start_pos="4">
+    </field>
+    <field doc="Down state Y' negative (y-)" mask="8" name="DO" size="1" start_pos="3">
+    </field>
+    <field doc="Up state Y' positive (y+)" mask="4" name="UP" size="1" start_pos="2">
+    </field>
+    <field doc="Face Down state Z negative (z-)" mask="2" name="FD" size="1" start_pos="1">
+    </field>
+    <field doc="Face Up Z positive (z+)" mask="1" name="FU" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="22" doc="This register contains the tap/double tap axis specific interrupts. Data is updated at the ODR settings determined by OTDT&lt;2:0&gt; in CNTL3." mode="R" name="INS1" por="0" size="8">
+   <fields>
+    <field doc="X' negative (x-)" mask="32" name="TLE" size="1" start_pos="5">
+    </field>
+    <field doc="X' positive (x+)" mask="16" name="TRI" size="1" start_pos="4">
+    </field>
+    <field doc="Y' negative (y-)" mask="8" name="TDO" size="1" start_pos="3">
+    </field>
+    <field doc="Y' positive (y+)" mask="4" name="TUP" size="1" start_pos="2">
+    </field>
+    <field doc="Z  negative (z-)" mask="2" name="TFD" size="1" start_pos="1">
+    </field>
+    <field doc="Z  positive (z+)" mask="1" name="TFU" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="23" doc="This register tells which function caused an interrupt." mode="R" name="INS2" por="0" size="8">
+   <fields>
+    <field doc="Free fall Status (FFS) bit. This bit is cleared when the interrupt latch release register (INT_REL) is read." mask="128" name="FFS" size="1" start_pos="7">
+    </field>
+    <field doc="Buffer Full Interrupt (BFI) bit indicates that buffer has been filled. This bit is automatically cleared when at least one sample from the buffer is read." mask="64" name="BFI" size="1" start_pos="6">
+    </field>
+    <field doc="Watermark Interrupt bit indicates that user-defined buffer’s sample threshold (watermark) has been exceeded when in FIFO or Stream modes. Not used in Trigger mode. This bit is automatically cleared when buffer is read and the content is below the watermark." mask="32" name="WMI" size="1" start_pos="5">
+    </field>
+    <field doc="Data Ready (DRDY) interrupt bit indicates that new acceleration data is available in output data registers 0x08 to 0x0D. This bit is cleared when acceleration data is read or the interrupt latch release register (INT_REL) is read." mask="16" name="DRDY" size="1" start_pos="4">
+    </field>
+    <field doc="Tap/Double-Tap Status bit. This bit is cleared when the interrupt latch release register (INT_REL) is read" mask="12" name="TDTS" size="2" start_pos="2">
+     <enums>
+      <item doc="00 = no tap" name="NOTAP" value="0">
+      </item>
+      <item doc="01 = single tap" name="SINGLE" value="1">
+      </item>
+      <item doc="10 = double tap" name="DOUBLE" value="2">
+      </item>
+      <item doc="11 = does not exist" name="NA" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Tilt Position Status bit" mask="1" name="TPS" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="24" doc="This register reports the axis and direction of detected motion that triggered the wakeup interrupt." mode="R" name="INS3" por="0" size="8">
+   <fields>
+    <field doc="Wake up interrupt. This bit is cleared when the interrupt latch release register (INT_REL) is read. WUFS = 1 – Motion is above wake up threshold, WUFS = 0 – Motion is below wake up threshold" mask="128" name="WUFS" size="1" start_pos="7">
+    </field>
+    <field doc="Back to sleep interrupt. This bit is cleared when the interrupt latch release register (INT_REL) is read. BTS = 1 – Motion is below back to sleep threshold, BTS = 0 – Motion is above back to sleep threshold" mask="64" name="BTS" size="1" start_pos="6">
+    </field>
+    <field doc="X' negative (x-)" mask="32" name="XNWU" size="1" start_pos="5">
+    </field>
+    <field doc="X' positive (x+)" mask="16" name="XPWU" size="1" start_pos="4">
+    </field>
+    <field doc="Y' negative (y-)" mask="8" name="YNWU" size="1" start_pos="3">
+    </field>
+    <field doc="Y' positive (y+)" mask="4" name="YPWU" size="1" start_pos="2">
+    </field>
+    <field doc="Z  negative (z-)" mask="2" name="ZNWU" size="1" start_pos="1">
+    </field>
+    <field doc="Z  positive (z+)" mask="1" name="ZPWU" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="25" doc="This register reports the status of the interrupt." mode="R" name="STATUS_REG" por="0" size="8">
+   <fields>
+    <field doc="reports the combined (OR) interrupt information according to interrupt setting: 0= no interrupt event, 1= interrupt event has occurred." mask="16" name="INT" size="1" start_pos="4">
+    </field>
+    <field doc="reports the wake/back to sleep state; 0 = back-to-sleep state,1 = wake state." mask="1" name="WAKE" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="26" mode="R" name="INT_REL" por="0" size="8">
+   <fields>
+    <field doc="Interrupt latch release. Latched interrupt source information (INS1-INS3) is cleared and physical interrupt latched pin is changed to its inactive state when this register is read. WMI, BFI and STPWMI are not cleared by this command." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="27" doc="Control register 1. Read/write control register that controls the main feature set." mode="R/W" name="CNTL1" por="0" size="8">
+   <fields>
+    <field doc="controls the operating mode.  0= stand-by mode,  1= operating mode." mask="128" name="PC1" size="1" start_pos="7">
+    </field>
+    <field doc="controls the resolution of the accelerometer output. RES = 0 - low power, higher noise mode. RES = 1 - higher power, lower noise mode" mask="64" name="RES" size="1" start_pos="6">
+    </field>
+    <field doc="enables the data ready engine. DRDYE = 0 – disable, DRDYE = 1 - enable" mask="32" name="DRDYE" size="1" start_pos="5">
+    </field>
+    <field doc="G-range Select (GSEL) bits select the acceleration range of the accelerometer outputs. This range is also called a full-scale range of the accelerometer." mask="24" name="GSEL" size="2" start_pos="3">
+     <enums>
+      <item doc="00 = +/- 8g" name="8g" value="0">
+      </item>
+      <item doc="01 = +/- 16g" name="16g" value="1">
+      </item>
+      <item doc="10 = +/- 32g" name="32g" value="2">
+      </item>
+      <item doc="11 = +/- 64g" name="64g" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="enables the Tap/Double tap engine. TDTE = 0 – disable, TDTE = 1 – enable" mask="4" name="TDTE" size="1" start_pos="2">
+    </field>
+    <field doc="enables the Tilt engine.TPE = 0 – disable, TPE = 1 – enable" mask="1" name="TPE" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="28" doc="Control register 2. Read/write control register that primarily controls tilt position state enabling." mode="R/W" name="CNTL2" por="63" size="8">
+   <fields>
+    <field doc="The Software Reset bit initiates software reset, which performs the RAM reboot routine. This bit will remain 1 until the RAM reboot routine is finished." mask="128" name="SRST" size="1" start_pos="7">
+    </field>
+    <field doc="The Command Test Control bit is used to verify proper ASIC functionality. COTC = 0 – no action, COTC = 1 – sets AA to COTR register, when the COTR register is read, COTC is cleared and STR = 55." mask="64" name="COTC" size="1" start_pos="6">
+    </field>
+    <field doc="Tilt Left state mask" mask="32" name="LEM" size="1" start_pos="5">
+    </field>
+    <field doc="Tilt Right state mask" mask="16" name="RIM" size="1" start_pos="4">
+    </field>
+    <field doc="Tilt Down state mask" mask="8" name="DOM" size="1" start_pos="3">
+    </field>
+    <field doc="Tilt Up state mask" mask="4" name="UPM" size="1" start_pos="2">
+    </field>
+    <field doc="Tilt Face Down state mask" mask="2" name="FDM" size="1" start_pos="1">
+    </field>
+    <field doc="Tilt Face Up state mask" mask="1" name="FUM" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="29" doc="Control register 3. Read/write control register that provides control of the Output Data Rate (ODR) for Tilt, Tap, and Wake-up engines." mode="R/W" name="CNTL3" por="168" size="8">
+   <fields>
+    <field doc="Tilt Position (OTP) sets the output data rate for the Tilt Position function" mask="192" name="OTP" size="2" start_pos="6">
+     <enums>
+      <item doc="1.563Hz" name="1p563" value="0">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="1">
+      </item>
+      <item doc="12.5Hz" name="12p5" value="2">
+      </item>
+      <item doc="50Hz" name="50" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Tap/Double-TapTM (OTDT) sets the output data rate for the Directional-Tap function" mask="56" name="OTDT" size="3" start_pos="3">
+     <enums>
+      <item doc="12.5Hz" name="12p5" value="0">
+      </item>
+      <item doc="25Hz" name="25" value="1">
+      </item>
+      <item doc="50Hz" name="50" value="2">
+      </item>
+      <item doc="100Hz" name="100" value="3">
+      </item>
+      <item doc="200Hz" name="200" value="4">
+      </item>
+      <item doc="400Hz" name="400" value="5">
+      </item>
+      <item doc="800Hz" name="800" value="6">
+      </item>
+      <item doc="1600Hz" name="1600" value="7">
+      </item>
+     </enums>
+    </field>
+    <field doc="Wake-Up Function (OWUF) sets the output data rate" mask="7" name="OWUF" size="3" start_pos="0">
+     <enums>
+      <item doc="0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="25Hz" name="25" value="5">
+      </item>
+      <item doc="50Hz" name="50" value="6">
+      </item>
+      <item doc="100Hz" name="100" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="30" doc="Control register 4. Read/write control register that provides more feature set control." mode="R/W" name="CNTL4" por="64" size="8">
+   <fields>
+    <field doc="defines debounce counter clear mode" mask="128" name="C_MODE" size="1" start_pos="7">
+     <enums>
+      <item doc="debounce counter is reset if accelerometer data is below threshold" name="RESET" value="0">
+      </item>
+      <item doc="debounce counter is decremented if accelerometer data is below threshold" name="DECREMENTED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="defines wake / back-to-sleep threshold mode. TH_MODE = 0 – absolute threshold, TH_MODE = 1 – relative threshold" mask="64" name="TH_MODE" size="1" start_pos="6">
+     <enums>
+      <item doc="absolute threshold" name="ABSOLUTE" value="0">
+      </item>
+      <item doc="relative threshold" name="RELATIVE" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Wake-Up Function Engine enable bit" mask="32" name="WUFE" size="1" start_pos="5">
+     <enums>
+      <item doc="Wake-Up Function Engine is disabled" name="DISABLED" value="0">
+      </item>
+      <item doc="Wake-Up Function Engine is enabled" name="ENABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Back-to-Sleep Engine enable bit." mask="16" name="BTSE" size="1" start_pos="4">
+     <enums>
+      <item doc="Back-to-Sleep Engine is disabled" name="DISABLED" value="0">
+      </item>
+      <item doc="Back-to-Sleep Engine is enabled" name="ENABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="defines Pulse Reject mode" mask="8" name="PR_MODE" size="1" start_pos="3">
+     <enums>
+      <item doc="standard operation" name="STANDARD" value="0">
+      </item>
+      <item doc="reject pulse-like motion only in case motion detection in positive and negative directions is enabled (XPWUE and XNWUE bits are set to 1 in INC2 register)." name="REJECTED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="sets the output data rate at which the back-to-sleep (motion detection) performs its function during wake state" mask="7" name="OBTS" size="3" start_pos="0">
+     <enums>
+      <item doc="0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="1.5623Hz" name="1p563" value="1">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="25Hz" name="25" value="5">
+      </item>
+      <item doc="50Hz" name="50" value="6">
+      </item>
+      <item doc="100Hz" name="100" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="31" doc="Control register 5. Read/write control register that provides more feature set control. Note that to properly change the value of this register, the PC1 bit in CNTL1 must first be set to “0”." mode="R/W" name="CNTL5" por="0" size="8">
+   <fields>
+    <field doc="Advanced Data Path (ADP) enable. ADPE = 0 – Advanced Data Path is disabled.  ADPE = 1 – Advanced Data Path is enabled. Outputs are available in XADP, YADP, ZADP registers." mask="16" name="ADPE" size="1" start_pos="4">
+     <enums>
+      <item doc="ADP disabled" name="DISABLED" value="0">
+      </item>
+      <item doc="ADP enabled" name="ENABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="enables the Temperature Sensor output TOUT. TSE = 0 – temperature sensor output disabled, TSE = 1 – temperature sensor output enabled" mask="4" name="TSE" size="1" start_pos="2">
+     <enums>
+      <item doc="temperature sensor disabled" name="DISABLED" value="0">
+      </item>
+      <item doc="temperature sensor enabled" name="ENABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="manual wake-sleep engine overwrite.MAN_WAKE = 0 – default, MAN_WAKE = 1 – forces wake state (bit is self-cleared)" mask="2" name="MAN_WAKE" size="1" start_pos="1">
+    </field>
+    <field doc="manual wake-sleep engine overwrite. MAN_SLEEP = 0 – default, MAN_SLEEP = 1 – forces sleep state (bit is self-cleared)" mask="1" name="MAN_SLEEP" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="32" doc="Control register 6. Read/write control register that provides more feature set control." mode="R/W" name="CNTL6" por="0" size="8">
+   <fields>
+    <field doc="enables the I2C auto release function. I2C_ALE = 0 – disabled, I2C_ALE = 1 – enabled" mask="128" name="I2C_ALE" size="1" start_pos="7">
+     <enums>
+      <item doc="I2C auto release function is disabled" name="DISABLED" value="0">
+      </item>
+      <item doc="I2C auto release function is enabled" name="ENABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="I2C auto release function counter select" mask="3" name="I2C_ALC" size="2" start_pos="0">
+     <enums>
+      <item doc="0.5sec" name="0p5" value="0">
+      </item>
+      <item doc="1.0sec" name="1p0" value="1">
+      </item>
+      <item doc="2.0sec" name="2p0" value="2">
+      </item>
+      <item doc="4.0sec" name="4p0" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="33" doc="Output data control register that configures the acceleration outputs." mode="R/W" name="ODCNTL" por="6" size="8">
+   <fields>
+    <field doc="IIR Filter Bypass mode enable bit" mask="128" name="IIR_BYPASS" size="1" start_pos="7">
+     <enums>
+      <item doc="IIR filter is not bypassed" name="NOT_BYPASSED" value="0">
+      </item>
+      <item doc="IIR filter is bypassed" name="BYPASSED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Low-Pass filter roll off control. LPRO = 0 – filter corner frequency set to ODR/9, LPRO = 1 – filter corner frequency set to ODR/2" mask="64" name="LPRO" size="1" start_pos="6">
+     <enums>
+      <item doc="IIR filter corner frequency set to ODR/9 (default)" name="ODR_9" value="0">
+      </item>
+      <item doc="IIR filter corner frequency set to ODR/2" name="ODR_2" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Fast Start Up Enable bit." mask="32" name="FSTUP" size="1" start_pos="5">
+     <enums>
+      <item doc="Fast Start is disabled" name="DISABLED" value="0">
+      </item>
+      <item doc="Fast Start is enabled" name="ENABLED" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Acceleration Output data rate." mask="15" name="OSA" size="4" start_pos="0">
+     <enums>
+      <item doc="0.781Hz  Low power mode available" name="0p781" value="0">
+      </item>
+      <item doc="1.563Hz  Low power mode available" name="1p563" value="1">
+      </item>
+      <item doc="3.125Hz  Low power mode available" name="3p125" value="2">
+      </item>
+      <item doc="6.25Hz  Low power mode available" name="6p25" value="3">
+      </item>
+      <item doc="12.5Hz Low power mode available" name="12p5" value="4">
+      </item>
+      <item doc="25Hz  Low power mode available" name="25" value="5">
+      </item>
+      <item doc="50Hz  Low power mode available" name="50" value="6">
+      </item>
+      <item doc="100Hz  Low power mode available" name="100" value="7">
+      </item>
+      <item doc="200Hz  Low power mode available" name="200" value="8">
+      </item>
+      <item doc="400Hz" name="400" value="9">
+      </item>
+      <item doc="800Hz" name="800" value="10">
+      </item>
+      <item doc="1600Hz" name="1600" value="11">
+      </item>
+      <item doc="3200Hz" name="3200" value="12">
+      </item>
+      <item doc="6400Hz" name="6400" value="13">
+      </item>
+      <item doc="12800Hz" name="12800" value="14">
+      </item>
+      <item doc="25600Hz" name="25600" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="34" doc="Interrupt control 1. This register controls the settings for the physical interrupt pin INT1" mode="R/W" name="INC1" por="16" size="8">
+   <fields>
+    <field doc="Pulse interrupt 1 width configuration" mask="192" name="PW1" size="2" start_pos="6">
+     <enums>
+      <item doc="50us(10us when OSA&gt;1600Hz)" name="50us_10us" value="0">
+      </item>
+      <item doc="width 1*OSA period" name="1xOSA" value="1">
+      </item>
+      <item doc="width 2*OSA period" name="2xOSA" value="2">
+      </item>
+      <item doc="width 4*OSA period" name="4xOSA" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="enables/disables the physical interrupt pin 1. 0=disable, 1=enable." mask="32" name="IEN1" size="1" start_pos="5">
+    </field>
+    <field doc="Interrupt active level control for interrupt pin 1, 0=active low, 1=active high." mask="16" name="IEA1" size="1" start_pos="4">
+    </field>
+    <field doc="Interrupt latch control for interrupt pin 1, 0=latched, 1=one pulse" mask="8" name="IEL1" size="1" start_pos="3">
+    </field>
+    <field doc="sets the polarity of Self Test. STPOL = 0 – Negative, STPOL = 1 – Positive" mask="2" name="STPOL" size="1" start_pos="1">
+    </field>
+    <field doc="sets the 3-wire SPI interface. SPI3E = 0 – disabled, SPI3E = 1 – enabled" mask="1" name="SPI3E" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="35" doc="Interrupt control 2. This register controls which axis and direction of detected motion can cause an interrupt." mode="R/W" name="INC2" por="63" size="8">
+   <fields>
+    <field doc="And-Or configuration. 0=Or combination of selected directions, 1=And combination of selected axes" mask="64" name="AOI" size="1" start_pos="6">
+     <enums>
+      <item doc="0=Or combination of selected directions" name="OR" value="0">
+      </item>
+      <item doc="1=And combination of selected axes" name="AND" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="x negative (x-) mask for WUF, 0=disable, 1=enable." mask="32" name="XNWUE" size="1" start_pos="5">
+    </field>
+    <field doc="x positive (x+) mask for WUF, 0=disable, 1=enable." mask="16" name="XPWUE" size="1" start_pos="4">
+    </field>
+    <field doc="y negative (y-) mask for WUF, 0=disable, 1=enable." mask="8" name="YNWUE" size="1" start_pos="3">
+    </field>
+    <field doc="y positive (y+) mask for WUF, 0=disable, 1=enable." mask="4" name="YPWUE" size="1" start_pos="2">
+    </field>
+    <field doc="z negative (z-) mask for WUF, 0=disable, 1=enable." mask="2" name="ZNWUE" size="1" start_pos="1">
+    </field>
+    <field doc="z positive (z+) mask for WUF, 0=disable, 1=enable." mask="1" name="ZPWUE" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="36" doc="Interrupt control 3. This register controls which axis and direction of tap/double tap can cause an interrupt." mode="R/W" name="INC3" por="63" size="8">
+   <fields>
+    <field doc="enables/disables alternate tap masking scheme. TMEN = 0 – alternate tap masking scheme disabled, TMEN = 1 – alternate tap masking scheme enabled" mask="64" name="TMEM" size="1" start_pos="6">
+    </field>
+    <field doc="x negative (x-): 0 = disabled, 1 = enabled" mask="32" name="TLEM" size="1" start_pos="5">
+    </field>
+    <field doc="x positive (x+): 0 = disabled, 1 = enabled" mask="16" name="TRIM" size="1" start_pos="4">
+    </field>
+    <field doc="y negative (y-): 0 = disabled, 1 = enabled" mask="8" name="TDOM" size="1" start_pos="3">
+    </field>
+    <field doc="y positive (y+): 0 = disabled, 1 = enabled" mask="4" name="TUPM" size="1" start_pos="2">
+    </field>
+    <field doc="z negative (z-): 0 = disabled, 1 = enabled" mask="2" name="TFDM" size="1" start_pos="1">
+    </field>
+    <field doc="z positive (z+): 0 = disabled, 1 = enabled" mask="1" name="TFUM" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="37" doc="Interrupt control 4. This register controls routing of an interrupt reporting to physical interrupt pin INT1" mode="R/W" name="INC4" por="0" size="8">
+   <fields>
+    <field doc="Free fall interrupt reported on physical interrupt pin 1, 0=disable, 1=enable." mask="128" name="FFI1" size="1" start_pos="7">
+    </field>
+    <field doc="Buffer full interrupt reported on physical interrupt pin 1, 0=disable, 1=enable." mask="64" name="BFI1" size="1" start_pos="6">
+    </field>
+    <field doc="Watermark interrupt reported on physical interrupt pin 1, 0=disable, 1=enable." mask="32" name="WMI1" size="1" start_pos="5">
+    </field>
+    <field doc="Data ready interrupt reported on physical interrupt pin 1, 0=disable, 1=enable." mask="16" name="DRDYI1" size="1" start_pos="4">
+    </field>
+    <field doc="Back to sleep interrupt reported in interrupt pin 1" mask="8" name="BTSI1" size="1" start_pos="3">
+    </field>
+    <field doc="Tap/Double Tap interrupt reported on physical interrupt pin 1, 0=disable, 1=enable." mask="4" name="TDTI1" size="1" start_pos="2">
+    </field>
+    <field doc="Wake Up (motion detect) interrupt reported pn physical interrupt pin 1, 0=disable, 1=enable (and IEN1=1)." mask="2" name="WUFI1" size="1" start_pos="1">
+    </field>
+    <field doc="Tilt position interrupt reported on physical interrupt pin 1, 0=disable, 1=enable." mask="1" name="TPI1" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="38" doc="Interrupt control 5. This register controls the settings for the physical interrupt pin INT2." mode="R/W" name="INC5" por="16" size="8">
+   <fields>
+    <field doc="Pulse interrupt 2 width configuration" mask="192" name="PW2" size="2" start_pos="6">
+     <enums>
+      <item doc="50us(10us when OSA&gt;1600Hz)" name="50us_10us" value="0">
+      </item>
+      <item doc="width 1*OSAperiod" name="1xODR" value="1">
+      </item>
+      <item doc="width 2*OSA period" name="2xODR" value="2">
+      </item>
+      <item doc="width 4*OSA period" name="4xODR" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="enable/disable physical interrupt pin 2, 0=disable, 1=enable." mask="32" name="IEN2" size="1" start_pos="5">
+    </field>
+    <field doc="Interrupt active level control for interrupt pin 2, 0=active low, 1=active high." mask="16" name="IEA2" size="1" start_pos="4">
+    </field>
+    <field doc="Interrupt latch control for interrupt pin 2, 0=latched, 1=one pulse" mask="8" name="IEL2" size="1" start_pos="3">
+    </field>
+    <field doc="Latched interrupt source information(INS1-INS3) is cleared and physical interrupt-1 latched pin is changed to its inactive state at pulse interrupt-1 trailing edge. Note: WMI, BFI, and STPWMI are not auto-cleared by a pulse interrupt trailing edge. ACLR2 = 0 – disable, ACLR2 = 1 – enable" mask="2" name="ACLR2" size="1" start_pos="1">
+    </field>
+    <field doc="Latched interrupt source information(INS1-INS3) is cleared and physical interrupt-1 latched pin is changed to its inactive state at pulse interrupt-2 trailing edge. Note: WMI, BFI, and STPWMI are not auto-cleared by a pulse interrupt trailing edge. ACLR2 = 0 – disable, ACLR2 = 1 – enable" mask="1" name="ACLR1" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="39" doc="Interrupt control 6. This register controls routing of interrupt reporting to physical interrupt pin INT2" mode="R/W" name="INC6" por="0" size="8">
+   <fields>
+    <field doc="Free fall interrupt reported on physical interrupt pin INT2. FFI2 = 0 – disable, FFI2 = 1 – enable" mask="128" name="FFI2" size="1" start_pos="7">
+    </field>
+    <field doc="Buffer full interrupt reported on physical interrupt pin INT2. BF2 = 0 – disable, BF2 = 1 – enable" mask="64" name="BFI2" size="1" start_pos="6">
+    </field>
+    <field doc="Watermark interrupt reported on physical interrupt pin INT2. WMI2 = 0 – disable, WMI2 = 1 – enable" mask="32" name="WMI2" size="1" start_pos="5">
+    </field>
+    <field doc="Data ready interrupt reported on physical interrupt pin INT2. DRDYI2 = 0 – disable, DRDYI2 = 1 – enable" mask="16" name="DRDYI2" size="1" start_pos="4">
+    </field>
+    <field doc="Back to sleep interrupt reported on physical interrupt pin INT2. BTSI2 = 0 – disable, BTSI2 = 1 – enable" mask="8" name="BTSI2" size="1" start_pos="3">
+    </field>
+    <field doc="Tap/Double Tap interrupt reported on physical interrupt pin 2, 0=disable, 1=enable." mask="4" name="TDTI2" size="1" start_pos="2">
+    </field>
+    <field doc="Wake-Up (motion detect) interrupt reported on physical interrupt pin INT2. WUFI2 = 0 – disable, WUFI2 = 1 – enable" mask="2" name="WUFI2" size="1" start_pos="1">
+    </field>
+    <field doc="Tilt position interrupt reported on physical interrupt pin INT. TPI2 = 0 – disable, TPI2 = 1 – enable" mask="1" name="TPI2" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="41" mode="R/W" name="TILT_TIMER" por="0" size="8">
+   <fields>
+    <field doc="This register is the initial count register for the tilt position state timer" mask="255" name="TSC" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="42" doc="Tap/Double Tap report control." mode="R/W" name="TDTRC" por="3" size="8">
+   <fields>
+    <field doc="enables/disables the double tap interrupt. DTRE = 0 – do not update INS1 or DTDS if double tap occurs, DTRE = 1 – update INS1 and DTDS in INS2 with double tap events" mask="2" name="DTRE" size="1" start_pos="1">
+    </field>
+    <field doc="enables/disables single tap interrupt. STRE = 0 – do not update INS1 or DTDS if single tap occurs, STRE = 1 – update INS1 and DTDS in INS2 single tap events" mask="1" name="STRE" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="43" mode="R/W" name="TDTC" por="120" size="8">
+   <fields>
+    <field doc="This register contains counter information for the detection of a double tap event." mask="255" name="TDTC" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="44" mode="R/W" name="TTH" por="203" size="8">
+   <fields>
+    <field doc="The Tap Threshold High (TTH) register represents the 8-bit jerk high threshold to determine if a tap is detected" mask="255" name="TTH" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="45" mode="R/W" name="TTL" por="26" size="8">
+   <fields>
+    <field doc="The Tap Threshold Low (TTL) register represents the 8-bit (0-255) jerk low threshold to determine if a tap is detected." mask="255" name="TTL" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="46" mode="R/W" name="FTD" por="162" size="8">
+   <fields>
+    <field doc="This register contains counter information for the detection of any tap event" mask="255" name="FTD" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="47" mode="R/W" name="STD" por="36" size="8">
+   <fields>
+    <field doc="This register contains counter information for the detection of a double tap event" mask="255" name="STD" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="48" mode="R/W" name="TLT" por="40" size="8">
+   <fields>
+    <field doc="This register contains counter information for the detection of a tap event" mask="255" name="TLT" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="49" mode="R/W" name="TWS" por="160" size="8">
+   <fields>
+    <field doc="This register contains counter information for the detection of single and double taps." mask="255" name="TWS" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="50" mode="R/W" name="FFTH" por="0" size="8">
+   <fields>
+    <field doc="Freefall interrupt threshold." mask="255" name="FFTH" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="51" mode="R/W" name="FFC" por="0" size="8">
+   <fields>
+    <field doc="Freefall interrupt counter." mask="255" name="FFC" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="52" doc="Freefall interrupt control." mode="R/W" name="FFCNTL" por="0" size="8">
+   <fields>
+    <field doc="Free fall engine enable. FFIE = 0 – disable, FFIE = 1 – enable" mask="128" name="FFIE" size="1" start_pos="7">
+    </field>
+    <field doc="Free fall interrupt latch/un-latch control. ULMODE = 0 – latched, ULMODE = 1 – unlatched" mask="64" name="ULMODE" size="1" start_pos="6">
+    </field>
+    <field doc="Free fall interrupt delayed clear duration for unlatched mode" mask="48" name="FFDC" size="2" start_pos="4">
+     <enums>
+      <item doc="no delay" name="NO_DELAY" value="0">
+      </item>
+      <item doc="1sec" name="1" value="1">
+      </item>
+      <item doc="2sec" name="2" value="2">
+      </item>
+      <item doc="4sec" name="4" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Debounce methodology control. DCRM = 0 – count up/down, DCRM = 1 – count up/reset" mask="8" name="DCRM" size="1" start_pos="3">
+    </field>
+    <field doc="Free fall function output data rate" mask="7" name="OFFI" size="3" start_pos="0">
+     <enums>
+      <item doc="12.5Hz" name="12p5" value="0">
+      </item>
+      <item doc="25Hz" name="25" value="1">
+      </item>
+      <item doc="50Hz" name="50" value="2">
+      </item>
+      <item doc="100Hz" name="100" value="3">
+      </item>
+      <item doc="200Hz" name="200" value="4">
+      </item>
+      <item doc="400Hz" name="400" value="5">
+      </item>
+      <item doc="800Hz" name="800" value="6">
+      </item>
+      <item doc="1600Hz" name="1600" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="55" mode="R/W" name="TILT_ANGLE_LL" por="12" size="8">
+   <fields>
+    <field doc="Tilt Angle Low Limit: This register sets the low-level threshold for tilt angle detection." mask="255" name="LL" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="56" mode="R/W" name="TILT_ANGLE_HL" por="42" size="8">
+   <fields>
+    <field doc="Tilt Angle High Limit: This register sets the high-level threshold for tilt angle detection." mask="255" name="HL" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="57" mode="R/W" name="HYST_SET" por="20" size="8">
+   <fields>
+    <field doc="This register sets the Hysteresis that is placed in between the Screen Rotation states." mask="255" name="HYST" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="58" doc="Low Power Control" mode="R/W" name="LP_CNTL1" por="67" size="8">
+   <fields>
+    <field doc="Averaging Filter Control" mask="112" name="AVC" size="3" start_pos="4">
+     <enums>
+      <item doc="No Averaging" name="NO_AVG" value="0">
+      </item>
+      <item doc="2 Samples Averaged" name="2_SAMPLE_AVG" value="1">
+      </item>
+      <item doc="4 Samples Averaged" name="4_SAMPLE_AVG" value="2">
+      </item>
+      <item doc="8 Samples Averaged" name="8_SAMPLE_AVG" value="3">
+      </item>
+      <item doc="16 Samples Averaged (default)" name="16_SAMPLE_AVG" value="4">
+      </item>
+      <item doc="32 Samples Averaged" name="32_SAMPLE_AVG" value="5">
+      </item>
+      <item doc="64 Samples Averaged" name="64_SAMPLE_AVG" value="6">
+      </item>
+      <item doc="128 Samples Averaged" name="128_SAMPLE_AVG" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="59" doc="Low Power Control 2: The advanced low power control setting reduces the power consumption" mode="R/W" name="LP_CNTL2" por="154" size="8">
+   <fields>
+    <field doc="Digital power shut-off select" mask="1" name="LPSTPSEL" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="73" doc="Wake-up engine thresholds." mode="R/W" name="WUFTH" por="128" size="8">
+   <fields>
+    <field bit_pos="0@7:6:5:4:3:2:1:0:x:x:x:x:x:10:9:8" doc="lsb part of WUF threshold" name="WUFTH_L" size="11">
+    </field>
+   </fields>
+  </register>
+  <register address="74" doc="Wake-up/Back-to-sleep engine thresholds." mode="R/W" name="BTSWUFTH" por="0" size="8">
+   <fields>
+    <field doc="msb part of BTS threshold" mask="112" name="BTSTH_H" size="3" start_pos="4">
+    </field>
+    <field doc="msb part of WUF threshold" mask="7" name="WUFTH_H" size="3" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="75" doc="Back-to-sleep engine thresholds." mode="R/W" name="BTSTH" por="128" size="8">
+   <fields>
+    <field bit_pos="-1@x:10:9:8:x:x:x:x:7:6:5:4:3:2:1:0" doc="lsb part of BTS threshold" name="BTSTH_L" size="11">
+    </field>
+   </fields>
+  </register>
+  <register address="76" mode="R/W" name="BTSC" por="0" size="8">
+   <fields>
+    <field doc="Debounce counter register for the Back-to-Sleep (BTS) engine." mask="255" name="BTSC" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="77" mode="R/W" name="WUFC" por="0" size="8">
+   <fields>
+    <field doc="Debounce counter register for the Wake-up Function (WUF) engine." mask="255" name="WUFC" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="93" doc="Self-Test Enable register:" mode="W" name="SELF_TEST" por="0" size="8">
+   <fields>
+    <field doc="When 0xCA is written to this register, the MEMS self-test function is enabled. Electrostatic-actuation of the accelerometer, results in a DC shift of the X, Y and Z axis outputs" mask="255" name="MEMS_TEST" size="8" start_pos="0">
+     <enums>
+      <item doc="Self test off" name="ST_OFF" value="0">
+      </item>
+      <item doc="Self test on" name="ST_ON" value="202">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="94" doc="Sample Threshold – determines the number of samples that will trigger a watermark interrupt or will be saved prior to a trigger event. When BRES=1, the maximum number of samples is 86; when BRES=0, the maximum number of samples is 171. The minimum number of samples must be greater than or equal to 2." mode="R/W" name="BUF_CNTL1" por="0" size="8">
+   <fields>
+    <field doc="sample threshold level" mask="255" name="SMP_TH" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="95" doc="Read/write control register that controls sample buffer operation" mode="R/W" name="BUF_CNTL2" por="0" size="8">
+   <fields>
+    <field doc="controls activation of the sample buffer. BUFE = 0 – sample buffer inactive, BUFE = 1 – sample buffer active" mask="128" name="BUFE" size="1" start_pos="7">
+    </field>
+    <field doc="determines the resolution of the acceleration data samples collected by the sample buffer. BRES = 0 – 8-bit samples are accumulated in the buffer, BRES = 1 – 16-bit samples are accumulated in the buffer" mask="64" name="BRES" size="1" start_pos="6">
+    </field>
+    <field doc="buffer full interrupt enable bit. BFIE = 0 – buffer full interrupt is disabled, BFIE = 1 – buffer full interrupt is enabled and updated in INS2" mask="32" name="BFIE" size="1" start_pos="5">
+    </field>
+    <field doc="selects the operating mode of the sample buffer" mask="3" name="BM" size="2" start_pos="0">
+     <enums>
+      <item doc="The buffer collects 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values and then stops collecting data, collecting new data only when the buffer is not full" name="FIFO" value="0">
+      </item>
+      <item doc="The buffer holds the last 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values. Once the buffer is full, the oldest data is discarded to make room for newer data." name="STREAM" value="1">
+      </item>
+      <item doc="When a trigger event occurs, the buffer holds the last data set of SMP[9:0] samples before the trigger event and then continues to collect data until full. New data is collected only when the buffer is not full." name="TRIGGER" value="2">
+      </item>
+      <item doc="Not applicable" name="NA" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="96" doc="These register reports the status of the sample buffer. Note that BUF_STATUS_1 and BUF_STATUS_2 registers may have a delay of up to 1μsec to update the sample level after a buffer read." mode="R" name="BUF_STATUS_1" size="8">
+   <fields>
+    <field bit_pos="0@0:1:2:3:4:5:6:7:8:9:x:x:x:x:x:x" doc="buffer level lsb bits (7-0)" name="SMP_LEV" size="10">
+    </field>
+   </fields>
+  </register>
+  <register address="97" doc="This register reports the status of the sample buffer trigger function" mode="R" name="BUF_STATUS_2" por="0" size="8">
+   <fields>
+    <field doc="reports the status of the buffer’s trigger function if this mode has been selected" mask="128" name="BUF_TRIG" size="1" start_pos="7">
+    </field>
+    <field doc="buffer level msb bits (9-8)" mask="3" name="SMP_LEV_H" size="2" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="98" mode="R/W" name="BUF_CLEAR" size="8">
+   <fields>
+    <field doc="Latched buffer status information and the entire sample buffer are cleared when any data is written to this register" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="99" mode="R" name="BUF_READ" size="8">
+   <fields>
+    <field doc="Buffer output register" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="100" doc="Advanced Data Path (ADP) Output Control register 1." mode="R/W" name="ADP_CNTL1" por="0" size="8">
+   <fields>
+    <field doc="Number of samples used to calculate RMS output. Each sample is determined by the Advanced Data Path ODR as set by OADP&lt;3:0&gt; bits." mask="112" name="RMS_AVC" size="3" start_pos="4">
+     <enums>
+      <item doc="2 Samples Averaged" name="2_SAMPLE_AVG" value="0">
+      </item>
+      <item doc="4 Samples Averaged" name="4_SAMPLE_AVG" value="1">
+      </item>
+      <item doc="8 Samples Averaged" name="8_SAMPLE_AVG" value="2">
+      </item>
+      <item doc="16 Samples Averaged" name="16_SAMPLE_AVG" value="3">
+      </item>
+      <item doc="32 Samples Averaged" name="32_SAMPLE_AVG" value="4">
+      </item>
+      <item doc="64 Samples Averaged" name="64_SAMPLE_AVG" value="5">
+      </item>
+      <item doc="128 Samples Averaged" name="128_SAMPLE_AVG" value="6">
+      </item>
+      <item doc="256 Samples Averaged" name="256_SAMPLE_AVG" value="7">
+      </item>
+     </enums>
+    </field>
+    <field doc="Output Data Rate (ODR) for Advanced Data Path." mask="15" name="OADP" size="4" start_pos="0">
+     <enums>
+      <item doc="0.781Hz" name="0p781" value="0">
+      </item>
+      <item doc="1.563Hz" name="1p563" value="1">
+      </item>
+      <item doc="3.125Hz" name="3p125" value="2">
+      </item>
+      <item doc="6.25Hz" name="6p25" value="3">
+      </item>
+      <item doc="12.5Hz" name="12p5" value="4">
+      </item>
+      <item doc="25Hz" name="25" value="5">
+      </item>
+      <item doc="50Hz" name="50" value="6">
+      </item>
+      <item doc="100Hz" name="100" value="7">
+      </item>
+      <item doc="200Hz" name="200" value="8">
+      </item>
+      <item doc="400Hz" name="400" value="9">
+      </item>
+      <item doc="800Hz" name="800" value="10">
+      </item>
+      <item doc="1600Hz" name="1600" value="11">
+      </item>
+      <item doc="3200Hz" name="3200" value="12">
+      </item>
+      <item doc="6400Hz" name="6400" value="13">
+      </item>
+      <item doc="12800Hz" name="12800" value="14">
+      </item>
+      <item doc="25600Hz" name="25600" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="101" doc="Advanced Data Path (ADP) Control register 2." mode="R/W" name="ADP_CNTL2" por="2" size="8">
+   <fields>
+    <field doc="Select data to be routed to the sample buffer" mask="128" name="ADP_BUF_SEL" size="1" start_pos="7">
+    </field>
+    <field doc="Input select for the Wake-up/Back-to-Sleep engines" mask="64" name="ADP_WB_ISEL" size="1" start_pos="6">
+    </field>
+    <field doc="Select data out to the WUF/BTS engines." mask="32" name="RMS_WB_OSEL" size="1" start_pos="5">
+    </field>
+    <field doc="Advanced Data Path Filter-2 bypass control" mask="16" name="ADP_FLT2_BYP" size="1" start_pos="4">
+    </field>
+    <field doc="Advanced Data Path Filter-1 bypass control" mask="8" name="ADP_FLT1_BYP" size="1" start_pos="3">
+    </field>
+    <field doc="Select data out to XADP, YADP, and ZADP registers." mask="2" name="ADP_RMS_OSEL" size="1" start_pos="1">
+    </field>
+    <field doc="Filter-2 High-pass enable. 0 – Filter-2 is set to Low-pass filter. 1 – Filter-2 is set to High-pass filter" mask="1" name="ADP_F2_HP" size="1" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="102" doc="Advanced Data Path (ADP) Control register 3." mode="R/W" name="ADP_CNTL3" por="0" size="8">
+   <fields>
+    <field doc="ADP filter-1 coefficient (1/A)" mask="127" name="ADP_F1_1A" size="7" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="103" doc="Advanced Data Path (ADP) Control registers 4, 5 and 6." mode="R/W" name="ADP_CNTL4" por="0" size="8">
+   <fields>
+    <field bit_pos="0@7:6:5:4:3:2:1:0:15:14:13:12:11:10:9:8:16:17:18:19:20:21:22:x" doc="Advanced Data Path (ADP) Control registers 4, 5 and 6." name="ADP_F1_BA" size="23">
+    </field>
+   </fields>
+  </register>
+  <register address="104" info="bypass" mode="INFO" name="ADP_CNTL5" por="0" size="8">
+   <fields>
+    <field doc="Advanced Data Path (ADP) Control registers 4, 5 and 6." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="105" info="bypass" mode="INFO" name="ADP_CNTL6" por="0" size="8">
+   <fields>
+    <field doc="Advanced Data Path (ADP) Control registers 4, 5 and 6." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="106" doc="Advanced Data Path (ADP) Control registers 7, 8 and 9." mode="R/W" name="ADP_CNTL7" por="0" size="8">
+   <fields>
+    <field bit_pos="0@7:6:5:4:3:2:1:0:15:14:13:12:11:10:9:8:16:17:18:19:20:21:22:x" doc="Advanced Data Path (ADP) Control registers 7, 8 and 9." name="ADP_F1_CA" size="23">
+    </field>
+   </fields>
+  </register>
+  <register address="107" info="bypass" mode="INFO" name="ADP_CNTL8" por="0" size="8">
+   <fields>
+    <field doc="Advanced Data Path (ADP) Control registers 7, 8 and 9." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="108" info="bypass" mode="INFO" name="ADP_CNTL9" por="0" size="8">
+   <fields>
+    <field doc="Advanced Data Path (ADP) Control registers 7, 8 and 9." mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="109" doc="Advanced Data Path (ADP) Control register 10." mode="R/W" name="ADP_CNTL10" por="0" size="8">
+   <fields>
+    <field doc="ADP filter-1 input scale shift value" mask="31" name="ADP_F1_ISH" size="5" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="110" doc="Advanced Data Path (ADP) Control register 11." mode="R/W" name="ADP_CNTL11" por="0" size="8">
+   <fields>
+    <field doc="ADP filter-1 output scale shift value" mask="128" name="ADP_F1_OSH" size="1" start_pos="7">
+    </field>
+    <field doc="ADP filter-2 coefficient (1/A)" mask="127" name="ADP_F2_1A" size="7" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="111" doc="Advanced Data Path (ADP) Control registers 12 and 13." mode="R/W" name="ADP_CNTL12" por="0" size="8">
+   <fields>
+    <field bit_pos="0@7:6:5:4:3:2:1:0:15:14:13:12:11:10:9:8" doc="ADP filter-2 coefficient (B/A)" name="ADP_F2_BA" size="16">
+    </field>
+   </fields>
+  </register>
+  <register address="112" info="bypass" mode="INFO" name="ADP_CNTL13" por="0" size="8">
+   <fields>
+    <field doc="ADP Output Control register 13" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="113" info="bypass" mode="INFO" name="ADP_CNTL14" por="0" size="8">
+   <fields>
+    <field doc="ADP Output Control register 14" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="114" info="bypass" mode="INFO" name="ADP_CNTL15" por="0" size="8">
+   <fields>
+    <field doc="ADP Output Control register 15" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="115" info="bypass" mode="INFO" name="ADP_CNTL16" por="0" size="8">
+   <fields>
+    <field doc="ADP Output Control register 16" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="116" info="bypass" mode="INFO" name="ADP_CNTL17" por="0" size="8">
+   <fields>
+    <field doc="ADP Output Control register 17" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="117" doc="ADP Output Control register 18." mode="R/W" name="ADP_CNTL18" por="0" size="8">
+   <fields>
+    <field doc="ADP filter-2 input scale shift value" mask="31" name="ADP_F2_ISH" size="5" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="118" doc="ADP Output Control register 19." mode="R/W" name="ADP_CNTL19" por="0" size="8">
+   <fields>
+    <field doc="ADP filter-2 output scale shift value" mask="31" name="ADP_F2_OSH" size="5" start_pos="0">
+    </field>
+   </fields>
+  </register>
+ </sensor>
+</root>

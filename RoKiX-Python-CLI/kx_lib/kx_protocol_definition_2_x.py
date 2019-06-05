@@ -66,29 +66,16 @@ EVKIT_ERR_DESCS = {
 # Input/Output pin settings: Pin direction.
 # Input pin settings.
 # This is only used in interrupt request messages
-# TODO 2 REMOVE/CLEANUP synch with .h files
-EVKIT_MSG_GPIO_PIN_NOSENSE                              = 0x00
-EVKIT_MSG_GPIO_PIN_SENSE_LOW                            = 0x01
-EVKIT_MSG_GPIO_PIN_SENSE_HIGH                           = 0x02
 EVKIT_GPIO_PIN_NOSENSE                                  = 0x00
 EVKIT_GPIO_PIN_SENSE_LOW                                = 0x01
 EVKIT_GPIO_PIN_SENSE_HIGH                               = 0x02
 
-# TODO 2 rename EVKIT_GPIO_PIN_INPUT ...
-EVKIT_MSG_GPIO_PIN_INPUT				     	        = 0x00
-EVKIT_MSG_GPIO_PIN_OUTPUT			      		        = 0x01
-
-
-# TODO 2 rename EVKIT_GPIO_PIN_NOPULL ...
-# TODO 2 REMOVE/CLEANUP synch with .h files
-EVKIT_MSG_GPIO_PIN_NOPULL                               = 0x00
-EVKIT_MSG_GPIO_PIN_PULLDOWN                             = 0x01
-EVKIT_MSG_GPIO_PIN_PULLUP                               = 0x02
+EVKIT_GPIO_PIN_INPUT                                    = 0x00
+EVKIT_GPIO_PIN_OUTPUT                                   = 0x01
 
 # Input pin settings: Connect/Disconnect to input buffer.
-# TODO 2 rename EVKIT_GPIO_PIN_DISCONNECTED ...
-EVKIT_MSG_GPIO_PIN_DISCONNECTED				     	    = 0x00
-EVKIT_MSG_GPIO_PIN_CONNECTED			      		    = 0x01
+EVKIT_GPIO_PIN_DISCONNECTED                             = 0x00
+EVKIT_GPIO_PIN_CONNECTED                                = 0x01
 
 EVKIT_GPIO_PIN_NOPULL                                   = 0x00
 EVKIT_GPIO_PIN_PULLDOWN                                 = 0x01
@@ -123,6 +110,7 @@ EVKIT_BUS1_TARGET_TWI1                                  = 0x05
 EVKIT_BUS1_TARGET_TWI2                                  = 0x06
 EVKIT_BUS1_TARGET_FW                                    = 0x07
 EVKIT_BUS1_TARGET_ADC0                                  = 0x08
+EVKIT_BUS1_TARGET_GPIO                                  = 0x09
 
 EVKIT_MACRO_ACTION_NONE                                 = 0x00 # default
 EVKIT_MACRO_ACTION_READ                                 = 0x01
@@ -133,6 +121,11 @@ EVKIT_MACRO_ACTION_TIMESTAMP                            = 0x05
 EVKIT_MACRO_ACTION_ADC_READ                             = 0x06
 EVKIT_MACRO_ACTION_GPIO_READ                            = 0x07
 EVKIT_MACRO_ACTION_GPIO_WRITE                           = 0x08
+EVKIT_MACRO_ACTION_ADC_READ2                            = 0x09
+# The action byte is also used for the data-discard and append flags.
+EVKIT_MACRO_ACTION_ACTION_MASK                          = 0x3f
+EVKIT_MACRO_ACTION_APPEND_MASK                          = 0x80
+EVKIT_MACRO_ACTION_DISCARD_MASK                         = 0x40
 
 # Macro types
 EVKIT_MACRO_TYPE_INTR                                   = 0x00
@@ -167,25 +160,25 @@ EVKIT_ADC_OVERSAMPLE_16X                                = 0x04
 #  Device information types
 EVKIT_DEV_ID                                            = 0x00
 EVKIT_FW_SW_VER                                         = 0x01
+EVKIT_FW_BL_SW_VER                                      = 0x02 # Bootloader version
 
 EVKIT_MACRO_APPLY_ACTION_ALL                            = 0xff
 
 # protocol messages
-EVKIT_MSG_VERSION_REQ                                   = 0x05
-EVKIT_MSG_VERSION_RESP                                  = 0x06
-
+EVKIT_MSG_WRITE_REQ                                     = 0x01
+EVKIT_MSG_WRITE_RESP                                    = 0x02
 
 EVKIT_MSG_READ_REQ                                      = 0x03
 EVKIT_MSG_READ_RESP                                     = 0x04
 
-EVKIT_MSG_WRITE_REQ                                     = 0x01
-EVKIT_MSG_WRITE_RESP                                    = 0x02
+EVKIT_MSG_VERSION_REQ                                   = 0x05
+EVKIT_MSG_VERSION_RESP                                  = 0x06
 
 EVKIT_MSG_GPIO_STATE_REQ                                = 0x07
 EVKIT_MSG_GPIO_STATE_RESP                               = 0x08
 
-EVKIT_MSG_GPIO_CONFIG_REQ	    		                = 0x09
-EVKIT_MSG_GPIO_CONFIG_RESP  					        = 0x0a
+EVKIT_MSG_GPIO_CONFIG_REQ                               = 0x09
+EVKIT_MSG_GPIO_CONFIG_RESP                              = 0x0a
 
 EVKIT_MSG_CREATE_MACRO_REQ                              = 0x0b
 EVKIT_MSG_CREATE_MACRO_RESP                             = 0x0c
@@ -216,6 +209,9 @@ EVKIT_MSG_ADC_READ_RESP                                 = 0x1e
 
 EVKIT_MSG_CONFIGURE_REQ                                 = 0x1F
 EVKIT_MSG_CONFIGURE_RESP                                = 0x20
+
+EVKIT_MSG_ADC_READ2_REQ                                 = 0x21
+EVKIT_MSG_ADC_READ2_RESP                                = 0x22
 
 
 # parameter for EVKIT_MACRO_TYPE_POLL
