@@ -1,0 +1,127 @@
+{
+    "structure_version": "2.1",
+    "protocol_version": [
+        "2.0"
+    ],
+    "configuration": {
+        "name": "nRF52840-DK / RoKiX adapter A3 / I2C",
+        "doc": "Nordic Semiconductor nRF52840-DK with RoKiX Adapter board A3 and I2C connected sensor on Kionix Sensor evaluation board.",
+        "board_id": 8,
+        "cpu_freq_mhz": 64,
+        "bus1": {
+            "sensor_defaults": {
+                "polarity": "EVKIT_GPIO_PIN_SENSE_LOW",
+                "pullup": "EVKIT_GPIO_PIN_PULLUP",
+                "axis_map": []
+            },
+            "targets": [
+                {
+                    "name": "i2c",
+                    "freq": 400,
+                    "target": 4,
+                    "parts": {
+                        "KX122": {
+                            "SAD": 31,
+                            "gpio1": 38,
+							"gpio2": 39,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+						"KX126": {
+                            "SAD": 31,
+                            "gpio1": 38,
+							"gpio2": 39,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]                            
+                        },
+						"KX132-1211": {
+                            "SAD": 31,
+                            "gpio1": 38,
+                            "gpio2": 39,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]                            
+                        },
+						"KX224": {
+                            "SAD": 31,
+                            "gpio1": 38,
+                            "gpio2": 39,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]                          
+                        },
+                        "KXTJ3": {
+							"SAD": 15,
+							"gpio1": 38,
+							"axis_map": [
+							    0,
+							    1,
+							    2
+                            ]			
+						},
+						"KMX62": {
+                            "SAD": 15,
+                            "gpio1": 38,
+                            "gpio2": 39,							
+                            "axis_map": [
+                                0, 
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        }						
+                    }
+                }
+            ]
+        },
+        "bus2": {
+            "connections": [
+                {
+                    "connection": "USB_SERIAL",
+                    "vid": 1205,
+                    "pid": 1538,
+                    "hw_id": [
+                        {
+                            "vid": 1205,
+                            "pid": 1538
+                        }
+                    ],
+                    "packet_per_second": 400,
+                    "baud_rate": 1000000,
+                    "xonxoff": false,
+                    "rtscts": false,
+                    "start_up_delay_ms": 0,
+                    "com_port_name": [
+                        "USB Serial Device"
+                    ]
+                },
+                {
+                    "connection": "BLE",
+                    "packet_per_second": 200
+                },
+                {
+                    "connection": "BLE_PYGATT",
+                    "packet_per_second": 100
+                }
+            ]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_nrf52840dk_i2c_evkv3"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}

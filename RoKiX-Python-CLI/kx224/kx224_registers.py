@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Rohm Semiconductor
+# Copyright (c) 2018 Kionix Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -180,6 +180,8 @@ class bits(register_base):
 		self.KX224_CNTL3_OWUF_50                                  = (0x06 << 0)  # 50Hz
 		self.KX224_CNTL3_OWUF_100                                 = (0x07 << 0)  # 100Hz
 		self.KX224_ODCNTL_IIR_BYPASS                              = (0x01 << 7)  # low-pass filter roll off control
+		self.KX224_ODCNTL_LPRO_ODR_9                              = (0x00 << 6)  # filter corner frequency set to ODR/9
+		self.KX224_ODCNTL_LPRO_ODR_2                              = (0x01 << 6)  # filter corner frequency set to ODR/2
 		self.KX224_ODCNTL_LPRO                                    = (0x01 << 6)  # low pass filter enable
 		self.KX224_ODCNTL_OSA_12P5                                = (0x00 << 0)  # 12.5Hz
 		self.KX224_ODCNTL_OSA_25                                  = (0x01 << 0)  # 25Hz
@@ -389,6 +391,10 @@ class enums(register_base):
 			'NOTAP':_b.KX224_INS2_TDTS_NOTAP,
 			'NA':_b.KX224_INS2_TDTS_NA,
 		}
+		self.KX224_ODCNTL_LPRO={
+			'ODR_9':_b.KX224_ODCNTL_LPRO_ODR_9,
+			'ODR_2':_b.KX224_ODCNTL_LPRO_ODR_2,
+		}
 class masks(register_base):
 	def __init__(self):
 		self.KX224_COTR_DCSTR_MASK                                = 0xFF         
@@ -398,6 +404,7 @@ class masks(register_base):
 		self.KX224_CNTL3_OTP_MASK                                 = 0xC0         # sets the output data rate for the Tilt Position function
 		self.KX224_CNTL3_OTDT_MASK                                = 0x38         # sets the output data rate for the Directional TapTM function
 		self.KX224_CNTL3_OWUF_MASK                                = 0x07         # sets the output data rate for the general motion detection function and the high-pass filtered outputs
+		self.KX224_ODCNTL_LPRO_MASK                               = 0x40         # low pass filter enable
 		self.KX224_ODCNTL_OSA_MASK                                = 0x0F         # acceleration output data rate.
 		self.KX224_INC1_PWSEL1_MASK                               = 0xC0         # Pulse interrupt 1 width configuration
 		self.KX224_INC2_AOI_MASK                                  = 0x40         # AND OR configuration for motion detection

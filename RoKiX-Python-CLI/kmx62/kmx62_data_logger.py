@@ -22,33 +22,46 @@
 """
 KMX62 accelerometer/magnetomter sensor data logger application
 """
+# pylint: disable=duplicate-code
 import imports  # pylint: disable=unused-import
 from kx_lib import kx_logger
-from kx_lib.kx_exception import EvaluationKitException
 from kx_lib.kx_data_stream import StreamConfig
-from kx_lib.kx_util import get_datalogger_args, get_pin_index, evkit_config, convert_to_enumkey
-from kx_lib.kx_configuration_enum import CH_ACC, CH_MAG, CH_TEMP, POLARITY_DICT, CFG_POLARITY, ACTIVE_HIGH, ACTIVE_LOW
-from kx_lib.kx_board import ConnectionManager
-from kx_lib.kx_data_logger import SensorDataLogger
-from kmx62.kmx62_driver import KMX62Driver
-from kmx62.kmx62_driver import r, b, m, e  # pylint: disable=unused-import
+from kx_lib.kx_util import get_drdy_pin_index, get_drdy_timer, evkit_config, convert_to_enumkey
+from kx_lib.kx_configuration_enum import CH_ACC, CH_MAG, CH_TEMP, POLARITY_DICT, CFG_POLARITY, ACTIVE_HIGH, ACTIVE_LOW, ADAPTER_GPIO1_INT, ADAPTER_GPIO2_INT, REG_POLL
+from kx_lib.kx_exception import EvaluationKitException
+from kx_lib.kx_data_logger import SingleChannelReader
+from kmx62.kmx62_driver import KMX62Driver, r, b, m, e  # pylint: disable=unused-import
+
 LOGGER = kx_logger.get_logger(__name__)
-_CODE_FORMAT_VERSION = 2.0
+# LOGGER.setLevel(kx_logger.DEBUG)
+
+_CODE_FORMAT_VERSION = 3.0
 
 
 class KMX62DataStream(StreamConfig):
+    fmt = "<Bhhhhhhh"
+    hdr = "ch!ax!ay!az!mx!my!mz!temp"
+    reg = r.KMX62_ACCEL_XOUT_L
 
-    def __init__(self, sensor, pin_index=None):
-        StreamConfig.__init__(self, sensor)
+    def __init__(self, sensors, pin_index=None, timer=None):
+        "DRDY and timer data stream"
+        assert sensors[0].name in KMX62Driver.supported_parts
+        StreamConfig.__init__(self, sensors[0])
 
+        # get pin_index if it is not given and timer is not used
         if pin_index is None:
-            pin_index = get_pin_index()
+            pin_index = get_drdy_pin_index()
+
+        if timer is None:
+            timer = get_drdy_timer()
 
         self.define_request_message(
-            fmt="<Bhhhhhhh",
-            hdr="ch!ax!ay!az!mx!my!mz!temp",
-            reg=r.KMX62_ACCEL_XOUT_L,
-            pin_index=pin_index)
+            fmt=self.fmt,
+            hdr=self.hdr,
+            reg=self.reg,
+            pin_index=pin_index,
+            timer=timer
+        )
 
 
 def enable_data_logging(sensor,
@@ -63,6 +76,7 @@ def enable_data_logging(sensor,
     #
     # parameter validation
     #
+    assert sensor.name in KMX62Driver.supported_parts
 
     assert convert_to_enumkey(odr) in e.KMX62_ODCNTL_OSA.keys(
     ), 'Invalid odr_OSA value "{}". Support values are {}'.format(odr, e.KMX62_ODCNTL_OSA.keys())
@@ -92,10 +106,10 @@ def enable_data_logging(sensor,
 
     if lp_mode not in ['MAX1', 'MAX2', False]:
         # Low power mode
-        sensor.set_average(e.KMX62_CNTL2_RES[lp_mode], None, CH_ACC)
+        sensor.set_average(e.KMX62_CNTL2_RES[lp_mode], CH_ACC)
     else:
         # Full power mode
-        sensor.set_average(b.KMX62_CNTL2_RES_MAX2, None, CH_ACC)
+        sensor.set_average(b.KMX62_CNTL2_RES_MAX2, CH_ACC)
 
     #
     # interrupt pin routings and settings
@@ -103,13 +117,13 @@ def enable_data_logging(sensor,
 
     if int_number is None:
         # KMX62: interrupt source selection activates also physical interrupt pin
-        if evkit_config.get('generic', 'drdy_operation') == 'ADAPTER_GPIO1_INT':
+        if evkit_config.drdy_function_mode == ADAPTER_GPIO1_INT:
             sensor.enable_drdy(1, CH_ACC)  # acc data ready to int1
             # sensor.enable_drdy(1, CH_MAG)                       # mag data ready to int1
-        elif evkit_config.get('generic', 'drdy_operation') == 'ADAPTER_GPIO2_INT':
+        elif evkit_config.drdy_function_mode == ADAPTER_GPIO2_INT:
             sensor.enable_drdy(2, CH_ACC)  # acc data ready to int2
             # sensor.enable_drdy(2, CH_MAG)                       # mag data ready to int2
-        elif evkit_config.get('generic', 'drdy_operation') == 'DRDY_REG_POLL':
+        elif evkit_config.drdy_function_mode == REG_POLL:
             sensor.enable_drdy(1, CH_ACC)  # acc data ready to int1
             # sensor.enable_drdy(1, CH_MAG)                       # mag data ready to int1
     else:
@@ -128,11 +142,11 @@ def enable_data_logging(sensor,
 
     # interrupt signal parameters
     sensor.write_register(
-        r.KMX62_INC3, 
+        r.KMX62_INC3,
         b.KMX62_INC3_IED1_PUSHPULL |
         IEA1 |
         b.KMX62_INC3_IEL1_LATCHED |
-        b.KMX62_INC3_IED2_PUSHPULL | 
+        b.KMX62_INC3_IED2_PUSHPULL |
         IEA2 |
         b.KMX62_INC3_IEL2_LATCHED)
     #
@@ -149,51 +163,16 @@ def enable_data_logging(sensor,
     LOGGER.info('enable_data_logging done')
 
 
-def read_with_polling(sensor, loop):
-    count = 0
-    dl = SensorDataLogger()
-    dl.add_channel('ch!ax!ay!az!mx!my!mz!temp')
-    dl.start()
-
-    try:
-        while (loop is None) or (count < loop):
-            count += 1
-            sensor.drdy_function()
-            ax, ay, az, mx, my, mz, temp = sensor.read_data(CH_ACC | CH_MAG | CH_TEMP)
-            dl.feed_values((10, ax, ay, az, mx, my, mz, temp))
-
-    except (KeyboardInterrupt):
-        dl.stop()
+class KMX62DataLogger(SingleChannelReader):
+    def enable_data_logging(self, **kwargs):
+        enable_data_logging(self.sensors[0], **kwargs)
 
 
-def read_with_stream(sensor, loop):
-    stream = KMX62DataStream(sensor)
-    stream.read_data_stream(loop)
-    return stream
-
-
-def app_main(odr=25):
-
-    args = get_datalogger_args()
-    if args.odr:
-        odr = args.odr
-    sensor = KMX62Driver()
-    connection_manager = ConnectionManager()
-    connection_manager.add_sensor(sensor)
-    enable_data_logging(sensor, odr=odr)
-
-    if args.stream_mode:
-        read_with_stream(sensor, args.loop)
-
-    elif args.timer_stream_mode:
-        raise EvaluationKitException('Timer polling not yet implemented')
-
-    else:
-        read_with_polling(sensor, args.loop)
-
-    sensor.set_power_off()
-    connection_manager.disconnect()
+def main():
+    l = KMX62DataLogger([KMX62Driver])
+    l.enable_data_logging(odr=evkit_config.odr)
+    l.run(KMX62DataStream)
 
 
 if __name__ == '__main__':
-    app_main()
+    main()

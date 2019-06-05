@@ -1,0 +1,125 @@
+{
+    "structure_version": "2.1",
+    "protocol_version": [
+        "2.0"
+    ],
+    "configuration": {
+        "name": "RoKiX Sensor Node / SPI",
+        "doc": "RoKiX Sensor Node on SPI mode. KXG08, KMX62, KX122, BM1383AGLV and BM1422AGMV on main board.",
+        "board_id": 7,
+        "cpu_freq_mhz": 64,
+        "bus1": {
+            "sensor_defaults": {
+                "polarity": "EVKIT_GPIO_PIN_SENSE_LOW",
+                "pullup": "EVKIT_GPIO_PIN_PULLUP",
+                "protocol": 1,
+                "axis_map": []
+            },
+            "targets": [
+                {
+                    "name": "spi",
+                    "freq": 8000,
+                    "spi_mode": 0,
+                    "target": 1,
+                    "parts": {
+                        "KX122": {
+                            "cs": 13,
+                            "gpio1": 34,
+                            "gpio2": 43,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KXG08": {
+                            "cs": 5,
+                            "gpio1": 47,
+                            "gpio2": 38,
+                            "axis_map": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "adc",
+                    "doc": "Battery level monitor and analog sensors.",
+                    "target": 8,
+                    "parts": {
+                        "Disable ADC": {
+                            "gpio_conf": [
+                                [
+                                    30
+                                ],
+                                [
+                                    0
+                                ]
+                            ]
+                        },
+                        "Battery": {
+                            "gpio1": 3,
+                            "adc_gain": 0.25,
+                            "adc_ref_v": 0.6,
+                            "adc_offset_v": 0,
+                            "adc_msg_resolution_int": 12,
+                            "adc_msg_gain_enum": 3,
+                            "adc_msg_conversion_time_us": 0,
+                            "adc_msg_oversampling_enum": 0,
+                            "gpio_conf": [
+                                [
+                                    30
+                                ],
+                                [
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "bus2": {
+            "connections": [
+                {
+                    "connection": "USB_SERIAL",
+                    "vid": 1205,
+                    "pid": 1538,
+                    "hw_id": [
+                        {
+                            "vid": 1205,
+                            "pid": 1538
+                        }
+                    ],
+                    "packet_per_second": 400,
+                    "baud_rate": 1000000,
+                    "xonxoff": false,
+                    "rtscts": false,
+                    "start_up_delay_ms": 0,
+                    "com_port_name": [
+                        "USB Serial Device"
+                    ]
+                },
+                {
+                    "connection": "BLE",
+                    "packet_per_second": 200
+                },
+                {
+                    "connection": "BLE_PYGATT",
+                    "packet_per_second": 100
+                }
+            ]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_rokix_sensor_node_spi"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}

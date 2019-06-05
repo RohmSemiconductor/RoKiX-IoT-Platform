@@ -122,7 +122,7 @@ class registers(register_base):
 		self.KX132_SELF_TEST                                      = 0x5D         # Self-Test Enable register:
 		self.KX132_BUF_CNTL1                                      = 0x5E         # Sample Threshold  determines the number of samples that will trigger a watermark interrupt or will be saved prior to a trigger event. When BRES=1, the maximum number of samples is 86; when BRES=0, the maximum number of samples is 171. The minimum number of samples must be greater than or equal to 2.
 		self.KX132_BUF_CNTL2                                      = 0x5F         # Read/write control register that controls sample buffer operation
-		self.KX132_BUF_STATUS_1                                   = 0x60         # These register reports the status of the sample buffer. Note that BUF_STATUS_1 and BUF_STATUS_2 registers may have a delay of up to 1sec to update the sample level after a buffer read.
+		self.KX132_BUF_STATUS_1                                   = 0x60         
 		self.KX132_BUF_STATUS_2                                   = 0x61         # This register reports the status of the sample buffer trigger function
 		self.KX132_BUF_CLEAR                                      = 0x62         # Latched buffer status information and the entire sample buffer are cleared when any data is written to this register
 		self.KX132_BUF_READ                                       = 0x63         # Buffer output register
@@ -138,13 +138,13 @@ class registers(register_base):
 		self.KX132_ADP_CNTL10                                     = 0x6D         # Advanced Data Path (ADP) Control register 10.
 		self.KX132_ADP_CNTL11                                     = 0x6E         # Advanced Data Path (ADP) Control register 11.
 		self.KX132_ADP_CNTL12                                     = 0x6F         # Advanced Data Path (ADP) Control registers 12 and 13.
-		self.KX132_ADP_CNTL13                                     = 0x70         # ADP Output Control registers 15.
-		self.KX132_ADP_CNTL14                                     = 0x71         # ADP Output Control registers 15.
-		self.KX132_ADP_CNTL15                                     = 0x72         # ADP Output Control registers 15.
-		self.KX132_ADP_CNTL16                                     = 0x73         # ADP Output Control registers 16.
-		self.KX132_ADP_CNTL17                                     = 0x74         # ADP Output Control registers 17.
-		self.KX132_ADP_CNTL18                                     = 0x75         # ADP Output Control registers 18.
-		self.KX132_ADP_CNTL19                                     = 0x76         # ADP Output Control registers 19.
+		self.KX132_ADP_CNTL13                                     = 0x70         # ADP Output Control register 13
+		self.KX132_ADP_CNTL14                                     = 0x71         # ADP Output Control register 14
+		self.KX132_ADP_CNTL15                                     = 0x72         # ADP Output Control register 15
+		self.KX132_ADP_CNTL16                                     = 0x73         # ADP Output Control register 16
+		self.KX132_ADP_CNTL17                                     = 0x74         # ADP Output Control register 17
+		self.KX132_ADP_CNTL18                                     = 0x75         # ADP Output Control register 18.
+		self.KX132_ADP_CNTL19                                     = 0x76         # ADP Output Control register 19.
 class bits(register_base):
 	def __init__(self):
 		self.KX132_COTR_DCSTR_BEFORE                              = (0x55 << 0)  # before set
@@ -833,10 +833,10 @@ class masks(register_base):
 		self.KX132_PED_CNTL4_B_CNT_MASK                           = 0x70         # Samples below the zero threshold before setting
 		self.KX132_PED_CNTL4_A_H_MASK                             = 0x0F         # Maximum area of the peak (maximum impact from the floor).
 		self.KX132_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         # When 0xCA is written to this register, the MEMS self-test function is enabled. Electrostatic-actuation of the accelerometer, results in a DC shift of the X, Y and Z axis outputs
-		self.KX132_BUF_CNTL1_SMP_TH_MASK                          = 0xFF         
+		self.KX132_BUF_CNTL1_SMP_TH_MASK                          = 0xFF         # sample threshold level
 		self.KX132_BUF_CNTL2_BM_MASK                              = 0x03         # selects the operating mode of the sample buffer
-		self.KX132_BUF_STATUS_1_SMP_LEV_MASK                      = 0xFF         # These register reports the status of the sample buffer. Note that BUF_STATUS_1 and BUF_STATUS_2 registers may have a delay of up to 1sec to update the sample level after a buffer read.
-		self.KX132_BUF_STATUS_2_SMP_LEV_H_MASK                    = 0x0F         # buffer level msb bits (11-8)
+		self.KX132_BUF_STATUS_1_SMP_LEV_MASK                      = 0x3FF        # buffer level lsb bits (7-0)
+		self.KX132_BUF_STATUS_2_SMP_LEV_H_MASK                    = 0x03         # buffer level msb bits (9-8)
 		self.KX132_ADP_CNTL1_RMS_AVC_MASK                         = 0x70         # Number of samples used to calculate RMS output. Each sample is determined by the Advanced Data Path ODR as set by OADP<3:0> bits.
 		self.KX132_ADP_CNTL1_OADP_MASK                            = 0x0F         # Output Data Rate (ODR) for Advanced Data Path.
 		self.KX132_ADP_CNTL3_ADP_F1_1A_MASK                       = 0x7F         # ADP filter-1 coefficient (1/A)
@@ -846,4 +846,4 @@ class masks(register_base):
 		self.KX132_ADP_CNTL11_ADP_F2_1A_MASK                      = 0x7F         # ADP filter-2 coefficient (1/A)
 		self.KX132_ADP_CNTL12_ADP_F2_BA_MASK                      = 0xFFFF       # ADP filter-2 coefficient (B/A)
 		self.KX132_ADP_CNTL18_ADP_F2_ISH_MASK                     = 0x1F         # ADP filter-2 input scale shift value
-		self.KX132_ADP_CNTL19_ADP_F2_ISH_MASK                     = 0x1F         # ADP filter-2 output scale shift value
+		self.KX132_ADP_CNTL19_ADP_F2_OSH_MASK                     = 0x1F         # ADP filter-2 output scale shift value

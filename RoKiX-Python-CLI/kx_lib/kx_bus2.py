@@ -8,17 +8,24 @@ import time
 import serial
 import serial.tools.list_ports as list_ports
 from kx_lib.kx_exception import ProtocolException, ProtocolTimeoutException, EvaluationKitException
-
 from kx_lib import kx_logger
 LOGGER = kx_logger.get_logger(__name__)
+from kx_lib import kx_protocol_definition_2_x as pd
+
+LOGGER.setLevel(kx_logger.INFO)
 # LOGGER.setLevel(kx_logger.ERROR)
-# LOGGER.setLevel(kx_logger.INFO)
 # LOGGER.setLevel(kx_logger.DEBUG)
+
+try:
+    import pygatt
+except ImportError:
+    pygatt = None
 
 
 class KxConnection(object):
     "Base class of all kionix communication protocol (bus2)"
-    bus2_configuration = None # bus configuration blob
+    bus2_configuration = None  # bus configuration blob
+
     def flush(self):
         """Discard any data from input buffers."""
         raise NotImplementedError()
@@ -159,12 +166,63 @@ class KxWinBLE(KxPySerial):
         super(KxWinBLE, self).close()  # call parent class close()
 
 
-class KxLinuxBLE(KxConnection):
-    pass
-
-
 class KxLinuxI2C(KxConnection):
     pass
+
+
+class KxLinuxBLE(KxConnection):
+
+    def __init__(self, bus2_configuration):
+        assert pygatt, 'Pygatt not installed.'
+
+        # Many devices, e.g. Fitbit, use random addressing - this is required to
+        # connect.
+        self.ADDRESS_TYPE = pygatt.BLEAddressType.random
+        self.NUS_TX_CHARACTERISTIC = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
+        self.NUS_RX_CHARACTERISTIC = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
+
+        self.rx_buffer = []
+        timeout = 1
+        self.timeout = timeout
+        self.device = None
+
+    def initialize(self, mac_address):
+        LOGGER.info('Establishing BLE connection to %s.' % mac_address)
+        adapter = pygatt.GATTToolBackend()
+        adapter.start()
+        self.device = adapter.connect(mac_address, address_type=self.ADDRESS_TYPE)
+        self.device.subscribe(self.NUS_RX_CHARACTERISTIC, self.callback, False)
+        LOGGER.info('BLE connection established.')
+
+    def read(self, lenght=1):
+        data = ''
+
+        for _ in range(100):
+            if len(self.rx_buffer) >= lenght:
+                break
+            time.sleep(self.timeout / 100.)
+
+        if not len(self.rx_buffer) >= lenght:
+            raise ProtocolTimeoutException('No data received.')
+
+        for _ in range(lenght):
+            data += chr(self.rx_buffer.pop(0))
+        return data
+
+    def write(self, data):
+        LOGGER.debug(data)
+        self.device.char_write(self.NUS_TX_CHARACTERISTIC, bytearray(data), True)
+
+    def flush(self):
+        self.rx_buffer = []
+
+    def close(self):
+        self.flush()
+        self.device.disconnect()
+
+    def callback(self, handle, value):
+        for i in value:
+            self.rx_buffer.append(i)
 
 
 class KxComPort(KxPySerial):
@@ -178,6 +236,16 @@ class KxComPort(KxPySerial):
     def __init__(self, bus2_configuration=None):
         KxPySerial.__init__(self, bus2_configuration)
         self.baudrate = self.bus2_configuration['baud_rate']
+
+        hw_ids = self.bus2_configuration.get('hw_id')
+        if hw_ids is not None:
+            self._valid_vid_pid_pairs = [(d['vid'], d['pid']) for d in hw_ids]
+        else:
+            LOGGER.debug('No new-style VID/PID found in board config; falling back to legacy VID/PID')
+            self._valid_vid_pid_pairs = [(
+                self.bus2_configuration['vid'],
+                self.bus2_configuration['pid'],
+            )]
 
     def initialize(self, comport, timeout=2):
         """Initialize the serial connection.
@@ -214,7 +282,6 @@ class KxComPort(KxPySerial):
         Returns:
             str: The name of the detected serial device (e.g. 'COM2').
         """
-        # TODO 3 check also pid and vid 
         matching_ports = []
         LOGGER.debug('Listing serial ports.')
         for port in list_ports.comports():
@@ -224,9 +291,8 @@ class KxComPort(KxPySerial):
             LOGGER.debug(port.pid)
 
             # matcing port found based in vid and pid?
-            if self.bus2_configuration['vid'] == port.vid and self.bus2_configuration['pid'] == port.pid:
+            if (port.vid, port.pid) in self._valid_vid_pid_pairs:
                 matching_ports.append(port.device)
-                continue 
 
         if not matching_ports:
             raise EvaluationKitException('Automatic search found no devices')

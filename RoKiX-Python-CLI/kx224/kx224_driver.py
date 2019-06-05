@@ -36,24 +36,27 @@ b = kx224_registers.bits()
 m = kx224_registers.masks()
 e = kx224_registers.enums()
 
-hz = [12.5, 25.0, 50.0, 100.0, \
-      200.0, 400.0, 800.0, 1600.0, \
-      0.781, 1.563, 3.125, 6.25, \
+hz = [12.5, 25.0, 50.0, 100.0,
+      200.0, 400.0, 800.0, 1600.0,
+      0.781, 1.563, 3.125, 6.25,
       3200.0, 6400.0, 12800.0, 25600.0]        # for PC1 start delay (acc) calculation
 
+
 class KX224Driver(SensorDriver):
+    supported_parts = ['KX224', 'KX222']
     _WAIS224 = [b.KX224_WHO_AM_I_WIA_ID, b.KX222_WHO_AM_I_WIA_ID]
 
     def __init__(self):
         SensorDriver.__init__(self)
-        self.i2c_sad_list = [0x1E, 0x1F] #
+        self.i2c_sad_list = [0x1E, 0x1F]
         self.supported_connectivity = [BUS1_I2C, BUS1_SPI]
-
+        self._default_channel = CH_ACC
         self.int_pins = [1, 2]
-
         self.name = 'KX224'
         self.axis_mapper = AxisMapper()
+
     def probe(self):
+        """Read sensor ID register and make sure value is expected one. Return 1 if ID is correct."""
         self.connected = True
         resp = self.read_register(r.KX224_WHO_AM_I)
         if resp[0] in self._WAIS224:
@@ -93,10 +96,9 @@ class KX224Driver(SensorDriver):
         assert channel == CH_ACC, 'only accelerometer available'
         self.set_bit(r.KX224_CNTL1, b.KX224_CNTL1_PC1)
 
-        ## When changing PC1 0->1 then 1.5/ODR delay is needed
-		# FIXME 3 : is multiplier 1.5 like here on 2.0 like in kx022?
-		# FIXME 3 : make common function for delay calculation and execution
-        odr_t = 1 / (hz[self.read_register(r.KX224_ODCNTL, 1)[0] & m.KX224_ODCNTL_OSA_MASK]) * 1.5
+        # When changing PC1 0->1 then 1.5/ODR delay is needed
+        odr_t = 1 / (hz[self.read_register(r.KX224_ODCNTL, 1)
+                        [0] & m.KX224_ODCNTL_OSA_MASK]) * 2.0
         if odr_t < 0.1:
             odr_t = 0.1
         delay_seconds(odr_t)
@@ -108,8 +110,9 @@ class KX224Driver(SensorDriver):
         assert channel == CH_ACC, 'only accelerometer available'
         self.reset_bit(r.KX224_CNTL1, b.KX224_CNTL1_PC1)
 
-        ## When changing PC1 1->0 then 1.5/ODR delay is needed
-        odr_t = 1 / hz[self.read_register(r.KX224_ODCNTL, 1)[0] & m.KX224_ODCNTL_OSA_MASK] * 1.5
+        # When changing PC1 1->0 then 1.5/ODR delay is needed
+        odr_t = 1 / hz[self.read_register(r.KX224_ODCNTL, 1)
+                       [0] & m.KX224_ODCNTL_OSA_MASK] * 2.0
         if odr_t < 0.1:
             odr_t = 0.1
         delay_seconds(odr_t)
@@ -141,8 +144,8 @@ class KX224Driver(SensorDriver):
 
         # interrupt settings
         self.enable_drdy(intpin=1)                      # drdy to INT1
-        self.reset_bit(r.KX224_CNTL1, b.KX224_INC1_IEL1)# latched interrupt
-        self.reset_bit(r.KX224_INC1, b.KX224_INC1_IEA1) # active low
+        self.reset_bit(r.KX224_CNTL1, b.KX224_INC1_IEL1)  # latched interrupt
+        self.reset_bit(r.KX224_INC1, b.KX224_INC1_IEA1)  # active low
         self.set_bit(r.KX224_INC1, b.KX224_INC1_IEN1)   # interrupt 1 set
 
         # power on sensor
@@ -153,11 +156,17 @@ class KX224Driver(SensorDriver):
         """enables and routes dataready, but not enable physical interrupt"""
         assert channel == CH_ACC, 'only accelerometer available'
         assert intpin in self.int_pins
-        self.set_bit(r.KX224_CNTL1, b.KX224_CNTL1_DRDYE)
+
+        # configure
         if intpin == 1:
+            # data ready to int1
             self.set_bit(r.KX224_INC4, b.KX224_INC4_DRDYI1)     # data ready to int1
         else:
+            # data ready to int2
             self.set_bit(r.KX224_INC6, b.KX224_INC6_DRDYI2)     # data ready to int2
+
+        # enable data ready
+        self.set_bit(r.KX224_CNTL1, b.KX224_CNTL1_DRDYE)
 
     def disable_drdy(self, intpin=1, channel=CH_ACC):
         """disables and routes dataready, but not enable physical interrupt"""
@@ -165,19 +174,22 @@ class KX224Driver(SensorDriver):
         assert intpin in self.int_pins
         self.reset_bit(r.KX224_CNTL1, b.KX224_CNTL1_DRDYE)
         if intpin == 1:
-            self.reset_bit(r.KX224_INC4, b.KX224_INC4_DRDYI1)     # remove drdy to int1 routing
+            # remove drdy to int1 routing
+            self.reset_bit(r.KX224_INC4, b.KX224_INC4_DRDYI1)
         else:
-            self.reset_bit(r.KX224_INC6, b.KX224_INC6_DRDYI2)     # remove drdy to int2 routing
+            # remove drdy to int2 routing
+            self.reset_bit(r.KX224_INC6, b.KX224_INC6_DRDYI2)
 
     def set_odr(self, ODCNTL_OSA, channel=CH_ACC):
         assert channel == CH_ACC, 'only accelerometer available'
-        self.set_bit_pattern(r.KX224_ODCNTL, ODCNTL_OSA, m.KX224_ODCNTL_OSA_MASK)
+        self.set_bit_pattern(r.KX224_ODCNTL, ODCNTL_OSA,
+                             m.KX224_ODCNTL_OSA_MASK)
 
-    def set_range(self, range, _=0, channel=CH_ACC):
+    def set_range(self, range, channel=CH_ACC):
         assert channel == CH_ACC, 'only accelerometer available'
-        self.set_bit_pattern(r.KX224_CNTL1, \
-                               range, \
-                               m.KX224_CNTL1_GSEL_MASK)
+        self.set_bit_pattern(r.KX224_CNTL1,
+                             range,
+                             m.KX224_CNTL1_GSEL_MASK)
 
     def set_interrupt_polarity(self, intpin=1, polarity=ACTIVE_LOW):
         assert intpin in self.int_pins
@@ -194,19 +206,19 @@ class KX224Driver(SensorDriver):
             else:
                 self.set_bit(r.KX224_INC5, b.KX224_INC5_IEA2)     # active high
 
-    def set_average(self, average, _=0, channel=CH_ACC):    # set averaging (only for low power)
+    def set_average(self, average, channel=CH_ACC):    # set averaging (only for low power)
         assert channel == CH_ACC, 'only accelerometer available'
         assert average in e.KX224_LP_CNTL_AVC.values(), 'Invalid value for KX224_LP_CNTL_AVC'
 
-        self.set_bit_pattern(r.KX224_LP_CNTL, average, m.KX224_LP_CNTL_AVC_MASK)
+        self.set_bit_pattern(r.KX224_LP_CNTL, average,
+                             m.KX224_LP_CNTL_AVC_MASK)
 
-    def set_BW(self, lpro=b.KX224_ODCNTL_LPRO, _=0, channel=CH_ACC):
+    def set_BW(self, lpro, _=0, channel=CH_ACC):
+        assert lpro in e.KX224_ODCNTL_LPRO, 'valid lpro values are %s' % e.KX224_ODCNTL_LPRO.keys()
         assert channel == CH_ACC, 'only accelerometer available'
-        assert lpro in [b.KX224_ODCNTL_LPRO, 0]
-        if lpro:
-            self.set_bit(r.KX224_ODCNTL, b.KX224_ODCNTL_LPRO)   # BW odr /2
-        else:
-            self.reset_bit(r.KX224_ODCNTL, b.KX224_ODCNTL_LPRO) # BW odr /9 (default)
+        self.set_bit_pattern(r.KX224_ODCNTL,
+                             e.KX224_ODCNTL_LPRO[lpro],
+                             m.KX224_ODCNTL_LPRO_MASK)
 
     def enable_iir(self):
         self.reset_bit(r.KX224_ODCNTL, b.KX224_ODCNTL_IIR_BYPASS)
@@ -217,34 +229,41 @@ class KX224Driver(SensorDriver):
     def release_interrupts(self, intpin=1):
         # Latched interrupt source information is cleared and physical interrupt latched pin is changed to its inactive state.
         assert intpin in self.int_pins
+        # NOTE this releases both even asked to release one
         self.read_register(r.KX224_INT_REL)
 
-    def enable_fifo(self, mode=b.KX224_BUF_CNTL2_BUF_M_STREAM, res=b.KX224_BUF_CNTL2_BRES, axis_mask=0x03): # enable buffer with mode and resolution
+    def enable_fifo(self,
+                    mode=b.KX224_BUF_CNTL2_BUF_M_STREAM,
+                    res=b.KX224_BUF_CNTL2_BRES,
+                    axis_mask=0x03):            # enable buffer with mode and resolution
         # syncronized with KXxxx, KXG03
         assert mode in e.KX224_BUF_CNTL2_BUF_M.values()
-        assert res in [b.KX224_BUF_CNTL2_BRES, 0]       # 8 or 16bit resolution store
+        # 8 or 16bit resolution store
+        assert res in [b.KX224_BUF_CNTL2_BRES, 0]
         assert axis_mask == 0x03, 'all axis must included to buffer storage with KXx2x'
 
         if res == b.KX224_BUF_CNTL2_BRES:
             self.set_bit(r.KX224_BUF_CNTL2, b.KX224_BUF_CNTL2_BRES)
         else:
             self.reset_bit(r.KX224_BUF_CNTL2, b.KX224_BUF_CNTL2_BRES)
+
         # combine two settings in one register write
         self.set_bit_pattern(
             r.KX224_BUF_CNTL2,
             b.KX224_BUF_CNTL2_BUFE | mode,
-            m.KX224_BUF_CNTL2_BUF_M_MASK |b.KX224_BUF_CNTL2_BUFE)
+            m.KX224_BUF_CNTL2_BUF_M_MASK | b.KX224_BUF_CNTL2_BUFE)
 
     def disable_fifo(self):                                     # disable buffer
         self.reset_bit(r.KX224_BUF_CNTL2, b.KX224_BUF_CNTL2_BUFE)
 
-    def get_fifo_resolution(self): # get resolution 0= 8b, >0 = 16b
+    def get_fifo_resolution(self):  # get resolution 0= 8b, >0 = 16b
         if self.read_register(r.KX224_BUF_CNTL2, 1)[0] & b.KX224_BUF_CNTL2_BRES > 0:
-            return 1 # 16 bit resulution
+            return 1  # 16 bit resulution
         else:
-            return 0 # 8 bit resolution
+            return 0  # 8 bit resolution
 
-    def set_fifo_watermark_level(self, level, axes=3): # NOTE! set watermark as samples
+   # NOTE! set watermark as samples
+    def set_fifo_watermark_level(self, level, axes=3):  # NOTE! set watermark as samples
         assert axes in [3], 'only 3 axes possible to store fifo buffer'
         if self.get_fifo_resolution() > 0:
             assert level <= 0x154, 'Watermark level too high.'    # 16b resolution

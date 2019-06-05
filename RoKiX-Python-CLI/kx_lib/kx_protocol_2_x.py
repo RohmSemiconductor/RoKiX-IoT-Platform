@@ -17,6 +17,7 @@ LOGGER = kx_logger.get_logger(__name__)
 
 class KxMessageContainer(kx_protocol.KxMessageContainer):
     """Message container for protocol v2 messages."""
+
     def append_payload16bit(self, data):
         """Append a 16-bit value to the payload.
 
@@ -88,35 +89,35 @@ def gpio_config_req(gpio_pin, direction, input_connected, position):
 
     Args:
         gpio_pin (int): microcontroller's pin index
-        direction (int): EVKIT_MSG_GPIO_PIN_INPUT or EVKIT_MSG_GPIO_PIN_OUTPUT
+        direction (int): EVKIT_GPIO_PIN_INPUT or EVKIT_GPIO_PIN_OUTPUT
         input_connected (int): Whether the input buffer is connected or not.
-            Valid values are EVKIT_MSG_GPIO_PIN_DISCONNECTED and
-            EVKIT_MSG_GPIO_PIN_CONNECTED.
+            Valid values are EVKIT_GPIO_PIN_DISCONNECTED and
+            EVKIT_GPIO_PIN_CONNECTED.
         positition (int): Pin drive mode. If direction is input, then one of
             EVKIT_GPIO_PIN_NODRIVE,
             EVKIT_GPIO_PIN_DRIVELOW,
             EVKIT_GPIO_PIN_DRIVEHIGH. If direction is output, then one of
-            EVKIT_MSG_GPIO_PIN_NOPULL,
-            EVKIT_MSG_GPIO_PIN_PULLUP,
-            EVKIT_MSG_GPIO_PIN_PULLDOWN.
+            EVKIT_GPIO_PIN_NOPULL,
+            EVKIT_GPIO_PIN_PULLUP,
+            EVKIT_GPIO_PIN_PULLDOWN.
 
     Returns:
         array.array: The request message as an array of bytes.
     """
-    assert direction in [EVKIT_MSG_GPIO_PIN_INPUT,
-                         EVKIT_MSG_GPIO_PIN_OUTPUT]
+    assert direction in [EVKIT_GPIO_PIN_INPUT,
+                         EVKIT_GPIO_PIN_OUTPUT]
 
-    assert input_connected in [EVKIT_MSG_GPIO_PIN_DISCONNECTED,
-                               EVKIT_MSG_GPIO_PIN_CONNECTED]
+    assert input_connected in [EVKIT_GPIO_PIN_DISCONNECTED,
+                               EVKIT_GPIO_PIN_CONNECTED]
 
-    if direction == EVKIT_MSG_GPIO_PIN_OUTPUT:
+    if direction == EVKIT_GPIO_PIN_OUTPUT:
         assert position in [EVKIT_GPIO_PIN_NODRIVE,
                             EVKIT_GPIO_PIN_DRIVELOW,
                             EVKIT_GPIO_PIN_DRIVEHIGH]
-    elif direction == EVKIT_MSG_GPIO_PIN_INPUT:
-        assert position in [EVKIT_MSG_GPIO_PIN_NOPULL,
-                            EVKIT_MSG_GPIO_PIN_PULLUP,
-                            EVKIT_MSG_GPIO_PIN_PULLDOWN]
+    elif direction == EVKIT_GPIO_PIN_INPUT:
+        assert position in [EVKIT_GPIO_PIN_NOPULL,
+                            EVKIT_GPIO_PIN_PULLUP,
+                            EVKIT_GPIO_PIN_PULLDOWN]
 
     msg = KxMessageContainer(EVKIT_MSG_GPIO_CONFIG_REQ)
     msg.append_payload(gpio_pin)
@@ -176,6 +177,7 @@ def add_macro_action_req(
         write_buffer=None,
         bytes_to_read=None,
         run_count=1,
+        gpio_drive=None,
         adc_oversample=EVKIT_ADC_OVERSAMPLE_NONE,
         adc_gain=EVKIT_ADC_GAIN_NONE,
         adc_resolution=None,
@@ -193,6 +195,7 @@ def add_macro_action_req(
         start_register (int):  register number where to write from or write to
         write_buffer:          data to be written in case of write action
         run_count (int):       amount of times to run the action per macro trigger
+        gpio_drive (int):      pin drive state for GPIO_WRITE action
         adc_oversample (int):  ADC oversampling: EVKIT_ADC_OVERSAMPLE_x
         adc_gain (int):        ADC gain: EVKIT_ADC_GAIN_x
         adc_resolution (int):  ADC resolution in bits
@@ -253,6 +256,18 @@ def add_macro_action_req(
             assert var is not None
             msg.append_payload(var)
 
+    elif action == EVKIT_MACRO_ACTION_ADC_READ2:
+        # identifier indicates the channel
+        pass
+
+    elif action == EVKIT_MACRO_ACTION_GPIO_READ:
+        # Identifier defines the GPIO pin.
+        pass
+
+    elif action == EVKIT_MACRO_ACTION_GPIO_WRITE:
+        assert gpio_drive is not None
+        msg.append_payload(gpio_drive)
+
     return msg.get_message()
 
 
@@ -304,6 +319,14 @@ def dev_fw_id_req():
     msg.append_payload(EVKIT_FW_SW_VER)
     return msg.get_message()
 
+
+def dev_fw_bl_id_req():
+    # bootloader version
+    msg = KxMessageContainer(EVKIT_MSG_DEV_INFO_REQ)
+    msg.append_payload(EVKIT_FW_BL_SW_VER)
+    return msg.get_message()
+
+
 def selftest_req(type=None):
     """Create a selftest request message.
 
@@ -324,7 +347,7 @@ def adc_read_req(target, channel,
                  gain=EVKIT_ADC_GAIN_NONE,
                  resolution=None,
                  acq_time_us=0):
-    """Create an ADC-read request message.
+    """Create a legacy ADC-read request message.
 
     Args:
         target (int):      enumerated hw peripheral id : EVKIT_BUS1_TARGET_X
@@ -349,6 +372,24 @@ def adc_read_req(target, channel,
 
     return msg.get_message()
 
+
+def adc_read2_req(target, channel):
+    """Create an ADC-read request message for the new ADC interface.
+
+    Args:
+        target (int): Peripheral ID. Valid values are prefixed with
+            ``EVKIT_BUS1_TARGET_``.
+        channel (int): Channel from which to read.
+
+    Returns:
+        array.array: The message as an array of bytes.
+    """
+    msg = KxMessageContainer(EVKIT_MSG_ADC_READ2_REQ)
+    msg.append_payload(target)
+    msg.append_payload(channel)
+    return msg.get_message()
+
+
 def configure_i2c_reqest(target, frequency=400):
     """
         target (int):      enumerated hw peripheral id : EVKIT_BUS1_TARGET_TWIX
@@ -359,6 +400,7 @@ def configure_i2c_reqest(target, frequency=400):
     msg.append_payload(target)
     msg.append_payload16bit(frequency)
     return msg.get_message()
+
 
 def configure_spi_reqest(target, frequency, mode=EVKIT_SPI_MODE_0):
     """
@@ -372,6 +414,55 @@ def configure_spi_reqest(target, frequency, mode=EVKIT_SPI_MODE_0):
     msg.append_payload(target)
     msg.append_payload(mode)
     msg.append_payload16bit(frequency)
+    return msg.get_message()
+
+
+def configure_adc_request(target, channel, resolution, gain, oversample,
+                          acq_time_us=0):
+    """Create a configure request for an ADC.
+
+    Args:
+        target (int): Peripheral identifier. Valid identifiers are
+            ``EVKIT_BUS1_TARGET_ADCx``.
+        resolution (int): Resolution in bits.
+        gain (int): Gain enum. Valid values are prefixed with
+            ``EVKIT_ADC_GAIN_``.
+        oversample (int): Valid values are prefixed with
+            ``EVKIT_ADC_OVERSAMPLE_``.
+        acq_time_us (int): Acquisition time in microseconds.
+
+    Returns:
+        array.array: The request as an array of bytes.
+    """
+    assert target in [EVKIT_BUS1_TARGET_ADC0]
+    assert resolution <= 32
+    assert gain in [
+        EVKIT_ADC_GAIN_A,
+        EVKIT_ADC_GAIN_B,
+        EVKIT_ADC_GAIN_C,
+        EVKIT_ADC_GAIN_D,
+        EVKIT_ADC_GAIN_E,
+        EVKIT_ADC_GAIN_F,
+        EVKIT_ADC_GAIN_G,
+        EVKIT_ADC_GAIN_H,
+        EVKIT_ADC_GAIN_NONE,
+    ]
+    assert oversample in [
+        EVKIT_ADC_OVERSAMPLE_2X,
+        EVKIT_ADC_OVERSAMPLE_4X,
+        EVKIT_ADC_OVERSAMPLE_8X,
+        EVKIT_ADC_OVERSAMPLE_16X,
+        EVKIT_ADC_OVERSAMPLE_NONE,
+    ]
+    assert acq_time_us < (2**8 - 1)
+
+    msg = KxMessageContainer(EVKIT_MSG_CONFIGURE_REQ)
+    msg.append_payload(target)
+    msg.append_payload(channel)
+    msg.append_payload(gain)
+    msg.append_payload(resolution)
+    msg.append_payload(acq_time_us)
+    msg.append_payload(oversample)
     return msg.get_message()
 
 
@@ -440,7 +531,7 @@ def unpack_response_data(message):
     elif message_type == EVKIT_MSG_SELFTEST_RESP:
         return message_type, message[3:]
 
-    elif message_type == EVKIT_MSG_ADC_READ_RESP:
+    elif message_type in (EVKIT_MSG_ADC_READ_RESP, EVKIT_MSG_ADC_READ2_RESP):
         return message_type, message[3:]
 
     elif message_type in [EVKIT_MSG_REMOVE_MACRO_RESP,
@@ -453,6 +544,48 @@ def unpack_response_data(message):
         return message_type, None
 
     raise ProtocolException('Invalid response message received %s' % message)
+
+
+def seconds_to_proto_time(seconds):
+    """Convert seconds to RoKiX protocol time.
+
+    The protocol only supports microsecond resolution for times. Any
+    extra precision will be lost in the conversion.
+
+    Due to protocol time limitations, the resolution will get worse the
+    larger the time value is. For example, 100000.5 seconds is such a
+    large value that it cannot be expressed as milliseconds in protocol
+    time. The value will instead be expressed as 1000000 seconds. Such
+    precision losses will always round towards zero.
+
+    Args:
+        seconds (float): Time to convert.
+
+    Returns:
+        Tuple[int, int]: ``(PROTO_TIME_UNIT, PROTO_TIME_VALUE)``
+    """
+    micros = int(seconds * 1e6)
+    if micros < 1:
+        raise ValueError(
+            'protocol does not support times smaller than 1 microsecond')
+
+    max_time_val = 2**16 - 1
+    if micros <= max_time_val:
+        unit = EVKIT_TIME_SCALE_US
+        timeval = micros
+    elif micros // 1000 <= max_time_val:
+        unit = EVKIT_TIME_SCALE_MS
+        timeval = micros // 1000
+    elif micros // 1000000 <= max_time_val:
+        unit = EVKIT_TIME_SCALE_S
+        timeval = micros // 1000000
+    elif micros // (1000000 * 60) <= max_time_val:
+        unit = EVKIT_TIME_SCALE_M
+        timeval = micros // (1000000 * 60)
+    else:
+        raise ValueError('time is too large for the protocol')
+
+    return (unit, timeval)
 
 
 class ProtocolEngine2(ProtocolEngine):

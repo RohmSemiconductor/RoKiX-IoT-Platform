@@ -1,0 +1,120 @@
+{
+    "structure_version": "2.1",
+    "protocol_version": ["2.0"],
+    "configuration": {
+        "name": "Arduino / RoKiX adapter A3 /  I2C",
+        "doc": "Arduino Uno R3 with RoKiX Adapter board A3 and I2C connected sensor on Kionix Sensor evaluation board.",
+        "board_id": 9,
+        "cpu_freq_mhz": 16,
+        "bus1": {
+            "sensor_defaults": {
+                "polarity": "EVKIT_GPIO_PIN_SENSE_LOW",
+                "pullup": "EVKIT_GPIO_PIN_PULLUP",
+                "axis_map": []
+            },
+            "targets": [
+                {
+                    "name": "i2c",
+                    "freq": -1,
+                    "target": 4,
+                    "parts": {
+                        "KX122": {
+                            "SAD": 31,
+                            "gpio1": 5,
+                            "gpio2": 6,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KX126": {
+                            "SAD": 31,
+                            "gpio1": 5,
+                            "gpio2": 6,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KX132-1211": {
+                            "SAD": 31,
+                            "gpio1": 5,
+                            "gpio2": 6,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+						"KX224": {
+                            "SAD": 31,
+                            "gpio1": 5,
+                            "gpio2": 6,                            
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+						"KXTJ3": {
+                            "SAD": 15,
+                            "gpio1": 5,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
+                        "KMX62": {
+                            "SAD": 15,
+                            "gpio1": 5,
+                            "gpio2": 6,                            
+                            "axis_map": [
+                                0, 
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        }                        				 
+                    }
+                }
+            ]
+        },
+        "bus2": {
+            "connections": [
+                {
+                    "connection": "USB_SERIAL",
+                    "vid": 10755,
+                    "pid": 67,
+                    "hw_id": [
+                        {
+                            "vid": 10755,
+                            "pid": 67
+                        },
+                        {
+                            "vid": 9025,
+                            "pid": 579
+                        }
+
+                    ],
+                    "packet_per_second": 400,
+                    "baud_rate": 1000000,
+                    "xonxoff": false,
+                    "rtscts": false,
+                    "start_up_delay_ms": 2000,
+                    "com_port_name": ["Arduino Uno"]
+                }
+            ]
+        },
+        "stream_config": {
+            "directory": "stream_config/board_arduino_uno_i2c_evkv3"
+        },
+        "board_init": {
+            "reg_write": []
+        }
+    }
+}

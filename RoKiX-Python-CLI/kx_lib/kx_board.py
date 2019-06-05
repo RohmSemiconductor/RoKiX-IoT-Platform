@@ -1,7 +1,7 @@
 # 
 # Copyright 2018 Kionix Inc.
 #
-# TODO 3 rename to kx_connection_manager
+import os
 import json
 from kx_lib.kx_configuration_enum import *  # pylint: disable=unused-wildcard-import,wildcard-import
 from kx_lib.kx_bus2 import KxComPort, KxSocket, KxWinBLE, KxLinuxBLE, KxLinuxI2C
@@ -18,6 +18,7 @@ LOGGER = kx_logger.get_logger(__name__)
 
 _GPIO_STATE_INPUT, _GPIO_STATE_OUTPUT = range(2)
 
+
 class ConnectionManager(object):
     """Handle communication from client application to firmware and sensor.
          - Load given board configuration
@@ -28,42 +29,55 @@ class ConnectionManager(object):
             board_config_json(string): File name of board configoration json file
         """
 
-    def __init__(self, board_config_json=None, odr=None):
+    def __init__(self, board_config_json=None, odr=None, skip_init=False):
         LOGGER.debug('>init')
 
         if board_config_json is None:
-            board_config_json = evkit_config.get('configuration', 'board')
-            
+            board_config_json = evkit_config.board
+
         LOGGER.info('Opening board configuration %s' % format(board_config_json))
 
-        bus2_name = evkit_config.get('bus2_settings', 'bus2')
+        bus2_name = evkit_config.bus2
 
-        assert bus2_name in [BUS2_USB, BUS2_BLE, BUS2_SOCKET, BUS2_USB_SERIAL, BUS2_USB_AARDVARK]
+        assert bus2_name in [BUS2_USB, BUS2_BLE, BLE_PYGATT, BUS2_SOCKET, BUS2_USB_SERIAL, BUS2_USB_AARDVARK]
 
         self.found_sensors = {}
-        self._pin_mode_cache = {} # store gpio pin mode _GPIO_STATE_INPUT / _GPIO_STATE_OUTPUT
+        self._pin_mode_cache = {}  # store gpio pin mode _GPIO_STATE_INPUT / _GPIO_STATE_OUTPUT
         self.bus2_configuration = None
+        self.board_config = None
 
-        self.__board_config_json = board_config_json
+        self.board_config_json = board_config_json
 
-        LOGGER.debug('Loading %s' % format(board_config_json))
+        # list of location from where to look configuration file
+        filepath_list = [
+            os.path.join('cfg', board_config_json), 
+            os.path.join(os.path.dirname(__file__), '..', 'cfg', board_config_json)]
 
-        with open(board_config_json, 'r') as infile:
-            self.__board_config = json.load(infile)
+        for filepath in filepath_list:
+            LOGGER.debug('Search configuration %s' % format(filepath))
+            board_file_name = os.path.abspath(filepath)
+            if os.path.isfile(board_file_name):
+                LOGGER.info('Loading %s' % format(board_file_name))
+                with open(board_file_name, 'r') as infile:
+                    self.board_config = json.load(infile)
+                break
+        
+        assert self.board_config is not None, 'No configuration file found \n%s.' % '\n'.join(filepath_list)
+        
 
         # verify board config version
-        if self.__board_config['structure_version'] not in SUPPORTED_BOARD_CONFIGURATION_VERSIONS:
+        if self.board_config['structure_version'] not in SUPPORTED_BOARD_CONFIGURATION_VERSIONS:
             raise EvaluationKitException('Board config version is %s. Supported versions are %s' % (
-                self.__board_config['structure_version'], SUPPORTED_BOARD_CONFIGURATION_VERSIONS))
+                self.board_config['structure_version'], SUPPORTED_BOARD_CONFIGURATION_VERSIONS))
 
         # verify that asked connection was found from board configuration
-        connections_list = self.__board_config['configuration']['bus2']['connections']
+        connections_list = self.board_config['configuration']['bus2']['connections']
         number_of_usb_bus2 = sum(
             [BUS2_USB in bus2_connection['connection'] for bus2_connection in connections_list])
 
         if number_of_usb_bus2 > 1 and bus2_name == BUS2_USB:
             raise EvaluationKitException(
-                'Multiple USB bus2 connections found from board configuration %s. Please select which one to use.' % \
+                'Multiple USB bus2 connections found from board configuration %s. Please select which one to use.' %
                 board_config_json)
 
         # find asked bus2 configuration
@@ -84,7 +98,7 @@ class ConnectionManager(object):
         # open the connection
         if self.bus2_configuration['connection'] in [BUS2_USB_SERIAL]:
             bus2connection = KxComPort(bus2_configuration=self.bus2_configuration)
-            serial_port = evkit_config.get('bus2_settings', 'serial_port')
+            serial_port = evkit_config.serial_port
 
             if serial_port == 'auto':
                 # auto discover the com port
@@ -98,29 +112,35 @@ class ConnectionManager(object):
                 bus2connection.initialize(com_port)
                 self.kx_adapter = KxAdapterEvk(bus2=bus2connection)
 
-                if self.kx_adapter.board_id != self.__board_config[CFG_CONFIGURATION]['board_id']:
-                    bus2connection.close() # this was not right port. close it.
+                if self.kx_adapter.board_id != self.board_config[CFG_CONFIGURATION]['board_id']:
+                    bus2connection.close()  # this was not right port. close it.
                     LOGGER.debug('Board id %s received. Expected id is %s.' % (
-                        self.kx_adapter.board_id, self.__board_config[CFG_CONFIGURATION]['board_id']))
+                        self.kx_adapter.board_id, self.board_config[CFG_CONFIGURATION]['board_id']))
                 else:
                     break
 
-            if self.kx_adapter.board_id != self.__board_config[CFG_CONFIGURATION]['board_id']:
+            if self.kx_adapter.board_id != self.board_config[CFG_CONFIGURATION]['board_id']:
                 raise EvaluationKitException('Expected evaluation board not found.')
 
         elif self.bus2_configuration['connection'] == BUS2_USB_AARDVARK:
-            self.kx_adapter = KxAdapterAardvark(bus1config=self.__board_config['configuration']['bus1']['targets'][0])
+            self.kx_adapter = KxAdapterAardvark(bus1config=self.board_config['configuration']['bus1']['targets'][0])
 
         elif self.bus2_configuration['connection'] == BUS2_BLE:
             bus2connection = KxWinBLE(bus2_configuration=self.bus2_configuration)
             # use mac address with BLE
-            bus2connection.initialize(mac_address=evkit_config.get('bus2_settings', 'ble_mac'))
+            bus2connection.initialize(mac_address=evkit_config.ble_mac)
+
+            self.kx_adapter = KxAdapterEvk(bus2=bus2connection)
+        
+        elif self.bus2_configuration['connection'] == BLE_PYGATT:
+            bus2connection = KxLinuxBLE(bus2_configuration=self.bus2_configuration)
+
+            bus2connection.initialize(mac_address=evkit_config.ble_mac)
 
             self.kx_adapter = KxAdapterEvk(bus2=bus2connection)
 
         else:
             raise EvaluationKitException('No rule found to configure bus 2.')
-
 
         # verify that board FW is supported
         if self.kx_adapter.fw_protocol_version not in SUPPORTED_FIRMWARE_PROTOCOL_VERSIONS:
@@ -128,18 +148,18 @@ class ConnectionManager(object):
                 self.kx_adapter.fw_protocol_version, SUPPORTED_FIRMWARE_PROTOCOL_VERSIONS))
 
         # verify that board fw is compatible with board config
-        if self.kx_adapter.fw_protocol_version not in self.__board_config['protocol_version']:
+        if self.kx_adapter.fw_protocol_version not in self.board_config['protocol_version']:
             raise EvaluationKitException("Board reported protocol version %s. Board config expects %s" % (
-                self.kx_adapter.fw_protocol_version, self.__board_config['protocol_version']))
+                self.kx_adapter.fw_protocol_version, self.board_config['protocol_version']))
 
         # Apply board init if found from board configuration
-        if 'board_init' in self.__board_config[CFG_CONFIGURATION]:
-            if self.__board_config['configuration']['board_init']['reg_write']:
+        if not skip_init and 'board_init' in self.board_config[CFG_CONFIGURATION]:
+            if self.board_config['configuration']['board_init']['reg_write']:
                 LOGGER.debug('board_init found from board configuration. Initializing the board')
 
-                for message_content in self.__board_config['configuration']['board_init']['reg_write']:
+                for message_content in self.board_config['configuration']['board_init']['reg_write']:
                     sensor_name, sensor_register, register_value = message_content
-                    for target_blob in self.__board_config['configuration']['bus1']['targets']:
+                    for target_blob in self.board_config['configuration']['bus1']['targets']:
                         if sensor_name in target_blob['parts']:
                             sensor_resource = target_blob['parts'][sensor_name]
 
@@ -157,6 +177,9 @@ class ConnectionManager(object):
         # configure power mode
         if odr:
             self.set_cpu_power_mode(odr)
+        else:
+            # if odr is not given then assume it is high and disable power save.
+            self.set_cpu_power_mode(1000) 
 
         LOGGER.debug('<init')
 
@@ -218,7 +241,6 @@ class ConnectionManager(object):
         Note:
             Sensor must be first added with add_sensor() before this operation can be done.
         """
-        # TODO 2 check that connection is active
         _, sensor_resource = self.found_sensors[sensor_driver.name]
         bus1_name = sensor_driver.selected_connectivity
 
@@ -239,7 +261,6 @@ class ConnectionManager(object):
                 register &= ~(1 << 7)
 
             with DelayedKeyboardInterrupt():
-                # TODO 3 CS polarity is hard coded active low. Need to be configurable if active high devices in use
                 return self.kx_adapter.adapter_write_sensor_register_spi(target, cs, register, values)
 
         else:
@@ -255,7 +276,6 @@ class ConnectionManager(object):
             sensor_driver (SensorDriver): sensor driver instance
 
         """
-        # TODO 2 gpio_config for i2c sensors. In some sensors this is used for defining slave address.
         if 'gpio_conf' in sensor_driver.resource:
             for index, pin in enumerate(sensor_driver.resource['gpio_conf'][0]):
                 # [0] is for pin number and [1] is for pin value
@@ -275,7 +295,6 @@ class ConnectionManager(object):
 
     def read_adc(self, sensor_driver):
         result = []
-        # TODO 2 scale values with offset_mv and ref_v?
 
         self.gpio_config_for_adc(sensor_driver)
 
@@ -360,15 +379,13 @@ class ConnectionManager(object):
         Args:
             sensor_driver(SensorDriver): sensor driver instance
             pin(int): Sensor's interrupt pin number. Defaults to 1.
-            or
-            pin(list of int): Used only for sensor's ADC line numbers.
         """
 
         # sensor.resource {u'gpio1': 0, u'SAD': 31, u'target': 4, u'name': u'KX122'}
         if isinstance(pin, int):
             return sensor.resource[INT_GPIO_DICT[pin]]
         elif isinstance(pin, list):
-            return [sensor.resource.get(ADC_GPIO_DICT[ind]) for ind in sensor.int_pins]
+            return [sensor.resource.get(ADC_GPIO_DICT[ind]) for ind in ADC_GPIO_DICT if sensor.resource.get(ADC_GPIO_DICT[ind]) is not None]
 
         raise EvaluationKitException('Invalid data type for "pin".')
 
@@ -393,7 +410,6 @@ class ConnectionManager(object):
             # Configuration done when reading ADC nothing to do here
             LOGGER.debug('Configure ADC mode - no actions')
 
-
     def add_sensor(self, sensor_driver, bus1_name=None, sensor_resource_definition=None):
         """ Connect to sensor on board and probe that sensor is found.
 
@@ -417,6 +433,9 @@ class ConnectionManager(object):
 
         """
         LOGGER.debug('>')
+        if sensor_driver.name in self.found_sensors:
+            LOGGER.debug('%s already added earlier. Do nothing' % sensor_driver.name)
+            return
 
         # if bus1 is not defined then look for board configuration json
         if bus1_name is None:
@@ -424,12 +443,12 @@ class ConnectionManager(object):
 
             # find this sensor from board configuration
             target_blob = None
-            for target_blob in self.__board_config['configuration']['bus1']['targets']:
+            for target_blob in self.board_config['configuration']['bus1']['targets']:
 
                 if sensor_driver.name in target_blob['parts']:
 
                     # take default configuration blob
-                    sensor_defaults = self.__board_config['configuration']['bus1']['sensor_defaults'].copy()
+                    sensor_defaults = self.board_config['configuration']['bus1']['sensor_defaults'].copy()
 
                     # update target spesific configurations
                     sensor_defaults['target'] = target_blob['target']
@@ -444,7 +463,6 @@ class ConnectionManager(object):
                     sensor_driver.selected_connectivity = target_blob[CFG_NAME]
 
                     # update found sensors dict
-                    # TODO 3 check if target_blob is needed to be stored anymore (is it used?)
                     self.found_sensors[sensor_driver.name] = (target_blob, sensor_driver.resource)
 
                     LOGGER.debug(sensor_driver.resource)
@@ -454,9 +472,9 @@ class ConnectionManager(object):
             # verify that configuration is found
             if sensor_driver.resource is None:
                 raise EvaluationKitException(
-                    ("Sensor '%s' not found from board configuration file '%s'. Possible reason is"+
-                    " that wrong board configuration file selected in rokix_settings.cfg") % (
-                        sensor_driver.name, self.__board_config_json))
+                    ("Sensor '%s' not found from board configuration file '%s'. Possible reason is" +
+                     " that wrong board configuration file selected in rokix_settings.cfg") % 
+                     (sensor_driver.name, self.board_config_json))
 
             _probe_status = sensor_driver.probe()
             if _probe_status != 1:
@@ -467,10 +485,9 @@ class ConnectionManager(object):
             elif target_blob[CFG_NAME] == BUS1_SPI:
                 LOGGER.info('Sensor %s found. SPI CS pin 0x%x' % (sensor_driver.name, sensor_driver.resource[CFG_CS]))
             elif target_blob[CFG_NAME] == BUS1_ADC:
-                LOGGER.info('Sensor %s found. ADC pins used.' % (sensor_driver.name)) # TODO 2 add ADC pin info
+                LOGGER.info('Sensor %s found. ADC pins used.' % (sensor_driver.name))
             else:
                 assert 0, '%s not implemented' % target_blob[CFG_NAME]
-
 
             LOGGER.debug('<')
             return True
@@ -489,7 +506,6 @@ class ConnectionManager(object):
                 sensor_driver.selected_connectivity = bus1_name
 
                 # update found sensors dict
-                # TODO 3 store target_blob instead of None
                 self.found_sensors[sensor_driver.name] = (None, sensor_resource_definition)
 
                 LOGGER.debug(sensor_driver.resource)
@@ -498,10 +514,8 @@ class ConnectionManager(object):
                 LOGGER.debug('<')
                 return True
 
-
             else:
                 # auto discover
-                # FIXME 2 auto discover not working to be updated
                 if bus1_name == BUS1_I2C:
                     LOGGER.info('Autodiscovery sensor from I2C')
                     found = False
@@ -529,7 +543,7 @@ class ConnectionManager(object):
                     LOGGER.info('Autodiscovery sensor from SPI')
                     found = False
 
-                    for cs in [0]:  # FIXME 3 autodiscovery loop through gpio CS list
+                    for cs in [0]:
                         self.found_sensors[sensor_driver.name] = (target_blob, {CFG_CS: cs})
                         LOGGER.info('Probing %s with CS 0x%x' % (sensor_driver.name, cs))
                         try:
@@ -549,19 +563,13 @@ class ConnectionManager(object):
 
     def get_stream_config_location(self):
         """Get location of the stream configuration files."""
-        return self.__board_config['configuration']['stream_config']['directory']
-
+        return self.board_config['configuration']['stream_config']['directory']
 
     def set_cpu_power_mode(self, odr):
         """Allow CPU sleep if ODR is low"""
-
-        # TODO 1 remove "if" when CY FW2 does not give error response
-        if self.kx_adapter.board_id in [7]: # RoKi IoT Node
-            LOGGER.debug('Configure CPU mode')
-            # odr setting for data logging
-            if odr >= 100:
-                self.kx_adapter.configure_fw(sleep_enabled=False)
-            else:
-                self.kx_adapter.configure_fw(sleep_enabled=True)
+        LOGGER.debug('Configure CPU mode')
+        # odr setting for data logging
+        if odr >= 100:
+            self.kx_adapter.configure_fw(sleep_enabled=False)
         else:
-            LOGGER.debug('Skip CPU mode configuration')
+            self.kx_adapter.configure_fw(sleep_enabled=True)

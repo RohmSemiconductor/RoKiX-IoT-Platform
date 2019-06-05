@@ -16,6 +16,7 @@ LOGGER = kx_logger.get_logger(__name__)
 # LOGGER.setLevel(kx_logger.INFO)
 # LOGGER.setLevel(kx_logger.DEBUG)
 
+
 class KxAdapterEvk(KxAdapterBase):
     def __init__(self, bus2):
         KxAdapterBase.__init__(self)
@@ -33,7 +34,7 @@ class KxAdapterEvk(KxAdapterBase):
         self.bus2 = KxWinBLE
         self.bus2 = KxLinuxBLE
         self.bus2 = KxLinuxI2C
-        self.protocol = kx_protocol  # does not appear to UML chart since this is module. TODO 3 Consider making it class
+        self.protocol = kx_protocol
 
     def adapter_read_sensor_register_i2c(self, target, sad, register, length):
         msg = self.protocol.read_req(target, sad, register, length)
@@ -58,9 +59,9 @@ class KxAdapterEvk(KxAdapterBase):
         resp = self.receive_message(self.protocol.EVKIT_MSG_GPIO_STATE_RESP)
         message_type_, (gpio_pin_, gpio_state) = resp
         del gpio_pin_, message_type_
-        if gpio_state == self.protocol.EVKIT_MSG_GPIO_PIN_SENSE_LOW:
+        if gpio_state == self.protocol.EVKIT_GPIO_PIN_SENSE_LOW:
             return 0
-        elif gpio_state == self.protocol.EVKIT_MSG_GPIO_PIN_SENSE_HIGH:
+        elif gpio_state == self.protocol.EVKIT_GPIO_PIN_SENSE_HIGH:
             return 1
         raise ProtocolException('Unknown EVKIT_MSG_GPIO_STATE_RESP')
 
@@ -74,7 +75,7 @@ class KxAdapterEvk(KxAdapterBase):
                 not. (This is not supported by all platforms.)
         """
         self.configure_pin(gpio_pin,
-                           self.protocol.EVKIT_MSG_GPIO_PIN_OUTPUT,
+                           self.protocol.EVKIT_GPIO_PIN_OUTPUT,
                            value, connect_input)
 
     def adapter_read_adc(
@@ -165,6 +166,23 @@ class KxAdapterEvk(KxAdapterBase):
         _, firmware_id = self.receive_message(self.protocol.EVKIT_MSG_DEV_INFO_RESP)
         return firmware_id
 
+    def get_bootloader_id(self):
+        """Return the device's bootloader version.
+
+        Bytes from the beginning of the SHA1 of the commit from
+        which the bootloader was built.
+
+        Note:
+            This only works with Evkit protocol v2 + new memory region images.
+
+        Returns:
+            array.array: The version as plain bytes.
+
+        """
+        assert self.engine.version == 2
+        self.send_message(self.protocol.dev_fw_bl_id_req())
+        _, bootloader_id = self.receive_message(self.protocol.EVKIT_MSG_DEV_INFO_RESP)
+        return bootloader_id
 
     def reset(self):
         """Reset the attached device.
@@ -204,8 +222,8 @@ class KxAdapterEvk(KxAdapterBase):
 
         Args:
             gpio_pin (int): Pin which to configure.
-            direction (int): EVKIT_MSG_GPIO_PIN_INPUT or
-                EVKIT_MSG_GPIO_PIN_OUTPUT
+            direction (int): EVKIT_GPIO_PIN_INPUT or
+                EVKIT_GPIO_PIN_OUTPUT
             drivemode (int):
                 PULLUP,
                 PULLDOWN,
@@ -225,13 +243,13 @@ class KxAdapterEvk(KxAdapterBase):
             return
 
         if connect_input:
-            input_conn_arg = self.protocol.EVKIT_MSG_GPIO_PIN_CONNECTED
+            input_conn_arg = self.protocol.EVKIT_GPIO_PIN_CONNECTED
         else:
-            input_conn_arg = self.protocol.EVKIT_MSG_GPIO_PIN_DISCONNECTED
+            input_conn_arg = self.protocol.EVKIT_GPIO_PIN_DISCONNECTED
 
-        if direction == self.protocol.EVKIT_MSG_GPIO_PIN_INPUT:
+        if direction == self.protocol.EVKIT_GPIO_PIN_INPUT:
             drivemode = self.pullup_dict[drivemode]
-        elif direction == self.protocol.EVKIT_MSG_GPIO_PIN_OUTPUT:
+        elif direction == self.protocol.EVKIT_GPIO_PIN_OUTPUT:
             drivemode = self._drivemode_dict[drivemode]
         else:
             raise ValueError('invalid pin direction')
@@ -252,20 +270,19 @@ class KxAdapterEvk(KxAdapterBase):
 
         connect_input = True
 
-        self.configure_pin(gpio_pin, self.protocol.EVKIT_MSG_GPIO_PIN_INPUT,
+        self.configure_pin(gpio_pin, self.protocol.EVKIT_GPIO_PIN_INPUT,
                            drivemode, connect_input=connect_input)
 
     def configure_pin_as_output(self, gpio_pin, drivemode, connect_input=False):
-        self.configure_pin(gpio_pin, self.protocol.EVKIT_MSG_GPIO_PIN_OUTPUT,
+        self.configure_pin(gpio_pin, self.protocol.EVKIT_GPIO_PIN_OUTPUT,
                            drivemode, connect_input)
 
-    # TODO 3 consider combining send_message and receive_message in one function.
     def send_message(self, message):
         LOGGER.debug(message)
         self.bus2.write(message)
 
-    def receive_message(self, waif_for_message=None, cache_messages=True):
-        resp = self.engine.receive_single_message(waif_for_message, cache_messages)
+    def receive_message(self, wait_for_message=None, cache_messages=True):
+        resp = self.engine.receive_single_message(wait_for_message, cache_messages)
         LOGGER.debug(resp)
         return self.protocol.unpack_response_data(resp)
 
@@ -280,22 +297,19 @@ class KxAdapterEvk(KxAdapterBase):
             self.bus2.flush()  # Flush com port in case there is already some unwanted data
 
             self.send_message(kx_protocol.version_req())  # Version REQ is same for all protocol versions
-            # TODO 3 if getting error message instead of EVKIT_MSG_VERSION_RESP, then resend version_req
 
-            # TODO 3 congfigure port latency if possible
             # Ref
             # windows user guide 4.1.4. FTDI USB Serial driver and
             # linux  /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
             # https://github.com/pyserial/pyserial/issues/287
 
             try:
-                _, [major_version, minor_version] = self.receive_message(waif_for_message=kx_protocol.EVKIT_MSG_VERSION_RESP)
+                _, [major_version, minor_version] = self.receive_message(wait_for_message=kx_protocol.EVKIT_MSG_VERSION_RESP)
                 self.fw_protocol_version = '%d.%d' % (major_version, minor_version)
                 break
 
             except ProtocolException as exception:
                 LOGGER.error(exception)
-                # TODO 3 consider to close / re open the connection if current functionality does not help
                 time.sleep(0.5)
                 if retry == 1:
                     self.adapter_disconnect()
@@ -317,23 +331,22 @@ class KxAdapterEvk(KxAdapterBase):
 
             # ask board_id
             self.send_message(kx_protocol.version_req())
-            _, [_, _, board_id] = self.receive_message(waif_for_message=kx_protocol.EVKIT_MSG_VERSION_RESP)
+            _, [_, _, board_id] = self.receive_message(wait_for_message=kx_protocol.EVKIT_MSG_VERSION_RESP)
             self.board_id = board_id
             LOGGER.info('Board hw id %s' % board_id)
 
-            LOGGER.info('Device UID '+':'.join(['%02X' % t for t in self.get_dev_id()]))
+            LOGGER.info('Device UID ' + ':'.join(['%02X' % t for t in self.get_dev_id()]))
             LOGGER.info('Firmware version '
                         + ''.join(['%02x' % t for t in self.get_firmware_id()]))
 
         else:
             raise ProtocolException('Invalid protocol version (%d.%d)' % (major_version, minor_version))
 
-        # TODO 3 move ?
         # map logical pull mode to corresponding protocol definition
         self.pullup_dict = {
-            NOPULL : self.protocol.EVKIT_GPIO_PIN_NOPULL,
-            PULLDOWN : self.protocol.EVKIT_GPIO_PIN_PULLDOWN,
-            PULLUP : self.protocol.EVKIT_GPIO_PIN_PULLUP
+            NOPULL: self.protocol.EVKIT_GPIO_PIN_NOPULL,
+            PULLDOWN: self.protocol.EVKIT_GPIO_PIN_PULLDOWN,
+            PULLUP: self.protocol.EVKIT_GPIO_PIN_PULLUP
         }
         self._drivemode_dict = {
             NODRIVE: self.protocol.EVKIT_GPIO_PIN_NODRIVE,

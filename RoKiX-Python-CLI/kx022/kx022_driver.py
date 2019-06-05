@@ -50,6 +50,7 @@ hz = [12.5, 25.0, 50.0, 100.0,
 
 
 class KX022Driver(SensorDriver):
+    supported_parts = ['KX012', 'KX022', 'KX023', 'KX122', 'KX112', 'KX122', 'KX123', 'KX124']
     _WAIS022 = [b.KX012_WHO_AM_I_WIA_ID,
                 b.KX022_WHO_AM_I_WIA_ID,
                 b.KX023_WHO_AM_I_WIA_ID]
@@ -64,9 +65,8 @@ class KX022Driver(SensorDriver):
         SensorDriver.__init__(self)
         self.i2c_sad_list = [0x1E, 0x1F, 0x1C, 0x1D]
         self.supported_connectivity = [BUS1_I2C, BUS1_SPI]
-
+        self._default_channel = CH_ACC
         self.int_pins = [1, 2]
-
         self.name = 'KX122'
         self.axis_mapper = AxisMapper()
 
@@ -78,7 +78,6 @@ class KX022Driver(SensorDriver):
             self.WHOAMI = resp[0]
             if self.WHOAMI in self._WAIS022:
                 LOGGER.info('KX012/KX022/KX023 found')
-                self.name = 'KX022'
                 self._registers = dict(r.__dict__)
                 self._dump_range = (r.KX022_CNTL1, r.KX022_BUF_CNTL2)
             else:
@@ -117,7 +116,8 @@ class KX022Driver(SensorDriver):
         self.set_bit(r.KX022_CNTL1, b.KX022_CNTL1_PC1)
 
         # When changing PC1 0->1 then 2/ODR delay is needed
-        odr_t = 1 / (hz[self.read_register(r.KX022_ODCNTL, 1)[0] & m.KX022_ODCNTL_OSA_MASK]) * 2.0
+        odr_t = 1 / (hz[self.read_register(r.KX022_ODCNTL, 1)
+                        [0] & m.KX022_ODCNTL_OSA_MASK]) * 2.0
         if odr_t < 0.1:
             odr_t = 0.1
         delay_seconds(odr_t)
@@ -130,7 +130,9 @@ class KX022Driver(SensorDriver):
         self.reset_bit(r.KX022_CNTL1, b.KX022_CNTL1_PC1)
 
         # When changing PC1 1->0 then 2/ODR delay is needed
-        odr_t = 1 / hz[self.read_register(r.KX022_ODCNTL, 1)[0] & m.KX022_ODCNTL_OSA_MASK] * 2.0
+        odr_t = 1 / \
+            hz[self.read_register(r.KX022_ODCNTL, 1)[0] &
+               m.KX022_ODCNTL_OSA_MASK] * 2.0
         delay_seconds(max(odr_t, 0.1))  # wait at least 0.1 seconds
 
     def _read_data(self, channel=CH_ACC):
@@ -173,11 +175,16 @@ class KX022Driver(SensorDriver):
         assert channel == CH_ACC, 'only accelerometer available'
         assert intpin in self.int_pins
 
-        self.set_bit(r.KX022_CNTL1, b.KX022_CNTL1_DRDYE)
+        # configure
         if intpin == 1:
-            self.set_bit(r.KX022_INC4, b.KX022_INC4_DRDYI1)  # data ready to int1
+            # data ready to int1
+            self.set_bit(r.KX022_INC4, b.KX022_INC4_DRDYI1)
         else:
-            self.set_bit(r.KX022_INC6, b.KX022_INC6_DRDYI2)  # data ready to int2
+            # data ready to int2
+            self.set_bit(r.KX022_INC6, b.KX022_INC6_DRDYI2)
+
+        # enable
+        self.set_bit(r.KX022_CNTL1, b.KX022_CNTL1_DRDYE)
 
     def disable_drdy(self, intpin=1, channel=CH_ACC):
         """disables and routes dataready, but not enable physical interrupt"""
@@ -185,15 +192,18 @@ class KX022Driver(SensorDriver):
         assert intpin in self.int_pins
         self.reset_bit(r.KX022_CNTL1, b.KX022_CNTL1_DRDYE)
         if intpin == 1:
-            self.reset_bit(r.KX022_INC4, b.KX022_INC4_DRDYI1)  # remove drdy to int1 routing
+            # remove drdy to int1 routing
+            self.reset_bit(r.KX022_INC4, b.KX022_INC4_DRDYI1)
         else:
-            self.reset_bit(r.KX022_INC6, b.KX022_INC6_DRDYI2)  # remove drdy to int2 routing
+            # remove drdy to int2 routing
+            self.reset_bit(r.KX022_INC6, b.KX022_INC6_DRDYI2)
 
     def set_odr(self, ODCNTL_OSA, channel=CH_ACC):
         assert channel == CH_ACC, 'only accelerometer available'
-        self.set_bit_pattern(r.KX022_ODCNTL, ODCNTL_OSA, m.KX022_ODCNTL_OSA_MASK)
+        self.set_bit_pattern(r.KX022_ODCNTL, ODCNTL_OSA,
+                             m.KX022_ODCNTL_OSA_MASK)
 
-    def set_range(self, range, _=0, channel=CH_ACC):
+    def set_range(self, range, channel=CH_ACC):
         assert channel == CH_ACC, 'only accelerometer available'
         self.set_bit_pattern(r.KX022_CNTL1, range, m.KX022_CNTL1_GSEL_MASK)
 
@@ -212,19 +222,17 @@ class KX022Driver(SensorDriver):
             else:
                 self.set_bit(r.KX022_INC5, b.KX022_INC5_IEA2)  # active high
 
-    def set_average(self, average, _=0, channel=CH_ACC):  # set averaging (only for low power)
+    def set_average(self, average, channel=CH_ACC):  # set averaging (only for low power)
         assert channel == CH_ACC, 'only accelerometer available'
         assert average in e.KX022_LP_CNTL_AVC.values(), 'Invalid value for KX022_LP_CNTL_AVC'
 
-        self.set_bit_pattern(r.KX022_LP_CNTL, average, m.KX022_LP_CNTL_AVC_MASK)
+        self.set_bit_pattern(r.KX022_LP_CNTL, average,
+                             m.KX022_LP_CNTL_AVC_MASK)
 
-    def set_BW(self, lpro=b.KX022_ODCNTL_LPRO, _=0, channel=CH_ACC):
+    def set_BW(self, lpro, _=0, channel=CH_ACC):
+        assert lpro in e.KX022_ODCNTL_LPRO, 'valid lpro values are %s' % e.KX022_ODCNTL_LPRO.keys()
         assert channel == CH_ACC, 'only accelerometer available'
-        assert lpro in [b.KX022_ODCNTL_LPRO, 0]
-        if lpro:
-            self.set_bit(r.KX022_ODCNTL, b.KX022_ODCNTL_LPRO)  # BW odr /2
-        else:
-            self.reset_bit(r.KX022_ODCNTL, b.KX022_ODCNTL_LPRO)  # BW odr /9 (default)
+        self.set_bit_pattern(r.KX022_ODCNTL, e.KX022_ODCNTL_LPRO[lpro], m.KX022_ODCNTL_LPRO_MASK)
 
     def enable_iir(self):
         self.reset_bit(r.KX022_ODCNTL, b.KX022_ODCNTL_IIR_BYPASS)
@@ -245,7 +253,8 @@ class KX022Driver(SensorDriver):
             axis_mask=0x03):  # enable buffer with mode and resolution
         # syncronized with KXxxx, KXG03
         assert mode in e.KX022_BUF_CNTL2_BUF_M.values()
-        assert res in [b.KX022_BUF_CNTL2_BRES, 0]  # 8 or 16bit resolution store
+        # 8 or 16bit resolution store
+        assert res in [b.KX022_BUF_CNTL2_BRES, 0]
         assert axis_mask == 0x03, 'all axis must included to buffer storage with KXx2x'
 
         if res == b.KX022_BUF_CNTL2_BRES:
@@ -261,13 +270,14 @@ class KX022Driver(SensorDriver):
     def disable_fifo(self):  # disable buffer
         self.reset_bit(r.KX022_BUF_CNTL2, b.KX022_BUF_CNTL2_BUFE)
 
-    def get_fifo_resolution(self): # get resolution 0= 8b, >0 = 16b
+    def get_fifo_resolution(self):  # get resolution 0= 8b, >0 = 16b
         if self.read_register(r.KX022_BUF_CNTL2, 1)[0] & b.KX022_BUF_CNTL2_BRES > 0:
             return 1  # 16 bit resulution
         else:
             return 0  # 8 bit resolution
 
-    def set_fifo_watermark_level(self, level, axes=3):  # NOTE! set watermark as samples
+    # NOTE! set watermark as samples
+    def set_fifo_watermark_level(self, level, axes=3):
         assert axes in [3], 'only 3 axes possible to store fifo buffer'
         if self.WHOAMI in self._WAIS122:
             if self.get_fifo_resolution() > 0:
@@ -277,13 +287,15 @@ class KX022Driver(SensorDriver):
             lsb = level & 0xff
             msb = level >> 8
             self.write_register(r.KX022_BUF_CNTL1, lsb)
-            self.set_bit_pattern(r122.KX122_BUF_CNTL2, msb << 2, m122.KX122_BUF_CNTL2_SMP_TH8_9_MASK)
+            self.set_bit_pattern(r122.KX122_BUF_CNTL2, msb <<
+                                 2, m122.KX122_BUF_CNTL2_SMP_TH8_9_MASK)
         else:  # KX022 etc.
             if self.get_fifo_resolution() > 0:
                 assert level <= 41, 'Watermark level too high.'  # 16b resolution
             else:
                 assert level <= 82, 'Watermark level too high.'  # 8b resolution
-            self.write_register(r.KX022_BUF_CNTL1, level & m.KX022_BUF_CNTL1_SMP_TH0_6_MASK)
+            self.write_register(r.KX022_BUF_CNTL1, level &
+                                m.KX022_BUF_CNTL1_SMP_TH0_6_MASK)
 
     def get_fifo_level(self):  # NOTE! get fifo buffer as bytes
         if self.WHOAMI in self._WAIS122:

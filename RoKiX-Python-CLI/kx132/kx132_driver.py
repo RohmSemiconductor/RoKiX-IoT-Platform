@@ -25,11 +25,12 @@ from kx_lib.kx_configuration_enum import BUS1_I2C, BUS1_SPI
 from kx_lib.kx_sensor_base import SensorDriver, AxisMapper
 from kx_lib import kx_logger
 from kx_lib.kx_util import delay_seconds, bin2uint16, bin2uint8
-from kx_lib.kx_configuration_enum import CH_ACC, CH_TEMP, ACTIVE_LOW, ACTIVE_HIGH
+from kx_lib.kx_configuration_enum import CH_ACC, CH_ADP, CH_TEMP, ACTIVE_LOW, ACTIVE_HIGH
 from kx132 import kx132_registers
 
 LOGGER = kx_logger.get_logger(__name__)
 # LOGGER.setLevel(kx_logger.DEBUG)
+
 r = kx132_registers.registers()
 b = kx132_registers.bits()
 m = kx132_registers.masks()
@@ -38,7 +39,7 @@ e = kx132_registers.enums()
 # activity modes
 SLEEP, WAKE = range(2)
 
-filter1_values = { # FIXME to upper case
+filter1_values = {
     'LP_ODR_4': (22, 0, 1439258, 1, 1),
     'LP_ODR_8': (72, 3954428, 2796203, 2, 0),
     'LP_ODR_16': (117, 6099540, 4815580, 4, 0),
@@ -51,7 +52,7 @@ filter1_values = { # FIXME to upper case
     'LP_ODR_2048': (30, 8370410, 8352291, 17, 0),
     'LP_ODR_2560': (74, 8374050, 8359542, 18, 0)
 }
-filter2_values = { # FIXME to upper case
+filter2_values = {
     'LP_ODR_4': (0, 0, 0, 1),
     'LP_ODR_8': (22, 13573, 0, 0),
     'LP_ODR_16': (42, 21895, 1, 0),
@@ -78,7 +79,7 @@ filter2_values = { # FIXME to upper case
 ## wuf and bts_directions
 
 
-wufbts_direction = { # FIXME to upper case
+wufbts_direction = {
     b.KX132_INS3_ZNWU: "FACE_UP",
     b.KX132_INS3_ZPWU: "FACE_DOWN",
     b.KX132_INS3_XNWU: "UP",
@@ -87,22 +88,24 @@ wufbts_direction = { # FIXME to upper case
     b.KX132_INS3_YNWU: "LEFT"}
 # for PC1 start delay (acc) calculation
 
-# FIXME to upper case
-hz = [12.5, 25.0, 50.0, 100.0,
+# Note! order of hz entries for KX132
+hz = [0.781, 1.563, 3.125, 6.25,
+      12.5, 25.0, 50.0, 100.0,
       200.0, 400.0, 800.0, 1600.0,
-      0.781, 1.563, 3.125, 6.25,
       3200.0, 6400.0, 12800.0, 25600.0]
 
 
 class KX132Driver(SensorDriver):
-    _WAIS = [b.KX132_WHO_AM_I_WAI_ID, 61]
+    supported_parts = ['KX132', 'KX132-1211', 'KX132-1201']
+    _WAIS = [b.KX132_WHO_AM_I_WAI_ID]
 
     def __init__(self):
         SensorDriver.__init__(self)
         self.i2c_sad_list = [0x1F, 0x1E, 0x1D, 0x1C]
         self.supported_connectivity = [BUS1_I2C, BUS1_SPI]
+        self._default_channel = CH_ACC
         self.int_pins = [1, 2]
-        self.name = 'KX132'
+        self.name = 'KX132-1211'
         self.axis_mapper = AxisMapper()
 
     def probe(self):
@@ -137,83 +140,74 @@ class KX132Driver(SensorDriver):
         delay_seconds(1)
         LOGGER.debug("POR done")
 
-    def set_power_on(self, channel=CH_ACC | CH_TEMP):
+    def set_power_on(self, channel=CH_ACC | CH_ADP | CH_TEMP):
         """
         Set operating mode to "operating mode".
         """
 
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
-        self.set_bit(r.KX132_CNTL1, b.KX132_CNTL1_PC1)
+        assert channel > 0 and channel & (CH_ACC | CH_ADP | CH_TEMP) == channel, 'only accelerometer and temperature supported'
 
         if channel & CH_ACC:
-            # When changing PC1 0->1 then 1.5/ODR delay is needed
-            odr_t = 1 / (hz[self.read_register(r.KX132_ODCNTL, 1)
-                            [0] & m.KX132_ODCNTL_OSA_MASK]) * 1.5
+            # When changing PC1 0->1 then 2.0/ODR delay is needed
+
+            # only CH_ACC sets PC1
+            self.set_bit(r.KX132_CNTL1, b.KX132_CNTL1_PC1)
+
+            odr_t = 1 / (hz[self.read_register(r.KX132_ODCNTL, 1)[0] &
+                            m.KX132_ODCNTL_OSA_MASK]) * 2.0
             if odr_t < 0.1:
                 odr_t = 0.1
             delay_seconds(odr_t)
 
+        if channel & CH_ADP:
+            self.set_bit(r.KX132_CNTL5, b.KX132_CNTL5_ADPE)
+
         if channel & CH_TEMP:
+            assert self.read_register(r.KX132_CNTL1, 1)[0] & \
+                b.KX132_CNTL1_RES, \
+                'temperature sensor not available for low power -mode'
             self.set_bit(r.KX132_CNTL5, b.KX132_CNTL5_TSE)
 
-    def set_power_off(self, channel=CH_ACC | CH_TEMP):
+    def set_power_off(self, channel=CH_ACC | CH_ADP | CH_TEMP):
         """
         Set operating mode to "stand-by".
         """
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
-
+        assert channel > 0 and channel & (CH_ACC | CH_ADP | CH_TEMP) == channel, 'only accelerometer and temperature supported'
         self.reset_bit(r.KX132_CNTL1, b.KX132_CNTL1_PC1)
 
         if channel & CH_ACC:
-            # When changing PC1 1->0 then 1.5/ODR delay is needed
+            # When changing PC1 1->0 then 2.0/ODR delay is needed
             odr_t = 1 / \
-                hz[self.read_register(r.KX132_ODCNTL, 1)[
-                    0] & m.KX132_ODCNTL_OSA_MASK] * 1.5
+                hz[self.read_register(r.KX132_ODCNTL, 1)[0] &
+                   m.KX132_ODCNTL_OSA_MASK] * 2.0
 
             delay_seconds(max(odr_t, 0.1))  # wait at least 0.1 seconds
+
+        if channel & CH_ADP:
+            self.reset_bit(r.KX132_CNTL5, b.KX132_CNTL5_ADPE)
+
         if channel & CH_TEMP:
             self.reset_bit(r.KX132_CNTL5, b.KX132_CNTL5_TSE)
 
-    def _read_data(self, channel=CH_ACC | CH_TEMP):    # normal data
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
+    def _read_data(self, channel=CH_ACC | CH_ADP | CH_TEMP):    # normal data
+        assert channel > 0 and channel & (CH_ACC | CH_ADP | CH_TEMP) == channel, 'only accelerometer and temperature supported'
         s_form = ()
         if channel & CH_ACC:
             data = self.read_register(r.KX132_XOUT_L, 6)
             s_form = s_form + struct.unpack('hhh', data)
+
+        if channel & CH_ADP:
+            data = self.read_register(r.KX132_XADP_L, 6)
+            s_form = s_form + struct.unpack('hhh', data)
+
         if channel & CH_TEMP:
             data = self.read_register(r.KX132_TEMP_OUT_L, 2)
             s_form = s_form + struct.unpack('h', data)
         return s_form
 
-    def enable_adp(self):
-        self.set_bit(r.KX132_CNTL5, b.KX132_CNTL5_ADPE)
-
-    def disable_adp(self):
-        self.reset_bit(r.KX132_CNTL5, b.KX132_CNTL5_ADPE)
-
-    def read_adp_data(self, channel=CH_ACC | CH_TEMP):    # adp filtered data
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
-        s_form = ()
-        data = self.read_register(r.KX132_XADP_L, 6)
-        s_form = s_form + struct.unpack('hhh', data)
-        return s_form
-
-    # accelerometer data + adp filtered data
-    def read_combined_adp_data(self, channel=CH_ACC | CH_TEMP):
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
-        s_form = ()
-
-        data = self.read_register(r.KX132_XOUT_L, 6)
-        data2 = self.read_register(r.KX132_XADP_L, 6)
-        data3 = self.read_register(r.KX132_TEMP_OUT_L, 2)
-        s_form = s_form + struct.unpack('hhh', data)
-        s_form = s_form + struct.unpack('hhh', data2)
-        s_form = s_form + struct.unpack('h', data3)
-        return s_form
-
-    def read_drdy(self, intpin=1, channel=CH_ACC | CH_TEMP):
+    def read_drdy(self, intpin=1, channel=CH_ACC | CH_ADP):
         assert intpin in self.int_pins
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
+        assert channel > 0 and channel & (CH_ACC | CH_ADP) == channel, 'only accelerometer supported'
         return self.read_register(r.KX132_INS2)[0] & b.KX132_INS2_DRDY != 0
 
     def read_step_count(self):
@@ -240,18 +234,18 @@ class KX132Driver(SensorDriver):
         self.set_bit(r.KX132_CNTL1, b.KX132_CNTL1_RES)
 
         # interrupt settings
-        self.enable_drdy(intpin=1)                      # drdy to INT1
-        self.reset_bit(r.KX132_CNTL1, b.KX132_INC1_IEL1)  # latched interrupt
-        self.reset_bit(r.KX132_INC1, b.KX132_INC1_IEA1)  # active low
-        self.set_bit(r.KX132_INC1, b.KX132_INC1_IEN1)   # interrupt 1 set
+        self.enable_drdy(intpin=1)                          # drdy to INT1
+        self.reset_bit(r.KX132_CNTL1, b.KX132_INC1_IEL1)    # latched interrupt
+        self.reset_bit(r.KX132_INC1, b.KX132_INC1_IEA1)     # active low
+        self.set_bit(r.KX132_INC1, b.KX132_INC1_IEN1)       # interrupt 1 set
 
         # power on sensor
         self.set_power_on()
         self.release_interrupts()                       # clear all interrupts
 
-    def enable_drdy(self, intpin=1, channel=CH_ACC | CH_TEMP):
+    def enable_drdy(self, intpin=1, channel=CH_ACC | CH_ADP):
         """enables and routes dataready, but not enable physical interrupt"""
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
+        assert channel > 0 and channel & (CH_ACC | CH_ADP) == channel, 'only accelerometer supported'
         assert intpin in self.int_pins
         self.set_bit(r.KX132_CNTL1, b.KX132_CNTL1_DRDYE)
         if intpin == 1:
@@ -263,9 +257,9 @@ class KX132Driver(SensorDriver):
             # data ready to int2
             self.set_bit(r.KX132_INC6, b.KX132_INC6_DRDYI2)
 
-    def disable_drdy(self, intpin=1, channel=CH_ACC):
+    def disable_drdy(self, intpin=1, channel=CH_ACC | CH_ADP):
         """disables and routes dataready, but not enable physical interrupt"""
-        assert channel > 0 and channel & (CH_ACC) == channel, 'only accelerometer and temperature supported'
+        assert channel > 0 and channel & (CH_ACC | CH_ADP) == channel, 'only accelerometer and temperature supported'
         assert intpin in self.int_pins
         self.reset_bit(r.KX132_CNTL1, b.KX132_CNTL1_DRDYE)
         if intpin == 1:
@@ -277,26 +271,72 @@ class KX132Driver(SensorDriver):
             # remove drdy to int2 routing
             self.reset_bit(r.KX132_INC6, b.KX132_INC6_DRDYI2)
 
-    def set_odr(self, ODCNTL_OSA, channel=CH_ACC):
-        assert channel > 0 and channel & (CH_ACC) == channel, 'only accelerometersupported'
-        self.set_bit_pattern(r.KX132_ODCNTL, ODCNTL_OSA,
-                             m.KX132_ODCNTL_OSA_MASK)
+    def set_odr(self, odr, channel=CH_ACC):
+        # NOTE odr is either KX132_ADP_CNTL1_OADP_* or KX132_ODCNTL_OSA_*! not int or float value of ODR
+        assert channel == CH_ACC or channel == CH_ADP, 'Only ACC and ADP channels supported. One channel at time'
 
-    def set_adp_odr(self, ADP_OADP, channel=CH_ACC): # FIXME use set_odr(channel=CH_ADP)
-        assert channel > 0 and channel & (CH_ACC) == channel, 'only accelerometersupported'
-        self.set_bit_pattern(r.KX132_ADP_CNTL1, ADP_OADP,
-                             m.KX132_ADP_CNTL1_OADP_MASK)
+        if channel == CH_ACC:
+            assert odr in e.KX132_ODCNTL_OSA.values()
+            self.set_bit_pattern(r.KX132_ODCNTL, odr,
+                                 m.KX132_ODCNTL_OSA_MASK)
+        elif channel == CH_ADP:
+            assert odr in e.KX132_ADP_CNTL1_OADP.values()
+            self.set_bit_pattern(r.KX132_ADP_CNTL1, odr,
+                                 m.KX132_ADP_CNTL1_OADP_MASK)
 
-    def set_rms_average(self, average=None, channel=CH_ACC):
-        assert channel > 0 and channel & (CH_ACC) == channel, 'only accelerometersupported'
-        assert average in list(e.KX132_ADP_CNTL1_RMS_AVC.values()) + [None],\
-            'Invalid value for KX132_ADP_CNTL1_RMS_AVC'
-        if average is None:
-            self.reset_bit(r.KX132_ADP_CNTL2, b.KX132_ADP_CNTL2_ADP_RMS_OSEL)
-            return
-        self.set_bit(r.KX132_ADP_CNTL2, b.KX132_ADP_CNTL2_ADP_RMS_OSEL)
-        self.set_bit_pattern(r.KX132_ADP_CNTL1, average,
-                             m.KX132_ADP_CNTL1_RMS_AVC_MASK)
+    def set_range(self, range, channel=CH_ACC):
+        assert channel == CH_ACC, 'only accelerometer and temperature supported'
+        self.set_bit_pattern(r.KX132_CNTL1, range, m.KX132_CNTL1_GSEL_MASK)
+
+    def set_interrupt_polarity(self, intpin=1, polarity=ACTIVE_LOW):
+        assert intpin in self.int_pins
+        assert polarity in [ACTIVE_LOW, ACTIVE_HIGH]
+
+        if intpin == 1:
+            if polarity == ACTIVE_LOW:
+                self.reset_bit(r.KX132_INC1, b.KX132_INC1_IEA1)  # active low
+            else:
+                self.set_bit(r.KX132_INC1, b.KX132_INC1_IEA1)  # active high
+        else:
+            if polarity == ACTIVE_LOW:
+                self.reset_bit(r.KX132_INC5, b.KX132_INC5_IEA2)  # active low
+            else:
+                self.set_bit(r.KX132_INC5, b.KX132_INC5_IEA2)  # active high
+
+    def set_average(self, average, channel=CH_ACC):  # set averaging (only for low power)
+        assert channel == CH_ACC or channel == CH_ADP
+
+        if channel == CH_ACC:
+            assert average in e.KX132_LP_CNTL1_AVC.values(), \
+                'Invalid value for KX132_LP_CNTL1_AVC'
+            self.set_bit_pattern(r.KX132_LP_CNTL1, average,
+                                 m.KX132_LP_CNTL1_AVC_MASK)
+
+        elif channel == CH_ADP:
+            assert average in list(e.KX132_ADP_CNTL1_RMS_AVC.values()) + [None],\
+                'Invalid value for KX132_ADP_CNTL1_RMS_AVC'
+
+            if average is None:
+                # Route ADP data before RMS block to XADP, YADP, ZADP
+                self.reset_bit(r.KX132_ADP_CNTL2, b.KX132_ADP_CNTL2_ADP_RMS_OSEL)
+            else:
+                # Route ADP data after RMS block to XADP, YADP, ZADP
+                self.set_bit(r.KX132_ADP_CNTL2, b.KX132_ADP_CNTL2_ADP_RMS_OSEL)
+                self.set_bit_pattern(r.KX132_ADP_CNTL1, average,
+                                     m.KX132_ADP_CNTL1_RMS_AVC_MASK)
+
+    def set_BW(self, lpro=b.KX132_ODCNTL_LPRO, _=0, channel=CH_ACC):
+        assert lpro in e.KX132_ODCNTL_LPRO, 'valid lpro values are %s' % e.KX132_ODCNTL_LPRO.keys()
+        assert channel == CH_ACC, 'only accelerometer supported'
+        self.set_bit_pattern(r.KX132_ODCNTL,
+                             e.KX132_ODCNTL_LPRO[lpro],
+                             m.KX132_ODCNTL_LPRO_MASK)
+
+    def enable_iir(self):
+        self.reset_bit(r.KX132_ODCNTL, b.KX132_ODCNTL_IIR_BYPASS)
+
+    def disable_iir(self):
+        self.set_bit(r.KX132_ODCNTL, b.KX132_ODCNTL_IIR_BYPASS)
 
     def set_adp_filter1(self, f1_value=None):
         assert (f1_value in list(filter1_values.keys())
@@ -363,46 +403,6 @@ class KX132Driver(SensorDriver):
         self.set_bit_pattern(r.KX132_ADP_CNTL11, f2_1a,
                              m.KX132_ADP_CNTL11_ADP_F2_1A_MASK)
 
-    def set_range(self, range, _=0, channel=CH_ACC | CH_TEMP):
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
-        self.set_bit_pattern(r.KX132_CNTL1, range, m.KX132_CNTL1_GSEL_MASK)
-
-    def set_interrupt_polarity(self, intpin=1, polarity=ACTIVE_LOW):
-        assert intpin in self.int_pins
-        assert polarity in [ACTIVE_LOW, ACTIVE_HIGH]
-
-        if intpin == 1:
-            if polarity == ACTIVE_LOW:
-                self.reset_bit(r.KX132_INC1, b.KX132_INC1_IEA1)  # active low
-            else:
-                self.set_bit(r.KX132_INC1, b.KX132_INC1_IEA1)  # active high
-        else:
-            if polarity == ACTIVE_LOW:
-                self.reset_bit(r.KX132_INC5, b.KX132_INC5_IEA2)  # active low
-            else:
-                self.set_bit(r.KX132_INC5, b.KX132_INC5_IEA2)  # active high
-
-    def set_average(self, average, _=0, channel=CH_ACC | CH_TEMP):  # set averaging (only for low power)
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
-        assert average in e.KX132_LP_CNTL1_AVC.values(), 'Invalid value for KX022_LP_CNTL1_AVC'
-        self.set_bit_pattern(r.KX132_LP_CNTL1, average,
-                             m.KX132_LP_CNTL1_AVC_MASK)
-
-    def set_BW(self, lpro=b.KX132_ODCNTL_LPRO, _=0, channel=CH_ACC | CH_TEMP):
-        assert channel > 0 and channel & (CH_ACC | CH_TEMP) == channel, 'only accelerometer and temperature supported'
-        assert lpro in [b.KX132_ODCNTL_LPRO, 0]
-        if lpro:
-            self.set_bit(r.KX132_ODCNTL, b.KX132_ODCNTL_LPRO)   # BW odr /2
-        else:
-            # BW odr /9 (default)
-            self.reset_bit(r.KX132_ODCNTL, b.KX132_ODCNTL_LPRO)
-
-    def enable_iir(self):
-        self.reset_bit(r.KX132_ODCNTL, b.KX132_ODCNTL_IIR_BYPASS)
-
-    def disable_iir(self):
-        self.set_bit(r.KX132_ODCNTL, b.KX132_ODCNTL_IIR_BYPASS)
-
     def release_interrupts(self, intpin=1):
         # Latched interrupt source information is cleared and physical interrupt latched pin is changed to its inactive state.
         assert intpin in self.int_pins
@@ -419,7 +419,7 @@ class KX132Driver(SensorDriver):
 
         # 8 or 16bit resolution store
         assert res in [b.KX132_BUF_CNTL2_BRES, 0]
-        assert axis_mask == 0x03, 'all axis must included to buffer storage with KXx2x'
+        assert axis_mask == 0x03, 'xyz axes must included to buffer storage with KX132'
 
         if res == b.KX132_BUF_CNTL2_BRES:
             self.set_bit(r.KX132_BUF_CNTL2, b.KX132_BUF_CNTL2_BRES)
@@ -444,15 +444,10 @@ class KX132Driver(SensorDriver):
     def set_fifo_watermark_level(self, level, axes=3):
         assert axes in [3], 'only 3 axes possible to store fifo buffer'
         if self.get_fifo_resolution() > 0:
-            assert level <= 0x154, 'Watermark level too high.'    # 16b resolution
+            assert level <= 85, 'Watermark level too high.'    # 16b resolution
         else:
-            assert level <= 0x2A8, 'Watermark level too high.'    # 8b resolution
-        lsb = level & 0xff
-        msb = level >> 8
-        self.write_register(r.KX132_BUF_CNTL1, lsb)
-        self.set_bit_pattern(r.KX132_BUF_CNTL2,
-                             msb << 2,
-                             m.KX132_BUF_CNTL2_SMP_TH_H_MASK)
+            assert level <= 170, 'Watermark level too high.'    # 8b resolution
+        self.write_register(r.KX132_BUF_CNTL1, level)
 
     # set pedometer watermark
     def set_pedometer_watermark(self, level):
@@ -464,8 +459,9 @@ class KX132Driver(SensorDriver):
 
     def get_fifo_level(self):  # NOTE! get fifo buffer as bytes
         bytes_in_buffer = self.read_register(r.KX132_BUF_STATUS_1, 2)
+        bytes_in_buffer[1] = bytes_in_buffer[1] & m.KX132_BUF_STATUS_2_SMP_LEV_H_MASK
         bytes_in_buffer = bin2uint16(bytes_in_buffer)
-        return (bytes_in_buffer & 0x7ff)
+        return (bytes_in_buffer & 0x3ff)
 
     def clear_buffer(self):
         self.write_register(r.KX132_BUF_CLEAR, 0xff)

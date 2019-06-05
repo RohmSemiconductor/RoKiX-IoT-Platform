@@ -30,24 +30,14 @@ EVKIT_PROTOCOL_VERSION_MAJOR                            = 0x01
 EVKIT_PROTOCOL_VERSION_MINOR                            = 0x01
 
 # Input/Output pin settings: Pin direction.
-EVKIT_MSG_GPIO_PIN_INPUT				     	        = 0x00
-EVKIT_MSG_GPIO_PIN_OUTPUT			      		        = 0x01
+EVKIT_GPIO_PIN_INPUT                                    = 0x00
+EVKIT_GPIO_PIN_OUTPUT                                   = 0x01
 
 # Input pin settings: Connect/Disconnect to input buffer.
-EVKIT_MSG_GPIO_PIN_DISCONNECTED				     	    = 0x00
-EVKIT_MSG_GPIO_PIN_CONNECTED			      		    = 0x01
+EVKIT_GPIO_PIN_DISCONNECTED                             = 0x00
+EVKIT_GPIO_PIN_CONNECTED                                = 0x01
 
 # Input pin settings.
-# TODO 2 REMOVE/CLEANUP synch with .h files
-EVKIT_MSG_GPIO_PIN_NOSENSE                              = 0x00
-EVKIT_MSG_GPIO_PIN_SENSE_LOW                            = 0x01
-EVKIT_MSG_GPIO_PIN_SENSE_HIGH                           = 0x02
-
-# TODO 2 REMOVE/CLEANUP synch with .h files
-EVKIT_MSG_GPIO_PIN_NOPULL                               = 0x00
-EVKIT_MSG_GPIO_PIN_PULLDOWN                             = 0x01
-EVKIT_MSG_GPIO_PIN_PULLUP                               = 0x02
-
 EVKIT_GPIO_PIN_NOSENSE                                  = 0x00
 EVKIT_GPIO_PIN_SENSE_LOW                                = 0x01
 EVKIT_GPIO_PIN_SENSE_HIGH                               = 0x02

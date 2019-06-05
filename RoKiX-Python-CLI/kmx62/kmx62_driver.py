@@ -42,6 +42,7 @@ hz = [12.5, 25.0, 50.0, 100.0, 200.0, 400.0, 800.0, 1600.0, 0.781, 1.563, 3.125,
 
 
 class KMX62Driver(SensorDriver):
+    supported_parts = ['KMX62', 'KMX63']
     _WAIS_KMX62 = [0x18, 0x19, 0x6f, 0x7d]
     _WAIS_KMX63 = [0x2d]
 
@@ -51,6 +52,7 @@ class KMX62Driver(SensorDriver):
         self.supported_connectivity = [BUS1_I2C]
         self.int_pins = [1, 2]
         self.name = 'KMX62'
+        self._default_channel = CH_ACC | CH_MAG | CH_TEMP
 
         # configurations to register_dump()
         self._registers = dict(r.__dict__)
@@ -77,7 +79,7 @@ class KMX62Driver(SensorDriver):
         self.connected = False
         return 0
 
-    def ic_test(self):  # TODO 3 power on or off
+    def ic_test(self):
         """ Verify proper integrated circuit functionality. """
         cotr1 = self.read_register(r.KMX62_COTR)[0]
 
@@ -189,13 +191,13 @@ class KMX62Driver(SensorDriver):
         elif channel & CH_MAG:
             self.set_bit_pattern(r.KMX62_ODCNTL, ODR, m.KMX62_ODCNTL_OSM_MASK)
 
-    def set_range(self, range, _=0, channel=CH_ACC):
+    def set_range(self, range, channel=CH_ACC):
         assert channel in [CH_ACC]
         assert range in [b.KMX62_CNTL2_GSEL_2G, b.KMX62_CNTL2_GSEL_4G,
                          b.KMX62_CNTL2_GSEL_8G, b.KMX62_CNTL2_GSEL_16G]
         self.set_bit_pattern(r.KMX62_CNTL2, range, m.KMX62_CNTL2_GSEL_MASK)
 
-    def set_average(self, average, _=0, channel=CH_ACC):
+    def set_average(self, average, channel=CH_ACC):
         assert channel == CH_ACC
         assert average in [b.KMX62_CNTL2_RES_MAX1, b.KMX62_CNTL2_RES_MAX2,
                            b.KMX62_CNTL2_RES_A4M2, b.KMX62_CNTL2_RES_A32M16]
