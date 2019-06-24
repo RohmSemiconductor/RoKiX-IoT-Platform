@@ -46,7 +46,7 @@ _CODE_FORMAT_VERSION = 3.0
 
 class KX126DataWuBtsStream(StreamConfig):
     fmt = "<BhhhB"
-    hdr = "ch!ax!ay!az!direction"
+    hdr = "ch!ax!ay!az!wu_bts"
     reg = r.KX126_XOUT_L
 
     def __init__(self, sensors, pin_index=None, timer=None):
@@ -80,7 +80,7 @@ class KX126DataWuBtsStream(StreamConfig):
 
         # read three separate register areas
         reg_read_cfgs = [(self.reg, 6, False),
-                         (r.KX126_INS3, 1, False),
+                         (r.KX126_STAT, 1, False),
                          (r.KX126_INT_REL, 1, True)]
         for addr_start, read_size, discard in reg_read_cfgs:
             if self.sensor.resource.get(CFG_SPI_PROTOCOL, 0) == 1:

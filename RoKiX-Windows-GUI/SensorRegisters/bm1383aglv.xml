@@ -1,13 +1,5 @@
 <root version="3.0">
  <sensor name="BM1383AGLV" sad="93" size="8">
-  <register address="300" doc="[hPa]" info="bypass" mode="INFO" name="PRESSURE_MIN" size="8">
-   <fields>
-   </fields>
-  </register>
-  <register address="1100" doc="[hPa]" info="bypass" mode="INFO" name="PRESSURE_MAX" size="8">
-   <fields>
-   </fields>
-  </register>
   <register address="15" info="bypass" mode="INFO" name="REGISTER_DUMP_START" size="8">
    <fields>
    </fields>
@@ -140,7 +132,7 @@
     </field>
    </fields>
   </register>
-  <register address="29" doc="TEMP_OUT: [15] sign ; [14:5] integer ; [4:0] decimal (2's complement numbers)" mode="R" name="TEMPERATURE_MSB" order="little-endian" por="0" size="16" style="int">
+  <register address="29" doc="TEMP_OUT: [15] sign ; [14:5] integer ; [4:0] decimal (2's complement numbers)" mode="R" name="TEMPERATURE_MSB" order="big-endian" por="0" size="16" style="int">
    <fields>
    </fields>
   </register>

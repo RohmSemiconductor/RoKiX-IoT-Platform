@@ -13,9 +13,9 @@
                 "SI_multiplier": "9.8 / 16384"
             }, 
             {
-                "SI_unit": "WU-direction/BTS", 
-                "data": "WU-direction/BTS", 
-                "name": "WU-direction/BTS", 
+                "SI_unit": "Wu/Bts", 
+                "data": "Wu/Bts", 
+                "name": "Wu/Bts", 
                 "SI_multiplier": "1"
             }
         ]
@@ -165,7 +165,7 @@
                     5, 
                     [
                         "KX126", 
-                        22, 
+                        23, 
                         1
                     ]
                 ], 
@@ -190,7 +190,7 @@
             ], 
             "fmt": "<BhhhB", 
             "type": "continuous", 
-            "hdr": "ch!ax!ay!az!direction", 
+            "hdr": "ch!ax!ay!az!wu_bts", 
             "odr": 0.781
         }
     ], 

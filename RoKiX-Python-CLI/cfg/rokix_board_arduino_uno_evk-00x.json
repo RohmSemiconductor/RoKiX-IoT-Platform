@@ -84,6 +84,14 @@
                     "packet_per_second": 400,
                     "hw_id": [
                         {
+                            "vid": 9025,
+                            "pid": 67
+                        },
+                        {
+                            "vid": 9025,
+                            "pid": 1
+                        },
+                        {
                             "vid": 10755,
                             "pid": 67
                         },

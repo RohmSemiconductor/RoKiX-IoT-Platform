@@ -491,6 +491,8 @@ class ConnectionManager(object):
                 LOGGER.info('Sensor %s found. SPI CS pin 0x%x' % (sensor_driver.name, sensor_driver.resource[CFG_CS]))
             elif target_blob[CFG_NAME] == BUS1_ADC:
                 LOGGER.info('Sensor %s found. ADC pins used.' % (sensor_driver.name))
+            elif target_blob[CFG_NAME] == BUS1_GPIO:
+                LOGGER.info('Sensor %s found. GPIO pins used.' % sensor_driver.name)
             else:
                 assert 0, '%s not implemented' % target_blob[CFG_NAME]
 

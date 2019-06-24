@@ -13,9 +13,9 @@
                 "SI_multiplier": "9.8 / 16384"
             }, 
             {
-                "SI_unit": "WU-direction/BTS", 
-                "data": "WU-direction/BTS", 
-                "name": "WU-direction/BTS", 
+                "SI_unit": "Wu/Bts", 
+                "data": "Wu/Bts", 
+                "name": "Wu/Bts", 
                 "SI_multiplier": "1"
             }
         ]

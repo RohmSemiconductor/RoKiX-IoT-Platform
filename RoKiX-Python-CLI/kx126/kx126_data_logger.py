@@ -126,7 +126,9 @@ def enable_data_logging(sensor,
             sensor.set_BW(0, 0, CH_ACC)             # odr / 9 (default)
         else:
             sensor.set_BW(b.KX126_ODCNTL_LPRO)     # ODR / 2
-    sensor.enable_iir()                            # default value
+        sensor.enable_iir()                        # default value
+    else:
+        sensor.disable_iir()                        
 
     #
     # interrupt pin routings and settings

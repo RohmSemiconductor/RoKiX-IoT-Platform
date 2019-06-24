@@ -23,14 +23,28 @@
 import imports  # pylint: disable=unused-import
 from kx_lib import kx_logger
 from kx_lib.kx_data_stream import StreamConfig
-from kx_lib.kx_util import get_drdy_timer, evkit_config
+from kx_lib.kx_util import get_drdy_timer, evkit_config, adc_conv
 from kx_lib.kx_data_logger import SingleChannelReader
 from kxr94.kxr94_driver import KXR94Driver
+from kx_lib.kx_configuration_enum import CFG_ADC_RESOLUTION, CFG_ADC_REF_V, CFG_ADC_GAIN
 
 _CODE_FORMAT_VERSION = 3.0
 
 LOGGER = kx_logger.get_logger(__name__)
 # LOGGER.setLevel(kx_logger.DEBUG)
+
+
+def adc_value(resource, payload, divider=1):
+    
+    res = resource[CFG_ADC_RESOLUTION]
+    gain = resource[CFG_ADC_GAIN]
+    vref = resource[CFG_ADC_REF_V]
+
+    return adc_conv(payload,
+                    bits=res,
+                    gain=gain,
+                    refv=vref,
+                    divider=1)
 
 
 class KXR94DataStream(StreamConfig):
@@ -82,7 +96,14 @@ def main():
     logger = KXR94DataLogger([KXR94Driver])
     logger.enable_data_logging(
         timer_interval=evkit_config.drdy_timer_interval)
+
+    #def callback(data):
+    #    resource = logger.sensors[0].resource
+    #    print("{:.2f}, {:1.2f}, {:1.2f}".format(
+    #        adc_value(resource, data[1]), adc_value(resource, data[2]), adc_value(resource, data[3])))
+
     logger.run(KXR94DataStream)
+    #logger.run(KXR94DataStream, reader_arguments={'console' : False, 'callback': callback})
 
 
 if __name__ == '__main__':
