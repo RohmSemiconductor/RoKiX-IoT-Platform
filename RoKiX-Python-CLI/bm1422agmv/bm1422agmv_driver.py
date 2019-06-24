@@ -39,8 +39,8 @@ e = bm1422agmv_registers.enums()
 
 class BM1422AGMVDriver(SensorDriver):
     supported_parts = ['BM1422AGMV']
-    _WAI = (b.BM1422AGMV_WHO_AM_I_WIA_ID)
-    _WAIREG = r.BM1422AGMV_WHO_AM_I
+    _WAI = (b.BM1422AGMV_WIA_WIA_ID)
+    _WAIREG = r.BM1422AGMV_WIA
 
     def __init__(self):
         SensorDriver.__init__(self)
@@ -77,7 +77,7 @@ class BM1422AGMVDriver(SensorDriver):
     def set_default_on(self):
         self.set_power_on()
         self.set_odr(b.BM1422AGMV_CNTL1_ODR_20)
-        self.set_averaging(b.BM1422AGMV_AVER_AVG_1TIMES)
+        self.set_averaging(b.BM1422AGMV_AVE_A_AVE_A_1TIMES)
         self.disable_drdy_pin()
         self.start_continuous_measurement()
 
@@ -86,8 +86,7 @@ class BM1422AGMVDriver(SensorDriver):
         # return self.read_temperature_pressure()        #Choose between these two outputs for default
 
     def set_power_on(self):
-        delay_seconds(1e-4)  # wait >0.1ms
-        #self.write_register(r.BM1422AGMV_CNTL1, b.BM1422AGMV_CNTL1_PC1_ON )
+        delay_seconds(1e-4)  # wait >0.1ms 
         self.set_bit_pattern(r.BM1422AGMV_CNTL1, b.BM1422AGMV_CNTL1_PC1_ON, m.BM1422AGMV_CNTL1_PC1_MASK)
         self.set_bit_pattern(r.BM1422AGMV_CNTL1, b.BM1422AGMV_CNTL1_RST_LV_RELEASE, m.BM1422AGMV_CNTL1_RST_LV_MASK)
         delay_seconds(2e-3)  # wait >2ms
@@ -135,12 +134,12 @@ class BM1422AGMVDriver(SensorDriver):
 
     # input valuex is b.BM1422AGMV_MODE_CONTROL_REG_AVE_NUM_*
     def set_averaging(self, valuex):
-        assert valuex in [b.BM1422AGMV_AVER_AVG_4TIMES,
-                          b.BM1422AGMV_AVER_AVG_2TIMES,
-                          b.BM1422AGMV_AVER_AVG_8TIMES,
-                          b.BM1422AGMV_AVER_AVG_16TIMES,
-                          b.BM1422AGMV_AVER_AVG_1TIMES]
-        self.set_bit_pattern(r.BM1422AGMV_AVER, valuex, m.BM1422AGMV_AVER_AVG_MASK)
+        assert valuex in [b.BM1422AGMV_AVE_A_AVE_A_4TIMES,
+                          b.BM1422AGMV_AVE_A_AVE_A_2TIMES,
+                          b.BM1422AGMV_AVE_A_AVE_A_8TIMES,
+                          b.BM1422AGMV_AVE_A_AVE_A_16TIMES,
+                          b.BM1422AGMV_AVE_A_AVE_A_1TIMES]
+        self.set_bit_pattern(r.BM1422AGMV_AVE_A, valuex, m.BM1422AGMV_AVE_A_AVE_A_MASK)
 
     def enable_drdy_pin(self):
         self.set_bit_pattern(r.BM1422AGMV_CNTL2, b.BM1422AGMV_CNTL2_DREN_ENABLED, m.BM1422AGMV_CNTL2_DREN_MASK)
@@ -149,10 +148,10 @@ class BM1422AGMVDriver(SensorDriver):
         self.set_bit_pattern(r.BM1422AGMV_CNTL2, b.BM1422AGMV_CNTL2_DREN_DISABLED, m.BM1422AGMV_CNTL2_DREN_MASK)
 
     def set_drdy_low_active(self):
-        self.set_bit_pattern(r.BM1422AGMV_CNTL2, b.BM1422AGMV_CNTL2_DRP_LOWACTIVE, m.BM1422AGMV_CNTL2_DRP_MASK)
+        self.set_bit_pattern(r.BM1422AGMV_CNTL2, b.BM1422AGMV_CNTL2_DRP_LOW_ACTIVE, m.BM1422AGMV_CNTL2_DRP_MASK)
 
     def set_drdy_high_active(self):
-        self.set_bit_pattern(r.BM1422AGMV_CNTL2, b.BM1422AGMV_CNTL2_DRP_HIGHACTIVE, m.BM1422AGMV_CNTL2_DRP_MASK)
+        self.set_bit_pattern(r.BM1422AGMV_CNTL2, b.BM1422AGMV_CNTL2_DRP_HIGH_ACTIVE, m.BM1422AGMV_CNTL2_DRP_MASK)
 
     def set_interrupt_polarity(self, intpin=1, polarity=ACTIVE_LOW):
         assert intpin in self.int_pins
@@ -187,15 +186,15 @@ class BM1422AGMVDriver(SensorDriver):
         """
         Used by framework for poll loop. "Poll data ready register via i2c, return register status True/False"
         """
-        drdybit = self.read_register(r.BM1422AGMV_STA1)[0] & m.BM1422AGMV_STA1_DRDY_MASK
-        drdy_status = (drdybit == b.BM1422AGMV_STA1_DRDY_READY)
+        drdybit = self.read_register(r.BM1422AGMV_STA1)[0] & m.BM1422AGMV_STA1_RD_DRDY_MASK
+        drdy_status = (drdybit == b.BM1422AGMV_STA1_RD_DRDY)
         return drdy_status  # True/False
 
     def reset_drdy_pin(self):
         self.read_drdy()
 
     def read_magnetometer(self):
-        data = self.read_register(r.BM1422AGMV_DATAX, 6)
+        data = self.read_register(r.BM1422AGMV_DATAX_LSB, 6)
         dataout = struct.unpack('hhh', data)
         return dataout
 
@@ -206,12 +205,27 @@ class BM1422AGMVDriver(SensorDriver):
         #s_form = ()
         #data = self.read_register(r.BM1422AGMV_TEMP, 2)
         #s_form = s_form + struct.unpack('h', data)
-        data = self.read_register(r.BM1422AGMV_DATAX, 6)
+        data = self.read_register(r.BM1422AGMV_DATAX_LSB, 6)
         #s_form = s_form + struct.unpack('hhh', data)
         # return list(s_form)
         return struct.unpack('hhh', data)
 
     def read_temperature(self):
-        data = self.read_register(r.BM1422AGMV_TEMP, 2)
+        data = self.read_register(r.BM1422AGMV_TEMP_LSB, 2)
         temp_data = struct.unpack('h', data)
         return temp_data
+
+    def set_resolution(self, resolution):
+        """Set the sensor output data resolution.
+
+        Args:
+            resolution (int): Resolution in bits. Supported values: 12 and 14.
+        """
+        reg = r.BM1422AGMV_CNTL1
+        bit = b.BM1422AGMV_CNTL1_OUT_BIT
+        if resolution == 12:
+            self.reset_bit(reg, bit)
+        elif resolution == 14:
+            self.set_bit(reg, bit)
+        else:
+            raise ValueError("unsupported resolution {}".format(resolution))

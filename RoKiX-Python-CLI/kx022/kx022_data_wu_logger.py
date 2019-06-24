@@ -24,7 +24,7 @@ from kx_lib.kx_data_stream import StreamConfig
 from kx_lib.kx_util import evkit_config, get_drdy_pin_index
 from kx_lib.kx_data_logger import SingleChannelReader
 from kx_lib.kx_data_stream import RequestMessageDefinition
-from kx_lib.kx_configuration_enum import CFG_POLARITY, CFG_SAD, CFG_TARGET, CFG_PULLUP
+from kx_lib.kx_configuration_enum import CFG_POLARITY, CFG_SPI_PROTOCOL, CFG_SAD, CFG_TARGET, CFG_PULLUP
 
 from kx022.kx022_data_logger import enable_data_logging
 from kx022.kx022_test_wu import enable_wakeup, KX022Driver_wu
@@ -42,7 +42,7 @@ class ParameterSet1(object):
 
 class KX022DataWuStream(StreamConfig):
     fmt = '<BhhhB'
-    hdr = 'ch!ax!ay!az!stat'
+    hdr = 'ch!ax!ay!az!direction'
     reg = r.KX022_XOUT_L
 
     def __init__(self, sensors, pin_index=None, timer=None):
@@ -74,14 +74,17 @@ class KX022DataWuStream(StreamConfig):
 
         # read three separate register areas
         reg_read_cfgs = [(self.reg, 6, False),
-                         (r.KX022_STATUS_REG, 1, False),
+                         (r.KX022_INS3, 1, False),
                          (r.KX022_INT_REL, 1, True)]
         for addr_start, read_size, discard in reg_read_cfgs:
+            if self.sensor.resource.get(CFG_SPI_PROTOCOL, 0) == 1:
+                # With Kionix components, MSB must be set 1 to indicate reading
+                addr_start = addr_start | 1 << 7
             req = proto.add_macro_action_req(
                 macro_id,
                 action=proto.EVKIT_MACRO_ACTION_READ,
                 target=self.sensor.resource[CFG_TARGET],
-                identifier=self.sensor.resource[CFG_SAD],
+                identifier=self.sensor.get_identifier(),
                 discard=discard,
                 start_register=addr_start,
                 bytes_to_read=read_size)

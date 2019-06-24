@@ -216,3 +216,12 @@ def get_other_pin_index():
             'other_function_mode is configured to %s. Please select "ADAPTER_GPIO1_INT" or "ADAPTER_GPIO2_INT" instead'
             % other_f)
     return pin_index
+
+
+def adc_conv(raw, bits=12, gain=1.0, refv=0.6, divider=1):
+    # raw      = digits in 2's complement
+    # bits     = adc's resolution
+    # gain     = adc's front end gain
+    # refv     = adc's reference voltage
+    # divider  = external input voltage divider
+    return raw / ((gain / refv) * 2**bits) / divider

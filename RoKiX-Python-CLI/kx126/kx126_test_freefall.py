@@ -42,6 +42,8 @@ class Parameter_set_1: # pylint: disable=bad-whitespace
     lp_average                  = '16_SAMPLE_AVG'
     FF_THRESHOLD_VALUE          = 8                                 # threshold
     FF_COUNTER_VALUE            = 5                                 # timer (100Hz)
+    FFCNTL_ULMODE               = b.KX126_FFCNTL_ULMODE
+    FFCNTL_DCRM                 = b.KX126_FFCNTL_DCRM
 
 
 class KX126FFStream(StreamConfig):
@@ -120,8 +122,8 @@ def enable_freefall(sensor,
 
     # Free fall setup
     sensor.set_bit(r.KX126_FFCNTL, b.KX126_FFCNTL_FFIE)             # freefall enable
-    sensor.set_bit(r.KX126_FFCNTL, b.KX126_FFCNTL_ULMODE)           # latched int
-    sensor.set_bit(r.KX126_FFCNTL, b.KX126_FFCNTL_DCRM)
+    sensor.set_bit(r.KX126_FFCNTL, cfg.FFCNTL_ULMODE)           # latched int
+    sensor.set_bit(r.KX126_FFCNTL, cfg.FFCNTL_DCRM)
     sensor.set_bit_pattern(r.KX126_FFCNTL,
                            e.KX126_FFCNTL_OFFI[convert_to_enumkey(cfg.odr_OFFI)],
                            m.KX126_FFCNTL_OFFI_MASK)                # freefall odr

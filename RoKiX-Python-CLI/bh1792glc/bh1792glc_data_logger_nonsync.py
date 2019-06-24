@@ -42,7 +42,7 @@ _CODE_FORMAT_VERSION = 3.0
 class BH1792GLCDataStream(StreamConfig):
     fmt = "<BHHHHB"
     hdr = "ch!iroff!iron!NA!NA!int"
-    reg = r.BH1792_IRDATA_LEDOFF_L
+    reg = r.BH1792GLC_IRDATA_LEDOFF_LSB
 
     def __init__(self, sensors, pin_index=None, timer=None):
         "DRDY and timer data stream"

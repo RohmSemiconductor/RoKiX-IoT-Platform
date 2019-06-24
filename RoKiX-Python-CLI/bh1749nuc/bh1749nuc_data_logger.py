@@ -39,8 +39,8 @@ DEFAULT_ODR = 4.167
 
 
 class BH1749NUCDataStream(StreamConfig):
-    fmt = '<BHHHHHB'
-    hdr = 'ch!red!green!blue!ir!green2!stat'
+    fmt = '<BHHHHH'
+    hdr = 'ch!red!green!blue!ir!green2'
 
     def __init__(self, sensors, pin_index=None, timer=None):
         assert len(sensors) == 1
@@ -77,16 +77,17 @@ class BH1749NUCDataStream(StreamConfig):
         # The interrupt register is read separately, because the interrupt
         # isn't cleared properly if the register is read as part of a read that
         # doesn't start at the interrupt register address.
-        reg_read_cfgs = [(R.BH1749_RED_DATA_LSBS, 6),
-                         (R.BH1749_IR_DATA_LSBS, 4),
-                         (R.BH1749_INTERRUPT, 1)]
-        for addr_start, read_size in reg_read_cfgs:
+        reg_read_cfgs = [(R.BH1749NUC_RED_DATA_LSB, 6, False),
+                         (R.BH1749NUC_IR_DATA_LSB, 4, False),
+                         (R.BH1749NUC_INTERRUPT, 1, True)]
+        for addr_start, read_size, discard in reg_read_cfgs:
             req = proto.add_macro_action_req(
                 macro_id,
                 action=proto.EVKIT_MACRO_ACTION_READ,
                 target=self.sensor.resource[CFG_TARGET],
                 identifier=self.sensor.resource[CFG_SAD],
                 start_register=addr_start,
+                discard=discard,
                 bytes_to_read=read_size)
             self.adapter.send_message(req)
             self.adapter.receive_message(proto.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
@@ -103,13 +104,13 @@ def enable_data_logging(sensor,
     #
     # parameter validation
     #
-    assert rgb_gain in E.BH1749_MODE_CONTROL1_RGB_GAIN, \
+    assert rgb_gain in E.BH1749NUC_MODE_CONTROL1_RGB_GAIN, \
         'Invalid value for RGB gain. Valid values are %s' % \
-        E.BH1749_MODE_CONTROL1_RGB_GAIN.keys()
+        E.BH1749NUC_MODE_CONTROL1_RGB_GAIN.keys()
 
-    assert ir_gain in E.BH1749_MODE_CONTROL1_IR_GAIN, \
+    assert ir_gain in E.BH1749NUC_MODE_CONTROL1_IR_GAIN, \
         'Invalid value for IR gain. Valid values are %s' % \
-        E.BH1749_MODE_CONTROL1_IR_GAIN.keys()
+        E.BH1749NUC_MODE_CONTROL1_IR_GAIN.keys()
 
     # Set sensor to stand-by to enable setup change
     if power_off_on:
@@ -121,13 +122,13 @@ def enable_data_logging(sensor,
 
     # select ODR
     sensor.set_measurement_time(
-        E.BH1749_MODE_CONTROL1_ODR[convert_to_enumkey(odr)])
+        E.BH1749NUC_MODE_CONTROL1_MEASUREMENT_MODE[convert_to_enumkey(odr)])
 
     # Select rgb gain
-    sensor.set_rgb_gain(E.BH1749_MODE_CONTROL1_RGB_GAIN[rgb_gain])
+    sensor.set_rgb_gain(E.BH1749NUC_MODE_CONTROL1_RGB_GAIN[rgb_gain])
 
     # Select IR gain
-    sensor.set_ir_gain(E.BH1749_MODE_CONTROL1_IR_GAIN[ir_gain])
+    sensor.set_ir_gain(E.BH1749NUC_MODE_CONTROL1_IR_GAIN[ir_gain])
 
     #
     # interrupt pin routings and settings
@@ -135,8 +136,8 @@ def enable_data_logging(sensor,
 
     # Interrupt every time there's a new sample available.
     sensor.set_interrupt_persistence(
-        B.BH1749_PERSISTENCE_MODE_STATUS_ACTIVE_AFTER_MEASUREMENT)
-    sensor.set_interrupt_source_channel(B.BH1749_INTERRUPT_SOURCE_SELECT_RED)
+        B.BH1749NUC_PERSISTENCE_PERSISTENCE_ACTIVE_AFTER_MEASUREMENT)
+    sensor.set_interrupt_source_channel(B.BH1749NUC_INTERRUPT_INT_SOURCE_RED)
 
     # Set data-ready indication mode.
     drdymode = evkit_config.drdy_function_mode

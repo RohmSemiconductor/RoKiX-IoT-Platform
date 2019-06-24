@@ -83,8 +83,6 @@
             "connections": [
                 {
                     "connection": "USB_SERIAL",
-                    "vid": 1205,
-                    "pid": 1537,
                     "hw_id": [
                         {
                             "vid": 1205,

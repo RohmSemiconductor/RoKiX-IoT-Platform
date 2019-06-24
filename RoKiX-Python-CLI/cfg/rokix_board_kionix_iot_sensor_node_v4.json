@@ -70,12 +70,10 @@
                 {
                     "connection": "USB_SERIAL",
                     "packet_per_second": 400,
-                    "pid": 24597,
-                    "vid": 1027,
                     "hw_id": [
                         {
-                            "vid": 24597,
-                            "pid": 1027
+                            "vid": 1027,
+                            "pid": 24597
                         }
                     ],
                     "baud_rate": 460800,

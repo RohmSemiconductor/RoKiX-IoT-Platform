@@ -10,7 +10,8 @@ from collections import OrderedDict
  SENSOR_TYPE_DIGITAL_3D,
  SENSOR_TYPE_DIGITAL_6D,
  SENSOR_TYPE_ANALOG_1D,
- SENSOR_TYPE_ANALOG_3D] = range(6)
+ SENSOR_TYPE_ANALOG_3D,
+ SENSOR_TYPE_GPIO_1D] = range(7)
 
 
 BUS1 = 'bus1'
@@ -105,7 +106,7 @@ PULL_DICT = {
 DRIVELOW, DRIVEHIGH, NODRIVE = (0, 1, 2)
 
 # version number for board configuration json file
-SUPPORTED_BOARD_CONFIGURATION_VERSIONS = ["2.0", "2.1"]
+SUPPORTED_BOARD_CONFIGURATION_VERSIONS = ["2.1"]
 SUPPORTED_FIRMWARE_PROTOCOL_VERSIONS = ["2.0", "1.1", "1.2"]
 
 # protocol message max size

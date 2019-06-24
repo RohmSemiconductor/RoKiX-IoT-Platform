@@ -1,5 +1,5 @@
 {
-    "structure_version": "2.0",
+    "structure_version": "2.1",
     "protocol_version": [
         "2.0"
     ],
@@ -51,7 +51,7 @@
                             ]
                         },						
                         "KMX62": {
-                            "SAD": 14,
+                            "SAD": 15,
                             "gpio1": 1,
                             "gpio2": 2,
                             "axis_map": [
@@ -74,19 +74,6 @@
 								3,
 								4,
 								5
-                            ]
-                        },
-                        "KXG08": {
-                            "SAD": 79,
-                            "gpio1": 1,
-                            "gpio2": 2,
-                            "axis_map": [
-                                0,
-                                1,
-                                2,
-                                3,
-                                4,
-                                5
                             ]
                         }						
                     }

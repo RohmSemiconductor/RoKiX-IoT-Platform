@@ -46,80 +46,80 @@ class registers(register_base):
 	def __init__(self):
 		self.KX126_MAN_ID                                         = 0x00         # A burst read (reading using the auto-increment) of 4 bytes starting at address 00, returns the manufacturing ID: "K" "i" "o" "n" in ascii codes "0x4B" "0x69" "0x6F" "0x6E"
 		self.KX126_PART_ID                                        = 0x01         # A burst read (reading using the auto-increment) of 2 bytes starting at address 01, returns Who-Am-I value ("WAI") as the first byte (LSB) and a 2nd byte (MSB) that returns silicon specific ID.
-		self.KX126_XHP_L                                          = 0x02         # x - hp filter output
-		self.KX126_XHP_H                                          = 0x03         
+		self.KX126_XHP_L                                          = 0x02         # x - hp filter output.
+		self.KX126_XHP_H                                          = 0x03         # msb
 		self.KX126_YHP_L                                          = 0x04         # y - hp filter output
-		self.KX126_YHP_H                                          = 0x05         
+		self.KX126_YHP_H                                          = 0x05         # msb
 		self.KX126_ZHP_L                                          = 0x06         # z - hpfilteroutput
-		self.KX126_ZHP_H                                          = 0x07         
+		self.KX126_ZHP_H                                          = 0x07         # msb
 		self.KX126_XOUT_L                                         = 0x08         # output register x
-		self.KX126_XOUT_H                                         = 0x09         
+		self.KX126_XOUT_H                                         = 0x09         # msb
 		self.KX126_YOUT_L                                         = 0x0A         # output register y
-		self.KX126_YOUT_H                                         = 0x0B         
+		self.KX126_YOUT_H                                         = 0x0B         # msb
 		self.KX126_ZOUT_L                                         = 0x0C         # output register z
-		self.KX126_ZOUT_H                                         = 0x0D         
+		self.KX126_ZOUT_H                                         = 0x0D         # msb
 		self.KX126_PED_STP_L                                      = 0x0E         # 16bit pedometer step counter register
-		self.KX126_PED_STP_H                                      = 0x0F         
-		self.KX126_COTR                                           = 0x10         # Command Test Response
+		self.KX126_PED_STP_H                                      = 0x0F         # msb
+		self.KX126_COTR                                           = 0x10         # The Command Test Response (COTR) register is used to verify proper integrated circuit functionality
 		self.KX126_WHO_AM_I                                       = 0x11         # This register can be used for supplier recognition
-		self.KX126_TSCP                                           = 0x12         # This registers report current position data that is updated at the user-defined ODR frequency determined by OTP<1:0> in CNTL3
-		self.KX126_TSPP                                           = 0x13         # This register report previous and current position data that is updated at the user-defined ODR frequency determined by OTP<1:0> in CNTL3
-		self.KX126_INS1                                           = 0x14         # This register contains 2 step counter interrupts and contains the tap/double tap axis specific interrupts. Data is updated at the ODR settings determined by OTDT<2:0> in CNTL3.
+		self.KX126_TSCP                                           = 0x12         # The Tilt Status Current Position (TSCP) register reports the current tilt position.
+		self.KX126_TSPP                                           = 0x13         # The Tilt Status Previous Position (TSPP) register reports previous tilt position.
+		self.KX126_INS1                                           = 0x14         # The Interrupt Source 1 (INS1) register contains 2 step counter interrupts and contains the Tap/Double-TapTM axis specific interrupts.
 		self.KX126_INS2                                           = 0x15         # This Register tells witch function caused an interrupt.
-		self.KX126_INS3                                           = 0x16         # This register reports the axis and direction of detected motion and wake-up + back to sleep interrupts
-		self.KX126_STAT                                           = 0x17         # Status register
+		self.KX126_INS3                                           = 0x16         # The Interrupt Source 3 (INS3) register reports the interrupt status of the Wake-Up and Back-to-Sleep functions, as well as the axis and direction of the Wake-Up detected motion.
+		self.KX126_STAT                                           = 0x17         # The Status Register reports the status of whether the interrupt is present.
 		self.KX126_INT_REL                                        = 0x19         # Latched interrupt source information (INS1,INS2 except WMI/BFI and STAT when WMI/BFI is zero) is cleared and physical interrupt latched pin is changed to it's inactive state when this register is read.  Read value is dummy.
 		self.KX126_CNTL1                                          = 0x1A         # Control register 1. Read/write control register that controls the main feature set.
-		self.KX126_CNTL2                                          = 0x1B         # Control settings 2. Read/write control register that primarily controls tilt position state enabling.
-		self.KX126_CNTL3                                          = 0x1C         # Control settings 3. Read/write control register that provides more feature set control.
-		self.KX126_CNTL4                                          = 0x1D         # Control settings 4
-		self.KX126_CNTL5                                          = 0x1E         # Control settings 5
-		self.KX126_ODCNTL                                         = 0x1F         # This register is responsible for configuring ODR (output data rate) and filter settings
-		self.KX126_INC1                                           = 0x20         # Interrupt control 1. This register controls the settings for the physical interrupt pin INT1
-		self.KX126_INC2                                           = 0x21         # Interrupt control 2. This register controls which axis and direction of detected motion can cause an interrupt.
-		self.KX126_INC3                                           = 0x22         # Interrupt control 3. This register controls which axis and direction of tap/double tap can cause an interrupt.
-		self.KX126_INC4                                           = 0x23         # Interrupt control 4. This register controls routing of an interrupt reporting to physical interrupt pin INT1
-		self.KX126_INC5                                           = 0x24         # Interrupt control 5. This register controls the settings for the physical interrupt pin INT2.
-		self.KX126_INC6                                           = 0x25         # Interrupt control 6. This register controls routing of interrupt reporting to physical interrupt pin INT2
-		self.KX126_INC7                                           = 0x26         # Interrupt control 7This register controls routing of interrupt reporting to physical interrupt pins INT1 and INT2
+		self.KX126_CNTL2                                          = 0x1B         # The Control 2 (CNTL2) register primarily controls tilt position state enabling.
+		self.KX126_CNTL3                                          = 0x1C         # The Control 3 (CNTL3) register sets the output data rates for Tilt, Directional-TapTM, and the Motion Wake-Up digital engines.
+		self.KX126_CNTL4                                          = 0x1D         # The Control 4 (CNTL4) register 4 provides more feature set control
+		self.KX126_CNTL5                                          = 0x1E         # The Control 5 (CNTL5) register provides additional controls for wake-sleep engine
+		self.KX126_ODCNTL                                         = 0x1F         # The ODR Control (ODCNTL) register is responsible for configuring Output Data Rate (ODR) and low-pass filter settings.
+		self.KX126_INC1                                           = 0x20         # The Interrupt Control 1 (INC1) register controls the settings for the physical interrupt pin INT1, the Self-test function, and 3-wire SPI interface.
+		self.KX126_INC2                                           = 0x21         # The Interrupt Control 2 (INC2) register controls which axis and direction of detected motion can cause an interrupt.
+		self.KX126_INC3                                           = 0x22         # The Interrupt Control 3 (INC3) register controls which axis and direction of Tap/Double-TapTM can cause an interrupt.
+		self.KX126_INC4                                           = 0x23         # The Interrupt Control 4 (INC4) register controls routing of an interrupt reporting to physical interrupt pin INT1.
+		self.KX126_INC5                                           = 0x24         # The Interrupt Control 5 (INC5) register controls the settings for the physical interrupt pin INT2.
+		self.KX126_INC6                                           = 0x25         # The Interrupt Control 6 (INC6) register controls routing of interrupt reporting to physical interrupt pin INT2.
+		self.KX126_INC7                                           = 0x26         # The Interrupt Control 7 (INC7) register controls the pedometer (step counter) engine.
 		self.KX126_TILT_TIMER                                     = 0x27         # Tilt Position State Timer. This register is the initial count register for Tilt Position State timer. (0 to 255).  New state must be valid as many measurement periods before change is accepted. Reset applied for any write to TSC with TPE enabled
-		self.KX126_TDTRC                                          = 0x28         # Tap/Double Tap report control. This register is responsible for enableing/disabling reporting of Tap/Double Tap. Reset applied for any write to TDTRC with TDTE enabled
-		self.KX126_TDTC                                           = 0x29         # Tap/Double Tap Timer. TDTC - Total time for tap/double tap interrupt. (0 to 255). Default=120. For OTDT of 800Hz, the Tap/Double Tap timer is TDTC*2, and for OTDT of 1600Hz is TDTC*4. Reset applied for any write to TCTC with TDTE enabled
-		self.KX126_TTH                                            = 0x2A         # Tap Interrupt high limit threshold. TTH - High limit threshold for a tap. (0 to 255). Default=203. For all OTDT, the Tap Interrupt High Limit Threshold is TTH*2. Reset applied for any write to TTH with TDTE enabled
-		self.KX126_TTL                                            = 0x2B         # Tap Interrupt low limit threshold. TTL - Low limit threshold for a tap. (0 to 255). Default=26. Reset applied for any write to TTL with TDTE enabled
-		self.KX126_FTD                                            = 0x2C         # First Tap duration. FTD - Multiple peaks are disregarded within tap duration. FTDH - High limit. (0 to 31). Default=20. For OTDT of 800Hz, the First Tap Duration high limit is FTDH*2, and for OTDT of 1600Hz is FTDH*4.  FTDL - Low limit. (0 to 7). Default=2. For OTDT of 800Hz, the First Tap Duration low limit is FTDL*2, and for OTDT of 1600Hz is FTDL*4. Reset applied for any write to FTD with TDTE enabled
-		self.KX126_STD                                            = 0x2D         # Second Tap duration. STD - Multiple peaks are disregarded within tap duration. (0 to 63). Default=36. For OTDT of 800Hz, the Second Tap Duration is STD*2, and for OTDT of 1600Hz is STD*4. Reset applied for any write to FTD with TDTE enabled
-		self.KX126_TLT                                            = 0x2E         # Tap Latency Time. TLT - Latency time after first detected tap, where 2nd tap is ignored. (0 to 63).  Default=40. For OTDT of 800Hz, the Tap Latency Time is TLT*2, and for OTDT of 1600Hz is TLT*4. Reset applied for any write to TLT with TDTE enabled
-		self.KX126_TWS                                            = 0x2F         # TWS - Time window for 2nd tap. (0 to 255).  Default=160. For OTDT of 800Hz, the Time Window for 2nd Tap is TWS*2, and for OTDT of 1600Hz is TWS *4.
-		self.KX126_FFTH                                           = 0x30         # Freefall interrupt threshold. This value is compared to the top 8bits of the accelerometer 8g output. Reset applied for any write to FFTH with FFIE enabled
-		self.KX126_FFC                                            = 0x31         # Freefall interrupt counter. Every count is calculated as 1/ODR (ODT) delay period. Reset applied for any write to FFTH with FFIE enabled
-		self.KX126_FFCNTL                                         = 0x32         # Freefall interrupt control.
-		self.KX126_TILT_ANGLE_LL                                  = 0x34         # Low limit threshold for tilt position detection. Reset applied for any write to LL with TPE enabled
-		self.KX126_TILT_ANGLE_HL                                  = 0x35         # High limit threshold for tilt position detection. Reset applied for any write to HL with TPE enabled
-		self.KX126_HYST_SET                                       = 0x36         # Xeg - These 6 bits will be used in the algorithm for tilt position.  Xeg<5> - Z_gap control for tilt position .Xeg<4:0> - X' and Y' gain control for tilt position. Reset applied for any write to TPGC with TPE enabled
-		self.KX126_LP_CNTL                                        = 0x37         # Averaging Filter Control
-		self.KX126_WUFTH                                          = 0x3C         # Threshold for wakeup interrupt, 11bit threshold for Resolution=3.9mg/cnt. Reset applied for any write to WUFTH with WUFE or BTSE enabled
-		self.KX126_BTSWUFTH                                       = 0x3D         # Additional threshold bits for WUF and BTS. Resolution is 8g/2^11=3.9mg/cnt    Assuming the engine gets 12bit signed data (ADC 10bits + 2bits for 16x Oversampling). Reset applied for any write to BTSWUFTH with WUFE or BTSE enabled
-		self.KX126_BTSTH                                          = 0x3E         # Threshold for back to sleep interrupt,  11bit threshold for Resolution=3.9mg/cnt. Reset applied for any write to BTSTH with WUFE or BTSE enabled
-		self.KX126_BTSC                                           = 0x3F         # This register is the initial count register for the BTS motion detection timer (0 to 255 counts
-		self.KX126_WUFC                                           = 0x40         # This register is the initial count register for the WUF motion detection timer (0 to 255 counts).
-		self.KX126_PED_STPWM_L                                    = 0x41         # Lsb part of 16bit pedometer water-mark threshold . Reset applied for any write to PED_WM_L with PDE enabled
-		self.KX126_PED_STPWM_H                                    = 0x42         # MSB part of 16bit pedometer water-mark threshold. Reset applied for any write to PED_WM_H with PDE enabled
-		self.KX126_PED_CNTL1                                      = 0x43         # Pedometer control register 1
+		self.KX126_TDTRC                                          = 0x28         # The Tap/Double-TapTM Report Control (TDTRC) register is responsible for enabling/disabling reporting of Tap/Double-TapTM events.
+		self.KX126_TDTC                                           = 0x29         # The Tap/Double-TapTM Counter (TDTC) register contains counter information for the detection of a double tap event.
+		self.KX126_TTH                                            = 0x2A         # The Tap Threshold High (TTH) register represents the 8-bit jerk high threshold to determine if a tap is detected.
+		self.KX126_TTL                                            = 0x2B         # The Tap Threshold Low (TTL) register represents the 8-bit (0 255) jerk low threshold to determine if a tap is detected.
+		self.KX126_FTD                                            = 0x2C         # This register contains counter information for the detection of any tap event.
+		self.KX126_STD                                            = 0x2D         # This register contains counter information for the detection of a double tap event.
+		self.KX126_TLT                                            = 0x2E         # This register contains counter information for the detection of a tap event.
+		self.KX126_TWS                                            = 0x2F         # This register contains counter information for the detection of single and double taps.
+		self.KX126_FFTH                                           = 0x30         # The Free Fall Threshold (FFTH) register contains the threshold of the Free fall detection.
+		self.KX126_FFC                                            = 0x31         # The Free Fall Counter (FFC) register contains the counter setting of the Free fall detection.
+		self.KX126_FFCNTL                                         = 0x32         # The Free Fall Control (FFCNTL) register contains the control setting of the Free fall detection.
+		self.KX126_TILT_ANGLE_LL                                  = 0x34         # Tilt Angle Low Limit: This register sets the low-level threshold for tilt angle detection.
+		self.KX126_TILT_ANGLE_HL                                  = 0x35         # Tilt Angle High Limit: This register sets the high-level threshold for tilt angle detection.
+		self.KX126_HYST_SET                                       = 0x36         # This register sets the Hysteresis that is placed in between the Screen Rotation states.
+		self.KX126_LP_CNTL                                        = 0x37         # Low Power Control
+		self.KX126_WUFTH                                          = 0x3C         # Wake-up Function Threshold (WUFTH), Back-to-Sleep and Wake-Up Function Threshold (BTSWUFTH), and Back-to-Sleep Threshold (BTSTH) registers set the thresholds for Wake-up and Back-to-Sleep engines.
+		self.KX126_BTSWUFTH                                       = 0x3D         # Wake-up Function Threshold (WUFTH), Back-to-Sleep and Wake-Up Function Threshold (BTSWUFTH), and Back-to-Sleep Threshold (BTSTH) registers set the thresholds for Wake-up and Back-to-Sleep engines.
+		self.KX126_BTSTH                                          = 0x3E         # Wake-up Function Threshold (WUFTH), Back-to-Sleep and Wake-Up Function Threshold (BTSWUFTH), and Back-to-Sleep Threshold (BTSTH) registers set the thresholds for Wake-up and Back-to-Sleep engines.
+		self.KX126_BTSC                                           = 0x3F         # This register is the initial count register for the BTS motion detection timer (0 to 255 counts)
+		self.KX126_WUFC                                           = 0x40         # The Wake-Up Function Counter (WUFC) is the initial count register for the motion detection timer (0 to 255 counts)
+		self.KX126_PED_STPWM_L                                    = 0x41         # Pedometer Step Counter Watermark Low and High registers set the 16-bit count value used as a watermark threshold for step counting.
+		self.KX126_PED_STPWM_H                                    = 0x42         # msb
+		self.KX126_PED_CNTL1                                      = 0x43         # Pedometer Control register 1 (PED_CNTL1). The setting of this register is affected by pedometer engine ODR selection.
 		self.KX126_PED_CNTL2                                      = 0x44         # Pedometer control register 2.
-		self.KX126_PED_CNTL3                                      = 0x45         # Pedometer control register 3
-		self.KX126_PED_CNTL4                                      = 0x46         # Pedometer control register 4
-		self.KX126_PED_CNTL5                                      = 0x47         # Pedometer control register 5: A_l = 60; Minimum area of the peak (minimum impact from the floor). Values: 0, 1, ..., 255: with Al_fc -> 0, 1, ..., 255. Reset applied for any write to PED_CNTL5 with PDE enabled
-		self.KX126_PED_CNTL6                                      = 0x48         # Pedometer control register 6. M_h = 20;  ~ 0.80 sec maximum time interval for the peak. Values: 0, 1, ..., 63: with Mh_fc -> 0, 4, ..., 252. Reset applied for any write to PED_CNTL6 with PDE enabled
-		self.KX126_PED_CNTL7                                      = 0x49         # Pedometer control register 7: M_l = 6;  ~ 0.06 sec minimum time interval for the peak. Values: 0, 1, ..., 255.  Reset applied for any write to PED_CNTL7 with PDE enabled
-		self.KX126_PED_CNTL8                                      = 0x4A         # Pedometer control register 8. T_l = 5; ~ 0.05 sec time window for noise and delay time. Values: 0, 1, ..., 255. Reset applied for any write to PED_CNTL7 with PDE enabled
-		self.KX126_PED_CNTL9                                      = 0x4B         # Petormeter control register 9. T_m = 22.  ~ 0.80 sec time interval to prevent overflowing. Values: 0, 1, ..., 63: with Tm_fc -> 0, 4, ..., 252.  Reset applied for any write to PED_CNTL9 with PDE enabled
-		self.KX126_PED_CNTL10                                     = 0x4C         # Pedometer control register 10. T_p = 19.  ~ 0.18 sec minimum time interval for a single stride. Values: 0, 1, ..., 63. reset applied for any write to PED_CNTL10 with PDE enabled
+		self.KX126_PED_CNTL3                                      = 0x45         # Pedometer Control register 3 (PED_CNTL3).
+		self.KX126_PED_CNTL4                                      = 0x46         # Pedometer Control register 4 (PED_CNTL4).
+		self.KX126_PED_CNTL5                                      = 0x47         # Pedometer Control register 5 (PED_CNTL5). The setting of this register is affected by pedometer engine ODR selection.
+		self.KX126_PED_CNTL6                                      = 0x48         # Pedometer Control register 6 (PED_CNTL6). The setting of this register is affected by pedometer engine ODR selection.
+		self.KX126_PED_CNTL7                                      = 0x49         # Pedometer Control register 7 (PED_CNTL7).
+		self.KX126_PED_CNTL8                                      = 0x4A         # Pedometer Control register 8 (PED_CNTL8). The setting of this register is affected by pedometer engine ODR selection.
+		self.KX126_PED_CNTL9                                      = 0x4B         # Pedometer Control register 9 (PED_CNTL9). The setting of this register is affected by pedometer engine ODR selection.
+		self.KX126_PED_CNTL10                                     = 0x4C         # Pedometer Control register 10 (PED_CNTL10). The setting of this register is affected by pedometer engine ODR selection.
 		self.KX126_SELF_TEST                                      = 0x4D         # Self test initiation
-		self.KX126_BUF_CNTL1                                      = 0x5A         # SMP - sample bits (1 to 84). Sample bit indicating how many sample set can be store in the buffer. When BFRES=1, the maximum sample bit can be 41, and when BFRES=0, the maximum sample bit can be 84. Default=0.
-		self.KX126_BUF_CNTL2                                      = 0x5B         # Read/write control register that controls sample buffer operation
-		self.KX126_BUF_STATUS_1                                   = 0x5C         # This register reports the status of the sample buffer
-		self.KX126_BUF_STATUS_2                                   = 0x5D         # This register reports the status of the sample buffer trigger function
+		self.KX126_BUF_CNTL1                                      = 0x5A         # The Buffer Control 1 (BUF_CNTL1) register controls the buffer sample threshold
+		self.KX126_BUF_CNTL2                                      = 0x5B         # The Buffer Control 2 (BUF_CNTL2) register controls sample buffer operation
+		self.KX126_BUF_STATUS_1                                   = 0x5C         # Buffer Status: These register reports the status of the sample buffer.
+		self.KX126_BUF_STATUS_2                                   = 0x5D         # Buffer Status: These register reports the status of the sample buffer.
 		self.KX126_BUF_CLEAR                                      = 0x5E         # Latched buffer status information and the entire sample buffer are cleared when any data is written to this register.
 		self.KX126_BUF_READ                                       = 0x5F         # Buffer output register
 		self.KX127_WHO_AM_I                                       = 0x11         # This register can be used for supplier recognition
@@ -219,8 +219,8 @@ class bits(register_base):
 		self.KX126_CNTL4_OBTS_25                                  = (0x05 << 0)  # 101 = 25Hz
 		self.KX126_CNTL4_OBTS_50                                  = (0x06 << 0)  # 110 = 50Hz
 		self.KX126_CNTL4_OBTS_100                                 = (0x07 << 0)  # 111 = 100Hz
-		self.KX126_CNTL5_MAN_WAKE                                 = (0x01 << 1)  # man_wake - manual wake mode overwrite (forces ASIC into wake mode)
-		self.KX126_CNTL5_MAN_SLEEP                                = (0x01 << 0)  # man_sleep - manual sleep mode overwrite (forces ASIC into sleep mode)
+		self.KX126_CNTL5_MAN_WAKE                                 = (0x01 << 1)  # The manual wake overwrite bit
+		self.KX126_CNTL5_MAN_SLEEP                                = (0x01 << 0)  # The manual sleep overwrite bit
 		self.KX126_ODCNTL_IIR_BYPASS                              = (0x01 << 7)  # IIR_BYPASS - IIR filter bypass mode for debugging averaging filter.
 		self.KX126_ODCNTL_LPRO                                    = (0x01 << 6)  # LPRO - Low pass filter roll off control, 0=ODR/9, 1=ODR/2
 		self.KX126_ODCNTL_OSA_12P5                                = (0x00 << 0)  # 0000 = 12.5Hz Low power mode available
@@ -257,7 +257,7 @@ class bits(register_base):
 		self.KX126_INC2_YPWUE                                     = (0x01 << 2)  # YPWUE - y positive (y+) mask for WUF, 0=disable, 1=enable.
 		self.KX126_INC2_ZNWUE                                     = (0x01 << 1)  # ZNWUE - z negative (z-) mask for WUF, 0=disable, 1=enable.
 		self.KX126_INC2_ZPWUE                                     = (0x01 << 0)  # ZPWUE - z positive (z+) mask for WUF, 0=disable, 1=enable.
-		self.KX126_INC3_TMEM                                      = (0x01 << 6)  # enables/disables alternate tap masking scheme
+		self.KX126_INC3_TMEN                                      = (0x01 << 6)  # enables/disables alternate tap masking scheme
 		self.KX126_INC3_TLEM                                      = (0x01 << 5)  # x negative (x-): 0 = disabled, 1 = enabled
 		self.KX126_INC3_TRIM                                      = (0x01 << 4)  # x positive (x+): 0 = disabled, 1 = enabled
 		self.KX126_INC3_TDOM                                      = (0x01 << 3)  # y negative (y-): 0 = disabled, 1 = enabled
@@ -485,26 +485,38 @@ class enums(register_base):
 class masks(register_base):
 	def __init__(self):
 		self.KX126_COTR_DCSTR_MASK                                = 0xFF         # Command Test Response
-		self.KX126_WHO_AM_I_WAI_MASK                              = 0xFF         
-		self.KX126_INS1_TP_MASK                                   = 0x3F         # TPS - Tilt Position mask
+		self.KX126_WHO_AM_I_WAI_MASK                              = 0xFF         # WAI value for KX126
 		self.KX126_INS2_TDTS_MASK                                 = 0x0C         # TDTS(1,0) - status of tap/double tap, bit is released when interrupt latch release register (INL (00h,17h)) is read.
-		self.KX126_INS3_WU_MASK                                   = 0x3F         # WU directions mask
 		self.KX126_CNTL1_GSEL_MASK                                = 0x18         # Gsel - Selectable g-range bits
-		self.KX126_CNTL2_TP_MASK                                  = 0x3F         # Tilt Position mask
 		self.KX126_CNTL3_OTP_MASK                                 = 0xC0         # sets the output data rate for the Tilt Position function
 		self.KX126_CNTL3_OTDT_MASK                                = 0x38         # sets the output data rate for the Directional TapTM function
 		self.KX126_CNTL3_OWUF_MASK                                = 0x07         # sets the output data rate for the general motion detection function and the high-pass filtered outputs
 		self.KX126_CNTL4_OBTS_MASK                                = 0x07         # OBTS<2:0> - Back to sleep function output data rate
 		self.KX126_ODCNTL_OSA_MASK                                = 0x0F         # OSA<3:0> - Acceleration Output data rate.* Low power mode available, all other data rates will default to full power mode.
-		self.KX126_INC1_PW1_MASK                                  = 0xC0         # PW1 - Pulse interrupt width on INT1
+		self.KX126_INC1_PW1_MASK                                  = 0xC0         # Pulse interrupt 1 width configuration.
 		self.KX126_INC2_AOI_MASK                                  = 0x40         # AOI - And-Or configuration, 0=Or combination of selected directions, 1=And combination of selected axes
-		self.KX126_INC2_WUE_MASK                                  = 0x3F         # Directions of detected motion mask
-		self.KX126_INC3_TM_MASK                                   = 0x3F         # Directions of tap detection mask
 		self.KX126_INC5_PW2_MASK                                  = 0xC0         # PW2 - Pulse interrupt width on INT2
+		self.KX126_TILT_TIMER_TSC_MASK                            = 0xFF         # Tilt Position State Timer. This register is the initial count register for Tilt Position State timer. (0 to 255).  New state must be valid as many measurement periods before change is accepted. Reset applied for any write to TSC with TPE enabled
+		self.KX126_TDTC_TDTC_MASK                                 = 0xFF         # The Tap/Double-TapTM Counter (TDTC) register contains counter information for the detection of a double tap event.
+		self.KX126_TTH_TTH_MASK                                   = 0xFF         # The Tap Threshold High (TTH) register represents the 8-bit jerk high threshold to determine if a tap is detected.
+		self.KX126_TTL_TTL_MASK                                   = 0xFF         # The Tap Threshold Low (TTL) register represents the 8-bit (0 255) jerk low threshold to determine if a tap is detected.
+		self.KX126_FTD_FTD_MASK                                   = 0xFF         # This register contains counter information for the detection of any tap event.
+		self.KX126_STD_STD_MASK                                   = 0xFF         # This register contains counter information for the detection of a double tap event.
+		self.KX126_TLT_TLT_MASK                                   = 0xFF         # This register contains counter information for the detection of a tap event.
+		self.KX126_TWS_TWS_MASK                                   = 0xFF         # This register contains counter information for the detection of single and double taps.
+		self.KX126_FFTH_FFTH_MASK                                 = 0xFF         # The Free Fall Threshold (FFTH) register contains the threshold of the Free fall detection.
+		self.KX126_FFC_FFC_MASK                                   = 0xFF         # The Free Fall Counter (FFC) register contains the counter setting of the Free fall detection.
 		self.KX126_FFCNTL_OFFI_MASK                               = 0x07         # OFFI<2:0> - Freefall function output data rate
+		self.KX126_TILT_ANGLE_LL_LL_MASK                          = 0xFF         # Tilt Angle Low Limit: This register sets the low-level threshold for tilt angle detection.
+		self.KX126_TILT_ANGLE_HL_HL_MASK                          = 0xFF         # Tilt Angle High Limit: This register sets the high-level threshold for tilt angle detection.
+		self.KX126_HYST_SET_HYST_MASK                             = 0xFF         # This register sets the Hysteresis that is placed in between the Screen Rotation states.
 		self.KX126_LP_CNTL_AVC_MASK                               = 0x70         # Averaging Filter Control
 		self.KX126_BTSWUFTH_BTSTH8_10_MASK                        = 0x70         # msb part of BTS threshold
 		self.KX126_BTSWUFTH_WUFTH8_10_MASK                        = 0x07         # msb part of WUF threshold
+		self.KX126_BTSC_BTSC_MASK                                 = 0xFF         # This register is the initial count register for the BTS motion detection timer (0 to 255 counts)
+		self.KX126_WUFC_WUFC_MASK                                 = 0xFF         # The Wake-Up Function Counter (WUFC) is the initial count register for the motion detection timer (0 to 255 counts)
+		self.KX126_PED_STPWM_L_PED_STPWM_L_MASK                   = 0xFF         # Pedometer Step Counter Watermark Low and High registers set the 16-bit count value used as a watermark threshold for step counting.
+		self.KX126_PED_STPWM_H_PED_STPWM_H_MASK                   = 0xFF         # msb
 		self.KX126_PED_CNTL1_STP_TH_MASK                          = 0x70         # STP_TH<2:0> ; A threshold for discarding counting if not enough steps coming. Values: 0, 1, ..., 7. -> 0, 1, 2, 4, ..., 15. Reset applied for any write to PED_CNTL1 with PDE enabled
 		self.KX126_PED_CNTL1_MAG_SCALE_MASK                       = 0x0F         # MAG_SCALE<3:0>. Scaling factor for the input signal (x,y,z). Bit shift. Values: 16 bit data, 6; 12 bit data, 1; Reset applied for any write to PED_CNTL1 with PDE enabled
 		self.KX126_PED_CNTL2_HPS_MASK                             = 0x70         # hps = 3. Scaling factor for the output from the high-pass filter. Bit shift operation. Values: 0, 1, ..., 7. -> 1, 2, ..., 128. Reset applied for any write to PED_CNTL2 with PDE enabled
@@ -513,8 +525,14 @@ class masks(register_base):
 		self.KX126_PED_CNTL3_FCA_MASK                             = 0x07         # Scaling factor inside high-pass filter
 		self.KX126_PED_CNTL4_B_CNT_MASK                           = 0x70         # B_CNT<2:0> below_count[2:0] = 2; Samples below the zero threshold before setting e.g. Area == 0. Originally this was 0 samples. Values: 0, 1, ..., 7. -> 0, 2, 4, ..., 14. Reset applied for any write to PED_CNTL4 with PDE enabled
 		self.KX126_PED_CNTL4_A_H_MASK                             = 0x0F         # A_h = 15;  // Maximum area of the peak (maximum impact from the floor). Values: 0, 1, ..., 15: with Ah_fc -> 0, 1024, ..., 15360.  Reset applied for any write to PED_CNTL4 with PDE enabled
+		self.KX126_PED_CNTL5_A_L_MASK                             = 0xFF         # Pedometer Control register 5 (PED_CNTL5). The setting of this register is affected by pedometer engine ODR selection.
+		self.KX126_PED_CNTL6_M_H5_MASK                            = 0x3F         # Maximum time interval for the peak
+		self.KX126_PED_CNTL7_M_L_MASK                             = 0xFF         # Pedometer Control register 7 (PED_CNTL7).
+		self.KX126_PED_CNTL8_T_L_MASK                             = 0xFF         # Pedometer Control register 8 (PED_CNTL8). The setting of this register is affected by pedometer engine ODR selection.
+		self.KX126_PED_CNTL9_T_M_MASK                             = 0xFF         # Pedometer Control register 9 (PED_CNTL9). The setting of this register is affected by pedometer engine ODR selection.
+		self.KX126_PED_CNTL10_T_P_MASK                            = 0xFF         # Pedometer Control register 10 (PED_CNTL10). The setting of this register is affected by pedometer engine ODR selection.
 		self.KX126_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         # When 0xCA is written to this register, the MEMS self-test function is enabled. Electrostatic-actuation of the accelerometer, results in a DC shift of the X, Y and Z axis outputs. Writing 0x00 to this register will return the accelerometer to normal operation
-		self.KX126_BUF_CNTL2_SMP_TH8_9_MASK                       = 0x0C         # watermark level bits 8 and 9
+		self.KX126_BUF_CNTL2_SMP_TH8_9_MASK                       = 0x0C         # buffer sample control threshold msb
 		self.KX126_BUF_CNTL2_BUF_BM_MASK                          = 0x03         # selects the operating mode of the sample buffer
-		self.KX126_BUF_STATUS_2_SMP_LEV8_11_MASK                  = 0x0F         # level High mask
+		self.KX126_BUF_STATUS_2_SMP_LEV8_11_MASK                  = 0x0F         # buffer sample status level msb
 		self.KX127_WHO_AM_I_WAI_MASK                              = 0xFF         

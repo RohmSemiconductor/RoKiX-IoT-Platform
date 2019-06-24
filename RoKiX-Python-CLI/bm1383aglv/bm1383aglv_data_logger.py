@@ -42,7 +42,7 @@ _CODE_FORMAT_VERSION = 3.0
 class BM1383AGLVDataStream(StreamConfig):
     fmt = ">BBBBBh"
     hdr = "ch!stat!P_msb!P_lsb!P_xl!T_raw"
-    reg = r.BM1383AGLV_STATUS_REG
+    reg = r.BM1383AGLV_STATUS
 
     def __init__(self, sensors, pin_index=None, timer=None):
         "DRDY and timer data stream"
@@ -85,23 +85,21 @@ def enable_data_logging(sensor, odr, meas_time_ms=None):
         else:
             raise ValueError('invalid ODR')
 
-    # The key names are incorrect in the register file. The 50 ms keys
-    # will fetch 60 ms values.
     ave_num_map = {
-        (17, 6): 'AVG_1_50MS',
-        (17, 9): 'AVG_2_50MS',
-        (17, 16): 'AVG_4_50MS',
-        (17, 30): 'AVG_8_50MS',
-        (17, 60): 'AVG_16_50MS',
-        (8, 120): 'AVG_32_100MS',
-        (4, 240): 'AVG_64_200MS',
+        (17, 6): 'AVG_1_60MS',
+        (17, 9): 'AVG_2_60MS',
+        (17, 16): 'AVG_4_60MS',
+        (17, 30): 'AVG_8_60MS',
+        (17, 60): 'AVG_16_60MS',
+        (8, 120): 'AVG_32_120MS',
+        (4, 240): 'AVG_64_240MS',
     }
     try:
         odrkey = ave_num_map[(odr, meas_time_ms)]
     except KeyError:
         raise ValueError('invalid measurement time or ODR')
 
-    sensor.set_odr(e.BM1383AGLV_MODE_CONTROL_REG_AVE_NUM[odrkey])
+    sensor.set_odr(e.BM1383AGLV_MODE_CONTROL_AVE_NUM[odrkey])
 
     #
     # interrupts settings

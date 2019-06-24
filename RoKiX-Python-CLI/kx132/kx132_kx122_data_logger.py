@@ -68,7 +68,7 @@ class KX132KX122DataStream(StreamConfig):
             sensor=sensor_kx132,
             fmt="<Bhhh",
             hdr="ch!ax!ay!az",
-            reg=kx132_r.KX132_XOUT_L,
+            reg=kx132_r.KX132_1211_XOUT_L,
             pin_index=kx132_pin_index)
 
 

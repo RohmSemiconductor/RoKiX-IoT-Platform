@@ -45,6 +45,7 @@ def read_step_count(sensor,
 def start_step_count(sensor):
     kx126_pedometer.enable_pedometer(
         sensor, odr=100, cfg=kx126_pedometer_params.Pedometer_parameters_odr_100)
+    LOGGER.info('Pedometer started')
 
 
 def main():
@@ -55,9 +56,7 @@ def main():
     cm.add_sensor(sensor)
     if args.start_step_count:
         start_step_count(sensor)
-        sensor.register_dump()
     else:
-        sensor.register_dump()
         read_step_count(sensor)
 
 if __name__ == '__main__':

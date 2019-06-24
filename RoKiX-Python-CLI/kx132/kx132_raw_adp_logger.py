@@ -41,7 +41,7 @@ _CODE_FORMAT_VERSION = 3.0
 class KX132RmsDataStream(StreamConfig):
     fmt = "<Bhhhhhh"
     hdr = "ch!adp_x!adp_y!adp_z!ax!ay!az"
-    reg = r.KX132_XADP_L
+    reg = r.KX132_1211_XADP_L
 
     def __init__(self, sensors, pin_index=None, timer=None):
         "DRDY and timer data stream"
@@ -83,12 +83,12 @@ def configure_adp(sensor,
     assert (filter2_setting in list(filter2_values.keys()) +
             [None]), 'Invalid filter2_setting value "{}". Valid values are {}'.format(
                 filter2_setting, list(filter2_values.keys()) + [None])
-    assert (rms_average in list(e.KX132_ADP_CNTL1_RMS_AVC.keys()) +
+    assert (rms_average in list(e.KX132_1211_ADP_CNTL1_RMS_AVC.keys()) +
             [None]), 'Invalid rms_average value "{}". Valid values are {}'.format(
-                rms_average, list(e.KX132_ADP_CNTL1_RMS_AVC.keys() + [None]))
-    assert (convert_to_enumkey(adp_odr) in list(e.KX132_ADP_CNTL1_OADP.keys()) +
+                rms_average, list(e.KX132_1211_ADP_CNTL1_RMS_AVC.keys() + [None]))
+    assert (convert_to_enumkey(adp_odr) in list(e.KX132_1211_ADP_CNTL1_OADP.keys()) +
             [None]), 'Invalid adp_odr value "{}". Valid values are {}'.format(
-                convert_to_enumkey(adp_odr), list(e.KX132_ADP_CNTL1_OADP.keys() + [None]))
+                convert_to_enumkey(adp_odr), list(e.KX132_1211_ADP_CNTL1_OADP.keys() + [None]))
 
     if power_off_on:
         sensor.set_power_off()
@@ -102,9 +102,9 @@ def configure_adp(sensor,
     # set filter 2 setting
     sensor.set_adp_filter2(filter2_setting)
     # set ADP odr
-    sensor.set_odr(e.KX132_ADP_CNTL1_OADP[convert_to_enumkey(adp_odr)], channel=CH_ADP)
+    sensor.set_odr(e.KX132_1211_ADP_CNTL1_OADP[convert_to_enumkey(adp_odr)], channel=CH_ADP)
     # set rms sampling avg
-    avg = e.KX132_ADP_CNTL1_RMS_AVC.get(rms_average, None)
+    avg = e.KX132_1211_ADP_CNTL1_RMS_AVC.get(rms_average, None)
     sensor.set_average(avg, channel=CH_ADP)
 
     if power_off_on:

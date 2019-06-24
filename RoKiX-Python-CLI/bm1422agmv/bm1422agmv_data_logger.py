@@ -40,7 +40,7 @@ _CODE_FORMAT_VERSION = 3.0
 class BM1422AGMVDataStream(StreamConfig):
     fmt = "<Bhhh"
     hdr = "ch!mx!my!mz"
-    reg = r.BM1422AGMV_DATAX
+    reg = r.BM1422AGMV_DATAX_LSB
 
     def __init__(self, sensors, pin_index=None, timer=None):
         "DRDY and timer data stream"
@@ -65,7 +65,8 @@ class BM1422AGMVDataStream(StreamConfig):
 
 def enable_data_logging(sensor,
                         odr=20,
-                        avg="4TIMES"):
+                        avg="4TIMES",
+                        res=12):
 
     LOGGER.info('enable_data_logging start')
 
@@ -73,9 +74,9 @@ def enable_data_logging(sensor,
     # parameter validation
     #
 
-    assert avg in e.BM1422AGMV_AVER_AVG, \
+    assert avg in e.BM1422AGMV_AVE_A_AVE_A, \
         'Invalid value for avg. Valid values are %s' % \
-        e.BM1422AGMV_AVER_AVG.keys()
+        e.BM1422AGMV_AVE_A_AVE_A.keys()
 
     valid_odrs = e.BM1422AGMV_CNTL1_ODR.keys()
 
@@ -86,7 +87,9 @@ def enable_data_logging(sensor,
 
     sensor.set_odr(e.BM1422AGMV_CNTL1_ODR[convert_to_enumkey(odr)])
 
-    sensor.set_averaging(e.BM1422AGMV_AVER_AVG[avg])
+    sensor.set_averaging(e.BM1422AGMV_AVE_A_AVE_A[avg])
+
+    sensor.set_resolution(res)
 
     #
     # interrupts settings

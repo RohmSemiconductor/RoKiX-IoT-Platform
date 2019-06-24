@@ -43,7 +43,7 @@ _CODE_FORMAT_VERSION = 3.0
 class BH1792GLCDataStream(StreamConfig):
     fmt = "<BHH"
     hdr = "ch!ledoff!ledon"
-    reg = r.BH1792_FIFO_DATA0_L
+    reg = r.BH1792GLC_FIFODATA0_LSB
 
     def __init__(self, sensors, pin_index=None, timer=None):
         "DRDY data stream"
@@ -101,7 +101,7 @@ class BH1792GLCDataStream(StreamConfig):
             target=self.sensor.resource[CFG_TARGET],
             discard=True,
             identifier=self.sensor.resource[CFG_SAD],
-            start_register=r.BH1792_FIFO_LEV,
+            start_register=r.BH1792GLC_FIFO_LEV,
             bytes_to_read=1,
             append=False)
 
@@ -139,7 +139,7 @@ class BH1792GLCDataStream(StreamConfig):
             target=self.sensor.resource[CFG_TARGET],
             discard=True,
             identifier=self.sensor.resource[CFG_SAD],
-            start_register=r.BH1792_MEAS_SYNC,
+            start_register=r.BH1792GLC_MEAS_SYNC,
             write_buffer=write_buf,
         )
 
@@ -152,10 +152,10 @@ class BH1792GLCDataStream(StreamConfig):
 def enable_data_logging(sensor, odr, current):
 
     odrkey = str(convert_to_enumkey(odr)) + "HZ"
-    valid_odrs = e.BH1792_MEAS_CONTROL1_MSR.keys()
+    valid_odrs = e.BH1792GLC_MEAS_CONTROL1_MSR.keys()
     assert odrkey in valid_odrs, 'Invalid odr value "{}"'.format(odr)
 
-    mode = e.BH1792_MEAS_CONTROL1_MSR[convert_to_enumkey(odrkey)]
+    mode = e.BH1792GLC_MEAS_CONTROL1_MSR[convert_to_enumkey(odrkey)]
     sensor.set_sync_measurement(mode=mode, current=current)
     sensor.sync_measurement()
 

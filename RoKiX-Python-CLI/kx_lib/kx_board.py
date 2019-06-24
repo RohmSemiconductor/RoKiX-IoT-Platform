@@ -383,7 +383,12 @@ class ConnectionManager(object):
 
         # sensor.resource {u'gpio1': 0, u'SAD': 31, u'target': 4, u'name': u'KX122'}
         if isinstance(pin, int):
-            return sensor.resource[INT_GPIO_DICT[pin]]
+            try:
+                int_pin = sensor.resource[INT_GPIO_DICT[pin]]
+            except KeyError:
+                raise EvaluationKitException('Int pin "%s" is not available with board: "%s" and sensor: "%s"' %(pin, self.board_config_json, sensor.name))
+            else:
+                return int_pin
         elif isinstance(pin, list):
             return [sensor.resource.get(ADC_GPIO_DICT[ind]) for ind in ADC_GPIO_DICT if sensor.resource.get(ADC_GPIO_DICT[ind]) is not None]
 
@@ -470,7 +475,7 @@ class ConnectionManager(object):
                     break
 
             # verify that configuration is found
-            if sensor_driver.resource is None:
+            if not sensor_driver.resource:
                 raise EvaluationKitException(
                     ("Sensor '%s' not found from board configuration file '%s'. Possible reason is" +
                      " that wrong board configuration file selected in rokix_settings.cfg") % 
@@ -486,6 +491,8 @@ class ConnectionManager(object):
                 LOGGER.info('Sensor %s found. SPI CS pin 0x%x' % (sensor_driver.name, sensor_driver.resource[CFG_CS]))
             elif target_blob[CFG_NAME] == BUS1_ADC:
                 LOGGER.info('Sensor %s found. ADC pins used.' % (sensor_driver.name))
+            elif target_blob[CFG_NAME] == BUS1_GPIO:
+                LOGGER.info('Sensor %s found. GPIO pins used.' % sensor_driver.name)
             else:
                 assert 0, '%s not implemented' % target_blob[CFG_NAME]
 

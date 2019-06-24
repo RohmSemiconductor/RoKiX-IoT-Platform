@@ -82,9 +82,15 @@
                 {
                     "connection": "USB_SERIAL",
                     "packet_per_second": 400,
-                    "vid": 10755,
-                    "pid": 67,
                     "hw_id": [
+                        {
+                            "vid": 9025,
+                            "pid": 67
+                        },
+                        {
+                            "vid": 9025,
+                            "pid": 1
+                        },
                         {
                             "vid": 10755,
                             "pid": 67

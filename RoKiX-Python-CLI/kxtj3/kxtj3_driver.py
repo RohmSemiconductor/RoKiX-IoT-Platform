@@ -130,7 +130,7 @@ class KXTJ3Driver(SensorDriver):
 
         # select g-range and 12bit conversion
         self.set_range(b.KXTJ3_CTRL_REG1_GSEL_2G)
-        self.reset_bit(r.KXTJ3_CTRL_REG1, b.KXTJ3_CTRL_REG1_EN16G)
+        self.reset_bit(r.KXTJ3_CTRL_REG1, b.KXTJ3_CTRL_REG1_GSEL_16G)
 
         # resolution / power mode selection
         self.set_bit(r.KXTJ3_CTRL_REG1, b.KXTJ3_CTRL_REG1_RES)  # high resolution mode

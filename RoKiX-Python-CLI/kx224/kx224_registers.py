@@ -44,18 +44,18 @@
 class register_base: pass
 class registers(register_base):
 	def __init__(self):
-		self.KX224_XHP_L                                          = 0x00         # x- hp filter output
-		self.KX224_XHP_H                                          = 0x01         
+		self.KX224_XHP_L                                          = 0x00         # x- hp filter output.
+		self.KX224_XHP_H                                          = 0x01         # msb
 		self.KX224_YHP_L                                          = 0x02         # y- hp filter output
-		self.KX224_YHP_H                                          = 0x03         
+		self.KX224_YHP_H                                          = 0x03         # msb
 		self.KX224_ZHP_L                                          = 0x04         # z- hpfilteroutput
-		self.KX224_ZHP_H                                          = 0x05         
+		self.KX224_ZHP_H                                          = 0x05         # msb
 		self.KX224_XOUT_L                                         = 0x06         # output register x
-		self.KX224_XOUT_H                                         = 0x07         
+		self.KX224_XOUT_H                                         = 0x07         # msb
 		self.KX224_YOUT_L                                         = 0x08         # output register y
-		self.KX224_YOUT_H                                         = 0x09         
+		self.KX224_YOUT_H                                         = 0x09         # msb
 		self.KX224_ZOUT_L                                         = 0x0A         # output register z
-		self.KX224_ZOUT_H                                         = 0x0B         
+		self.KX224_ZOUT_H                                         = 0x0B         # msb
 		self.KX224_COTR                                           = 0x0C         # communication selftest
 		self.KX224_WHO_AM_I                                       = 0x0F         # WHO_AM_I
 		self.KX224_TSCP                                           = 0x10         # current sixfacet posititions
@@ -267,18 +267,14 @@ class bits(register_base):
 		self.KX224_LP_CNTL_AVC_32_SAMPLE_AVG                      = (0x05 << 4)  # 32 Samples Averaged
 		self.KX224_LP_CNTL_AVC_64_SAMPLE_AVG                      = (0x06 << 4)  # 64 Samples Averaged
 		self.KX224_LP_CNTL_AVC_128_SAMPLE_AVG                     = (0x07 << 4)  # 128 Samples Averaged
-		self.KX224_BUF_CNTL1_SMP_TH0_7                            = (0xFF << 0)  
 		self.KX224_BUF_CNTL2_BUFE                                 = (0x01 << 7)  # controls activation of the sample buffer
 		self.KX224_BUF_CNTL2_BRES                                 = (0x01 << 6)  # determines the resolution of the acceleration data samples collected by the sample
 		self.KX224_BUF_CNTL2_BFIE                                 = (0x01 << 5)  # buffer full interrupt enable bit
-		self.KX224_BUF_CNTL2_SMP_TH8_9                            = (0x0C << 2)  # watermark level bits 8 and 9
 		self.KX224_BUF_CNTL2_BUF_M_FIFO                           = (0x00 << 0)  # The buffer collects 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values and then stops collecting data, collecting new data only when the buffer is not full
 		self.KX224_BUF_CNTL2_BUF_M_STREAM                         = (0x01 << 0)  # The buffer holds the last 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values. Once the buffer is full, the oldest data is discarded to make room for newer data.
 		self.KX224_BUF_CNTL2_BUF_M_TRIGGER                        = (0x02 << 0)  # When a trigger event occurs, the buffer holds the last data set of SMP[9:0] samples before the trigger event and then continues to collect data until full. New data is collected only when the buffer is not full.
 		self.KX224_BUF_CNTL2_BUF_M_FILO                           = (0x03 << 0)  # The buffer holds the last 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values. Once the buffer is full, the oldest data is discarded to make room for newer data. Reading from the buffer in this mode will return the most recent data first.
-		self.KX224_BUF_STATUS_1_SMP_LEV0_7                        = (0xFF << 0)  
 		self.KX224_BUF_STATUS_2_BUF_TRIG                          = (0x01 << 7)  # reports the status of the buffers trigger function if this mode has been selected
-		self.KX224_BUF_STATUS_2_SMP_LEV8_10                       = (0x07 << 0)  # level High mask
 		self.KX224_SELF_TEST_MEMS_TEST_OFF                        = (0x00 << 0)  # MEMS Test OFF
 		self.KX224_SELF_TEST_MEMS_TEST_ON                         = (0xCA << 0)  # MEMS Test ON
 		self.KX222_WHO_AM_I_WIA_ID                                = (0x2C << 0)  # WHO_AM_I -value for KX222
@@ -397,8 +393,8 @@ class enums(register_base):
 		}
 class masks(register_base):
 	def __init__(self):
-		self.KX224_COTR_DCSTR_MASK                                = 0xFF         
-		self.KX224_WHO_AM_I_WIA_MASK                              = 0xFF         
+		self.KX224_COTR_DCSTR_MASK                                = 0xFF         # communication selftest value
+		self.KX224_WHO_AM_I_WIA_MASK                              = 0xFF         # WHO_AM_I -value
 		self.KX224_INS2_TDTS_MASK                                 = 0x0C         # status of tap/double tap, bit is released when interrupt release register INT_REL is read.
 		self.KX224_CNTL1_GSEL_MASK                                = 0x18         # selects the acceleration range of the accelerometer outputs
 		self.KX224_CNTL3_OTP_MASK                                 = 0xC0         # sets the output data rate for the Tilt Position function
@@ -408,20 +404,26 @@ class masks(register_base):
 		self.KX224_ODCNTL_OSA_MASK                                = 0x0F         # acceleration output data rate.
 		self.KX224_INC1_PWSEL1_MASK                               = 0xC0         # Pulse interrupt 1 width configuration
 		self.KX224_INC2_AOI_MASK                                  = 0x40         # AND OR configuration for motion detection
-		self.KX224_INC2_WUE_MASK                                  = 0x3F         
-		self.KX224_INC3_TM_MASK                                   = 0x3F         # tap directions
 		self.KX224_INC5_PWSEL2_MASK                               = 0xC0         # Pulse interrupt 2 width configuration
+		self.KX224_TILT_TIMER_TSC_MASK                            = 0xFF         # This register is the initial count register for the tilt position state timer
+		self.KX224_WUFC_WUFC_MASK                                 = 0xFF         # This register is the initial count register for the motion detection timer
+		self.KX224_TDTC_TDTC_MASK                                 = 0xFF         # This register contains counter information for the detection of a double tap event.
+		self.KX224_TTH_TTH_MASK                                   = 0xFF         # This register represents the 8-bit jerk high threshold to determine if a tap is detected.
+		self.KX224_TTL_TTL_MASK                                   = 0xFF         # This register represents the 8-bit (0d 255d) jerk low threshold to determine if a tap is detected.
+		self.KX224_FTD_FTD_MASK                                   = 0xFF         # This register contains counter information for the detection of any tap event.
+		self.KX224_STD_STD_MASK                                   = 0xFF         # This register contains counter information for the detection of a double tap event
+		self.KX224_TLT_TLT_MASK                                   = 0xFF         # This register contains counter information for the detection of a tap event.
+		self.KX224_TWS_TWS_MASK                                   = 0xFF         # This register contains counter information for the detection of single and double taps.
+		self.KX224_FFTH_FFTH_MASK                                 = 0xFF         # Free Fall Threshold
+		self.KX224_FFC_FFC_MASK                                   = 0xFF         # Free Fall Counter
 		self.KX224_FFCNTL_OFFI_MASK                               = 0x07         # Output Data Rate at which the Free fall engine performs its function.
-		self.KX224_HYST_SET_HYST_MASK                             = 0x3F         
+		self.KX224_ATH_ATH_MASK                                   = 0xFF         # This register sets the threshold for wake-up (motion detect) interrupt is set.
+		self.KX224_TILT_ANGLE_LL_TA_MASK                          = 0xFF         # This register sets the low level threshold for tilt angle detection.
+		self.KX224_TILT_ANGLE_HL_HL_MASK                          = 0xFF         # This register sets the high level threshold for tilt angle detection.
+		self.KX224_HYST_SET_HYST_MASK                             = 0x3F         # Hysteresis value
 		self.KX224_LP_CNTL_AVC_MASK                               = 0x70         # Averaging Filter Control
-		self.KX224_BUF_CNTL1_SMP_TH0_MASK                         = 0xFF         
-		self.KX224_BUF_CNTL1_SMP_TH0_7_MASK                       = 0xFF         
-		self.KX224_BUF_CNTL2_SMP_TH8_MASK                         = 0x0C         
-		self.KX224_BUF_CNTL2_SMP_TH8_9_MASK                       = 0x0C         
+		self.KX224_BUF_CNTL2_SMP_TH8_9_MASK                       = 0x0C         # msb value
 		self.KX224_BUF_CNTL2_BUF_M_MASK                           = 0x03         # selects the operating mode of the sample buffer
-		self.KX224_BUF_STATUS_1_SMP_LEV0_MASK                     = 0xFF         
-		self.KX224_BUF_STATUS_1_SMP_LEV0_7_MASK                   = 0xFF         
-		self.KX224_BUF_STATUS_2_SMP_LEV8_MASK                     = 0x07         
-		self.KX224_BUF_STATUS_2_SMP_LEV8_10_MASK                  = 0x07         
-		self.KX224_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         
+		self.KX224_BUF_STATUS_2_SMP_LEV8_10_MASK                  = 0x07         # msb value
+		self.KX224_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         # Self test value
 		self.KX222_WHO_AM_I_WIA_MASK                              = 0xFF         

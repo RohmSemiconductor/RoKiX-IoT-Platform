@@ -80,22 +80,6 @@
                                 4,
                                 5
                             ]
-                        },
-                        "KXG08": {
-                            "SAD": 78,
-                            "gpio1": 0,
-                            "axis_map": [
-                                0,
-                                1,
-                                2,
-                                3,
-                                4,
-                                5
-                            ]
-                        },
-                        "BD99954": {
-                            "SAD": 9,
-                            "gpio1": 0
                         }
                     }
                 }
@@ -105,8 +89,6 @@
             "connections": [
                 {
                     "connection": "USB_SERIAL",
-                    "vid": 1205,
-                    "pid": 1537,
                     "hw_id": [
                         {
                             "vid": 1205,

@@ -10,9 +10,9 @@ import shutil
 from google.oauth2 import service_account
 from google.cloud import storage
 
-'''
-    python get_configs.py cfg\configurations-reader.json
-'''
+
+# python get_configs.py cfg\configurations-reader.json
+
 EXTENSIONS = ['.JSON', '.json', '.TXT', '.txt', '.xml', '.XML']
 PROJECT_ID = 'rokix-configuration-releases'
 
@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
         'sa_account_json_key',
-        default='cfg\configurations-reader.json',
+        default='cfg/configurations-reader.json',
         nargs='?',
         help='Service account json key file'
     )

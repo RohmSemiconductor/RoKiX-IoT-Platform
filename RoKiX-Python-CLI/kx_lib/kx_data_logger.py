@@ -27,11 +27,12 @@ class DataloggerBase(object):
             args : global parameters
         """
 
+        # override .cfg parameters in application if needed
+        self.override_config_parameters()
+
         # override .cfg paramters with command line arguments
         if kwargs_parser:
             kwargs_parser()
-        # override .cfg parameters in application if needed
-        self.override_config_parameters()
 
         self.sensors = []
         self.sensor = None

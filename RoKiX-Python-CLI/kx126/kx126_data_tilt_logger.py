@@ -24,7 +24,7 @@ import imports  # pylint: disable=unused-import
 from kx_lib import kx_logger
 from kx_lib.kx_data_stream import StreamConfig
 from kx_lib.kx_util import get_drdy_pin_index, get_drdy_timer, evkit_config, convert_to_enumkey
-from kx_lib.kx_configuration_enum import CH_ACC, POLARITY_DICT, CFG_POLARITY, CFG_SAD, CFG_TARGET, CFG_PULLUP
+from kx_lib.kx_configuration_enum import CH_ACC, CFG_SPI_PROTOCOL, POLARITY_DICT, CFG_POLARITY, CFG_SAD, CFG_TARGET, CFG_PULLUP
 from kx_lib.kx_data_logger import SingleChannelReader
 from kx_lib.kx_data_stream import RequestMessageDefinition
 from kx126.kx126_driver import KX126Driver, r, b, m, e
@@ -40,7 +40,7 @@ _CODE_FORMAT_VERSION = 3.0
 
 class KX126DataTiltStream(StreamConfig):
     fmt = "<BhhhB"
-    hdr = "ch!ax!ay!az!tscp"
+    hdr = "ch!ax!ay!az!tiltpos"
     reg = r.KX126_XOUT_L
 
     def __init__(self, sensors, pin_index=None, timer=None):
@@ -79,11 +79,14 @@ class KX126DataTiltStream(StreamConfig):
                          (r.KX126_TSCP, 1, False),
                          (r.KX126_INT_REL, 1, True)]
         for addr_start, read_size, discard in reg_read_cfgs:
+            if self.sensor.resource.get(CFG_SPI_PROTOCOL, 0) == 1:
+                # With Kionix components, MSB must be set 1 to indicate reading
+                addr_start = addr_start | 1 << 7
             req = proto.add_macro_action_req(
                 macro_id,
                 action=proto.EVKIT_MACRO_ACTION_READ,
                 target=self.sensor.resource[CFG_TARGET],
-                identifier=self.sensor.resource[CFG_SAD],
+                identifier=self.sensor.get_identifier(),
                 discard=discard,
                 start_register=addr_start,
                 bytes_to_read=read_size)

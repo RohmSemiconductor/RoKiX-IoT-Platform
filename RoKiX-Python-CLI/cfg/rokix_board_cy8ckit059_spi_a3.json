@@ -4,7 +4,7 @@
         "2.0"
     ],
     "configuration": {
-        "name": "CY8CKIT-059 / RoKiX adapter / SPI",
+        "name": "CY8CKIT-059 / RoKiX adapter A3 / SPI",
         "doc": "Cypress CY8CKIT-059 with RoKiX Adapter board A3 and SPI connected sensor on Kionix Sensor evaluation board.",
         "board_id": 10,
         "cpu_freq_mhz": 74,
@@ -61,18 +61,6 @@
                                 1,
                                 2
                             ]
-                        },
-                        "KXG08": {
-                            "cs": 0,
-                            "gpio1": 0,
-                            "axis_map": [
-                                0,
-                                1,
-                                2,
-                                3,
-                                4,
-                                5
-                            ]
                         }
                     }
                 }
@@ -82,8 +70,6 @@
             "connections": [
                 {
                     "connection": "USB_SERIAL",
-                    "vid": 1205,
-                    "pid": 1537,
                     "hw_id": [
                         {
                             "vid": 1205,

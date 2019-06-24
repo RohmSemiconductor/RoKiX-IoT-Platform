@@ -133,9 +133,17 @@ class KX126DoubleTapStream(StreamConfig):
 
 
 def enable_double_tap(sensor,
+                      direction_mask=None,
                       cfg=Parameter_set_1,
                       int_number=2,
                       power_off_on=True):
+    if direction_mask is None:
+        direction_mask = (b.KX126_INC3_TLEM  # x- left set
+                          | b.KX126_INC3_TRIM  # x+ right set
+                          | b.KX126_INC3_TDOM  # y- back set
+                          | b.KX126_INC3_TUPM  # y+ front set
+                          | b.KX126_INC3_TFDM  # z- down set
+                          | b.KX126_INC3_TFUM)  # z+ up set
 
     LOGGER.info('Double tap event init start')
 
@@ -192,13 +200,13 @@ def enable_double_tap(sensor,
     #
 
     # Init tap directions
-    sensor.write_register(r.KX126_INC3, 0)          # all off, default is all on
-    sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TLEM)  # x- left set
-    sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TRIM)  # x+ right set
-    sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TDOM)  # y- back set
-    sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TUPM)  # y+ front set
-    sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TFDM)  # z- down set
-    sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TFUM)  # z+ up set
+    sensor.write_register(r.KX126_INC3, direction_mask)          # all off, default is all on
+    # sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TLEM)  # x- left set
+    # sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TRIM)  # x+ right set
+    # sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TDOM)  # y- back set
+    # sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TUPM)  # y+ front set
+    # sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TFDM)  # z- down set
+    # sensor.set_bit(r.KX126_INC3, b.KX126_INC3_TFUM)  # z+ up set
 
     # Disable/enable single tap and double tap interrupt
     sensor.write_register(r.KX126_TDTRC, cfg.KX126_TDTRC_VALUE)

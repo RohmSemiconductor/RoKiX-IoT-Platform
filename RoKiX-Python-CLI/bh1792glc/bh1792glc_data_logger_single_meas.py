@@ -42,7 +42,7 @@ LOGGER = kx_logger.get_logger(__name__)
 class BH1792GLCDataStream(StreamConfig):
     fmt = "<BHH"
     hdr = "ch!ledoff!ledon"
-    reg = r.BH1792_DATAOUT_LEDOFF_L
+    reg = r.BH1792GLC_GDATA_LEDOFF_LSB
 
     def __init__(self, sensors, pin_index=None, timer=None):
         "DRDY data stream"
@@ -97,7 +97,7 @@ class BH1792GLCDataStream(StreamConfig):
             discard=True,
             target=sensors[0].resource[CFG_TARGET],
             identifier=sensors[0].resource[CFG_SAD],
-            start_register=r.BH1792_INT_CLEAR,
+            start_register=r.BH1792GLC_INT_CLEAR,
             append=False,
             bytes_to_read=1)
 
@@ -112,7 +112,7 @@ class BH1792GLCDataStream(StreamConfig):
             discard=True,
             target=sensors[0].resource[CFG_TARGET],
             identifier=sensors[0].resource[CFG_SAD],
-            start_register=r.BH1792_MEAS_START,
+            start_register=r.BH1792GLC_MEAS_START,
             write_buffer=write_buf,
         )
 

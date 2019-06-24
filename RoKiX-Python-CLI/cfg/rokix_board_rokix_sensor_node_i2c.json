@@ -43,19 +43,6 @@
                                 5
                             ]
                         },
-                        "KXG08": {
-                            "SAD": 79,
-                            "gpio1": 47,
-                            "gpio2": 38,
-                            "axis_map": [
-                                0,
-                                1,
-                                2,
-                                3,
-                                4,
-                                5
-                            ]
-                        },
                         "BM1383AGLV": {
                             "SAD": 93,
                             "gpio1": 45,
@@ -119,8 +106,6 @@
             "connections": [
                 {
                     "connection": "USB_SERIAL",
-                    "vid": 1205,
-                    "pid": 1538,
                     "hw_id": [
                         {
                             "vid": 1205,

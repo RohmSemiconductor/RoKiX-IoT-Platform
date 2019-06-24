@@ -43,19 +43,6 @@
                                 5
                             ]
                         },
-                        "KXG08": {
-                            "SAD": 79,
-                            "gpio1": 47,
-                            "gpio2": 38,
-                            "axis_map": [
-                                0,
-                                1,
-                                2,
-                                3,
-                                4,
-                                5
-                            ]
-                        },
                         "BM1383AGLV": {
                             "SAD": 93,
                             "gpio1": 45,
@@ -131,6 +118,16 @@
                                 2
                             ]
                         },
+                        "KX134-1211": {
+                            "SAD": 31,
+                            "gpio1": 44,
+                            "gpio2": 33,
+                            "axis_map": [
+                                0,
+                                1,
+                                2
+                            ]
+                        },
 						"KXTJ3": {
                             "SAD": 15,
                             "gpio1": 44,
@@ -139,13 +136,7 @@
                                 1,
                                 2
                             ]
-                        },
-                        "BH1792GLC": {
-                            "SAD": 91,
-                            "gpio1": 44,
-                            "pullup": "EVKIT_GPIO_PIN_PULLUP",
-                            "polarity": "EVKIT_GPIO_PIN_SENSE_LOW"
-                        }                        
+                        }
                     }
                 }
             ]
@@ -154,8 +145,6 @@
             "connections": [
                 {
                     "connection": "USB_SERIAL",
-                    "vid": 1205,
-                    "pid": 1538,
                     "hw_id": [
                         {
                             "vid": 1205,

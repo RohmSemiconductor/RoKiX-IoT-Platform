@@ -31,19 +31,6 @@
                                 1,
                                 2
                             ]
-                        },
-                        "KXG08": {
-                            "cs": 5,
-                            "gpio1": 47,
-                            "gpio2": 38,
-                            "axis_map": [
-                                0,
-                                1,
-                                2,
-                                3,
-                                4,
-                                5
-                            ]
                         }
                     }
                 },
@@ -88,8 +75,6 @@
             "connections": [
                 {
                     "connection": "USB_SERIAL",
-                    "vid": 1205,
-                    "pid": 1538,
                     "hw_id": [
                         {
                             "vid": 1205,

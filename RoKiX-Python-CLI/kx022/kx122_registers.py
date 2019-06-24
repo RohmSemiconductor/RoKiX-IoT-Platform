@@ -44,55 +44,55 @@
 class register_base: pass
 class registers(register_base):
 	def __init__(self):
-		self.KX122_XHP_L                                          = 0x00         # x- hp filter output
-		self.KX122_XHP_H                                          = 0x01         
+		self.KX122_XHP_L                                          = 0x00         # x- hp filter output.
+		self.KX122_XHP_H                                          = 0x01         # msb
 		self.KX122_YHP_L                                          = 0x02         # y- hp filter output
-		self.KX122_YHP_H                                          = 0x03         
+		self.KX122_YHP_H                                          = 0x03         # msb
 		self.KX122_ZHP_L                                          = 0x04         # z- hpfilteroutput
-		self.KX122_ZHP_H                                          = 0x05         
+		self.KX122_ZHP_H                                          = 0x05         # msb
 		self.KX122_XOUT_L                                         = 0x06         # output register x
-		self.KX122_XOUT_H                                         = 0x07         
+		self.KX122_XOUT_H                                         = 0x07         # msb
 		self.KX122_YOUT_L                                         = 0x08         # output register y
-		self.KX122_YOUT_H                                         = 0x09         
+		self.KX122_YOUT_H                                         = 0x09         # msb
 		self.KX122_ZOUT_L                                         = 0x0A         # output register z
-		self.KX122_ZOUT_H                                         = 0x0B         
+		self.KX122_ZOUT_H                                         = 0x0B         # msb
 		self.KX122_COTR                                           = 0x0C         # communication selftest
-		self.KX122_WHO_AM_I                                       = 0x0F         # WHO_AM_I
-		self.KX122_TSCP                                           = 0x10         # current sixfacet posititions
-		self.KX122_TSPP                                           = 0x11         # previous six facet positions
-		self.KX122_INS1                                           = 0x12         # This register indicates the triggering axis when a tap/double tap interrupt occurs.
-		self.KX122_INS2                                           = 0x13         # This register tells witch function caused an interrupt.
-		self.KX122_INS3                                           = 0x14         # This register reports the axis and direction of detected motion.
-		self.KX122_STATUS_REG                                     = 0x15         # This register reports the status of the interrupt.
+		self.KX122_WHO_AM_I                                       = 0x0F         # This register can be used for supplier recognition
+		self.KX122_TSCP                                           = 0x10         # Current Tilt Position Register.
+		self.KX122_TSPP                                           = 0x11         # Previous Tilt Positon Register.
+		self.KX122_INS1                                           = 0x12         # The Interrupt Source 1 (INS1) register indicates the triggering axis when a Tap/Double interrupt occurs
+		self.KX122_INS2                                           = 0x13         # The Interrupt Source 2 (INS2) register reports which function caused an interrupt.
+		self.KX122_INS3                                           = 0x14         # The Interrupt Source 3 (INS3) register reports the axis and direction of detected motion.
+		self.KX122_STATUS_REG                                     = 0x15         # The Status Register reports the status of whether the interrupt is present.
 		self.KX122_INT_REL                                        = 0x17         # Latched interrupt source information (INS1,INS2, INS3 except WMI/BFI and INT when WMI/BFI is zero) is cleared and physical interrupt latched pin is changed to its inactive state when this register is read. Read value is dummy.
-		self.KX122_CNTL1                                          = 0x18         # Read/write control register that controls the main feature set.
-		self.KX122_CNTL2                                          = 0x19         # 2' control register
-		self.KX122_CNTL3                                          = 0x1A         # 3' controlregister
-		self.KX122_ODCNTL                                         = 0x1B         # This register is responsible for configuring ODR (output data rate) and filter settings
-		self.KX122_INC1                                           = 0x1C         # This register controls the settings for the physical interrupt pin INT1
-		self.KX122_INC2                                           = 0x1D         # This register controls which axis and direction of detected motion can cause an interrupt.
-		self.KX122_INC3                                           = 0x1E         # This register controls which axis and direction of tap/double tap can cause an interrup
-		self.KX122_INC4                                           = 0x1F         # This register controls routing of an interrupt reporting to physical interrupt pin INT1
-		self.KX122_INC5                                           = 0x20         # This register controls the settings for the physical interrupt pin INT2.
-		self.KX122_INC6                                           = 0x21         # This register controls routing of interrupt reporting to physical interrupt pin INT2
-		self.KX122_TILT_TIMER                                     = 0x22         # This register is the initial count register for the tilt position state timer
-		self.KX122_WUFC                                           = 0x23         # This register is the initial count register for the motion detection timer
-		self.KX122_TDTRC                                          = 0x24         # This register is responsible for enableing/disabling reporting of Tap/Double Tap.
-		self.KX122_TDTC                                           = 0x25         # This register contains counter information for the detection of a double tap event.
-		self.KX122_TTH                                            = 0x26         # This register represents the 8-bit jerk high threshold to determine if a tap is detected.
-		self.KX122_TTL                                            = 0x27         # This register represents the 8-bit (0d 255d) jerk low threshold to determine if a tap is detected.
+		self.KX122_CNTL1                                          = 0x18         # The Control 1 (CNTL1) register controls the main feature set of the accelerometer.
+		self.KX122_CNTL2                                          = 0x19         # The Control 2 (CNTL2) register provides additional feature set control.
+		self.KX122_CNTL3                                          = 0x1A         # The Control 3 (CNTL3) register sets the output data rates for Tilt, Directional-TapTM, and the Motion Wake-Up digital engines.
+		self.KX122_ODCNTL                                         = 0x1B         # The ODR Control (ODCNTL) register is responsible for configuring Output Data Rate (ODR) and lowpass filter settings.
+		self.KX122_INC1                                           = 0x1C         # The Interrupt Control 1 (INC1) register controls the settings for the physical interrupt pin INT1, the Selftest function, and 3-wire SPI interface.
+		self.KX122_INC2                                           = 0x1D         # The Interrupt Control 2 (INC2) register controls which axis and direction of detected motion can cause an interrupt.
+		self.KX122_INC3                                           = 0x1E         # The Interrupt Control 3 (INC3) register controls which axis and direction of Tap/Double-TapTM can cause an interrupt.
+		self.KX122_INC4                                           = 0x1F         # The Interrupt Control 4 (INC4) register controls routing of an interrupt reporting to physical interrupt pin INT1
+		self.KX122_INC5                                           = 0x20         # The Interrupt Control 5 (INC5) register controls the settings for the physical interrupt pin INT2.
+		self.KX122_INC6                                           = 0x21         # The Interrupt Control 6 (INC6) register controls routing of interrupt reporting to physical interrupt pin INT2.
+		self.KX122_TILT_TIMER                                     = 0x22         # This register is the initial count register for the tilt position state timer (0 to 255 counts).
+		self.KX122_WUFC                                           = 0x23         # The Wake-Up Function Counter (WUFC) is the initial count register for the motion detection timer (0 to 255)
+		self.KX122_TDTRC                                          = 0x24         # The Tap/Double-TapTM Report Control (TDTRC) register is responsible for enabling/disabling reporting of Tap/Double-TapTM events.
+		self.KX122_TDTC                                           = 0x25         # The Tap/Double-TapTM Counter (TDTC) register contains counter information for the detection of a double tap event.
+		self.KX122_TTH                                            = 0x26         # The Tap Threshold High (TTH) register represents the 8-bit jerk high threshold to determine if a tap is detected.
+		self.KX122_TTL                                            = 0x27         # The Tap Threshold Low (TTL) register represents the 8-bit (0-255) jerk low threshold to determine if a tap is detected.
 		self.KX122_FTD                                            = 0x28         # This register contains counter information for the detection of any tap event.
-		self.KX122_STD                                            = 0x29         # This register contains counter information for the detection of a double tap event
+		self.KX122_STD                                            = 0x29         # This register contains counter information for the detection of a double tap event.
 		self.KX122_TLT                                            = 0x2A         # This register contains counter information for the detection of a tap event.
 		self.KX122_TWS                                            = 0x2B         # This register contains counter information for the detection of single and double taps.
-		self.KX122_FFTH                                           = 0x2C         # Free Fall Threshold
-		self.KX122_FFC                                            = 0x2D         # Free Fall Counter
-		self.KX122_FFCNTL                                         = 0x2E         # Free Fall Control: This register contains the counter setting of the Free fall detection.
-		self.KX122_ATH                                            = 0x30         # This register sets the threshold for wake-up (motion detect) interrupt is set.
-		self.KX122_TILT_ANGLE_LL                                  = 0x32         # This register sets the low level threshold for tilt angle detection.
-		self.KX122_TILT_ANGLE_HL                                  = 0x33         # This register sets the high level threshold for tilt angle detection.
-		self.KX122_HYST_SET                                       = 0x34         # This register sets the Hysteresis that is placed in between the Screen Rotation states
-		self.KX122_LP_CNTL                                        = 0x35         # Low Power Control sets the number of samples of accelerometer output to be average
+		self.KX122_FFTH                                           = 0x2C         # The Free Fall Threshold (FFTH) register contains the threshold of the Free fall detection.
+		self.KX122_FFC                                            = 0x2D         # The Free Fall Counter (FFC) register contains the counter setting of the Free fall detection.
+		self.KX122_FFCNTL                                         = 0x2E         # The Free Fall Control (FFCNTL) register contains the control setting of the Free fall detection.
+		self.KX122_ATH                                            = 0x30         # The Activity Threshold (ATH) register sets the threshold for wake-up (motion detect) interrupt is set.
+		self.KX122_TILT_ANGLE_LL                                  = 0x32         # Tilt Angle Low Limit: This register sets the low-level threshold for tilt angle detection.
+		self.KX122_TILT_ANGLE_HL                                  = 0x33         # Tilt Angle High Limit: This register sets the high-level threshold for tilt angle detection
+		self.KX122_HYST_SET                                       = 0x34         # This register sets the Hysteresis that is placed in between the Screen Rotation states.
+		self.KX122_LP_CNTL                                        = 0x35         # The Averaging Filter Control set
 		self.KX122_BUF_CNTL1                                      = 0x3A         # Read/write control register that controls the buffer sample threshold
 		self.KX122_BUF_CNTL2                                      = 0x3B         # Read/write control register that controls sample buffer operation
 		self.KX122_BUF_STATUS_1                                   = 0x3C         # This register reports the status of the sample buffer
@@ -100,9 +100,9 @@ class registers(register_base):
 		self.KX122_BUF_CLEAR                                      = 0x3E         # Latched buffer status information and the entire sample buffer are cleared when any data is written to this register.
 		self.KX122_BUF_READ                                       = 0x3F         # Buffer output register
 		self.KX122_SELF_TEST                                      = 0x60         # When 0xCA is written to this register, the MEMS self-test function is enabled. Electrostatic-actuation of the accelerometer, results in a DC shift of the X, Y and Z axis outputs. Writing 0x00 to this register will return the accelerometer to normal operation
-		self.KX112_WHO_AM_I                                       = 0x0F         # WHO_AM_I
-		self.KX123_WHO_AM_I                                       = 0x0F         # WHO_AM_I
-		self.KX124_WHO_AM_I                                       = 0x0F         # WHO_AM_I
+		self.KX112_WHO_AM_I                                       = 0x0F         # This register can be used for supplier recognition
+		self.KX123_WHO_AM_I                                       = 0x0F         # This register can be used for supplier recognition
+		self.KX124_WHO_AM_I                                       = 0x0F         # This register can be used for supplier recognition
 class bits(register_base):
 	def __init__(self):
 		self.KX122_COTR_DCSTR_BEFORE                              = (0x55 << 0)  # before set
@@ -145,7 +145,7 @@ class bits(register_base):
 		self.KX122_STATUS_REG_INT                                 = (0x01 << 4)  # INT reports the combined (OR) interrupt information of all features.
 		self.KX122_CNTL1_PC1                                      = (0x01 << 7)  # controls the operating mode of the KX122.
 		self.KX122_CNTL1_RES                                      = (0x01 << 6)  # determines the performance mode of the KX122. The noise varies with ODR, RES and different LP_CNTL settings possibly reducing the effective resolution.
-		self.KX122_CNTL1_DRDYE                                    = (0x01 << 5)  # enables the reporting of the availability of new acceleration data as an interrupt
+		self.KX122_CNTL1_DRDYE                                    = (0x01 << 5)  # The Data Ready Enable bit enables the reporting of the availability of new acceleration data as an interrupt.
 		self.KX122_CNTL1_GSEL_2G                                  = (0x00 << 3)  # 2g range
 		self.KX122_CNTL1_GSEL_4G                                  = (0x01 << 3)  # 4g range
 		self.KX122_CNTL1_GSEL_8G                                  = (0x02 << 3)  # 8g range
@@ -154,7 +154,7 @@ class bits(register_base):
 		self.KX122_CNTL1_WUFE                                     = (0x01 << 1)  # enables the Wake Up (motion detect) function
 		self.KX122_CNTL1_TPE                                      = (0x01 << 0)  # enables the Tilt Position function that will detect changes in device orientation.
 		self.KX122_CNTL2_SRST                                     = (0x01 << 7)  # initiates software reset, which performs the RAM reboot routine
-		self.KX122_CNTL2_COTC                                     = (0x01 << 6)  # command test control
+		self.KX122_CNTL2_COTC                                     = (0x01 << 6)  # The Command Test Control bit is used to verify proper ASIC functionality
 		self.KX122_CNTL2_LEM                                      = (0x01 << 5)  # x-
 		self.KX122_CNTL2_RIM                                      = (0x01 << 4)  # x+
 		self.KX122_CNTL2_DOM                                      = (0x01 << 3)  # y-
@@ -271,18 +271,14 @@ class bits(register_base):
 		self.KX122_LP_CNTL_AVC_32_SAMPLE_AVG                      = (0x05 << 4)  # 32 Samples Averaged
 		self.KX122_LP_CNTL_AVC_64_SAMPLE_AVG                      = (0x06 << 4)  # 64 Samples Averaged
 		self.KX122_LP_CNTL_AVC_128_SAMPLE_AVG                     = (0x07 << 4)  # 128 Samples Averaged
-		self.KX122_BUF_CNTL1_SMP_TH0_7                            = (0xFF << 0)  
 		self.KX122_BUF_CNTL2_BUFE                                 = (0x01 << 7)  # controls activation of the sample buffer
 		self.KX122_BUF_CNTL2_BRES                                 = (0x01 << 6)  # determines the resolution of the acceleration data samples collected by the sample
 		self.KX122_BUF_CNTL2_BFIE                                 = (0x01 << 5)  # buffer full interrupt enable bit
-		self.KX122_BUF_CNTL2_SMP_TH8_9                            = (0x0C << 2)  # watermark level bits 8 and 9
 		self.KX122_BUF_CNTL2_BUF_M_FIFO                           = (0x00 << 0)  # The buffer collects 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values and then stops collecting data, collecting new data only when the buffer is not full
 		self.KX122_BUF_CNTL2_BUF_M_STREAM                         = (0x01 << 0)  # The buffer holds the last 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values. Once the buffer is full, the oldest data is discarded to make room for newer data.
 		self.KX122_BUF_CNTL2_BUF_M_TRIGGER                        = (0x02 << 0)  # When a trigger event occurs, the buffer holds the last data set of SMP[9:0] samples before the trigger event and then continues to collect data until full. New data is collected only when the buffer is not full.
 		self.KX122_BUF_CNTL2_BUF_M_FILO                           = (0x03 << 0)  # The buffer holds the last 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values. Once the buffer is full, the oldest data is discarded to make room for newer data. Reading from the buffer in this mode will return the most recent data first.
-		self.KX122_BUF_STATUS_1_SMP_LEV0_7                        = (0xFF << 0)  
 		self.KX122_BUF_STATUS_2_BUF_TRIG                          = (0x01 << 7)  # reports the status of the buffers trigger function if this mode has been selected
-		self.KX122_BUF_STATUS_2_SMP_LEV8_10                       = (0x07 << 0)  # level High mask
 		self.KX122_SELF_TEST_MEMS_TEST_OFF                        = (0x00 << 0)  # MEMS Test OFF
 		self.KX122_SELF_TEST_MEMS_TEST_ON                         = (0xCA << 0)  # MEMS Test ON
 		self.KX112_WHO_AM_I_WIA_ID                                = (0x22 << 0)  # WHO_AM_I -value for KX112
@@ -291,56 +287,6 @@ class bits(register_base):
 _b=bits()
 class enums(register_base):
 	def __init__(self):
-		self.KX122_INS2_TDTS={
-			'DOUBLE':_b.KX122_INS2_TDTS_DOUBLE,
-			'SINGLE':_b.KX122_INS2_TDTS_SINGLE,
-			'NOTAP':_b.KX122_INS2_TDTS_NOTAP,
-			'NA':_b.KX122_INS2_TDTS_NA,
-		}
-		self.KX122_CNTL3_OTP={
-			'1P563':_b.KX122_CNTL3_OTP_1P563,
-			'12P5':_b.KX122_CNTL3_OTP_12P5,
-			'6P25':_b.KX122_CNTL3_OTP_6P25,
-			'50':_b.KX122_CNTL3_OTP_50,
-		}
-		self.KX122_ODCNTL_OSA={
-			'200':_b.KX122_ODCNTL_OSA_200,
-			'6400':_b.KX122_ODCNTL_OSA_6400,
-			'0P781':_b.KX122_ODCNTL_OSA_0P781,
-			'3200':_b.KX122_ODCNTL_OSA_3200,
-			'12P5':_b.KX122_ODCNTL_OSA_12P5,
-			'1600':_b.KX122_ODCNTL_OSA_1600,
-			'50':_b.KX122_ODCNTL_OSA_50,
-			'1P563':_b.KX122_ODCNTL_OSA_1P563,
-			'25600':_b.KX122_ODCNTL_OSA_25600,
-			'3P125':_b.KX122_ODCNTL_OSA_3P125,
-			'25':_b.KX122_ODCNTL_OSA_25,
-			'12800':_b.KX122_ODCNTL_OSA_12800,
-			'400':_b.KX122_ODCNTL_OSA_400,
-			'100':_b.KX122_ODCNTL_OSA_100,
-			'800':_b.KX122_ODCNTL_OSA_800,
-			'6P25':_b.KX122_ODCNTL_OSA_6P25,
-		}
-		self.KX122_CNTL1_GSEL={
-			'4G':_b.KX122_CNTL1_GSEL_4G,
-			'2G':_b.KX122_CNTL1_GSEL_2G,
-			'8G':_b.KX122_CNTL1_GSEL_8G,
-			'NA':_b.KX122_CNTL1_GSEL_NA,
-		}
-		self.KX122_BUF_CNTL2_BUF_M={
-			'TRIGGER':_b.KX122_BUF_CNTL2_BUF_M_TRIGGER,
-			'FILO':_b.KX122_BUF_CNTL2_BUF_M_FILO,
-			'FIFO':_b.KX122_BUF_CNTL2_BUF_M_FIFO,
-			'STREAM':_b.KX122_BUF_CNTL2_BUF_M_STREAM,
-		}
-		self.KX122_ODCNTL_IIR_BYPASS={
-			'APPLY':_b.KX122_ODCNTL_IIR_BYPASS_APPLY,
-			'BYPASS':_b.KX122_ODCNTL_IIR_BYPASS_BYPASS,
-		}
-		self.KX122_ODCNTL_LPRO={
-			'ODR_9':_b.KX122_ODCNTL_LPRO_ODR_9,
-			'ODR_2':_b.KX122_ODCNTL_LPRO_ODR_2,
-		}
 		self.KX122_FFCNTL_OFFI={
 			'25':_b.KX122_FFCNTL_OFFI_25,
 			'200':_b.KX122_FFCNTL_OFFI_200,
@@ -361,9 +307,75 @@ class enums(register_base):
 			'100':_b.KX122_CNTL3_OTDT_100,
 			'800':_b.KX122_CNTL3_OTDT_800,
 		}
+		self.KX122_CNTL1_GSEL={
+			'4G':_b.KX122_CNTL1_GSEL_4G,
+			'2G':_b.KX122_CNTL1_GSEL_2G,
+			'8G':_b.KX122_CNTL1_GSEL_8G,
+			'NA':_b.KX122_CNTL1_GSEL_NA,
+		}
+		self.KX122_INC1_PWSEL1={
+			'50US_10US':_b.KX122_INC1_PWSEL1_50US_10US,
+			'2XOSA':_b.KX122_INC1_PWSEL1_2XOSA,
+			'4XOSA':_b.KX122_INC1_PWSEL1_4XOSA,
+			'1XOSA':_b.KX122_INC1_PWSEL1_1XOSA,
+		}
+		self.KX122_INS2_TDTS={
+			'DOUBLE':_b.KX122_INS2_TDTS_DOUBLE,
+			'SINGLE':_b.KX122_INS2_TDTS_SINGLE,
+			'NOTAP':_b.KX122_INS2_TDTS_NOTAP,
+			'NA':_b.KX122_INS2_TDTS_NA,
+		}
+		self.KX122_CNTL3_OTP={
+			'1P563':_b.KX122_CNTL3_OTP_1P563,
+			'12P5':_b.KX122_CNTL3_OTP_12P5,
+			'6P25':_b.KX122_CNTL3_OTP_6P25,
+			'50':_b.KX122_CNTL3_OTP_50,
+		}
+		self.KX122_BUF_CNTL2_BUF_M={
+			'TRIGGER':_b.KX122_BUF_CNTL2_BUF_M_TRIGGER,
+			'FILO':_b.KX122_BUF_CNTL2_BUF_M_FILO,
+			'FIFO':_b.KX122_BUF_CNTL2_BUF_M_FIFO,
+			'STREAM':_b.KX122_BUF_CNTL2_BUF_M_STREAM,
+		}
+		self.KX122_SELF_TEST_MEMS_TEST={
+			'ON':_b.KX122_SELF_TEST_MEMS_TEST_ON,
+			'OFF':_b.KX122_SELF_TEST_MEMS_TEST_OFF,
+		}
+		self.KX122_ODCNTL_OSA={
+			'200':_b.KX122_ODCNTL_OSA_200,
+			'6400':_b.KX122_ODCNTL_OSA_6400,
+			'0P781':_b.KX122_ODCNTL_OSA_0P781,
+			'3200':_b.KX122_ODCNTL_OSA_3200,
+			'12P5':_b.KX122_ODCNTL_OSA_12P5,
+			'1600':_b.KX122_ODCNTL_OSA_1600,
+			'50':_b.KX122_ODCNTL_OSA_50,
+			'1P563':_b.KX122_ODCNTL_OSA_1P563,
+			'25600':_b.KX122_ODCNTL_OSA_25600,
+			'3P125':_b.KX122_ODCNTL_OSA_3P125,
+			'25':_b.KX122_ODCNTL_OSA_25,
+			'12800':_b.KX122_ODCNTL_OSA_12800,
+			'400':_b.KX122_ODCNTL_OSA_400,
+			'100':_b.KX122_ODCNTL_OSA_100,
+			'800':_b.KX122_ODCNTL_OSA_800,
+			'6P25':_b.KX122_ODCNTL_OSA_6P25,
+		}
+		self.KX122_ODCNTL_IIR_BYPASS={
+			'APPLY':_b.KX122_ODCNTL_IIR_BYPASS_APPLY,
+			'BYPASS':_b.KX122_ODCNTL_IIR_BYPASS_BYPASS,
+		}
+		self.KX122_INC5_PWSEL2={
+			'50US_10US':_b.KX122_INC5_PWSEL2_50US_10US,
+			'2XOSA':_b.KX122_INC5_PWSEL2_2XOSA,
+			'4XOSA':_b.KX122_INC5_PWSEL2_4XOSA,
+			'1XOSA':_b.KX122_INC5_PWSEL2_1XOSA,
+		}
 		self.KX122_INC2_AOI={
 			'AND':_b.KX122_INC2_AOI_AND,
 			'OR':_b.KX122_INC2_AOI_OR,
+		}
+		self.KX122_COTR_DCSTR={
+			'AFTER':_b.KX122_COTR_DCSTR_AFTER,
+			'BEFORE':_b.KX122_COTR_DCSTR_BEFORE,
 		}
 		self.KX122_LP_CNTL_AVC={
 			'4_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_4_SAMPLE_AVG,
@@ -375,9 +387,9 @@ class enums(register_base):
 			'64_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_64_SAMPLE_AVG,
 			'32_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_32_SAMPLE_AVG,
 		}
-		self.KX122_COTR_DCSTR={
-			'AFTER':_b.KX122_COTR_DCSTR_AFTER,
-			'BEFORE':_b.KX122_COTR_DCSTR_BEFORE,
+		self.KX122_ODCNTL_LPRO={
+			'ODR_9':_b.KX122_ODCNTL_LPRO_ODR_9,
+			'ODR_2':_b.KX122_ODCNTL_LPRO_ODR_2,
 		}
 		self.KX122_CNTL3_OWUF={
 			'25':_b.KX122_CNTL3_OWUF_25,
@@ -389,28 +401,12 @@ class enums(register_base):
 			'100':_b.KX122_CNTL3_OWUF_100,
 			'6P25':_b.KX122_CNTL3_OWUF_6P25,
 		}
-		self.KX122_INC5_PWSEL2={
-			'50US_10US':_b.KX122_INC5_PWSEL2_50US_10US,
-			'2XOSA':_b.KX122_INC5_PWSEL2_2XOSA,
-			'4XOSA':_b.KX122_INC5_PWSEL2_4XOSA,
-			'1XOSA':_b.KX122_INC5_PWSEL2_1XOSA,
-		}
-		self.KX122_INC1_PWSEL1={
-			'50US_10US':_b.KX122_INC1_PWSEL1_50US_10US,
-			'2XOSA':_b.KX122_INC1_PWSEL1_2XOSA,
-			'4XOSA':_b.KX122_INC1_PWSEL1_4XOSA,
-			'1XOSA':_b.KX122_INC1_PWSEL1_1XOSA,
-		}
-		self.KX122_SELF_TEST_MEMS_TEST={
-			'ON':_b.KX122_SELF_TEST_MEMS_TEST_ON,
-			'OFF':_b.KX122_SELF_TEST_MEMS_TEST_OFF,
-		}
 class masks(register_base):
 	def __init__(self):
-		self.KX122_COTR_DCSTR_MASK                                = 0xFF         
-		self.KX122_WHO_AM_I_WIA_MASK                              = 0xFF         
+		self.KX122_COTR_DCSTR_MASK                                = 0xFF         # test value
+		self.KX122_WHO_AM_I_WIA_MASK                              = 0xFF         # Who Am I value
 		self.KX122_INS2_TDTS_MASK                                 = 0x0C         # status of tap/double tap, bit is released when interrupt release register INT_REL is read.
-		self.KX122_CNTL1_GSEL_MASK                                = 0x18         # selects the acceleration range of the accelerometer outputs
+		self.KX122_CNTL1_GSEL_MASK                                = 0x18         # The G-Select bits allow to select the acceleration range of the accelerometer outputs
 		self.KX122_CNTL3_OTP_MASK                                 = 0xC0         # sets the output data rate for the Tilt Position function
 		self.KX122_CNTL3_OTDT_MASK                                = 0x38         # sets the output data rate for the Directional TapTM function
 		self.KX122_CNTL3_OWUF_MASK                                = 0x07         # sets the output data rate for the general motion detection function and the high-pass filtered outputs
@@ -419,22 +415,28 @@ class masks(register_base):
 		self.KX122_ODCNTL_OSA_MASK                                = 0x0F         # acceleration output data rate.
 		self.KX122_INC1_PWSEL1_MASK                               = 0xC0         # Pulse interrupt 1 width configuration
 		self.KX122_INC2_AOI_MASK                                  = 0x40         # AND OR configuration for motion detection
-		self.KX122_INC2_WUE_MASK                                  = 0x3F         
-		self.KX122_INC3_TM_MASK                                   = 0x3F         # tap directions
 		self.KX122_INC5_PWSEL2_MASK                               = 0xC0         # Pulse interrupt 2 width configuration
+		self.KX122_TILT_TIMER_TSC_MASK                            = 0xFF         # This register is the initial count register for the tilt position state timer (0 to 255 counts).
+		self.KX122_WUFC_WUFC_MASK                                 = 0xFF         # The Wake-Up Function Counter (WUFC) is the initial count register for the motion detection timer (0 to 255)
+		self.KX122_TDTC_TDTC_MASK                                 = 0xFF         # The Tap/Double-TapTM Counter (TDTC) register contains counter information for the detection of a double tap event.
+		self.KX122_TTH_TTH_MASK                                   = 0xFF         # The Tap Threshold High (TTH) register represents the 8-bit jerk high threshold to determine if a tap is detected.
+		self.KX122_TTL_TTL_MASK                                   = 0xFF         # The Tap Threshold Low (TTL) register represents the 8-bit (0-255) jerk low threshold to determine if a tap is detected.
+		self.KX122_FTD_FTD_MASK                                   = 0xFF         # This register contains counter information for the detection of any tap event.
+		self.KX122_STD_STD_MASK                                   = 0xFF         # This register contains counter information for the detection of a double tap event.
+		self.KX122_TLT_TLT_MASK                                   = 0xFF         # This register contains counter information for the detection of a tap event.
+		self.KX122_TWS_TWS_MASK                                   = 0xFF         # This register contains counter information for the detection of single and double taps.
+		self.KX122_FFTH_FFTH_MASK                                 = 0xFF         # The Free Fall Threshold (FFTH) register contains the threshold of the Free fall detection.
+		self.KX122_FFC_FFC_MASK                                   = 0xFF         # The Free Fall Counter (FFC) register contains the counter setting of the Free fall detection.
 		self.KX122_FFCNTL_OFFI_MASK                               = 0x07         # Output Data Rate at which the Free fall engine performs its function.
-		self.KX122_HYST_SET_HYST_MASK                             = 0x3F         
+		self.KX122_ATH_ATH_MASK                                   = 0xFF         # The Activity Threshold (ATH) register sets the threshold for wake-up (motion detect) interrupt is set.
+		self.KX122_TILT_ANGLE_LL_TA_MASK                          = 0xFF         # Tilt Angle Low Limit: This register sets the low-level threshold for tilt angle detection.
+		self.KX122_TILT_ANGLE_HL_HL_MASK                          = 0xFF         # Tilt Angle High Limit: This register sets the high-level threshold for tilt angle detection
+		self.KX122_HYST_SET_HYST_MASK                             = 0x3F         # Tilt angle hysteresis value
 		self.KX122_LP_CNTL_AVC_MASK                               = 0x70         # Averaging Filter Control
-		self.KX122_BUF_CNTL1_SMP_TH0_MASK                         = 0xFF         
-		self.KX122_BUF_CNTL1_SMP_TH0_7_MASK                       = 0xFF         
-		self.KX122_BUF_CNTL2_SMP_TH8_MASK                         = 0x0C         
-		self.KX122_BUF_CNTL2_SMP_TH8_9_MASK                       = 0x0C         
+		self.KX122_BUF_CNTL2_SMP_TH8_9_MASK                       = 0x0C         # buffer sample control threshold msb part
 		self.KX122_BUF_CNTL2_BUF_M_MASK                           = 0x03         # selects the operating mode of the sample buffer
-		self.KX122_BUF_STATUS_1_SMP_LEV0_MASK                     = 0xFF         
-		self.KX122_BUF_STATUS_1_SMP_LEV0_7_MASK                   = 0xFF         
-		self.KX122_BUF_STATUS_2_SMP_LEV8_MASK                     = 0x07         
-		self.KX122_BUF_STATUS_2_SMP_LEV8_10_MASK                  = 0x07         
-		self.KX122_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         
+		self.KX122_BUF_STATUS_2_SMP_LEV8_10_MASK                  = 0x07         # buffer status sample level msb part
+		self.KX122_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         # self test value
 		self.KX112_WHO_AM_I_WIA_MASK                              = 0xFF         
 		self.KX123_WHO_AM_I_WIA_MASK                              = 0xFF         
 		self.KX124_WHO_AM_I_WIA_MASK                              = 0xFF         

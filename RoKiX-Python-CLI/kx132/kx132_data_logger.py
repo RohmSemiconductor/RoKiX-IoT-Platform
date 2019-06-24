@@ -39,7 +39,7 @@ _CODE_FORMAT_VERSION = 3.0
 class KX132DataStream(StreamConfig):
     fmt = "<Bhhh"
     hdr = "ch!ax!ay!az"
-    reg = r.KX132_XOUT_L
+    reg = r.KX132_1211_XOUT_L
 
     def __init__(self, sensors, pin_index=None, timer=None):
         "DRDY and timer data stream"
@@ -79,19 +79,19 @@ def enable_data_logging(sensor,
 
     assert sensor.name in KX132Driver.supported_parts
 
-    assert convert_to_enumkey(odr) in e.KX132_ODCNTL_OSA.keys(), 'Invalid for odr value "{}". Valid values are {}'.format(
-        convert_to_enumkey(odr), e.KX132_ODCNTL_OSA.keys())
+    assert convert_to_enumkey(odr) in e.KX132_1211_ODCNTL_OSA.keys(), 'Invalid for odr value "{}". Valid values are {}'.format(
+        convert_to_enumkey(odr), e.KX132_1211_ODCNTL_OSA.keys())
 
-    assert max_range in e.KX132_CNTL1_GSEL.keys(), 'Invalid  for range value "{}". Valid values are {}'.format(
-        max_range, e.KX132_CNTL1_GSEL.keys())
+    assert max_range in e.KX132_1211_CNTL1_GSEL.keys(), 'Invalid  for range value "{}". Valid values are {}'.format(
+        max_range, e.KX132_1211_CNTL1_GSEL.keys())
 
-    assert (lp_mode in list(e.KX132_LP_CNTL1_AVC.keys()) +
+    assert (lp_mode in list(e.KX132_1211_LP_CNTL1_AVC.keys()) +
             [False]), 'Invalid for lp_mode value "{}". Valid values are: False or {}'.format(
-                lp_mode, e.KX132_LP_CNTL1_AVC.keys())
+                lp_mode, e.KX132_1211_LP_CNTL1_AVC.keys())
 
-    assert low_pass_filter in list(e.KX132_ODCNTL_LPRO.keys()) + \
+    assert low_pass_filter in list(e.KX132_1211_ODCNTL_LPRO.keys()) + \
         ['BYPASS'], 'Invalid filter value "{}". Valid values are: BYPASS or {}'.format(
-            filter, e.KX132_ODCNTL_LPRO.keys())
+            filter, e.KX132_1211_ODCNTL_LPRO.keys())
 
     #assert ch_out in CH_ACC | CH_ADP | CH_TEMP, "not valid measurement channel"
 
@@ -104,21 +104,21 @@ def enable_data_logging(sensor,
     #
 
     # select g-range
-    sensor.set_range(e.KX132_CNTL1_GSEL[max_range])
+    sensor.set_range(e.KX132_1211_CNTL1_GSEL[max_range])
 
     # resolution / power mode selection
 
     if lp_mode is not False:
         # enable low current mode
-        sensor.reset_bit(r.KX132_CNTL1, b.KX132_CNTL1_RES)
+        sensor.reset_bit(r.KX132_1211_CNTL1, b.KX132_1211_CNTL1_RES)
         # define averaging value
-        sensor.set_average(e.KX132_LP_CNTL1_AVC[lp_mode])
+        sensor.set_average(e.KX132_1211_LP_CNTL1_AVC[lp_mode])
     else:
         # full resolution
-        sensor.set_bit(r.KX132_CNTL1, b.KX132_CNTL1_RES)
+        sensor.set_bit(r.KX132_1211_CNTL1, b.KX132_1211_CNTL1_RES)
 
     # odr setting for data logging
-    sensor.set_odr(e.KX132_ODCNTL_OSA[convert_to_enumkey(odr)])
+    sensor.set_odr(e.KX132_1211_ODCNTL_OSA[convert_to_enumkey(odr)])
 
     # set bandwitdh
     if low_pass_filter != 'BYPASS':
@@ -153,11 +153,11 @@ def enable_data_logging(sensor,
         if _intpin == 1:
             # latched interrupt
             # set KX132_INC1_IEN1 , reset KX132_INC1_IEL1
-            sensor.set_bit_pattern(r.KX132_INC1, b.KX132_INC1_IEN1, b.KX132_INC1_IEN1 | b.KX132_INC1_IEL1)
+            sensor.set_bit_pattern(r.KX132_1211_INC1, b.KX132_1211_INC1_IEN1, b.KX132_1211_INC1_IEN1 | b.KX132_1211_INC1_IEL1)
         else:
             # latched interrupt
             # set KX132_INC5_IEN2 , reset KX132_INC5_IEL2
-            sensor.set_bit_pattern(r.KX132_INC5, b.KX132_INC5_IEN2, b.KX132_INC5_IEN2 | b.KX132_INC5_IEL2)
+            sensor.set_bit_pattern(r.KX132_1211_INC5, b.KX132_1211_INC5_IEN2, b.KX132_1211_INC5_IEN2 | b.KX132_1211_INC5_IEL2)
 
         polarity = POLARITY_DICT[sensor.resource[CFG_POLARITY]]
         LOGGER.debug('Configuring interrupt polarity {}'.format(

@@ -201,7 +201,7 @@ class StreamConfig(object):
 
         elif bus1_name == BUS1_SPI:
             LOGGER.debug("EVKIT_MACRO_ACTION_READ over spi")
-            assert sensor.resource[CFG_SPI_PROTOCOL] in [0, 1]
+            assert sensor.resource[CFG_SPI_PROTOCOL] in [0, 1 ,2]
 
             if sensor.resource[CFG_SPI_PROTOCOL] == 1:
                 # With Kionix components, MSB must be set 1 to indicate reading
@@ -248,7 +248,24 @@ class StreamConfig(object):
                 self.adapter.receive_message(wait_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
 
         elif bus1_name == BUS1_GPIO:
-            raise EvaluationKitException('Unsupported bus1 {}'.format(bus1_name))
+            if isinstance(message.gpio_pin, int):
+                message.gpio_pin = [message.gpio_pin]
+
+            self.sensor.connection_manager.kx_adapter.configure_pin_as_input(
+                message.gpio_pin, 0)  # 0 == no pullup
+
+            for pin in message.gpio_pin:
+                req2 = protocol.add_macro_action_req(
+                    macro_id=macro_id,
+                    action=protocol.EVKIT_MACRO_ACTION_GPIO_READ,
+                    target=sensor.resource[CFG_TARGET],
+                    identifier=pin,
+                    append=True)
+
+                self.adapter.send_message(req2)
+                message.msg_req.append(req2)
+                self.adapter.receive_message(
+                    wait_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
         else:
             raise EvaluationKitException('Unsupported bus1 {}'.format(bus1_name))
 

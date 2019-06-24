@@ -2,34 +2,33 @@
 # Copyright 2018 Kionix Inc.
 #
 # pylint: disable=W0622
-from configparser import ConfigParser, NoSectionError
+from configparser import ConfigParser
 from argparse import ArgumentParser, ArgumentError
 
 from jsonschema import Draft6Validator
-from jsonschema.exceptions import ValidationError
 
 from kx_lib.kx_cfg_schema import CfgSchema
 
 
 def str_to_bool(value):
-    if value.lower() in ['true', '1','on'] :
+    if value.lower() in ['true', '1', 'on']:
         return True
-    elif value.lower() in ['false','0','off']:
+    elif value.lower() in ['false', '0', 'off']:
         return False
     else:
         raise ValueError
 
 
 def null(value):
-    if isinstance(value, str) and len(value) == 0:
+    if isinstance(value, str) and not value:
         return None
     #Python2
-    if isinstance(value,unicode) and len(value)==0:
+    if isinstance(value, unicode) and not value:
         return None
     return value
 
 def _str(string):
-    if len(string) == 0:
+    if not string:
         return None
     return str(string)
 
@@ -119,7 +118,7 @@ class EvkitConfigurations(ArgumentParser):
                     value = initial_value
                 else:
                     if self.arg_validator.is_valid({option:value}):
-                        if _type =='null':
+                        if _type == 'null':
                             # Null type value does not have proper mapping type
                             _type = [
                                 val for val in self._schema_properties[option]['type']][0] 

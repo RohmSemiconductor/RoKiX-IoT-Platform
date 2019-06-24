@@ -44,12 +44,12 @@
 class register_base: pass
 class registers(register_base):
 	def __init__(self):
-		self.KXTJ3_XOUT_L                                         = 0x06         # output register x
-		self.KXTJ3_XOUT_H                                         = 0x07         
+		self.KXTJ3_XOUT_L                                         = 0x06         # output register x.
+		self.KXTJ3_XOUT_H                                         = 0x07         # msb
 		self.KXTJ3_YOUT_L                                         = 0x08         # output register y
-		self.KXTJ3_YOUT_H                                         = 0x09         
+		self.KXTJ3_YOUT_H                                         = 0x09         # msb
 		self.KXTJ3_ZOUT_L                                         = 0x0A         # output register z
-		self.KXTJ3_ZOUT_H                                         = 0x0B         
+		self.KXTJ3_ZOUT_H                                         = 0x0B         # msb
 		self.KXTJ3_DCST_RESP                                      = 0x0C         # This register can be used to verify proper integrated circuit functionality
 		self.KXTJ3_WHO_AM_I                                       = 0x0F         # This register can be used for supplier recognition, as it can be factory written to a known byte value.
 		self.KXTJ3_INT_SOURCE1                                    = 0x16         # This register reports which function caused an interrupt.
@@ -65,7 +65,7 @@ class registers(register_base):
 		self.KXTJ3_NA_COUNTER                                     = 0x2A         # This register sets the non-activity time required before another wake-up interrupt can be set
 		self.KXTJ3_SELF_TEST                                      = 0x3A         # When 0xCA is written to this register, the MEMS self-test function is enabled
 		self.KXTJ3_WAKEUP_THRESHOLD_H                             = 0x6A         # Those registers (12-bits)sets the threshold for wake-up (motion detect) interrupt is set
-		self.KXTJ3_WAKEUP_THRESHOLD_L                             = 0x6B         # lsb part
+		self.KXTJ3_WAKEUP_THRESHOLD_L                             = 0x6B         # lsb part of wake up threshold
 		self.KXCJC_WHO_AM_I                                       = 0x0F         # This register can be used for supplier recognition, as it can be factory written to a known byte value.
 class bits(register_base):
 	def __init__(self):
@@ -92,7 +92,6 @@ class bits(register_base):
 		self.KXTJ3_CTRL_REG1_GSEL_16G3                            = (0x05 << 2)  # 16g range
 		self.KXTJ3_CTRL_REG1_GSEL_8G_14                           = (0x06 << 2)  # 8g range with 14b resolution
 		self.KXTJ3_CTRL_REG1_GSEL_16G_14                          = (0x07 << 2)  # 16g range with 14b resolution
-		self.KXTJ3_CTRL_REG1_EN16G                                = (0x01 << 2)  # enables 14-bit mode if GSEL = '11'
 		self.KXTJ3_CTRL_REG1_WUFE                                 = (0x01 << 1)  # enables the Wake Up (motion detect) function.
 		self.KXTJ3_CTRL_REG2_SRST                                 = (0x01 << 7)  # initiates software reset
 		self.KXTJ3_CTRL_REG2_DCST                                 = (0x01 << 4)  # initiates the digital communication self-test function.
@@ -113,8 +112,6 @@ class bits(register_base):
 		self.KXTJ3_INT_CTRL_REG2_XPWU                             = (0x01 << 4)  # x+
 		self.KXTJ3_INT_CTRL_REG2_YNWU                             = (0x01 << 3)  # y-
 		self.KXTJ3_INT_CTRL_REG2_YPWU                             = (0x01 << 2)  # y+
-		self.KXTJ3_INT_CTRL_REG2_ZNWU                             = (0x01 << 1)  # z-
-		self.KXTJ3_INT_CTRL_REG2_ZPWU                             = (0x01 << 0)  # z+
 		self.KXTJ3_DATA_CTRL_REG_OSA_12P5                         = (0x00 << 0)  # 12.5Hz
 		self.KXTJ3_DATA_CTRL_REG_OSA_25                           = (0x01 << 0)  # 25Hz
 		self.KXTJ3_DATA_CTRL_REG_OSA_50                           = (0x02 << 0)  # 50Hz
@@ -177,10 +174,14 @@ class enums(register_base):
 		}
 class masks(register_base):
 	def __init__(self):
-		self.KXTJ3_DCST_RESP_DCSTR_MASK                           = 0xFF         
-		self.KXTJ3_WHO_AM_I_WIA_MASK                              = 0xFF         
+		self.KXTJ3_DCST_RESP_DCSTR_MASK                           = 0xFF         # msb
+		self.KXTJ3_WHO_AM_I_WIA_MASK                              = 0xFF         # WHO_AM_I
 		self.KXTJ3_CTRL_REG1_GSEL_MASK                            = 0x1C         # selects the acceleration range of the accelerometer outputs
 		self.KXTJ3_CTRL_REG2_OWUF_MASK                            = 0x07         # sets the Output Data Rate for the Wake Up function
+		self.KXTJ3_INT_CTRL_REG2_ZPWUE_MASK                       = 0x03         # z+
 		self.KXTJ3_DATA_CTRL_REG_OSA_MASK                         = 0x0F         # sets the output data rate (ODR)
-		self.KXTJ3_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         
+		self.KXTJ3_WAKEUP_COUNTER_WUFC_MASK                       = 0xFF         # This register sets the time motion must be present before a wake-up interrupt is set
+		self.KXTJ3_NA_COUNTER_NAFC_MASK                           = 0xFF         # This register sets the non-activity time required before another wake-up interrupt can be set
+		self.KXTJ3_SELF_TEST_MEMS_TEST_MASK                       = 0xFF         # Self test value
+		self.KXTJ3_WAKEUP_THRESHOLD_L_WUTH_L_MASK                 = 0xF0         # lsb part of wake up threshold
 		self.KXCJC_WHO_AM_I_WIA_MASK                              = 0xFF         

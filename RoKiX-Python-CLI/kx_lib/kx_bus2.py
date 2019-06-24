@@ -241,11 +241,7 @@ class KxComPort(KxPySerial):
         if hw_ids is not None:
             self._valid_vid_pid_pairs = [(d['vid'], d['pid']) for d in hw_ids]
         else:
-            LOGGER.debug('No new-style VID/PID found in board config; falling back to legacy VID/PID')
-            self._valid_vid_pid_pairs = [(
-                self.bus2_configuration['vid'],
-                self.bus2_configuration['pid'],
-            )]
+            raise EvaluationKitException('No hardware IDs found in board config')
 
     def initialize(self, comport, timeout=2):
         """Initialize the serial connection.

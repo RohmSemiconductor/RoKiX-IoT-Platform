@@ -3,7 +3,7 @@
 #
 import time
 from kx_lib.kx_exception import EvaluationKitException, ProtocolTimeoutException, FunctionalityNotInDevice
-from kx_lib.kx_configuration_enum import CFG_POLARITY, EVKIT_GPIO_PIN_SENSE_HIGH, EVKIT_GPIO_PIN_SENSE_LOW, SENSOR_TYPE_DIGITAL_3D, CH_ACC, CFG_AXIS_MAP, ADAPTER_GPIO1_INT, ADAPTER_GPIO2_INT, TIMER_POLL, REG_POLL
+from kx_lib.kx_configuration_enum import BUS1_I2C, BUS1_SPI, CFG_SAD, CFG_CS, CFG_POLARITY, EVKIT_GPIO_PIN_SENSE_HIGH, EVKIT_GPIO_PIN_SENSE_LOW, SENSOR_TYPE_DIGITAL_3D, CH_ACC, CFG_AXIS_MAP, ADAPTER_GPIO1_INT, ADAPTER_GPIO2_INT, TIMER_POLL, REG_POLL
 from kx_lib.kx_util import evkit_config, get_timer
 import kx_lib.kx_logger as kx_logger
 LOGGER = kx_logger.get_logger(__name__)
@@ -132,6 +132,13 @@ class SensorDriver(object):
         LOGGER.debug('Using "{}" for asic events.'.format(other_function_mode))
         self.asic_function = self._drdy_LUT[other_function_mode]
 
+    def get_identifier(self):
+        assert self.selected_connectivity is not None, "Selected connectivity cannot be None"
+        if self.selected_connectivity == BUS1_I2C:
+            return self.resource[CFG_SAD]
+        if self.selected_connectivity == BUS1_SPI:
+            return self.resource[CFG_CS]
+            
     def _read_data(self, channel=None):
         "Override this method on sensor spesific driver"
         raise NotImplementedError()

@@ -27,7 +27,7 @@ from kx126 import kx126_pedometer_params
 from kx126.kx126_driver import KX126Driver, r, b, m, e
 from kx_lib.kx_data_logger import SingleChannelEventReader
 from kx_lib.kx_data_stream import StreamConfig
-from kx_lib.kx_util import get_other_pin_index, convert_to_enumkey
+from kx_lib.kx_util import evkit_config, get_other_pin_index, convert_to_enumkey
 from kx_lib.kx_configuration_enum import POLARITY_DICT, CFG_POLARITY
 from kx_lib import kx_logger
 
@@ -146,8 +146,9 @@ def enable_pedometer(sensor,
     # sensor.set_pedometer_watermark(0x14)
     # "disable" watermark
     sensor.set_pedometer_watermark(0xffff)
-
+    
     if odr == 50:
+        cfg = kx126_pedometer_params.Pedometer_parameters_odr_50
         # run pedometer with 50Hz ODR
         sensor.set_bit_pattern(r.KX126_PED_CNTL2, b.KX126_PED_CNTL2_PED_ODR_50, m.KX126_PED_CNTL2_PED_ODR_MASK)
     else:  # run pedometer with 100Hz or higher ODR
@@ -176,16 +177,17 @@ def enable_pedometer(sensor,
 
 class KX126PedometerLogger(SingleChannelEventReader):
 
+    def override_config_parameters(self):
+        SingleChannelEventReader.override_config_parameters(self)
+        evkit_config.odr = 100
+
     def enable_data_logging(self, **kwargs):
         enable_pedometer(self.sensors[0], **kwargs)
-
-    # def read_with_polling(self, **_):
-    #     raise NotImplementedError('Polling mode not supported.')
 
 
 def main():
     app = KX126PedometerLogger([KX126Driver])
-    app.enable_data_logging()
+    app.enable_data_logging(odr=evkit_config.odr)
     app.run(KX126PedometerStream) 
 
 
