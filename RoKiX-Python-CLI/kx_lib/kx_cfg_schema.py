@@ -39,7 +39,7 @@ class CfgSchema(dict):
     }
 
     ble_mac = {
-        "type":["string", "null"],
+        "type": ["string", "null"],
         "description": "Mac address for bluetooth connection. Full address (or first bytes with windows)"
     }
 

@@ -16,6 +16,7 @@ LOGGER = kx_logger.get_logger(__name__)
 # LOGGER.setLevel(kx_logger.DEBUG)
 # LOGGER.setLevel(kx_logger.INFO)
 
+
 class ExtraData(object):
     "Extra data what can be subscribed in stream request messages"
     reg_packet_count_8 = [0xff, 0x00, 0x00]
@@ -201,7 +202,7 @@ class StreamConfig(object):
 
         elif bus1_name == BUS1_SPI:
             LOGGER.debug("EVKIT_MACRO_ACTION_READ over spi")
-            assert sensor.resource[CFG_SPI_PROTOCOL] in [0, 1 ,2]
+            assert sensor.resource[CFG_SPI_PROTOCOL] in [0, 1, 2]
 
             if sensor.resource[CFG_SPI_PROTOCOL] == 1:
                 # With Kionix components, MSB must be set 1 to indicate reading

@@ -146,7 +146,7 @@ def plotter(fname, dimensions=None, timestamps=False):
     # view the data
     #
 
-    data.plot(x, dimensions, title=fname)
+    data.plot(x, dimensions, title=fname, marker=kwargs.tick_marker)
     plt.grid()
     plt.show()
 
@@ -205,6 +205,11 @@ def main():
     parser.add_argument('-s', '--column_separator', default=COLUMN_SEPARATOR, help='Clolumn separator (default ;)')
     parser.add_argument('-c', '--column_header', default=None, help='Column header definition in case log file does not have it.')
     parser.add_argument('-f', '--fft', action='store_true', help='FFT plot instead of time domain plot')
+    parser.add_argument(
+        '-m',
+        '--tick_marker',
+        default=None,
+        help='Tick marker for data points (see https://matplotlib.org/3.1.0/api/markers_api.html#module-matplotlib.markers)')
 
     parser.add_argument('fname', type=str, help='log file name')
     kwargs = parser.parse_args()

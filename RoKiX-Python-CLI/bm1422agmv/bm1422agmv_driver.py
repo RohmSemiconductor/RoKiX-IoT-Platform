@@ -86,7 +86,7 @@ class BM1422AGMVDriver(SensorDriver):
         # return self.read_temperature_pressure()        #Choose between these two outputs for default
 
     def set_power_on(self):
-        delay_seconds(1e-4)  # wait >0.1ms 
+        delay_seconds(1e-4)  # wait >0.1ms
         self.set_bit_pattern(r.BM1422AGMV_CNTL1, b.BM1422AGMV_CNTL1_PC1_ON, m.BM1422AGMV_CNTL1_PC1_MASK)
         self.set_bit_pattern(r.BM1422AGMV_CNTL1, b.BM1422AGMV_CNTL1_RST_LV_RELEASE, m.BM1422AGMV_CNTL1_RST_LV_MASK)
         delay_seconds(2e-3)  # wait >2ms

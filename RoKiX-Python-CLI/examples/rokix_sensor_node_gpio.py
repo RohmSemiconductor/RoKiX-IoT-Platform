@@ -38,7 +38,7 @@ class RoKixSensorNode(object):
     C14_14 = 23
 
     # other GPIOs
-    PWC = 25 # Power button P.025
+    PWC = 25  # Power button P.025
 
 
 def rgy_led_test():
@@ -85,6 +85,7 @@ def gpio_write_test():
 
     cm.disconnect()
 
+
 def power_off_test():
     """ Turn nRf52840 SoC's LDO regulator. This will shut down the SoC."""
     cm = ConnectionManager('../cfg/rokix_board_rokix_sensor_node_i2c.json')
@@ -105,7 +106,7 @@ def power_off_test():
     except kx_exception.ProtocolTimeoutException:
         print('RoKiX Sensor Node powered off.')
 
-    #cm.disconnect()
+    # cm.disconnect()
 
 
 def gpio_test():
@@ -201,7 +202,7 @@ def app_main():
     """ Run the selected gpio tests"""
     # Select wanted test case
 
-    #rgy_led_test()
+    # rgy_led_test()
     # gpio_write_test()
     # gpio_test()
     # adc_test()

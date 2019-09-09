@@ -1,6 +1,7 @@
 # 
 # Copyright 2018 Kionix Inc.
 #
+from kx_lib import kx_protocol_definition_2_x as pd
 import os
 import subprocess
 import signal
@@ -10,7 +11,6 @@ import serial.tools.list_ports as list_ports
 from kx_lib.kx_exception import ProtocolException, ProtocolTimeoutException, EvaluationKitException
 from kx_lib import kx_logger
 LOGGER = kx_logger.get_logger(__name__)
-from kx_lib import kx_protocol_definition_2_x as pd
 
 LOGGER.setLevel(kx_logger.INFO)
 # LOGGER.setLevel(kx_logger.ERROR)

@@ -143,6 +143,20 @@
                             "gpio1": 33,
                             "pullup": "EVKIT_GPIO_PIN_PULLUP",
                             "polarity": "EVKIT_GPIO_PIN_SENSE_LOW"
+                        },
+                        "BH1726NUC": {
+                            "SAD": 57,
+                            "gpio1": 33
+                        },
+                        "BH1730FVC": {
+                            "SAD": 41,
+                            "gpio1": 33
+                        },
+                        "RPR-0521RS": {
+                            "SAD": 56,
+                            "gpio1": 33,
+                            "pullup": "EVKIT_GPIO_PIN_PULLUP",
+                            "polarity": "EVKIT_GPIO_PIN_SENSE_LOW"
                         }
                     }
                 }

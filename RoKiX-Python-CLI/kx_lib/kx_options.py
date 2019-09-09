@@ -22,15 +22,17 @@ def str_to_bool(value):
 def null(value):
     if isinstance(value, str) and not value:
         return None
-    #Python2
+    # Python2
     if isinstance(value, unicode) and not value:
         return None
     return value
+
 
 def _str(string):
     if not string:
         return None
     return str(string)
+
 
 VALUE_MAPPINGS = {
     "integer": int,
@@ -85,14 +87,13 @@ class EvkitConfigurations(ArgumentParser):
 
         self._config_options = []
         self._sections = self.evkit_config.sections()
-        
+
         assert self.evkit_config.getint('root', 'version') == 2, 'Invalid cfg file version on file %s' % self.config_file
 
         # Add base sections to cmd args
         for section in self._sections:
             if section in include_sections:
                 self.add_section_args(section)
-
 
     def add_section_args(self, section):
         if section not in self._sections:
@@ -117,13 +118,13 @@ class EvkitConfigurations(ArgumentParser):
                 except ValueError:
                     value = initial_value
                 else:
-                    if self.arg_validator.is_valid({option:value}):
+                    if self.arg_validator.is_valid({option: value}):
                         if _type == 'null':
                             # Null type value does not have proper mapping type
                             _type = [
-                                val for val in self._schema_properties[option]['type']][0] 
+                                val for val in self._schema_properties[option]['type']][0]
                         return TYPE_MAPPING[_type], value
-            raise ValueError('Option %s has invalid value %s' %(option, initial_value))
+            raise ValueError('Option %s has invalid value %s' % (option, initial_value))
         else:
             _type = self._schema_properties[option]['type']
             map = VALUE_MAPPINGS[self._schema_properties[option]['type']]
@@ -131,16 +132,14 @@ class EvkitConfigurations(ArgumentParser):
                 value = map(value)
             except ValueError:
                 value = value
-            if self.arg_validator.is_valid({option:value}):
+            if self.arg_validator.is_valid({option: value}):
                 return TYPE_MAPPING[_type], value
             # Value is not of specified type
             raise ValueError('Option %s has invalid value %s' % (option, value))
-                    
-
 
     def _add_config_arg(self, option, default):
         setattr(self, option, default)
-        option_dtype, default = self._check_option(option, default)             
+        option_dtype, default = self._check_option(option, default)
         short_hand = self.schema['properties'].get(option, {}).get('title', None)
         _help = 'Override {} (Current value: "{}") setting from .cfg'.format(
             option, default
@@ -170,7 +169,6 @@ class EvkitConfigurations(ArgumentParser):
                 choices=choices,
                 help=help
             )
-
 
     def add_argument(self, *args, **kwargs):
         '''

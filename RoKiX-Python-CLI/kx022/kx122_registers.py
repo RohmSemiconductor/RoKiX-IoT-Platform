@@ -287,119 +287,119 @@ class bits(register_base):
 _b=bits()
 class enums(register_base):
 	def __init__(self):
-		self.KX122_FFCNTL_OFFI={
-			'25':_b.KX122_FFCNTL_OFFI_25,
-			'200':_b.KX122_FFCNTL_OFFI_200,
-			'12P5':_b.KX122_FFCNTL_OFFI_12P5,
-			'1600':_b.KX122_FFCNTL_OFFI_1600,
-			'50':_b.KX122_FFCNTL_OFFI_50,
-			'400':_b.KX122_FFCNTL_OFFI_400,
-			'100':_b.KX122_FFCNTL_OFFI_100,
-			'800':_b.KX122_FFCNTL_OFFI_800,
+		self.KX122_COTR_DCSTR={
+			'BEFORE':_b.KX122_COTR_DCSTR_BEFORE,
+			'AFTER':_b.KX122_COTR_DCSTR_AFTER,
 		}
-		self.KX122_CNTL3_OTDT={
-			'200':_b.KX122_CNTL3_OTDT_200,
-			'25':_b.KX122_CNTL3_OTDT_25,
-			'12P5':_b.KX122_CNTL3_OTDT_12P5,
-			'1600':_b.KX122_CNTL3_OTDT_1600,
-			'50':_b.KX122_CNTL3_OTDT_50,
-			'400':_b.KX122_CNTL3_OTDT_400,
-			'100':_b.KX122_CNTL3_OTDT_100,
-			'800':_b.KX122_CNTL3_OTDT_800,
+		self.KX122_INS2_TDTS={
+			'NOTAP':_b.KX122_INS2_TDTS_NOTAP,
+			'SINGLE':_b.KX122_INS2_TDTS_SINGLE,
+			'DOUBLE':_b.KX122_INS2_TDTS_DOUBLE,
+			'NA':_b.KX122_INS2_TDTS_NA,
 		}
 		self.KX122_CNTL1_GSEL={
-			'4G':_b.KX122_CNTL1_GSEL_4G,
 			'2G':_b.KX122_CNTL1_GSEL_2G,
+			'4G':_b.KX122_CNTL1_GSEL_4G,
 			'8G':_b.KX122_CNTL1_GSEL_8G,
 			'NA':_b.KX122_CNTL1_GSEL_NA,
 		}
-		self.KX122_INC1_PWSEL1={
-			'50US_10US':_b.KX122_INC1_PWSEL1_50US_10US,
-			'2XOSA':_b.KX122_INC1_PWSEL1_2XOSA,
-			'4XOSA':_b.KX122_INC1_PWSEL1_4XOSA,
-			'1XOSA':_b.KX122_INC1_PWSEL1_1XOSA,
-		}
-		self.KX122_INS2_TDTS={
-			'DOUBLE':_b.KX122_INS2_TDTS_DOUBLE,
-			'SINGLE':_b.KX122_INS2_TDTS_SINGLE,
-			'NOTAP':_b.KX122_INS2_TDTS_NOTAP,
-			'NA':_b.KX122_INS2_TDTS_NA,
-		}
 		self.KX122_CNTL3_OTP={
 			'1P563':_b.KX122_CNTL3_OTP_1P563,
-			'12P5':_b.KX122_CNTL3_OTP_12P5,
 			'6P25':_b.KX122_CNTL3_OTP_6P25,
+			'12P5':_b.KX122_CNTL3_OTP_12P5,
 			'50':_b.KX122_CNTL3_OTP_50,
 		}
-		self.KX122_BUF_CNTL2_BUF_M={
-			'TRIGGER':_b.KX122_BUF_CNTL2_BUF_M_TRIGGER,
-			'FILO':_b.KX122_BUF_CNTL2_BUF_M_FILO,
-			'FIFO':_b.KX122_BUF_CNTL2_BUF_M_FIFO,
-			'STREAM':_b.KX122_BUF_CNTL2_BUF_M_STREAM,
+		self.KX122_CNTL3_OTDT={
+			'50':_b.KX122_CNTL3_OTDT_50,
+			'100':_b.KX122_CNTL3_OTDT_100,
+			'200':_b.KX122_CNTL3_OTDT_200,
+			'400':_b.KX122_CNTL3_OTDT_400,
+			'12P5':_b.KX122_CNTL3_OTDT_12P5,
+			'25':_b.KX122_CNTL3_OTDT_25,
+			'800':_b.KX122_CNTL3_OTDT_800,
+			'1600':_b.KX122_CNTL3_OTDT_1600,
 		}
-		self.KX122_SELF_TEST_MEMS_TEST={
-			'ON':_b.KX122_SELF_TEST_MEMS_TEST_ON,
-			'OFF':_b.KX122_SELF_TEST_MEMS_TEST_OFF,
-		}
-		self.KX122_ODCNTL_OSA={
-			'200':_b.KX122_ODCNTL_OSA_200,
-			'6400':_b.KX122_ODCNTL_OSA_6400,
-			'0P781':_b.KX122_ODCNTL_OSA_0P781,
-			'3200':_b.KX122_ODCNTL_OSA_3200,
-			'12P5':_b.KX122_ODCNTL_OSA_12P5,
-			'1600':_b.KX122_ODCNTL_OSA_1600,
-			'50':_b.KX122_ODCNTL_OSA_50,
-			'1P563':_b.KX122_ODCNTL_OSA_1P563,
-			'25600':_b.KX122_ODCNTL_OSA_25600,
-			'3P125':_b.KX122_ODCNTL_OSA_3P125,
-			'25':_b.KX122_ODCNTL_OSA_25,
-			'12800':_b.KX122_ODCNTL_OSA_12800,
-			'400':_b.KX122_ODCNTL_OSA_400,
-			'100':_b.KX122_ODCNTL_OSA_100,
-			'800':_b.KX122_ODCNTL_OSA_800,
-			'6P25':_b.KX122_ODCNTL_OSA_6P25,
+		self.KX122_CNTL3_OWUF={
+			'0P781':_b.KX122_CNTL3_OWUF_0P781,
+			'1P563':_b.KX122_CNTL3_OWUF_1P563,
+			'3P125':_b.KX122_CNTL3_OWUF_3P125,
+			'6P25':_b.KX122_CNTL3_OWUF_6P25,
+			'12P5':_b.KX122_CNTL3_OWUF_12P5,
+			'25':_b.KX122_CNTL3_OWUF_25,
+			'50':_b.KX122_CNTL3_OWUF_50,
+			'100':_b.KX122_CNTL3_OWUF_100,
 		}
 		self.KX122_ODCNTL_IIR_BYPASS={
 			'APPLY':_b.KX122_ODCNTL_IIR_BYPASS_APPLY,
 			'BYPASS':_b.KX122_ODCNTL_IIR_BYPASS_BYPASS,
 		}
-		self.KX122_INC5_PWSEL2={
-			'50US_10US':_b.KX122_INC5_PWSEL2_50US_10US,
-			'2XOSA':_b.KX122_INC5_PWSEL2_2XOSA,
-			'4XOSA':_b.KX122_INC5_PWSEL2_4XOSA,
-			'1XOSA':_b.KX122_INC5_PWSEL2_1XOSA,
-		}
-		self.KX122_INC2_AOI={
-			'AND':_b.KX122_INC2_AOI_AND,
-			'OR':_b.KX122_INC2_AOI_OR,
-		}
-		self.KX122_COTR_DCSTR={
-			'AFTER':_b.KX122_COTR_DCSTR_AFTER,
-			'BEFORE':_b.KX122_COTR_DCSTR_BEFORE,
-		}
-		self.KX122_LP_CNTL_AVC={
-			'4_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_4_SAMPLE_AVG,
-			'16_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_16_SAMPLE_AVG,
-			'8_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_8_SAMPLE_AVG,
-			'NO_AVG':_b.KX122_LP_CNTL_AVC_NO_AVG,
-			'128_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_128_SAMPLE_AVG,
-			'2_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_2_SAMPLE_AVG,
-			'64_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_64_SAMPLE_AVG,
-			'32_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_32_SAMPLE_AVG,
-		}
 		self.KX122_ODCNTL_LPRO={
 			'ODR_9':_b.KX122_ODCNTL_LPRO_ODR_9,
 			'ODR_2':_b.KX122_ODCNTL_LPRO_ODR_2,
 		}
-		self.KX122_CNTL3_OWUF={
-			'25':_b.KX122_CNTL3_OWUF_25,
-			'0P781':_b.KX122_CNTL3_OWUF_0P781,
-			'12P5':_b.KX122_CNTL3_OWUF_12P5,
-			'50':_b.KX122_CNTL3_OWUF_50,
-			'1P563':_b.KX122_CNTL3_OWUF_1P563,
-			'3P125':_b.KX122_CNTL3_OWUF_3P125,
-			'100':_b.KX122_CNTL3_OWUF_100,
-			'6P25':_b.KX122_CNTL3_OWUF_6P25,
+		self.KX122_ODCNTL_OSA={
+			'12P5':_b.KX122_ODCNTL_OSA_12P5,
+			'25':_b.KX122_ODCNTL_OSA_25,
+			'50':_b.KX122_ODCNTL_OSA_50,
+			'100':_b.KX122_ODCNTL_OSA_100,
+			'200':_b.KX122_ODCNTL_OSA_200,
+			'400':_b.KX122_ODCNTL_OSA_400,
+			'800':_b.KX122_ODCNTL_OSA_800,
+			'1600':_b.KX122_ODCNTL_OSA_1600,
+			'0P781':_b.KX122_ODCNTL_OSA_0P781,
+			'1P563':_b.KX122_ODCNTL_OSA_1P563,
+			'3P125':_b.KX122_ODCNTL_OSA_3P125,
+			'6P25':_b.KX122_ODCNTL_OSA_6P25,
+			'3200':_b.KX122_ODCNTL_OSA_3200,
+			'6400':_b.KX122_ODCNTL_OSA_6400,
+			'12800':_b.KX122_ODCNTL_OSA_12800,
+			'25600':_b.KX122_ODCNTL_OSA_25600,
+		}
+		self.KX122_INC1_PWSEL1={
+			'50US_10US':_b.KX122_INC1_PWSEL1_50US_10US,
+			'1XOSA':_b.KX122_INC1_PWSEL1_1XOSA,
+			'2XOSA':_b.KX122_INC1_PWSEL1_2XOSA,
+			'4XOSA':_b.KX122_INC1_PWSEL1_4XOSA,
+		}
+		self.KX122_INC2_AOI={
+			'OR':_b.KX122_INC2_AOI_OR,
+			'AND':_b.KX122_INC2_AOI_AND,
+		}
+		self.KX122_INC5_PWSEL2={
+			'50US_10US':_b.KX122_INC5_PWSEL2_50US_10US,
+			'1XOSA':_b.KX122_INC5_PWSEL2_1XOSA,
+			'2XOSA':_b.KX122_INC5_PWSEL2_2XOSA,
+			'4XOSA':_b.KX122_INC5_PWSEL2_4XOSA,
+		}
+		self.KX122_FFCNTL_OFFI={
+			'12P5':_b.KX122_FFCNTL_OFFI_12P5,
+			'25':_b.KX122_FFCNTL_OFFI_25,
+			'50':_b.KX122_FFCNTL_OFFI_50,
+			'100':_b.KX122_FFCNTL_OFFI_100,
+			'200':_b.KX122_FFCNTL_OFFI_200,
+			'400':_b.KX122_FFCNTL_OFFI_400,
+			'800':_b.KX122_FFCNTL_OFFI_800,
+			'1600':_b.KX122_FFCNTL_OFFI_1600,
+		}
+		self.KX122_LP_CNTL_AVC={
+			'NO_AVG':_b.KX122_LP_CNTL_AVC_NO_AVG,
+			'2_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_2_SAMPLE_AVG,
+			'4_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_4_SAMPLE_AVG,
+			'8_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_8_SAMPLE_AVG,
+			'16_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_16_SAMPLE_AVG,
+			'32_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_32_SAMPLE_AVG,
+			'64_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_64_SAMPLE_AVG,
+			'128_SAMPLE_AVG':_b.KX122_LP_CNTL_AVC_128_SAMPLE_AVG,
+		}
+		self.KX122_BUF_CNTL2_BUF_M={
+			'FIFO':_b.KX122_BUF_CNTL2_BUF_M_FIFO,
+			'STREAM':_b.KX122_BUF_CNTL2_BUF_M_STREAM,
+			'TRIGGER':_b.KX122_BUF_CNTL2_BUF_M_TRIGGER,
+			'FILO':_b.KX122_BUF_CNTL2_BUF_M_FILO,
+		}
+		self.KX122_SELF_TEST_MEMS_TEST={
+			'OFF':_b.KX122_SELF_TEST_MEMS_TEST_OFF,
+			'ON':_b.KX122_SELF_TEST_MEMS_TEST_ON,
 		}
 class masks(register_base):
 	def __init__(self):
@@ -421,7 +421,8 @@ class masks(register_base):
 		self.KX122_TDTC_TDTC_MASK                                 = 0xFF         # The Tap/Double-TapTM Counter (TDTC) register contains counter information for the detection of a double tap event.
 		self.KX122_TTH_TTH_MASK                                   = 0xFF         # The Tap Threshold High (TTH) register represents the 8-bit jerk high threshold to determine if a tap is detected.
 		self.KX122_TTL_TTL_MASK                                   = 0xFF         # The Tap Threshold Low (TTL) register represents the 8-bit (0-255) jerk low threshold to determine if a tap is detected.
-		self.KX122_FTD_FTD_MASK                                   = 0xFF         # This register contains counter information for the detection of any tap event.
+		self.KX122_FTD_FTDH_MASK                                  = 0xF8         # Detection tap for the high limit
+		self.KX122_FTD_FTDL_MASK                                  = 0x07         # Detection tap for the low limit
 		self.KX122_STD_STD_MASK                                   = 0xFF         # This register contains counter information for the detection of a double tap event.
 		self.KX122_TLT_TLT_MASK                                   = 0xFF         # This register contains counter information for the detection of a tap event.
 		self.KX122_TWS_TWS_MASK                                   = 0xFF         # This register contains counter information for the detection of single and double taps.

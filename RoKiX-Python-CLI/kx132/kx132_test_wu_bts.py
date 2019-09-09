@@ -74,10 +74,10 @@ class Parameter_set_1(object):
     WUF_COUNTER_VALUE = 2         # 1/OWUF*value
     BTS_THRESHOLD_VALUE = 20       # 3.9mg*value
     BTS_COUNTER_VALUE = 2         # 1/OBTS*value
-    AOI = b.KX132_1211_INC2_AOI_OR       # AND-OR configuration on motion detection : b.KX132_1211_INC2_AOI_OR / b.KX132_1211_INC2_AOI_AND  
-    PR_MODE = 0                     # Pulse rejection mode : 0 / 1
+    AOI = b.KX132_1211_INC2_AOI_OR       # AND-OR configuration on motion detection : b.KX132_1211_INC2_AOI_OR / b.KX132_1211_INC2_AOI_AND
+    PR_MODE = 0                     # Pulse rejection mode : 0 standard / 1 reject
     TH_MODE = 1                     # wake / back-to-sleep threshold mode : 0/1. 0=absolute, 1=relative
-    C_MODE = 0                      # defines debounce counter clear mode : 0/1. 0=reset 1=clear
+    C_MODE = 0                      # defines debounce counter clear mode : 0/1. 0=reset 1=decrement
     WUF_AXES = b.KX132_1211_INC2_XNWUE | \
                b.KX132_1211_INC2_XPWUE | \
                b.KX132_1211_INC2_YNWUE | \
@@ -103,8 +103,7 @@ def enable_wu_bts(sensor,
     assert convert_to_enumkey(odr_bts) in e.KX132_1211_CNTL4_OBTS.keys(), 'Invalid for odr_owuf value "{}". Valid values are {}'.format(
         convert_to_enumkey(odr_bts), e.KX132_1211_CNTL4_OBTS.keys())
 
-    assert (cfg.C_MODE << b.KX132_1211_CNTL4_C_MODE) & ~m.KX132_1211_CNTL4_C_MODE_MASK == 0, 'Invalid for C_MODE value "{}".'.format(
-        cfg.C_MODE)
+    assert cfg.C_MODE in [0, 1], 'Invalid for C_MODE value "{}".'.format(cfg.C_MODE)
 
     if power_off_on:
         sensor.set_power_off()
@@ -143,7 +142,8 @@ def enable_wu_bts(sensor,
         b.KX132_1211_CNTL4_BTSE |  # BTS enabled
         (b.KX132_1211_CNTL4_PR_MODE if cfg.PR_MODE else 0) |
         (b.KX132_1211_CNTL4_TH_MODE if cfg.TH_MODE else 0) |
-        cfg.C_MODE << b.KX132_1211_CNTL4_C_MODE)
+        (b.KX132_1211_CNTL4_C_MODE_DECREMENTED if cfg.C_MODE else b.KX132_1211_CNTL4_C_MODE_RESET)
+    )
 
     # print('a 0b{:08b}'.format((sensor.read_register(r.KX132_1211_CNTL4)[0])))
 
@@ -153,7 +153,7 @@ def enable_wu_bts(sensor,
     sensor.set_bit_pattern(r.KX132_1211_CNTL4, e.KX132_1211_CNTL4_OBTS[convert_to_enumkey(odr_bts)], m.KX132_1211_CNTL4_OBTS_MASK)
 
     # set Motion engine to wake mode
-    sensor.set_bit(r.KX132_1211_CNTL5, b.KX132_1211_CNTL5_MAN_WAKE)
+    sensor.set_bit(r.KX132_1211_CNTL5, b.KX132_1211_CNTL5_MAN_SLEEP)
 
     # route raw data or ADP data to WUFBTS
     if ADP_WB_ISEL:  # ADP data to Motion Engine
@@ -178,7 +178,6 @@ def enable_wu_bts(sensor,
     # sys.exit()
 
 
-
 def callback(data):
     ch, ins3, status, rel = data
     del ch, status, rel
@@ -187,7 +186,7 @@ def callback(data):
     if ins3 & b.KX132_1211_INS3_BTS:
         LOGGER.info('Back to sleep')
     else:
-        pos = directions(ins3 & m.KX132_1211_INS3_WU_MASK)
+        pos = directions(ins3 & WUF_AXES)
         LOGGER.info('Wake up {}'.format(pos))
 
     return True
@@ -223,9 +222,9 @@ def main():
             odr_owuf=12.5,
             odr_bts=12.5,
             cfg=Parameter_set_1,
-            power_off_on=False) # ADP data to WUFBTS
+            power_off_on=False)  # ADP data to WUFBTS
 
-        sensor.set_power_on(CH_ACC | CH_ADP)                
+        sensor.set_power_on(CH_ACC | CH_ADP)
 
     else:
         enable_wu_bts(
