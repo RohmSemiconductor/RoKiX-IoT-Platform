@@ -494,9 +494,11 @@
     </field>
    </fields>
   </register>
-  <register address="40" mode="R/W" name="FTD" por="162" size="8">
+  <register address="40" doc="This register contains counter information for the detection of any tap event." mode="R/W" name="FTD" por="162" size="8">
    <fields>
-    <field doc="This register contains counter information for the detection of any tap event." mask="255" name="FTD" size="8" start_pos="0">
+    <field doc="Detection tap for the high limit" mask="248" name="FTDH" size="5" start_pos="3">
+    </field>
+    <field doc="Detection tap for the low limit" mask="7" name="FTDL" size="3" start_pos="0">
     </field>
    </fields>
   </register>

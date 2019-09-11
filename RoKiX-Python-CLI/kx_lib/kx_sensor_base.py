@@ -138,7 +138,7 @@ class SensorDriver(object):
             return self.resource[CFG_SAD]
         if self.selected_connectivity == BUS1_SPI:
             return self.resource[CFG_CS]
-            
+
     def _read_data(self, channel=None):
         "Override this method on sensor spesific driver"
         raise NotImplementedError()

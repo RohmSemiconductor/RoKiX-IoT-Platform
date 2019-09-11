@@ -50,7 +50,7 @@ class ConnectionManager(object):
 
         # list of location from where to look configuration file
         filepath_list = [
-            os.path.join('cfg', board_config_json), 
+            os.path.join('cfg', board_config_json),
             os.path.join(os.path.dirname(__file__), '..', 'cfg', board_config_json)]
 
         for filepath in filepath_list:
@@ -61,9 +61,8 @@ class ConnectionManager(object):
                 with open(board_file_name, 'r') as infile:
                     self.board_config = json.load(infile)
                 break
-        
+
         assert self.board_config is not None, 'No configuration file found \n%s.' % '\n'.join(filepath_list)
-        
 
         # verify board config version
         if self.board_config['structure_version'] not in SUPPORTED_BOARD_CONFIGURATION_VERSIONS:
@@ -131,7 +130,7 @@ class ConnectionManager(object):
             bus2connection.initialize(mac_address=evkit_config.ble_mac)
 
             self.kx_adapter = KxAdapterEvk(bus2=bus2connection)
-        
+
         elif self.bus2_configuration['connection'] == BLE_PYGATT:
             bus2connection = KxLinuxBLE(bus2_configuration=self.bus2_configuration)
 
@@ -179,7 +178,7 @@ class ConnectionManager(object):
             self.set_cpu_power_mode(odr)
         else:
             # if odr is not given then assume it is high and disable power save.
-            self.set_cpu_power_mode(1000) 
+            self.set_cpu_power_mode(1000)
 
         LOGGER.debug('<init')
 
@@ -386,7 +385,9 @@ class ConnectionManager(object):
             try:
                 int_pin = sensor.resource[INT_GPIO_DICT[pin]]
             except KeyError:
-                raise EvaluationKitException('Int pin "%s" is not available with board: "%s" and sensor: "%s"' %(pin, self.board_config_json, sensor.name))
+                raise EvaluationKitException(
+                    'Int pin "%s" is not available with board: "%s" and sensor: "%s"' %
+                    (pin, self.board_config_json, sensor.name))
             else:
                 return int_pin
         elif isinstance(pin, list):
@@ -478,8 +479,8 @@ class ConnectionManager(object):
             if not sensor_driver.resource:
                 raise EvaluationKitException(
                     ("Sensor '%s' not found from board configuration file '%s'. Possible reason is" +
-                     " that wrong board configuration file selected in rokix_settings.cfg") % 
-                     (sensor_driver.name, self.board_config_json))
+                     " that wrong board configuration file selected in rokix_settings.cfg") %
+                    (sensor_driver.name, self.board_config_json))
 
             _probe_status = sensor_driver.probe()
             if _probe_status != 1:

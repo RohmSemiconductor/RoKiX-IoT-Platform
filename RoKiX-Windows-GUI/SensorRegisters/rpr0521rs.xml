@@ -1,0 +1,336 @@
+<root version="3.0">
+ <sensor doc="RPR-0521RS Datasheet, 2016.01.28 - Rev.001" name="RPR0521RS" sad="56" size="8">
+  <register address="64" info="bypass" mode="INFO" name="REGISTER_DUMP_START" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="64" doc="System control" mode="R/W" name="SYSTEM_CONTROL" por="10" size="8">
+   <fields>
+    <field doc="Reset control" mask="128" name="sw_reset" size="1" start_pos="7">
+     <enums>
+      <item doc="Initial reset is not started" name="not_started" value="0">
+      </item>
+      <item doc="Initial reset is started" name="start" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="INT pin control" mask="64" name="int_pin" size="1" start_pos="6">
+     <enums>
+      <item doc="INT pin status is not initialized" name="no_init" value="0">
+      </item>
+      <item doc="INT pin become inactive (high impedance)" name="hi_z" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Part ID" mask="63" name="part" size="6" start_pos="0">
+     <enums>
+      <item doc="Part ID" name="id" value="10">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="65" doc="ALS, PS function setting" mode="R/W" name="MODE_CONTROL" por="0" size="8">
+   <fields>
+    <field doc="ALS enable" mask="128" name="als_en" size="1" start_pos="7">
+     <enums>
+      <item doc="ALS Standby" name="false" value="0">
+      </item>
+      <item doc="ALS Enable" name="true" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Proximity enable" mask="64" name="ps_en" size="1" start_pos="6">
+     <enums>
+      <item doc="PS Standby" name="false" value="0">
+      </item>
+      <item doc="PS Enable" name="true" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Proximity pulse width control" mask="32" name="ps_pulse" size="1" start_pos="5">
+     <enums>
+      <item doc="PS LED pulse width is typ 200us" name="200us" value="0">
+      </item>
+      <item doc="PS LED pulse width is typ 330us (PS sensor out is doubled)" name="330us" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="PS Operating mode" mask="16" name="ps_operating_mode" size="1" start_pos="4">
+     <enums>
+      <item doc="Normal mode" name="normal" value="0">
+      </item>
+      <item doc="Twice measurement mode" name="double_measurement" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Measurement time" mask="15" name="measurement_time" size="4" start_pos="0">
+     <enums>
+      <item doc="ALS standby, PS standby" name="off_off" value="0">
+      </item>
+      <item doc="ALS standby, PS 10ms" name="off_10ms" value="1">
+      </item>
+      <item doc="ALS standby, PS 40ms" name="off_40ms" value="2">
+      </item>
+      <item doc="ALS standby, PS 100ms" name="off_100ms" value="3">
+      </item>
+      <item doc="ALS standby, PS 400ms" name="off_400ms" value="4">
+      </item>
+      <item doc="ALS 100ms, PS 50ms" name="100ms_50ms" value="5">
+      </item>
+      <item doc="ALS 100ms, PS 100ms" name="100ms_100ms" value="6">
+      </item>
+      <item doc="ALS 100ms, PS 400ms" name="100ms_400ms" value="7">
+      </item>
+      <item doc="ALS 100ms + 300ms sleep, PS 50ms" name="400ms_50ms" value="8">
+      </item>
+      <item doc="ALS 100ms + 300ms sleep, PS 100ms" name="400ms_100ms" value="9">
+      </item>
+      <item doc="ALS 400ms (high sensitivity), PS standby" name="400ms_off" value="10">
+      </item>
+      <item doc="ALS 400ms (high sensitivity), PS 400ms" name="400ms_400ms" value="11">
+      </item>
+      <item doc="ALS 50ms, PS 50ms (special mode, see datasheet for details)" name="50ms_50ms" value="12">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="66" doc="ALS Gain, PS LED Driver" mode="R/W" name="ALS_PS_CONTROL" por="2" size="8">
+   <fields>
+    <field doc="Gain control of ALS DATA 0" mask="48" name="als_data0_gain" size="2" start_pos="4">
+     <enums>
+      <item doc="x1 Gain mode" name="x1" value="0">
+      </item>
+      <item doc="x2 Gain mode" name="x2" value="1">
+      </item>
+      <item doc="x64 Gain mode" name="x64" value="2">
+      </item>
+      <item doc="x128 Gain mode" name="x128" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="Gain control of ALS DATA 1" mask="12" name="als_data1_gain" size="2" start_pos="2">
+     <enums>
+      <item doc="x1 Gain mode" name="x1" value="0">
+      </item>
+      <item doc="x2 Gain mode" name="x2" value="1">
+      </item>
+      <item doc="x64 Gain mode" name="x64" value="2">
+      </item>
+      <item doc="x128 Gain mode" name="x128" value="3">
+      </item>
+     </enums>
+    </field>
+    <field doc="LED current" mask="3" name="led_current" size="2" start_pos="0">
+     <enums>
+      <item doc="25mA" name="25ma" value="0">
+      </item>
+      <item doc="50mA" name="50ma" value="1">
+      </item>
+      <item doc="100mA" name="100ma" value="2">
+      </item>
+      <item doc="200mA" name="200ma" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="67" doc="PS Gain, PS interrupt persistence" mode="R/W" name="PS_CONTROL" por="1" size="8">
+   <fields>
+    <field doc="Ambient infrared level flag" mask="192" name="ambient_ir_flag" size="2" start_pos="6">
+     <enums>
+      <item doc="Ambient infrared level is low" name="low" value="0">
+      </item>
+      <item doc="Ambient infrared level is high" name="high" value="1">
+      </item>
+      <item doc="Ambient infrared level is too high" name="too_high" value="2">
+      </item>
+     </enums>
+    </field>
+    <field doc="Proximity gain" mask="48" name="ps_gain" size="2" start_pos="4">
+     <enums>
+      <item doc="PS GAIN x1" name="x1" value="0">
+      </item>
+      <item doc="PS GAIN x2" name="x2" value="1">
+      </item>
+      <item doc="PS GAIN x4" name="x4" value="2">
+      </item>
+     </enums>
+    </field>
+    <field doc="PS interrupt persistence setting" mask="15" name="persistence" size="4" start_pos="0">
+     <enums>
+      <item doc="Interrupt becomes active at each measurement end" name="drdy" value="0">
+      </item>
+      <item doc="Interrupt status is updated at each measurement end" name="consecutive_1" value="1">
+      </item>
+      <item doc="Interrupt status is updated if two consecutive threshold judgments are the same" name="consecutive_2" value="2">
+      </item>
+      <item doc="Interrupt status is updated if three consecutive threshold judgments are the same" name="consecutive_3" value="3">
+      </item>
+      <item doc="Interrupt status is updated if four consecutive threshold judgments are the same" name="consecutive_4" value="4">
+      </item>
+      <item doc="Interrupt status is updated if five consecutive threshold judgments are the same" name="consecutive_5" value="5">
+      </item>
+      <item doc="Interrupt status is updated if six consecutive threshold judgments are the same" name="consecutive_6" value="6">
+      </item>
+      <item doc="Interrupt status is updated if seven consecutive threshold judgments are the same" name="consecutive_7" value="7">
+      </item>
+      <item doc="Interrupt status is updated if eight consecutive threshold judgments are the same" name="consecutive_8" value="8">
+      </item>
+      <item doc="Interrupt status is updated if nine consecutive threshold judgments are the same" name="consecutive_9" value="9">
+      </item>
+      <item doc="Interrupt status is updated if ten consecutive threshold judgments are the same" name="consecutive_10" value="10">
+      </item>
+      <item doc="Interrupt status is updated if eleven consecutive threshold judgments are the same" name="consecutive_11" value="11">
+      </item>
+      <item doc="Interrupt status is updated if twelve consecutive threshold judgments are the same" name="consecutive_12" value="12">
+      </item>
+      <item doc="Interrupt status is updated if thirteen consecutive threshold judgments are the same" name="consecutive_13" value="13">
+      </item>
+      <item doc="Interrupt status is updated if fourteen consecutive threshold judgments are the same" name="consecutive_14" value="14">
+      </item>
+      <item doc="Interrupt status is updated if fifteen consecutive threshold judgments are the same" name="consecutive_15" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="68" doc="PS data low byte" mode="R" name="PS_DATA_LSBs" order="little-endian" por="0" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="69" doc="PS data high byte" info="bypass" mode="R" name="PS_DATA_MSBs" por="0" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="70" doc="ALS DATA0 low byte" mode="R" name="ALS_DATA0_LSBs" order="little-endian" por="0" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="71" doc="ALS DATA0 high byte" info="bypass" mode="R" name="ALS_DATA0_MSBs" por="0" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="72" doc="ALS DATA1 low byte" mode="R" name="ALS_DATA1_LSBs" order="little-endian" por="0" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="73" doc="ALS DATA1 high byte" info="bypass" mode="R" name="ALS_DATA1_MSBs" por="0" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="74" doc="Interrupt control" mode="R/W" name="INTERRUPT" por="0" size="8">
+   <fields>
+    <field doc="PS interrupt status" mask="128" name="ps_int_status" size="1" start_pos="7">
+     <enums>
+      <item doc="PS interrupt signal inactive" name="inactive" value="0">
+      </item>
+      <item doc="PS interrupt signal active" name="active" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="ALS interrupt status" mask="64" name="als_int_status" size="1" start_pos="6">
+     <enums>
+      <item doc="ALS interrupt signal inactive" name="inactive" value="0">
+      </item>
+      <item doc="ALS interrupt signal active" name="active" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt mode" mask="48" name="int_mode" size="2" start_pos="4">
+     <enums>
+      <item doc="Only PS_TH_H is effective" name="ps_th_h_active" value="0">
+      </item>
+      <item doc="PS_TH_H and PS_TH_L are effective as hysteresis" name="ps_th_hysteresis" value="1">
+      </item>
+      <item doc="PS_TH_H and PS_TH_L are effective as outside detection" name="ps_th_outside_detection" value="2">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt assert control" mask="8" name="int_assert" size="1" start_pos="3">
+     <enums>
+      <item doc="Interrupt output 'L' is stable if newer measurement result is also interrupt active" name="stable" value="0">
+      </item>
+      <item doc="Interrupt output 'L' is de-assert and re-assert if newer measurement result is also interrupt active" name="reint" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt latch control" mask="4" name="int_latch" size="1" start_pos="2">
+     <enums>
+      <item doc="INT pin is latched until INTERRUPT register is read or initialized" name="enabled" value="0">
+      </item>
+      <item doc="INT pin is updated after each measurement" name="disabled" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt trigger control" mask="3" name="int_trig" size="2" start_pos="0">
+     <enums>
+      <item doc="INT pin is inactive" name="inactive" value="0">
+      </item>
+      <item doc="Triggered by only PS measurement" name="by_ps" value="1">
+      </item>
+      <item doc="Triggered by only ALS measurement" name="by_als" value="2">
+      </item>
+      <item doc="Triggered by PS and ALS measurement" name="by_both" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="75" doc="PS upper threshold low byte" mode="R/W" name="PS_TH_LSBs" order="little-endian" por="4095" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="76" doc="PS upper threshold high byte" info="bypass" mode="R/W" name="PS_TH_MSBs" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="77" doc="PS lower threshold low byte" mode="R/W" name="PS_TL_LSBs" order="little-endian" por="0" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="78" doc="PS lower threshold high byte" info="bypass" mode="R/W" name="PS_TL_MSBs" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="79" doc="ALS DATA0 upper threshold low byte" mode="R/W" name="ALS_DATA0_TH_LSBs" order="little-endian" por="65535" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="80" doc="ALS DATA0 upper threshold high byte" info="bypass" mode="R/W" name="ALS_DATA0_TH_MSBs" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="81" doc="ALS DATA0 lower threshold low byte" mode="R/W" name="ALS_DATA0_TL_LSBs" order="little-endian" por="0" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="82" doc="ALS DATA0 lower threshold high byte" info="bypass" mode="R/W" name="ALS_DATA0_TL_MSBs" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="83" doc="PS offset low byte" mode="R/W" name="PS_OFFSET_LSBs" order="little-endian" por="0" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="84" doc="PS offset high byte" info="bypass" mode="R/W" name="PS_OFFSET_MSBs" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="146" doc="MANUFACT ID" mode="R" name="MANUFACT_ID" por="224" size="8">
+   <fields>
+    <field mask="255" name="id" size="8" start_pos="0">
+     <enums>
+      <item doc="MANUFACT ID" name="e0h" value="224">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="84" info="bypass" mode="INFO" name="REGISTER_DUMP_END" size="8">
+   <fields>
+   </fields>
+  </register>
+ </sensor>
+</root>

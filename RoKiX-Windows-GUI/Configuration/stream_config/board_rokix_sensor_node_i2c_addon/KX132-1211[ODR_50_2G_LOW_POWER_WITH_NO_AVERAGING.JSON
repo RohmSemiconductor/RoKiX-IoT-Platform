@@ -1,127 +1,127 @@
 {
-    "structure_version": "3.0", 
-    "protocol_version": "2.0", 
-    "name": "Accel data 50Hz \u00b12g low power with no averaging", 
-    "doc": "Read accelerometer data at 50Hz ODR, \u00b12g low power with no averaging and zero averaging", 
-    "execute": [], 
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "Accel data 50Hz \u00b12g low power with no averaging",
+    "doc": "Read accelerometer data at 50Hz ODR, \u00b12g low power with no averaging and zero averaging",
+    "execute": [],
     "channels": [
         [
             {
-                "SI_unit": "m/s^2", 
-                "data": "Acc_X,Acc_Y,Acc_Z", 
-                "name": "Accelerometer", 
-                "SI_multiplier": "9.8 / 16384"
+                "name": "Accelerometer",
+                "data": "Acc_X,Acc_Y,Acc_Z",
+                "SI_unit": "m/s^2",
+                "SI_multiplier": "9.8 / 16384.0"
             }
         ]
-    ], 
+    ],
     "configure": [
         [
-            "KX132-1211", 
-            27, 
-            0, 
+            "KX132-1211",
+            27,
+            0,
             ""
-        ], 
+        ],
         [
-            "KX132-1211", 
-            33, 
-            6, 
+            "KX132-1211",
+            31,
+            0,
             ""
-        ], 
+        ],
         [
-            "KX132-1211", 
-            58, 
-            3, 
+            "KX132-1211",
+            33,
+            6,
             ""
-        ], 
+        ],
         [
-            "KX132-1211", 
-            37, 
-            16, 
+            "KX132-1211",
+            34,
+            32,
             ""
-        ], 
+        ],
         [
-            "KX132-1211", 
-            34, 
-            32, 
+            "KX132-1211",
+            37,
+            16,
             ""
-        ], 
+        ],
         [
-            "KX132-1211", 
-            31, 
-            0, 
+            "KX132-1211",
+            58,
+            3,
             ""
         ]
-    ], 
+    ],
     "activate": [
         [
-            "KX132-1211", 
-            27, 
-            160, 
+            "KX132-1211",
+            27,
+            160,
             ""
         ]
-    ], 
+    ],
     "start_req": [
         {
             "msg": [
                 [
-                    4, 
-                    31, 
-                    7, 
+                    4,
+                    31,
+                    7,
                     1
-                ], 
+                ],
                 [
-                    6, 
-                    11, 
-                    0, 
-                    44, 
-                    1, 
+                    6,
+                    11,
+                    0,
+                    44,
+                    1,
                     2
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    5, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    5,
                     [
-                        "KX132-1211", 
-                        8, 
+                        "KX132-1211",
+                        8,
                         6
                     ]
-                ], 
+                ],
                 [
-                    3, 
-                    17, 
+                    3,
+                    17,
                     48
                 ]
-            ], 
-            "fmt": "<Bhhh", 
-            "type": "continuous", 
-            "hdr": "ch!ax!ay!az", 
+            ],
+            "fmt": "<Bhhh",
+            "type": "continuous",
+            "hdr": "ch!ax!ay!az",
             "odr": 50
         }
-    ], 
+    ],
     "stop_req": [
         [
-            3, 
-            13, 
+            3,
+            13,
             48
         ]
-    ], 
+    ],
     "deactivate": [
         [
-            "KX132-1211", 
-            27, 
-            32, 
+            "KX132-1211",
+            27,
+            32,
             ""
-        ], 
+        ],
         [
-            "KX132-1211", 
-            31, 
-            0, 
+            "KX132-1211",
+            31,
+            0,
             ""
         ]
-    ], 
+    ],
     "register_dump": []
 }

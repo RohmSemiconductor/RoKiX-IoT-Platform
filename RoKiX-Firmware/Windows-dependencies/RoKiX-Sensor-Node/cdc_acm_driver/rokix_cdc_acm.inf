@@ -1,19 +1,35 @@
-; Copyright (c) 2019 Rohm Semiconductor
-; Windows 2000, XP, Vista, 7 and 8 (x32 and x64) driver for Rokix CDC ACM
+;******************************************************************************
+; File Name: USBFS_cdc.inf
+; Version 3.20
+;
+; Description:
+;  Windows USB CDC setup file for USBUART Device.
+;
+;******************************************************************************
+; Copyright 2007-2016, Cypress Semiconductor Corporation.  All rights reserved.
+; You may use this file only in accordance with the license, terms, conditions,
+; disclaimers, and limitations in the end user license agreement accompanying
+; the software package with which this file was provided.
+;******************************************************************************
 
-[Version] 
-Signature   = "$Windows NT$"
-Class       = Ports
-ClassGuid   = {4D36E978-E325-11CE-BFC1-08002BE10318}
-Provider    = %Manufacturer%
-DriverVer   = 05/31/2019,2.0.0.0
-CatalogFile = rokix_cdc_acm.cat
+[Version]
+Signature="$Windows NT$"
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%PROVIDER%
+LayoutFile=layout.inf
+CatalogFile=rokix_cdc_acm.cat
+DriverVer=03/05/2007,2.0.0000.0
 
-;----------------------------------------------------------
-; Targets
-;----------------------------------------------------------
 [Manufacturer]
-%Manufacturer%=DeviceList, NTAMD64, NTIA64, NTx86
+%MFGNAME%=DeviceList, NTx86, NTia64, NTamd64
+
+[DestinationDirs]
+DefaultDestDir=12
+
+[SourceDisksFiles]
+
+[SourceDisksNames]
 
 [DeviceList.NTx86]
 %DESCRIPTION%=DriverInstall, USB\VID_04B5&PID_0601
@@ -29,7 +45,7 @@ CatalogFile = rokix_cdc_acm.cat
 %DESCRIPTION%=DriverInstall, USB\VID_04B5&PID_0605&MI_00
 %DESCRIPTION%=DriverInstall, USB\VID_04B5&PID_0606&MI_00
 
-[DeviceList.NTAMD64]
+[DeviceList.NTia64]
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0601
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0602
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0603
@@ -43,7 +59,7 @@ CatalogFile = rokix_cdc_acm.cat
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0605&MI_00
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0606&MI_00
 
-[DeviceList.NTIA64]
+[DeviceList.NTamd64]
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0601
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0602
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0603
@@ -57,48 +73,58 @@ CatalogFile = rokix_cdc_acm.cat
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0605&MI_00
 %DESCRIPTION%=DriverInstall.NTamd64, USB\VID_04B5&PID_0606&MI_00
 
-;----------------------------------------------------------
-; Windows 2000, XP, Vista, Windows 7, Windows 8 - 32bit
-;----------------------------------------------------------
 
-[DestinationDirs]
-DefaultDestDir=12
-DriverInstall.NT.Copy=12
+;------------------------------------------------------------------------------
+;  32 bit section for Windows 2000/2003/XP/Vista
+;------------------------------------------------------------------------------
 
-[DriverInstall.NT]
+[DriverInstall.NTx86]
 include=mdmcpq.inf
-CopyFiles=DriverInstall.NT.Copy
-AddReg=DriverInstall.NT.AddReg
+CopyFiles=DriverCopyFiles
+AddReg=DriverInstall.NTx86.AddReg
 
-[DriverInstall.NT.Copy]
+[DriverCopyFiles]
+usbser.sys,,,0x20
 
-[DriverInstall.NT.AddReg]
+[DriverInstall.NTx86.AddReg]
 HKR,,DevLoader,,*ntkern
 HKR,,NTMPDriver,,usbser.sys
 HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
 
-[DriverInstall.NT.Services]
+[DriverInstall.NTx86.Services]
+AddService=usbser, 0x00000002, DriverService
+
+;------------------------------------------------------------------------------
+;  64 bit section for Intel Itanium based systems
+;------------------------------------------------------------------------------
+
+[DriverInstall.NTia64]
 include=mdmcpq.inf
-AddService = usbser, 0x00000002, DriverService.NT
+CopyFiles=DriverCopyFiles
+AddReg=DriverInstall.NTia64.AddReg
 
-[DriverService.NT] 
-DisplayName = %Serial.SvcDesc%
-ServiceType = 1 ; SERVICE_KERNEL_DRIVER
-StartType = 3 ; SERVICE_DEMAND_START
-ErrorControl = 1 ; SERVICE_ERROR_NORMAL
-ServiceBinary = %12%\usbser.sys
-LoadOrderGroup = Base
+[DriverCopyFiles]
+usbser.sys,,,0x20
 
-;----------------------------------------------------------
-; Windows XP, Vista, Windows 7, Windows 8 - 64bit
-;----------------------------------------------------------
+[DriverInstall.NTia64.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usbser.sys
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[DriverInstall.NTia64.Services]
+AddService=usbser, 0x00000002, DriverService
+
+;------------------------------------------------------------------------------
+;  64 bit section for AMD64 and Intel EM64T based systems
+;------------------------------------------------------------------------------
 
 [DriverInstall.NTamd64]
 include=mdmcpq.inf
-CopyFiles=DriverCopyFiles.NTamd64
+CopyFiles=DriverCopyFiles
 AddReg=DriverInstall.NTamd64.AddReg
 
-[DriverCopyFiles.NTamd64]
+[DriverCopyFiles]
+usbser.sys,,,0x20
 
 [DriverInstall.NTamd64.AddReg]
 HKR,,DevLoader,,*ntkern
@@ -106,13 +132,25 @@ HKR,,NTMPDriver,,usbser.sys
 HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
 
 [DriverInstall.NTamd64.Services]
-AddService=usbser, 0x00000002, DriverService.NT
+AddService=usbser, 0x00000002, DriverService
 
-;----------------------------------------------------------
-; String
-;----------------------------------------------------------
+;------------------------------------------------------------------------------
+;
+;------------------------------------------------------------------------------
 
-[Strings] 
-Manufacturer="Kionix"
+[DriverService]
+DisplayName=%SERVICE%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\usbser.sys
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+
+[Strings]
+PROVIDER="Kionix"
+MFGNAME="Kionix, Inc."
 DESCRIPTION="USB Serial Device"
-Serial.SvcDesc = "USB UART"
+SERVICE="USB UART"

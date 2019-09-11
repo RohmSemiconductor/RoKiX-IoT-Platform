@@ -4,8 +4,10 @@
 class EvaluationKitException(Exception):
     pass
 
+
 class FunctionalityNotInDevice(EvaluationKitException):
     pass
+
 
 class ProtocolException(EvaluationKitException):
     """Exception for protocol-related issues.

@@ -95,12 +95,12 @@ class KX126DataStepStream(StreamConfig):
 
 
 class KX126DataStepLogger(SingleChannelReader):
-    
+
     def override_config_parameters(self):
         SingleChannelReader.override_config_parameters(self)
         evkit_config.odr = 100
 
-    def enable_data_logging(self, **kwargs):        
+    def enable_data_logging(self, **kwargs):
         enable_data_logging(self.sensors[0], **kwargs)
         enable_pedometer(self.sensors[0], **kwargs)
 

@@ -64,7 +64,13 @@ def spi_rw_req(target, identifier, read_size, tx_data):
 
 def read_req(target, identifier, register, length=1):
     msg = KxMessageContainer(EVKIT_MSG_READ_REQ)
-    msg.append_payload([target, identifier, register, length])
+    if isinstance(register, list):  # This is not supported in default firmware.
+        msg.append_payload([target, identifier])
+        msg.append_payload(register)
+        msg.append_payload([length])
+    else:
+        msg.append_payload([target, identifier, register, length])
+
     return msg.get_message()
 
 

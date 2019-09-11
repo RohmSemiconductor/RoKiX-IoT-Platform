@@ -72,7 +72,6 @@ class KX132KX122DataStream(StreamConfig):
             pin_index=kx132_pin_index)
 
 
-
 class KX132KX122DataLogger(MultiChannelReader):
     def enable_data_logging(self, **kwargs):
         kx022_data_logger.enable_data_logging(self.sensors[0], **kwargs)

@@ -5,7 +5,7 @@
     ],
     "configuration": {
         "name": "RoKiX Sensor Node / addon / SPI",
-        "doc": "RoKiX Sensor Node on SPI mode with add-on board. KXG08, KMX62, KX122, BM1383AGLV and BM1422AGMV on main board.",
+        "doc": "RoKiX Sensor Node on SPI mode with add-on board. KX122 on main board. KX126, KX132-1211, KX134-1211 and KX224 on Addon board.",
         "board_id": 7,
         "cpu_freq_mhz": 64,
         "bus1": {

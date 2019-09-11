@@ -294,8 +294,8 @@ class ProtocolEngine(object):
         received_message = array('B')
         partial_message = array('B')
         retry_count = self.max_retry_count
-        #BLE_PYGATT returns strings, windows
-        length_byte = array('B',  [ord(self.connection.read(1))])
+        # BLE_PYGATT returns strings, windows
+        length_byte = array('B', [ord(self.connection.read(1))])
         if not length_byte:
             raise ProtocolTimeoutException('Timeout on message receiving 1.')
 

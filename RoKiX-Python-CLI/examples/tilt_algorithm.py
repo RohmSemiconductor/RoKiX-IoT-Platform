@@ -73,4 +73,10 @@ def app_main():
 
 
 if __name__ == '__main__':
+    print("Tilt detection demonstration application")
+    print("This apllication connects to RoKiX Sensor node and reads accelerometer data.")
+    print("Keep gravity on x-y axis and rotate the sensor node.")
+    print("Tilt angle is printed to display.")
+    print("If angle is positive then red LED is lit on sensor node.")
+    print("Press CTRL+C to stop.")
     app_main()

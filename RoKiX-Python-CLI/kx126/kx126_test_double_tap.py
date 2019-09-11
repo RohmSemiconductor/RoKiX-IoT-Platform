@@ -211,7 +211,6 @@ def enable_double_tap(sensor,
     # Disable/enable single tap and double tap interrupt
     sensor.write_register(r.KX126_TDTRC, cfg.KX126_TDTRC_VALUE)
 
-
     # TDTC: Counter information for the detection of a double tap event. 1/400Hz (0.3s, 2.5ms)
     sensor.write_register(r.KX126_TDTC, cfg.KX126_TDTC_VALUE)
 
@@ -261,8 +260,6 @@ def enable_double_tap(sensor,
     LOGGER.info('\nDouble tap event initialized.')
 
     sensor.release_interrupts()                         # clear all internal function interrupts
-
-
 
 
 def determine_double_tap_direction(data):

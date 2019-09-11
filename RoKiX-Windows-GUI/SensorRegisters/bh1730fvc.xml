@@ -1,0 +1,186 @@
+<root version="3.0">
+ <sensor name="BH1730FVC" sad="41" size="8">
+  <register address="128" info="bypass" mode="INFO" name="REGISTER_DUMP_START" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="128" doc="Operation mode control" mode="R/W" name="CONTROL" por="0" size="8">
+   <fields>
+    <field doc="ADC interrupt status" mask="32" name="ADC_INTR" size="1" start_pos="5">
+     <enums>
+      <item doc="Interrupt is inactive" name="inactive" value="0">
+      </item>
+      <item doc="Interrupt is active" name="active" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="ADC data updated flag" mask="16" name="ADC_VALID" size="1" start_pos="4">
+    </field>
+    <field doc="ADC measurement mode" mask="8" name="ONE_TIME" size="1" start_pos="3">
+     <enums>
+      <item doc="ADC measurement is continuous" name="continous" value="0">
+      </item>
+      <item doc="ADC measurement is one time" name="onetime" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="ADC channel select" mask="4" name="DATA_SEL" size="1" start_pos="2">
+     <enums>
+      <item doc="ADC measurement Type0 and Type1" name="type0_and_1" value="0">
+      </item>
+      <item doc="ADC measurement Type0 only" name="type0" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="ADC measurement enable" mask="2" name="ADC_EN" size="1" start_pos="1">
+     <enums>
+      <item doc="ADC measurement stops" name="Disable" value="0">
+      </item>
+      <item doc="ADC measurement starts" name="Enable" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="ADC power control" mask="1" name="POWER" size="1" start_pos="0">
+     <enums>
+      <item doc="ADC power down" name="Disable" value="0">
+      </item>
+      <item doc="ADC power on" name="Enable" value="1">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="129" mode="R/W" name="TIMING" por="218" size="8">
+   <fields>
+    <field doc="Light integration time control (ITIME)" mask="255" size="8" start_pos="0">
+    </field>
+   </fields>
+  </register>
+  <register address="130" doc="Interrupt function control" mode="R/W" name="INTERRUPT" por="0" size="8">
+   <fields>
+    <field doc="ADC stop on interrupt control" mask="64" name="INT_STOP" size="1" start_pos="6">
+     <enums>
+      <item doc="ADC measurement does not stop" name="continuous" value="0">
+      </item>
+      <item doc="ADC measurement stops when interrupt becomes active" name="stopped" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt enable" mask="16" name="INT_EN" size="1" start_pos="4">
+     <enums>
+      <item doc="Disable interrupt function" name="invalid" value="0">
+      </item>
+      <item doc="Enable interrupt function" name="valid" value="1">
+      </item>
+     </enums>
+    </field>
+    <field doc="Interrupt persistence function" mask="15" name="PERSIST" size="4" start_pos="0">
+     <enums>
+      <item doc="Interrupt becomes active at each measurement end" name="toggle_after_measurement" value="0">
+      </item>
+      <item doc="Interrrupt status is updated at each measurement end" name="update_after_measurement" value="1">
+      </item>
+      <item doc="Interrupt status is updated if 2 consecutive threshold judgments are the same" name="update_after_2_same" value="2">
+      </item>
+      <item doc="Interrupt status is updated if 3 consecutive threshold judgments are the same" name="update_after_3_same" value="3">
+      </item>
+      <item doc="Interrupt status is updated if 4 consecutive threshold judgments are the same" name="update_after_4_same" value="4">
+      </item>
+      <item doc="Interrupt status is updated if 5 consecutive threshold judgments are the same" name="update_after_5_same" value="5">
+      </item>
+      <item doc="Interrupt status is updated if 6 consecutive threshold judgments are the same" name="update_after_6_same" value="6">
+      </item>
+      <item doc="Interrupt status is updated if 7 consecutive threshold judgments are the same" name="update_after_7_same" value="7">
+      </item>
+      <item doc="Interrupt status is updated if 8 consecutive threshold judgments are the same" name="update_after_8_same" value="8">
+      </item>
+      <item doc="Interrupt status is updated if 9 consecutive threshold judgments are the same" name="update_after_9_same" value="9">
+      </item>
+      <item doc="Interrupt status is updated if 10 consecutive threshold judgments are the same" name="update_after_10_same" value="10">
+      </item>
+      <item doc="Interrupt status is updated if 11 consecutive threshold judgments are the same" name="update_after_11_same" value="11">
+      </item>
+      <item doc="Interrupt status is updated if 12 consecutive threshold judgments are the same" name="update_after_12_same" value="12">
+      </item>
+      <item doc="Interrupt status is updated if 13 consecutive threshold judgments are the same" name="update_after_13_same" value="13">
+      </item>
+      <item doc="Interrupt status is updated if 14 consecutive threshold judgments are the same" name="update_after_14_same" value="14">
+      </item>
+      <item doc="Interrupt status is updated if 15 consecutive threshold judgments are the same" name="update_after_15_same" value="15">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="131" doc="Low byte of low interrupt threshold setting" mode="R/W" name="THLLOW" order="little-endian" por="0" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="132" doc="High byte of low interrupt threshold setting" info="bypass" mode="R/W" name="THLHIGH" por="0" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="133" doc="Low byte of high interrupt threshold setting" mode="R/W" name="THHLOW" order="little-endian" por="65535" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="134" doc="High byte of high interrupt threshold setting" info="bypass" mode="R/W" name="THHHIGH" por="255" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="135" doc="Gain control" mode="R/W" name="GAIN" por="0" size="8">
+   <fields>
+    <field doc="ADC resolution setting" mask="7" name="GAIN" size="3" start_pos="0">
+     <enums>
+      <item doc="x1 gain mode" name="X1_gain" value="0">
+      </item>
+      <item doc="x2 gain mode" name="X2_gain" value="1">
+      </item>
+      <item doc="x64 gain mode" name="X64_gain" value="2">
+      </item>
+      <item doc="x128 gain mode" name="X128_gain" value="3">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="146" doc="Part number and Revision ID" mode="R" name="ID" por="113" size="8">
+   <fields>
+    <field doc="Part number" mask="240" name="PART_NUMBER" size="4" start_pos="4">
+     <enums>
+      <item doc="Part number" name="ID" value="7">
+      </item>
+     </enums>
+    </field>
+   </fields>
+  </register>
+  <register address="148" doc="ADC Type0 low byte data register" mode="R" name="DATA0LOW" order="little-endian" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="149" doc="ADC Type0 high byte data register" info="bypass" mode="R" name="DATA0HIGH" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="150" doc="ADC Type1 low byte data register" mode="R" name="DATA1LOW" order="little-endian" size="16" style="int">
+   <fields>
+   </fields>
+  </register>
+  <register address="151" doc="ADC Type1 high byte data register" info="bypass" mode="R" name="DATA1HIGH" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="225" doc="Reset interrupt" info="bypass" mode="INFO" name="INT_RESET" por="0" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="228" doc="Software reset" info="bypass" mode="INFO" name="RESET" por="0" size="8">
+   <fields>
+   </fields>
+  </register>
+  <register address="151" info="bypass" mode="INFO" name="REGISTER_DUMP_END" size="8">
+   <fields>
+   </fields>
+  </register>
+ </sensor>
+</root>

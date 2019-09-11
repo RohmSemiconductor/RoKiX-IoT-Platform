@@ -20,19 +20,18 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
 # THE SOFTWARE.
 """
-Example app for WakeUp/Back To Sleep  (WU and BTS) detection
+Example app for WakeUp/Back To Sleep  (WU and BTS) detection with ADP
 """
 import imports  # pylint: disable=unused-import
 from kx_lib import kx_logger
 from kx_lib.kx_data_stream import StreamConfig
-from kx_lib.kx_util import get_drdy_pin_index, get_drdy_timer, evkit_config, convert_to_enumkey
-from kx_lib.kx_configuration_enum import CH_ACC, CH_ADP, CFG_SPI_PROTOCOL, POLARITY_DICT, CFG_POLARITY, CFG_SAD, CFG_TARGET, CFG_PULLUP, CFG_AXIS_MAP
+from kx_lib.kx_util import get_drdy_pin_index, get_drdy_timer, evkit_config
+from kx_lib.kx_configuration_enum import CH_ACC, CH_ADP, CFG_SPI_PROTOCOL, CFG_POLARITY, CFG_TARGET, CFG_PULLUP, CFG_AXIS_MAP
 from kx_lib.kx_data_logger import SingleChannelReader
 from kx_lib.kx_data_stream import RequestMessageDefinition
-from kx132.kx132_driver import KX132Driver, r, b, m, e
-from kx132.kx132_driver import KX132Driver, filter1_values, filter2_values, r, e
+from kx132.kx132_driver import KX132Driver, r
+from kx132.kx132_driver import filter1_values, filter2_values
 from kx132 import kx132_raw_adp_logger
-from kx132.kx132_data_logger import KX132DataLogger
 from kx132.kx132_test_wu_bts import enable_wu_bts
 
 
@@ -52,7 +51,7 @@ class KX132RmsWuBtsStream(StreamConfig):
         assert sensors[0].name in KX132Driver.supported_parts
         StreamConfig.__init__(self, sensors[0])
         sensors[0].resource[CFG_AXIS_MAP] = [0, 1, 2, 3]
-        
+
         sensor = sensors[0]
 
         # get pin_index if it is not given and timer is not used
@@ -83,7 +82,7 @@ class KX132RmsWuBtsStream(StreamConfig):
 
         # read three separate register areas
         reg_read_cfgs = [(self.reg, 6, False),
-                         (r.KX132_1211_INS3, 1, False),
+                         (r.KX132_1211_STATUS_REG, 1, False),
                          (r.KX132_1211_INT_REL, 1, True)]
         for addr_start, read_size, discard in reg_read_cfgs:
             if self.sensor.resource.get(CFG_SPI_PROTOCOL, 0) == 1:
@@ -105,14 +104,15 @@ class KX132RmsWuBtsStream(StreamConfig):
 class KX132RmsWuBtsLogger(SingleChannelReader):
     def enable_data_logging(self, **kwargs):
         kwargs.update({
-            'power_off_on':False,
-            'rms_average':'2_SAMPLE_AVG', # NOTE wu/bts uses always data after rms
+            'power_off_on': False,
+            'rms_average': '2_SAMPLE_AVG',  # NOTE wu/bts uses always data after rms
         })
 
         self.sensors[0].set_power_off()
         kx132_raw_adp_logger.enable_data_logging(self.sensors[0], **kwargs)
         enable_wu_bts(self.sensors[0], ADP_WB_ISEL=1, power_off_on=False)
         self.sensors[0].set_power_on(CH_ACC | CH_ADP)
+
 
 def main():
     l = KX132RmsWuBtsLogger([KX132Driver])

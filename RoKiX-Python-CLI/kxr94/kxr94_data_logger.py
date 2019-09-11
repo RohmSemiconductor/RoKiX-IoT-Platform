@@ -35,7 +35,7 @@ LOGGER = kx_logger.get_logger(__name__)
 
 
 def adc_value(resource, payload, divider=1):
-    
+
     res = resource[CFG_ADC_RESOLUTION]
     gain = resource[CFG_ADC_GAIN]
     vref = resource[CFG_ADC_REF_V]
@@ -97,7 +97,7 @@ def main():
     logger.enable_data_logging(
         timer_interval=evkit_config.drdy_timer_interval)
 
-    #def callback(data):
+    # def callback(data):
     #    resource = logger.sensors[0].resource
     #    print("{:.2f}, {:1.2f}, {:1.2f}".format(
     #        adc_value(resource, data[1]), adc_value(resource, data[2]), adc_value(resource, data[3])))

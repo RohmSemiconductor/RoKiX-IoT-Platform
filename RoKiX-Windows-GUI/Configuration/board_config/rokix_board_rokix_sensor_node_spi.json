@@ -5,7 +5,7 @@
     ],
     "configuration": {
         "name": "RoKiX Sensor Node / SPI",
-        "doc": "RoKiX Sensor Node on SPI mode. KXG08, KMX62, KX122, BM1383AGLV and BM1422AGMV on main board.",
+        "doc": "RoKiX Sensor Node on SPI mode.KX122 on main board.",
         "board_id": 7,
         "cpu_freq_mhz": 64,
         "bus1": {
