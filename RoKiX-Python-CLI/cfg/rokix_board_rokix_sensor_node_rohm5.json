@@ -5,7 +5,7 @@
     ],
     "configuration": {
         "name": "RoKiX Sensor Node / Sensor module / I2C",
-        "doc": "RoKiX Sensor Node board on I2C mode with Rohm 5-pin Sensor Module. KXG08, KMX62, KX122, BM1383AGLV and BM1422AGMV on main board.",
+        "doc": "RoKiX Sensor Node board on I2C mode with Rohm 5-pin Sensor Module. KMX62, KX122, BM1383AGLV and BM1422AGMV on main board.",
         "board_id": 7,
         "cpu_freq_mhz": 64,
         "bus1": {
@@ -34,19 +34,6 @@
                             "SAD": 15,
                             "gpio1": 46,
                             "gpio2": 39,
-                            "axis_map": [
-                                0,
-                                1,
-                                2,
-                                3,
-                                4,
-                                5
-                            ]
-                        },
-                        "KXG08": {
-                            "SAD": 79,
-                            "gpio1": 47,
-                            "gpio2": 38,
                             "axis_map": [
                                 0,
                                 1,
@@ -151,6 +138,10 @@
                         "BH1730FVC": {
                             "SAD": 41,
                             "gpio1": 33
+                        },
+                        "BH1792GLC": {
+                            "SAD": 91,
+                            "gpio1": 33                            
                         },
                         "RPR-0521RS": {
                             "SAD": 56,

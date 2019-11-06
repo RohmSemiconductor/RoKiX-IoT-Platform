@@ -66,7 +66,7 @@ class KX224Driver(SensorDriver):
                 self._registers = dict(r.__dict__)
                 self._dump_range = (r.KX224_CNTL1, r.KX224_BUF_CNTL2)
             return 1
-        LOGGER.debug("wrong WHOAMI received for KX222/KX224: 0x%02x" % resp[0])
+        LOGGER.info("wrong WHOAMI received for KX222/KX224: 0x%02x" % resp[0])
         self.connected = False
         return 0
 

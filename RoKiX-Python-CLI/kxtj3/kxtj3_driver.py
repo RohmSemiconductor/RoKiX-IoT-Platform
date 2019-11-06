@@ -68,7 +68,7 @@ class KXTJ3Driver(SensorDriver):
             return 1
 
         self.connected = False
-        LOGGER.debug("wrong WHOAMI received KXTJ3/KXCJC: 0x%02x" % resp[0])
+        LOGGER.info("wrong WHOAMI received KXTJ3/KXCJC: 0x%02x" % resp[0])
         return 0
 
     def ic_test(self):

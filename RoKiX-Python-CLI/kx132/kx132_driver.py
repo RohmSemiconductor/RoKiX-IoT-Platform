@@ -39,6 +39,8 @@ e = kx132_1211_registers.enums()
 # activity modes
 SLEEP, WAKE = range(2)
 
+# f1_1a, f1_ba, f1_ca, f1_ish, f1_osh 
+
 filter1_values = {
     'LP_ODR_4': (22, 0, 1439258, 1, 1),
     'LP_ODR_8': (72, 3954428, 2796203, 2, 0),
@@ -50,7 +52,12 @@ filter1_values = {
     'LP_ODR_512': (29, 8315818, 8244280, 13, 0),
     'LP_ODR_1024': (29, 8352212, 8316131, 15, 0),
     'LP_ODR_2048': (30, 8370410, 8352291, 17, 0),
+    'LP_ODR_4p266': (52, 4213708, 2986360, 2, 0),
+    'LP_ODR_4p830': (18, 4674381, 3358701, 2, 0),
+
 }
+
+# f2_1a, f2_ba, f2_ish, f2_osh 
 filter2_values = {
     'LP_ODR_4': (0, 0, 1, 1),
     'LP_ODR_8': (22, 13573, 1, 0),
@@ -62,6 +69,7 @@ filter2_values = {
     'LP_ODR_512': (72, 32368, 7, 0),
     'LP_ODR_1024': (72, 32568, 8, 0),
     'LP_ODR_2048': (73, 32668, 9, 0),
+    'LP_ODR_8p533': (33, 22481, 2, 0),
     'HP_ODR_4': (0, 0, 1, 1),
     'HP_ODR_8': (53, 13573, 2, 2),
     'HP_ODR_16': (86, 21895, 3, 3),
@@ -72,6 +80,11 @@ filter2_values = {
     'HP_ODR_512': (126, 32368, 8, 8),
     'HP_ODR_1024': (127, 32568, 9, 9),
     'HP_ODR_2048': (0, 32668, 9, 10),
+    'HP_ODR_6p400': (77, 19640, 3, 3),
+    'HP_ODR_4p413': (59, 15006, 2, 2),
+    'HP_ODR_4p266': (57, 14523, 2, 2),
+    'HP_ODR_2p844': (30, 7779, 2, 2),
+    'HP_ODR_3p938': (52, 13336, 2, 2),
 }
 ## wuf and bts_directions
 
@@ -114,7 +127,7 @@ class KX132Driver(SensorDriver):
             self._registers = dict(r.__dict__)
             self._dump_range = (r.KX132_1211_CNTL1, r.KX132_1211_ADP_CNTL19)
             return 1
-        LOGGER.debug("wrong KX132 WHOAMI received: 0x%02x" % resp[0])
+        LOGGER.info("wrong KX132 WHOAMI received: 0x%02x" % resp[0])
         self.connected = False
         return 0
 

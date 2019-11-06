@@ -41,16 +41,16 @@ LOGGER = kx_logger.get_logger(__name__)
 _CODE_FORMAT_VERSION = 3.0
 
 
-class KX132RmsWuBtsStream(StreamConfig):
-    fmt = "<BhhhB"
-    hdr = "ch!adp_x!adp_y!adp_z!direction"
+class KX132RawRmsWuBtsStream(StreamConfig):
+    fmt = "<BhhhhhhB"
+    hdr = "ch!ax!ay!az!adp_x!adp_y!adp_z!status"
     reg = r.KX132_1211_XADP_L
 
     def __init__(self, sensors, pin_index=None, timer=None):
         "DRDY and timer data stream"
         assert sensors[0].name in KX132Driver.supported_parts
         StreamConfig.__init__(self, sensors[0])
-        sensors[0].resource[CFG_AXIS_MAP] = [0, 1, 2, 3]
+        sensors[0].resource[CFG_AXIS_MAP] = [0, 1, 2, 3, 4, 5, 6]
 
         sensor = sensors[0]
 
@@ -81,7 +81,8 @@ class KX132RmsWuBtsStream(StreamConfig):
         message.msg_req.append(req)
 
         # read three separate register areas
-        reg_read_cfgs = [(self.reg, 6, False),
+        reg_read_cfgs = [(r.KX132_1211_XOUT_L, 6, False),
+                        (self.reg, 6, False),
                          (r.KX132_1211_STATUS_REG, 1, False),
                          (r.KX132_1211_INT_REL, 1, True)]
         for addr_start, read_size, discard in reg_read_cfgs:
@@ -101,7 +102,7 @@ class KX132RmsWuBtsStream(StreamConfig):
             message.msg_req.append(req)
 
 
-class KX132RmsWuBtsLogger(SingleChannelReader):
+class KX132RawRmsWuBtsLogger(SingleChannelReader):
     def enable_data_logging(self, **kwargs):
         kwargs.update({
             'power_off_on': False,
@@ -115,9 +116,9 @@ class KX132RmsWuBtsLogger(SingleChannelReader):
 
 
 def main():
-    l = KX132RmsWuBtsLogger([KX132Driver])
+    l = KX132RawRmsWuBtsLogger([KX132Driver])
     l.enable_data_logging(odr=evkit_config.odr)
-    l.run(KX132RmsWuBtsStream)
+    l.run(KX132RawRmsWuBtsStream)
 
 
 if __name__ == '__main__':

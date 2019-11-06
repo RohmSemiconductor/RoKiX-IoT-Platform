@@ -5,7 +5,7 @@
     ],
     "configuration": {
         "name": "RoKiX Sensor Node / addon / I2C",
-        "doc": "RoKiX Sensor Node on I2C mode with add-on board. KXG08, KMX62, KX122, BM1383AGLV and BM1422AGMV on main board.",
+        "doc": "RoKiX Sensor Node on I2C mode with add-on board. KMX62, KX122, BM1383AGLV and BM1422AGMV on main board. KX126, KX132-1211, KX134-1211 and KX224 on Addon board.",
         "board_id": 7,
         "cpu_freq_mhz": 64,
         "bus1": {
@@ -17,6 +17,7 @@
             "targets": [
                 {
                     "name": "i2c",
+                    "doc": "Main board connector",
                     "freq": 400,
                     "target": 4,
                     "parts": {
@@ -78,7 +79,15 @@
                             "adc_msg_resolution_int": 12,
                             "adc_msg_gain_enum": 1,
                             "adc_msg_conversion_time_us": 0,
-                            "adc_msg_oversampling_enum": 0
+                            "adc_msg_oversampling_enum": 0,
+                            "gpio_conf": [
+                                [
+                                    30
+                                ],
+                                [
+                                    1
+                                ]
+                            ]
                         }
                     }
                 },
@@ -118,19 +127,38 @@
                                 2
                             ]
                         },
-                        "KX134-1211": {
-                            "SAD": 31,
+                        "KXTJ3": {
+                            "SAD": 15,
                             "gpio1": 44,
-                            "gpio2": 33,
                             "axis_map": [
                                 0,
                                 1,
                                 2
                             ]
                         },
-						"KXTJ3": {
+                        "KMX63": {
                             "SAD": 15,
                             "gpio1": 44,
+                            "gpio2": 33,
+                            "axis_map": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        },
+                        "BH1792GLC": {
+                            "SAD": 91,
+                            "gpio1": 44,
+                            "pullup": "EVKIT_GPIO_PIN_PULLUP",
+                            "polarity": "EVKIT_GPIO_PIN_SENSE_LOW"
+                        },
+                        "KX134-1211": {
+                            "SAD": 31,
+                            "gpio1": 44,
+                            "gpio2": 33,
                             "axis_map": [
                                 0,
                                 1,
