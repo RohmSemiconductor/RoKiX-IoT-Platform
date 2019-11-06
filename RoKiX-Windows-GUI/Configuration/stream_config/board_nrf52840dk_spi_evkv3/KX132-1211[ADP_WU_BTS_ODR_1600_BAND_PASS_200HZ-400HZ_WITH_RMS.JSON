@@ -2,15 +2,21 @@
     "structure_version": "3.0",
     "protocol_version": "2.0",
     "name": "ADP data & WUF/BTS Detection 1600Hz Band pass 200Hz-400Hz with RMS",
-    "doc": "ADP data & WUF/BTS Wake up interrupt if frequency between 200Hz and 400Hz detected",
+    "doc": "ADP data & WUF/BTS Wake up interrupt if frequency between 200Hz and 400Hz detected.",
     "execute": [],
     "channels": [
         [
             {
-                "name": "Advanced Data Path",
-                "data": "ADP_X,ADP_Y,ADP_Z",
+                "name": "Accelerometer",
+                "data": "Acc_X,Acc_Y,Acc_Z",
                 "SI_unit": "m/s^2",
                 "SI_multiplier": "9.8 / 16384.0"
+            },
+            {
+                "name": "Advanced Data Path",
+                "data": "ADP_X,ADP_Y,ADP_Z",
+                "SI_unit": "WUF/BTS threshold",
+                "SI_multiplier": "0.015625"
             },
             {
                 "name": "Wu/Bts",
@@ -114,7 +120,7 @@
         [
             "KX132-1211",
             100,
-            59,
+            91,
             ""
         ],
         [
@@ -233,10 +239,10 @@
                     48,
                     129,
                     1,
-                    5,
+                    2,
                     [
                         "KX132-1211",
-                        2,
+                        136,
                         6
                     ]
                 ],
@@ -246,10 +252,23 @@
                     48,
                     129,
                     1,
-                    5,
+                    2,
                     [
                         "KX132-1211",
-                        25,
+                        130,
+                        6
+                    ]
+                ],
+                [
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    2,
+                    [
+                        "KX132-1211",
+                        153,
                         1
                     ]
                 ],
@@ -259,10 +278,10 @@
                     48,
                     193,
                     1,
-                    5,
+                    2,
                     [
                         "KX132-1211",
-                        26,
+                        154,
                         1
                     ]
                 ],
@@ -272,9 +291,9 @@
                     48
                 ]
             ],
-            "fmt": "<BhhhB",
+            "fmt": "<BhhhhhhB",
             "type": "continuous",
-            "hdr": "ch!adp_x!adp_y!adp_z!direction",
+            "hdr": "ch!ax!ay!az!adp_x!adp_y!adp_z!status",
             "odr": 1600
         }
     ],

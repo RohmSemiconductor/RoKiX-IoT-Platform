@@ -1,115 +1,115 @@
 {
-    "structure_version": "3.0", 
-    "protocol_version": "2.0", 
-    "name": "Accel data 1.563Hz \u00b12g low power", 
-    "doc": "Read accelerometer data at 1.563Hz ODR, \u00b12g low power ", 
-    "execute": [], 
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "Accel data 1.563Hz \u00b12g low power",
+    "doc": "Read accelerometer data at 1.563Hz ODR, \u00b12g low power ",
+    "execute": [],
     "channels": [
         [
             {
-                "SI_unit": "m/s^2", 
-                "data": "Acc_X,Acc_Y,Acc_Z", 
-                "name": "Accelerometer", 
-                "SI_multiplier": "9.8 / 16384"
+                "name": "Accelerometer",
+                "data": "Acc_X,Acc_Y,Acc_Z",
+                "SI_unit": "m/s^2",
+                "SI_multiplier": "9.8 / 16384.0"
             }
         ]
-    ], 
+    ],
     "configure": [
         [
-            "KX122", 
-            24, 
-            0, 
+            "KX122",
+            24,
+            0,
             ""
-        ], 
+        ],
         [
-            "KX122", 
-            27, 
-            9, 
+            "KX122",
+            27,
+            9,
             ""
-        ], 
+        ],
         [
-            "KX122", 
-            28, 
-            32, 
+            "KX122",
+            28,
+            32,
             ""
-        ], 
+        ],
         [
-            "KX122", 
-            53, 
-            75, 
+            "KX122",
+            31,
+            16,
             ""
-        ], 
+        ],
         [
-            "KX122", 
-            31, 
-            16, 
+            "KX122",
+            53,
+            75,
             ""
         ]
-    ], 
+    ],
     "activate": [
         [
-            "KX122", 
-            24, 
-            160, 
+            "KX122",
+            24,
+            160,
             ""
         ]
-    ], 
+    ],
     "start_req": [
         {
             "msg": [
                 [
-                    4, 
-                    31, 
-                    7, 
+                    4,
+                    31,
+                    7,
                     1
-                ], 
+                ],
                 [
-                    6, 
-                    11, 
-                    0, 
-                    34, 
-                    1, 
+                    6,
+                    11,
+                    0,
+                    0,
+                    1,
                     2
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    4, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
                     [
-                        "KX122", 
-                        6, 
+                        "KX122",
+                        6,
                         6
                     ]
-                ], 
+                ],
                 [
-                    3, 
-                    17, 
+                    3,
+                    17,
                     48
                 ]
-            ], 
-            "fmt": "<Bhhh", 
-            "type": "continuous", 
-            "hdr": "ch!ax!ay!az", 
+            ],
+            "fmt": "<Bhhh",
+            "type": "continuous",
+            "hdr": "ch!ax!ay!az",
             "odr": 1.563
         }
-    ], 
+    ],
     "stop_req": [
         [
-            3, 
-            13, 
+            3,
+            13,
             48
         ]
-    ], 
+    ],
     "deactivate": [
         [
-            "KX122", 
-            24, 
-            32, 
+            "KX122",
+            24,
+            32,
             ""
         ]
-    ], 
+    ],
     "register_dump": []
 }

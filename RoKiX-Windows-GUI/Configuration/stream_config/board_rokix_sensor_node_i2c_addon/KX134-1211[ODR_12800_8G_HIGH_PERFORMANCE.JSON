@@ -1,0 +1,127 @@
+{
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "Accel data 12800Hz \u00b18g high performance",
+    "doc": "Read accelerometer data at 12800Hz ODR, \u00b18g high performance ",
+    "execute": [],
+    "channels": [
+        [
+            {
+                "name": "Accelerometer",
+                "data": "Acc_X,Acc_Y,Acc_Z",
+                "SI_unit": "m/s^2",
+                "SI_multiplier": "9.8 / 4096.0"
+            }
+        ]
+    ],
+    "configure": [
+        [
+            "KX134-1211",
+            27,
+            0,
+            ""
+        ],
+        [
+            "KX134-1211",
+            31,
+            0,
+            ""
+        ],
+        [
+            "KX134-1211",
+            33,
+            142,
+            ""
+        ],
+        [
+            "KX134-1211",
+            34,
+            32,
+            ""
+        ],
+        [
+            "KX134-1211",
+            37,
+            16,
+            ""
+        ],
+        [
+            "KX134-1211",
+            58,
+            19,
+            ""
+        ]
+    ],
+    "activate": [
+        [
+            "KX134-1211",
+            27,
+            160,
+            ""
+        ]
+    ],
+    "start_req": [
+        {
+            "msg": [
+                [
+                    4,
+                    31,
+                    7,
+                    0
+                ],
+                [
+                    6,
+                    11,
+                    0,
+                    0,
+                    1,
+                    2
+                ],
+                [
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
+                    [
+                        "KX134-1211",
+                        8,
+                        6
+                    ]
+                ],
+                [
+                    3,
+                    17,
+                    48
+                ]
+            ],
+            "fmt": "<Bhhh",
+            "type": "continuous",
+            "hdr": "ch!ax!ay!az",
+            "odr": 12800
+        }
+    ],
+    "stop_req": [
+        [
+            3,
+            13,
+            48
+        ]
+    ],
+    "deactivate": [
+        [
+            "KX134-1211",
+            27,
+            32,
+            ""
+        ],
+        [
+            "KX134-1211",
+            31,
+            0,
+            ""
+        ]
+    ],
+    "register_dump": []
+}

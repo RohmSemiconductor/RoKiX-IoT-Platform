@@ -1,126 +1,126 @@
 {
-    "structure_version": "3.0", 
-    "protocol_version": "2.0", 
-    "name": "Proximity data 4Hz", 
-    "doc": "Read proximity data at 4Hz ODR with 3.3V VLED", 
-    "execute": [], 
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "Proximity data 4Hz",
+    "doc": "Read proximity data at 4Hz ODR with 3.3V VLED",
+    "execute": [],
     "channels": [
         [
             {
-                "SI_unit": "Count", 
-                "data": "Off_data", 
-                "name": "Led_Off", 
+                "SI_unit": "Count",
+                "data": "Off_data",
+                "name": "Led_Off",
                 "SI_multiplier": "1"
-            }, 
+            },
             {
-                "SI_unit": "Count", 
-                "data": "On_data", 
-                "name": "Led_On", 
+                "SI_unit": "Count",
+                "data": "On_data",
+                "name": "Led_On",
                 "SI_multiplier": "1"
             }
         ]
-    ], 
+    ],
     "configure": [
         [
-            "BH1792GLC", 
-            64, 
-            128, 
+            "BH1792GLC",
+            64,
+            128,
             ""
-        ], 
+        ],
         [
-            "BH1792GLC", 
-            65, 
-            150, 
+            "BH1792GLC",
+            65,
+            150,
             ""
-        ], 
+        ],
         [
-            "BH1792GLC", 
-            67, 
-            10, 
+            "BH1792GLC",
+            67,
+            10,
             ""
-        ], 
+        ],
         [
-            "BH1792GLC", 
-            68, 
-            0, 
+            "BH1792GLC",
+            68,
+            0,
             ""
-        ], 
+        ],
         [
-            "BH1792GLC", 
-            69, 
-            0, 
+            "BH1792GLC",
+            69,
+            0,
             ""
-        ], 
+        ],
         [
-            "BH1792GLC", 
-            70, 
-            2, 
+            "BH1792GLC",
+            70,
+            2,
             ""
-        ], 
+        ],
         [
-            "BH1792GLC", 
-            71, 
-            1, 
+            "BH1792GLC",
+            71,
+            1,
             ""
         ]
-    ], 
-    "activate": [], 
+    ],
+    "activate": [],
     "start_req": [
         {
             "msg": [
                 [
-                    4, 
-                    31, 
-                    7, 
+                    4,
+                    31,
+                    7,
                     1
-                ], 
+                ],
                 [
-                    6, 
-                    11, 
-                    0, 
-                    5, 
-                    1, 
+                    6,
+                    11,
+                    0,
+                    0,
+                    1,
                     2
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    4, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
                     [
-                        "BH1792GLC", 
-                        80, 
+                        "BH1792GLC",
+                        80,
                         9
                     ]
-                ], 
+                ],
                 [
-                    3, 
-                    17, 
+                    3,
+                    17,
                     48
                 ]
-            ], 
-            "fmt": "<BHHHHB", 
-            "type": "continuous", 
-            "hdr": "ch!iroff!iron!NA!NA!int", 
+            ],
+            "fmt": "<BHHHHB",
+            "type": "continuous",
+            "hdr": "ch!iroff!iron!NA!NA!int",
             "odr": 4
         }
-    ], 
+    ],
     "stop_req": [
         [
-            3, 
-            13, 
+            3,
+            13,
             48
         ]
-    ], 
+    ],
     "deactivate": [
         [
-            "BH1792GLC", 
-            64, 
-            128, 
+            "BH1792GLC",
+            64,
+            128,
             ""
         ]
-    ], 
+    ],
     "register_dump": []
 }

@@ -1,103 +1,103 @@
 {
-    "structure_version": "3.0", 
-    "protocol_version": "2.0", 
-    "name": "Accel data 1600Hz \u00b18g high resolution", 
-    "doc": "Read accelerometer data at 1600Hz ODR, \u00b18g high resolution ", 
-    "execute": [], 
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "Accel data 1600Hz \u00b18g high resolution",
+    "doc": "Read accelerometer data at 1600Hz ODR, \u00b18g high resolution ",
+    "execute": [],
     "channels": [
         [
             {
-                "SI_unit": "m/s^2", 
-                "data": "Acc_X,Acc_Y,Acc_Z", 
-                "name": "Accelerometer", 
-                "SI_multiplier": "9.8 / 4096"
+                "name": "Accelerometer",
+                "data": "Acc_X,Acc_Y,Acc_Z",
+                "SI_unit": "m/s^2",
+                "SI_multiplier": "9.8 / 4096.0"
             }
         ]
-    ], 
+    ],
     "configure": [
         [
-            "KXTJ3", 
-            27, 
-            80, 
+            "KXTJ3",
+            27,
+            80,
             ""
-        ], 
+        ],
         [
-            "KXTJ3", 
-            33, 
-            7, 
+            "KXTJ3",
+            30,
+            32,
             ""
-        ], 
+        ],
         [
-            "KXTJ3", 
-            30, 
-            32, 
+            "KXTJ3",
+            33,
+            7,
             ""
         ]
-    ], 
+    ],
     "activate": [
         [
-            "KXTJ3", 
-            27, 
-            240, 
+            "KXTJ3",
+            27,
+            240,
             ""
         ]
-    ], 
+    ],
     "start_req": [
         {
             "msg": [
                 [
-                    4, 
-                    31, 
-                    7, 
+                    4,
+                    31,
+                    7,
                     0
-                ], 
+                ],
                 [
-                    6, 
-                    11, 
-                    0, 
-                    44, 
-                    1, 
+                    6,
+                    11,
+                    0,
+                    0,
+                    1,
                     2
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    5, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
                     [
-                        "KXTJ3", 
-                        6, 
+                        "KXTJ3",
+                        6,
                         6
                     ]
-                ], 
+                ],
                 [
-                    3, 
-                    17, 
+                    3,
+                    17,
                     48
                 ]
-            ], 
-            "fmt": "<Bhhh", 
-            "type": "continuous", 
-            "hdr": "ch!ax!ay!az", 
+            ],
+            "fmt": "<Bhhh",
+            "type": "continuous",
+            "hdr": "ch!ax!ay!az",
             "odr": 1600
         }
-    ], 
+    ],
     "stop_req": [
         [
-            3, 
-            13, 
+            3,
+            13,
             48
         ]
-    ], 
+    ],
     "deactivate": [
         [
-            "KXTJ3", 
-            27, 
-            112, 
+            "KXTJ3",
+            27,
+            112,
             ""
         ]
-    ], 
+    ],
     "register_dump": []
 }

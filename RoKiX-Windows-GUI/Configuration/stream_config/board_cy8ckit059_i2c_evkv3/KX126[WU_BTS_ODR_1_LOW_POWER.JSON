@@ -1,213 +1,213 @@
 {
-    "structure_version": "3.0", 
-    "protocol_version": "2.0", 
-    "name": "Wake-up & Back-to-Sleep Detection 0.781Hz Low power", 
-    "doc": "Wake-up & Back-to-Sleep detection with threshold of 0.5g, 0.781Hz ODR, Low Power mode, zero averaging", 
-    "execute": [], 
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "Wake-up & Back-to-Sleep Detection 0.781Hz Low power",
+    "doc": "Wake-up & Back-to-Sleep detection with threshold of 0.5g, 0.781Hz ODR, Low Power mode, zero averaging",
+    "execute": [],
     "channels": [
         [
             {
-                "SI_unit": "m/s^2", 
-                "data": "Acc_X,Acc_Y,Acc_Z", 
-                "name": "Accelerometer", 
-                "SI_multiplier": "9.8 / 16384"
-            }, 
+                "name": "Accelerometer",
+                "data": "Acc_X,Acc_Y,Acc_Z",
+                "SI_unit": "m/s^2",
+                "SI_multiplier": "9.8 / 16384.0"
+            },
             {
-                "SI_unit": "Wu/Bts", 
-                "data": "Wu/Bts", 
-                "name": "Wu/Bts", 
+                "name": "Wu/Bts",
+                "data": "Wu/Bts",
+                "SI_unit": "Wu/Bts",
                 "SI_multiplier": "1"
             }
         ]
-    ], 
+    ],
     "configure": [
         [
-            "KX126", 
-            26, 
-            0, 
+            "KX126",
+            26,
+            0,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            32, 
-            32, 
+            "KX126",
+            28,
+            152,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            64, 
-            5, 
+            "KX126",
+            29,
+            112,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            35, 
-            16, 
+            "KX126",
+            30,
+            2,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            36, 
-            32, 
+            "KX126",
+            31,
+            8,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            37, 
-            10, 
+            "KX126",
+            32,
+            32,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            33, 
-            63, 
+            "KX126",
+            33,
+            63,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            28, 
-            152, 
+            "KX126",
+            35,
+            16,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            61, 
-            0, 
+            "KX126",
+            36,
+            32,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            30, 
-            2, 
+            "KX126",
+            37,
+            10,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            55, 
-            11, 
+            "KX126",
+            55,
+            11,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            63, 
-            5, 
+            "KX126",
+            60,
+            128,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            60, 
-            128, 
+            "KX126",
+            61,
+            0,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            29, 
-            112, 
+            "KX126",
+            62,
+            128,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            62, 
-            128, 
+            "KX126",
+            63,
+            5,
             ""
-        ], 
+        ],
         [
-            "KX126", 
-            31, 
-            8, 
+            "KX126",
+            64,
+            5,
             ""
         ]
-    ], 
+    ],
     "activate": [
         [
-            "KX126", 
-            26, 
-            160, 
+            "KX126",
+            26,
+            160,
             ""
         ]
-    ], 
+    ],
     "start_req": [
         {
             "msg": [
                 [
-                    4, 
-                    31, 
-                    7, 
+                    4,
+                    31,
+                    7,
                     1
-                ], 
+                ],
                 [
-                    6, 
-                    11, 
-                    0, 
-                    44, 
-                    1, 
+                    6,
+                    11,
+                    0,
+                    0,
+                    1,
                     2
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    5, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
                     [
-                        "KX126", 
-                        8, 
+                        "KX126",
+                        8,
                         6
                     ]
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    5, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
                     [
-                        "KX126", 
-                        23, 
+                        "KX126",
+                        23,
                         1
                     ]
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    193, 
-                    1, 
-                    5, 
+                    9,
+                    15,
+                    48,
+                    193,
+                    1,
+                    4,
                     [
-                        "KX126", 
-                        25, 
+                        "KX126",
+                        25,
                         1
                     ]
-                ], 
+                ],
                 [
-                    3, 
-                    17, 
+                    3,
+                    17,
                     48
                 ]
-            ], 
-            "fmt": "<BhhhB", 
-            "type": "continuous", 
-            "hdr": "ch!ax!ay!az!wu_bts", 
+            ],
+            "fmt": "<BhhhB",
+            "type": "continuous",
+            "hdr": "ch!ax!ay!az!wu_bts",
             "odr": 0.781
         }
-    ], 
+    ],
     "stop_req": [
         [
-            3, 
-            13, 
+            3,
+            13,
             48
         ]
-    ], 
+    ],
     "deactivate": [
         [
-            "KX126", 
-            26, 
-            32, 
+            "KX126",
+            26,
+            32,
             ""
         ]
-    ], 
+    ],
     "register_dump": []
 }

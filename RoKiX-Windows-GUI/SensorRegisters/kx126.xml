@@ -80,7 +80,7 @@
     </field>
    </fields>
   </register>
-  <register address="17" doc="This register can be used for supplier recognition" mode="R/W" name="WHO_AM_I" por="56" size="8">
+  <register address="17" doc="This register can be used for supplier recognition" mode="R" name="WHO_AM_I" por="56" size="8">
    <fields>
     <field doc="WAI value for KX126" mask="255" name="WAI" size="8" start_pos="0">
      <enums>

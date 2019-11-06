@@ -1,126 +1,126 @@
 {
-    "structure_version": "3.0", 
-    "protocol_version": "2.0", 
-    "name": "Accel & Mag data 100Hz \u00b12g & \u00b11200\u00b5T low power", 
-    "doc": "Operating at 100Hz ODR measuring acceleration on\u00b12g and magnetic flux density at \u00b11200\u00b5T range low power mode", 
-    "execute": [], 
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "Accel & Mag data 100Hz \u00b12g & \u00b11200\u00b5T low power",
+    "doc": "Operating at 100Hz ODR measuring acceleration on\u00b12g and magnetic flux density at \u00b11200\u00b5T range low power mode",
+    "execute": [],
     "channels": [
         [
             {
-                "SI_unit": "m/s^2", 
-                "data": "Acc_X,Acc_Y,Acc_Z", 
-                "name": "KMX62 Accelerometer", 
-                "SI_multiplier": "9.8 / 16384"
-            }, 
+                "name": "KMX62 Accelerometer",
+                "data": "Acc_X,Acc_Y,Acc_Z",
+                "SI_unit": "m/s^2",
+                "SI_multiplier": "9.8 / 16384.0"
+            },
             {
-                "SI_unit": "uT", 
-                "data": "Mag_X,Mag_Y,Mag_Z", 
-                "name": "KMX62 Magnetometer", 
+                "name": "KMX62 Magnetometer",
+                "data": "Mag_X,Mag_Y,Mag_Z",
+                "SI_unit": "uT",
                 "SI_multiplier": "1200 / 32768"
-            }, 
+            },
             {
-                "SI_unit": "Celsius", 
-                "data": "Temp", 
-                "name": "KMX62 Temperature", 
+                "name": "KMX62 Temperature",
+                "data": "Temp",
+                "SI_unit": "Celsius",
                 "SI_multiplier": "1 / 256"
             }
         ]
-    ], 
+    ],
     "configure": [
         [
-            "KMX62", 
-            56, 
-            51, 
+            "KMX62",
+            42,
+            16,
             ""
-        ], 
+        ],
         [
-            "KMX62", 
-            58, 
-            67, 
+            "KMX62",
+            44,
+            0,
             ""
-        ], 
+        ],
         [
-            "KMX62", 
-            44, 
-            0, 
+            "KMX62",
+            56,
+            51,
             ""
-        ], 
+        ],
         [
-            "KMX62", 
-            42, 
-            16, 
+            "KMX62",
+            58,
+            67,
             ""
         ]
-    ], 
-    "activate": [], 
+    ],
+    "activate": [],
     "start_req": [
         {
             "msg": [
                 [
-                    4, 
-                    31, 
-                    7, 
+                    4,
+                    31,
+                    7,
                     0
-                ], 
+                ],
                 [
-                    6, 
-                    11, 
-                    0, 
-                    46, 
-                    1, 
+                    6,
+                    11,
+                    0,
+                    0,
+                    1,
                     2
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    4, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
                     [
-                        "KMX62", 
-                        10, 
+                        "KMX62",
+                        10,
                         14
                     ]
-                ], 
+                ],
                 [
-                    3, 
-                    17, 
+                    3,
+                    17,
                     48
                 ]
-            ], 
-            "fmt": "<Bhhhhhhh", 
-            "type": "continuous", 
-            "hdr": "ch!ax!ay!az!mx!my!mz!temp", 
+            ],
+            "fmt": "<Bhhhhhhh",
+            "type": "continuous",
+            "hdr": "ch!ax!ay!az!mx!my!mz!temp",
             "odr": 100
         }
-    ], 
+    ],
     "stop_req": [
         [
-            3, 
-            13, 
+            3,
+            13,
             48
         ]
-    ], 
+    ],
     "deactivate": [
         [
-            "KMX62", 
-            58, 
-            66, 
+            "KMX62",
+            58,
+            66,
             ""
-        ], 
+        ],
         [
-            "KMX62", 
-            58, 
-            64, 
+            "KMX62",
+            58,
+            64,
             ""
-        ], 
+        ],
         [
-            "KMX62", 
-            58, 
-            0, 
+            "KMX62",
+            58,
+            0,
             ""
         ]
-    ], 
+    ],
     "register_dump": []
 }

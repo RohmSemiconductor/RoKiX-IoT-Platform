@@ -1,0 +1,126 @@
+{
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "Accel & Mag data 100Hz \u00b116g & \u00b11200\u00b5T high resolution",
+    "doc": "Operating at 100Hz ODR measuring acceleration on\u00b116g and magnetic flux density at \u00b11200\u00b5T range high resolution mode",
+    "execute": [],
+    "channels": [
+        [
+            {
+                "name": "KMX63 Accelerometer",
+                "data": "Acc_X,Acc_Y,Acc_Z",
+                "SI_unit": "m/s^2",
+                "SI_multiplier": "9.8 / 2048.0"
+            },
+            {
+                "name": "KMX63 Magnetometer",
+                "data": "Mag_X,Mag_Y,Mag_Z",
+                "SI_unit": "uT",
+                "SI_multiplier": "1200 / 32768"
+            },
+            {
+                "name": "KMX63 Temperature",
+                "data": "Temp",
+                "SI_unit": "Celsius",
+                "SI_multiplier": "1 / 256"
+            }
+        ]
+    ],
+    "configure": [
+        [
+            "KMX63",
+            42,
+            16,
+            ""
+        ],
+        [
+            "KMX63",
+            44,
+            0,
+            ""
+        ],
+        [
+            "KMX63",
+            56,
+            51,
+            ""
+        ],
+        [
+            "KMX63",
+            58,
+            95,
+            ""
+        ]
+    ],
+    "activate": [],
+    "start_req": [
+        {
+            "msg": [
+                [
+                    4,
+                    31,
+                    7,
+                    0
+                ],
+                [
+                    6,
+                    11,
+                    0,
+                    0,
+                    1,
+                    2
+                ],
+                [
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
+                    [
+                        "KMX63",
+                        10,
+                        14
+                    ]
+                ],
+                [
+                    3,
+                    17,
+                    48
+                ]
+            ],
+            "fmt": "<Bhhhhhhh",
+            "type": "continuous",
+            "hdr": "ch!ax!ay!az!mx!my!mz!temp",
+            "odr": 100
+        }
+    ],
+    "stop_req": [
+        [
+            3,
+            13,
+            48
+        ]
+    ],
+    "deactivate": [
+        [
+            "KMX63",
+            58,
+            94,
+            ""
+        ],
+        [
+            "KMX63",
+            58,
+            92,
+            ""
+        ],
+        [
+            "KMX63",
+            58,
+            28,
+            ""
+        ]
+    ],
+    "register_dump": []
+}

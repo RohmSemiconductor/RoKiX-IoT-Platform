@@ -236,7 +236,7 @@
                     5,
                     [
                         "KX132-1211",
-                        2,
+                        8,
                         6
                     ]
                 ],
@@ -274,7 +274,7 @@
             ],
             "fmt": "<BhhhB",
             "type": "continuous",
-            "hdr": "ch!adp_x!adp_y!adp_z!direction",
+            "hdr": "ch!adp_x!adp_y!adp_z!status",
             "odr": 1600
         }
     ],

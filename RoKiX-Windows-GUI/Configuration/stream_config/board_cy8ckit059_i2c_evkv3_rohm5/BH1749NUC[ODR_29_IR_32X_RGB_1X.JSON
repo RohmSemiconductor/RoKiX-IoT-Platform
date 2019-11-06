@@ -1,140 +1,140 @@
 {
-    "structure_version": "3.0", 
-    "protocol_version": "2.0", 
-    "name": "RGB & IR data 28.6Hz, IR 32X, RGB 1X", 
-    "doc": "Read RGB and IR data at 28.6 Hz, IR gain 32X, RGB gain 1X", 
-    "execute": [], 
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "RGB & IR data 28.6Hz, IR 32X, RGB 1X",
+    "doc": "Read RGB and IR data at 28.6 Hz, IR gain 32X, RGB gain 1X",
+    "execute": [],
     "channels": [
         [
             {
-                "SI_unit": "Count", 
-                "data": "Red,Green,Blue,IR,Green2", 
-                "name": "RGB and IR", 
+                "name": "RGB and IR",
+                "SI_unit": "Count",
+                "data": "Red,Green,Blue,IR,Green2",
                 "SI_multiplier": "1"
             }
         ]
-    ], 
+    ],
     "configure": [
         [
-            "BH1749NUC", 
-            64, 
-            77, 
+            "BH1749NUC",
+            64,
+            77,
             ""
-        ], 
+        ],
         [
-            "BH1749NUC", 
-            65, 
-            109, 
+            "BH1749NUC",
+            65,
+            109,
             ""
-        ], 
+        ],
         [
-            "BH1749NUC", 
-            66, 
-            16, 
+            "BH1749NUC",
+            66,
+            16,
             ""
-        ], 
+        ],
         [
-            "BH1749NUC", 
-            96, 
-            1, 
+            "BH1749NUC",
+            96,
+            1,
             ""
-        ], 
+        ],
         [
-            "BH1749NUC", 
-            97, 
-            0, 
+            "BH1749NUC",
+            97,
+            0,
             ""
         ]
-    ], 
-    "activate": [], 
+    ],
+    "activate": [],
     "start_req": [
         {
             "msg": [
                 [
-                    4, 
-                    31, 
-                    7, 
+                    4,
+                    31,
+                    7,
                     1
-                ], 
+                ],
                 [
-                    6, 
-                    11, 
-                    0, 
-                    33, 
-                    1, 
+                    6,
+                    11,
+                    0,
+                    0,
+                    1,
                     2
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    5, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
                     [
-                        "BH1749NUC", 
-                        80, 
+                        "BH1749NUC",
+                        80,
                         6
                     ]
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    5, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
                     [
-                        "BH1749NUC", 
-                        88, 
+                        "BH1749NUC",
+                        88,
                         4
                     ]
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    193, 
-                    1, 
-                    5, 
+                    9,
+                    15,
+                    48,
+                    193,
+                    1,
+                    4,
                     [
-                        "BH1749NUC", 
-                        96, 
+                        "BH1749NUC",
+                        96,
                         1
                     ]
-                ], 
+                ],
                 [
-                    3, 
-                    17, 
+                    3,
+                    17,
                     48
                 ]
-            ], 
-            "fmt": "<BHHHHH", 
-            "type": "continuous", 
-            "hdr": "ch!red!green!blue!ir!green2", 
+            ],
+            "fmt": "<BHHHHH",
+            "type": "continuous",
+            "hdr": "ch!red!green!blue!ir!green2",
             "odr": 28.6
         }
-    ], 
+    ],
     "stop_req": [
         [
-            3, 
-            13, 
+            3,
+            13,
             48
         ]
-    ], 
+    ],
     "deactivate": [
         [
-            "BH1749NUC", 
-            66, 
-            128, 
+            "BH1749NUC",
+            66,
+            128,
             ""
-        ], 
+        ],
         [
-            "BH1749NUC", 
-            64, 
-            77, 
+            "BH1749NUC",
+            64,
+            77,
             ""
         ]
-    ], 
+    ],
     "register_dump": []
 }

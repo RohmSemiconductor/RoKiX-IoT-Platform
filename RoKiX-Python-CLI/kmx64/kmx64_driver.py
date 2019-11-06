@@ -72,7 +72,7 @@ class KMX64Driver(SensorDriver):
             self.name = 'KMX64'
             return 1
 
-        LOGGER.debug("wrong WHOAMI received for KMX64/65: 0x%02x" % resp[0])
+        LOGGER.info("wrong WHOAMI received for KMX64/65: 0x%02x" % resp[0])
         self.connected = False
         return 0
 

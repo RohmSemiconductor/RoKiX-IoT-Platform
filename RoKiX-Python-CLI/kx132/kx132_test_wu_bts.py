@@ -110,8 +110,10 @@ def enable_wu_bts(sensor,
         time.sleep(0.1)
 
     # Wakeup dircetion mask and occurence
-    sensor.write_register(r.KX132_1211_INC2, cfg.WUF_AXES)
-    sensor.set_bit_pattern(r.KX132_1211_INC2, cfg.AOI, b.KX132_1211_INC2_AOI)
+    sensor.set_bit_pattern(
+        r.KX132_1211_INC2,
+        cfg.WUF_AXES | cfg.AOI,
+        WUF_AXES | m.KX132_1211_INC2_AOI_MASK)
 
     # Interrupt pin routings and settings for wu and bts
     sensor.set_bit(r.KX132_1211_INC6, b.KX132_1211_INC6_WUFI2)    # wu to int2

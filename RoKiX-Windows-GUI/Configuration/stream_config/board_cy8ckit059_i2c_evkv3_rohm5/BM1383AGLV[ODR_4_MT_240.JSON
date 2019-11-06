@@ -1,102 +1,102 @@
 {
-    "structure_version": "3.0", 
-    "protocol_version": "2.0", 
-    "name": "Baro & temp data 4Hz, 240 ms meas. time", 
-    "doc": "Read pressure and temperature data at 4Hz ODR with 240 ms measurement time", 
-    "execute": [], 
+    "structure_version": "3.0",
+    "protocol_version": "2.0",
+    "name": "Baro & temp data 4Hz, 240 ms meas. time",
+    "doc": "Read pressure and temperature data at 4Hz ODR with 240 ms measurement time",
+    "execute": [],
     "channels": [
         [
             {
-                "SI_unit": "mbar", 
-                "data": "Pressure", 
-                "name": "Pressure", 
+                "SI_unit": "mbar",
+                "data": "Pressure",
+                "name": "Pressure",
                 "SI_multiplier": "1 / 2048"
-            }, 
+            },
             {
-                "SI_unit": "C", 
-                "data": "Temperature", 
-                "name": "Temperature", 
+                "SI_unit": "C",
+                "data": "Temperature",
+                "name": "Temperature",
                 "SI_multiplier": "1 / 32"
             }
         ]
-    ], 
+    ],
     "configure": [
         [
-            "BM1383AGLV", 
-            18, 
-            1, 
+            "BM1383AGLV",
+            18,
+            1,
             ""
-        ], 
+        ],
         [
-            "BM1383AGLV", 
-            19, 
-            1, 
+            "BM1383AGLV",
+            19,
+            1,
             ""
-        ], 
+        ],
         [
-            "BM1383AGLV", 
-            20, 
-            218, 
+            "BM1383AGLV",
+            20,
+            218,
             ""
         ]
-    ], 
-    "activate": [], 
+    ],
+    "activate": [],
     "start_req": [
         {
             "msg": [
                 [
-                    4, 
-                    31, 
-                    7, 
+                    4,
+                    31,
+                    7,
                     1
-                ], 
+                ],
                 [
-                    6, 
-                    11, 
-                    0, 
-                    45, 
-                    1, 
+                    6,
+                    11,
+                    0,
+                    0,
+                    1,
                     2
-                ], 
+                ],
                 [
-                    9, 
-                    15, 
-                    48, 
-                    129, 
-                    1, 
-                    4, 
+                    9,
+                    15,
+                    48,
+                    129,
+                    1,
+                    4,
                     [
-                        "BM1383AGLV", 
-                        25, 
+                        "BM1383AGLV",
+                        25,
                         6
                     ]
-                ], 
+                ],
                 [
-                    3, 
-                    17, 
+                    3,
+                    17,
                     48
                 ]
-            ], 
-            "fmt": ">BBBBBh", 
-            "type": "continuous", 
-            "hdr": "ch!stat!P_msb!P_lsb!P_xl!T_raw", 
+            ],
+            "fmt": ">BBBBBh",
+            "type": "continuous",
+            "hdr": "ch!stat!P_msb!P_lsb!P_xl!T_raw",
             "odr": 4
         }
-    ], 
+    ],
     "stop_req": [
         [
-            3, 
-            13, 
+            3,
+            13,
             48
         ]
-    ], 
+    ],
     "deactivate": [
         [
-            "BM1383AGLV", 
-            20, 
-            216, 
+            "BM1383AGLV",
+            20,
+            216,
             ""
         ]
-    ], 
+    ],
     "register_dump": []
 }

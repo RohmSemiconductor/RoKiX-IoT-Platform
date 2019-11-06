@@ -137,7 +137,6 @@
                     "rtscts": false,
                     "start_up_delay_ms": 0,
                     "com_port_name": [
-                        "nRF52 USB CDC BLE Demo",
                         "USB Serial Device"
                     ]
                 },
