@@ -1,5 +1,5 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 import argparse
 import pandas as pd
@@ -16,13 +16,6 @@ def get_logger(name):
 
 
 LOGGER = get_logger(__name__)
-
-# try to import modules needed for FFT.
-# If not installed then error is given only if FFT plot is requested
-try:
-    from scipy import fftpack
-except ImportError:
-    fftpack = None
 
 COLUMN_SEPARATOR = ';'
 ROW_COMMENT = '#'
@@ -153,8 +146,6 @@ def plotter(fname, dimensions=None, timestamps=False):
 
 def fftplotter(fname, dimensions=None, timestamps=False):
 
-    assert fftpack and np, 'scipy.fftpack and/or numpy modules must be installed.'
-
     data = loader(fname, dimensions, timestamps)
     dimensions = data.axes[1]
 
@@ -162,8 +153,8 @@ def fftplotter(fname, dimensions=None, timestamps=False):
         dimensions = dimensions[1:]
 
     # calculate FFT
-    fft_data = 10 * np.log10(np.abs(fftpack.fft(data, axis=0)**2))
-    fft_freq = fftpack.fftfreq(len(fft_data), 1)
+    fft_data = 10 * np.log10(np.abs(np.fft.fft(data, axis=0)**2))
+    fft_freq = np.fft.fftfreq(len(fft_data), 1)
     positive_freq = fft_freq > 0
 
     #

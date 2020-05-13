@@ -1,5 +1,5 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 from array import array
 from kx_lib.kx_exception import ProtocolBus1Exception, EvaluationKitException

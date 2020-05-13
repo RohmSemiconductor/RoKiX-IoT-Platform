@@ -1,7 +1,6 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
-from kx_lib import kx_protocol_definition_2_x as pd
 import os
 import subprocess
 import signal
@@ -12,7 +11,7 @@ from kx_lib.kx_exception import ProtocolException, ProtocolTimeoutException, Eva
 from kx_lib import kx_logger
 LOGGER = kx_logger.get_logger(__name__)
 
-LOGGER.setLevel(kx_logger.INFO)
+# LOGGER.setLevel(kx_logger.INFO)
 # LOGGER.setLevel(kx_logger.ERROR)
 # LOGGER.setLevel(kx_logger.DEBUG)
 
@@ -119,9 +118,10 @@ class KxWinBLE(KxPySerial):
             raise ProtocolException('B2S.exe not found.')
 
         if mac_address != "":
+            LOGGER.debug('Establishing Windows BLE connection to MAC address:%s' % mac_address.upper())
             self._p = subprocess.Popen(
                 B2S_path + ' -p %s -m %s' % (port,
-                                             mac_address),
+                                             mac_address.upper()),
                 startupinfo=startupinfo,
                 creationflags=0x00000200,
                 universal_newlines=True,

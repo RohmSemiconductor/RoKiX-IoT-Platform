@@ -1,5 +1,5 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 import imports  # pylint: disable=unused-import
 from kx_lib.kx_board import ConnectionManager
@@ -9,7 +9,8 @@ from kx_lib.kx_exception import ProtocolException
 def print_version_info():
     cm = ConnectionManager()
     print('Protocol version   ' + cm.kx_adapter.fw_protocol_version)
-    print('Device UID         ' + ':'.join(['%02X' % t for t in cm.kx_adapter.get_dev_id()]))
+    print('Board ID           %d' % cm.kx_adapter.board_id)
+    print('Board UID          ' + ':'.join(['%02X' % t for t in cm.kx_adapter.get_dev_id()]))
     print('Firmware version   ' + ''.join(['%02x' % t for t in cm.kx_adapter.get_firmware_id()]))
 
     try:

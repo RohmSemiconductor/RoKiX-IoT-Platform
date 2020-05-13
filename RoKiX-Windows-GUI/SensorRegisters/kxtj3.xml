@@ -166,7 +166,9 @@
     </field>
     <field doc="y+" mask="4" name="YPWU" size="1" start_pos="2">
     </field>
-    <field doc="z+" mask="3" name="ZPWUE" size="2" start_pos="0">
+    <field doc="z-" mask="2" name="ZNWU" size="1" start_pos="1">
+    </field>
+    <field doc="z+" mask="1" name="ZPWU" size="1" start_pos="0">
     </field>
    </fields>
   </register>

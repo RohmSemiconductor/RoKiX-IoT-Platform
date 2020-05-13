@@ -60,14 +60,6 @@
    <fields>
    </fields>
   </register>
-  <register address="14" doc="16-bit temperature sensor output register" info="bypass" mode="INFO" name="TEMP_OUT_L" order="little-endian" size="16" style="int">
-   <fields>
-   </fields>
-  </register>
-  <register address="15" doc="msb" info="bypass" mode="R" name="TEMP_OUT_H" size="8">
-   <fields>
-   </fields>
-  </register>
   <register address="18" doc="The Command Test Response (COTR) register is used to verify proper integrated circuit functionality." mode="R" name="COTR" por="85" size="8">
    <fields>
     <field doc="Command Test Responses" mask="255" name="DCSTR" size="8" start_pos="0">
@@ -374,14 +366,6 @@
       </item>
      </enums>
     </field>
-    <field doc="enables the Temperature Sensor output TOUT. TSE = 0 – temperature sensor output disabled, TSE = 1 – temperature sensor output enabled" mask="4" name="TSE" size="1" start_pos="2">
-     <enums>
-      <item doc="temperature sensor disabled" name="DISABLED" value="0">
-      </item>
-      <item doc="temperature sensor enabled" name="ENABLED" value="1">
-      </item>
-     </enums>
-    </field>
     <field doc="manual wake-sleep engine overwrite.MAN_WAKE = 0 – default, MAN_WAKE = 1 – forces wake state (bit is self-cleared)" mask="2" name="MAN_WAKE" size="1" start_pos="1">
     </field>
     <field doc="manual wake-sleep engine overwrite. MAN_SLEEP = 0 – default, MAN_SLEEP = 1 – forces sleep state (bit is self-cleared)" mask="1" name="MAN_SLEEP" size="1" start_pos="0">
@@ -414,14 +398,6 @@
   </register>
   <register address="33" doc="Output data control register that configures the acceleration outputs." mode="R/W" name="ODCNTL" por="6" size="8">
    <fields>
-    <field doc="IIR Filter Bypass mode enable bit" mask="128" name="IIR_BYPASS" size="1" start_pos="7">
-     <enums>
-      <item doc="IIR filter is not bypassed" name="NOT_BYPASSED" value="0">
-      </item>
-      <item doc="IIR filter is bypassed" name="BYPASSED" value="1">
-      </item>
-     </enums>
-    </field>
     <field doc="Low-Pass filter roll off control. LPRO = 0 – filter corner frequency set to ODR/9, LPRO = 1 – filter corner frequency set to ODR/2" mask="64" name="LPRO" size="1" start_pos="6">
      <enums>
       <item doc="IIR filter corner frequency set to ODR/9 (default)" name="ODR_9" value="0">

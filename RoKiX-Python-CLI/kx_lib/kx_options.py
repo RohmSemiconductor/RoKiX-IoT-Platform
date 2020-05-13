@@ -1,5 +1,5 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 # pylint: disable=W0622
 from configparser import ConfigParser

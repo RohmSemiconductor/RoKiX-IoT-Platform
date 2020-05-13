@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -25,11 +25,11 @@ Example app for WakeUp/Back To Sleep  (WU and BTS) detection
 import imports  # pylint: disable=unused-import
 from kx_lib import kx_logger
 from kx_lib.kx_data_stream import StreamConfig
-from kx_lib.kx_util import get_drdy_pin_index, get_drdy_timer, evkit_config, convert_to_enumkey
-from kx_lib.kx_configuration_enum import CH_ACC, CFG_SPI_PROTOCOL, POLARITY_DICT, CFG_POLARITY, CFG_SAD, CFG_TARGET, CFG_PULLUP
+from kx_lib.kx_util import get_drdy_pin_index, evkit_config
+from kx_lib.kx_configuration_enum import CFG_SPI_PROTOCOL, CFG_POLARITY, CFG_TARGET, CFG_PULLUP
 from kx_lib.kx_data_logger import SingleChannelReader
 from kx_lib.kx_data_stream import RequestMessageDefinition
-from kx132.kx132_driver import KX132Driver, r, b, m, e
+from kx132.kx132_driver import KX132Driver, r
 from kx132.kx132_data_logger import enable_data_logging
 from kx132.kx132_test_wu_bts import enable_wu_bts
 

@@ -1,5 +1,5 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 # constant definitions without dependencies to other modules.
 
@@ -18,6 +18,8 @@ BUS1 = 'bus1'
 BUS1_I2C = 'i2c'
 BUS1_SPI = 'spi'
 BUS1_ADC = 'adc'
+BUS1_ADC_SAR = 'ADC SAR'
+BUS1_ADC_DELTA_SIGMA = 'ADC Delta Sigma'
 BUS1_GPIO = 'gpio'
 
 INT1_GPIO = 'gpio1'

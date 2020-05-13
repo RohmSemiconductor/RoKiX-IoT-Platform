@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -22,7 +22,7 @@
 import struct
 
 from . import imports  # pylint: disable=unused-import
-from kx_lib.kx_configuration_enum import BUS1_I2C, BUS1_SPI
+from kx_lib.kx_configuration_enum import BUS1_I2C
 from kx_lib.kx_sensor_base import SensorDriver, AxisMapper
 from kx_lib import kx_logger
 from kx_lib.kx_util import delay_seconds
@@ -150,13 +150,13 @@ class KXTJ3Driver(SensorDriver):
         assert channel == CH_ACC, 'only accelerometer available'
         self.set_bit_pattern(r.KXTJ3_DATA_CTRL_REG, osa, m.KXTJ3_DATA_CTRL_REG_OSA_MASK)
 
-    def set_range(self, gsel, channel=CH_ACC):
+    def set_range(self, range, channel=CH_ACC):
         assert channel == CH_ACC, 'only accelerometer available'
-        assert gsel in [b.KXTJ3_CTRL_REG1_GSEL_2G,
-                        b.KXTJ3_CTRL_REG1_GSEL_4G,
-                        b.KXTJ3_CTRL_REG1_GSEL_8G,
-                        b.KXTJ3_CTRL_REG1_GSEL_16G]
-        self.set_bit_pattern(r.KXTJ3_CTRL_REG1, gsel, m.KXTJ3_CTRL_REG1_GSEL_MASK)
+        assert range in [b.KXTJ3_CTRL_REG1_GSEL_2G,
+                         b.KXTJ3_CTRL_REG1_GSEL_4G,
+                         b.KXTJ3_CTRL_REG1_GSEL_8G,
+                         b.KXTJ3_CTRL_REG1_GSEL_16G]
+        self.set_bit_pattern(r.KXTJ3_CTRL_REG1, range, m.KXTJ3_CTRL_REG1_GSEL_MASK)
 
     def set_interrupt_polarity(self, intpin=1, polarity=ACTIVE_LOW):
         assert intpin in [1]

@@ -1,5 +1,5 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 import logging
 from logging import INFO, DEBUG, WARNING, ERROR  # pylint: disable=unused-import

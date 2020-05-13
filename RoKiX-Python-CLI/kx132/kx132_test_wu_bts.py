@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -31,12 +31,12 @@ import imports  # pylint: disable=unused-import
 import time
 from kx_lib import kx_logger
 from kx_lib.kx_data_stream import StreamConfig
-from kx_lib.kx_exception import ProtocolTimeoutException
-from kx_lib.kx_util import get_drdy_pin_index, evkit_config, convert_to_enumkey
-from kx_lib.kx_configuration_enum import CH_ACC, CH_TEMP, CH_ADP, POLARITY_DICT, CFG_POLARITY, CFG_SAD, CFG_AXIS_MAP
-from kx_lib.kx_board import ConnectionManager
+from kx_lib.kx_util import evkit_config, convert_to_enumkey
+from kx_lib.kx_configuration_enum import CFG_SPI_PROTOCOL, CFG_TARGET, CFG_PULLUP
+from kx_lib.kx_configuration_enum import CH_ACC, CH_ADP, POLARITY_DICT, CFG_POLARITY
 from kx_lib.kx_data_logger import SingleChannelEventReader
-from kx132.kx132_driver import KX132Driver, r, b, m, e, SLEEP, WAKE, directions
+from kx_lib.kx_data_stream import RequestMessageDefinition
+from kx132.kx132_driver import KX132Driver, r, b, m, e, directions
 from kx132 import kx132_raw_adp_logger
 
 _CODE_FORMAT_VERSION = 3.0
@@ -62,12 +62,46 @@ class KX132WuBtsStream(StreamConfig):
         assert pin_index in [1, 2], 'got %s' % pin_index
         assert not timer, 'Timer not supported in this data stream'
 
-        self.define_request_message(
-            fmt=self.fmt,
-            hdr=self.hdr,
-            reg=self.reg,
-            pin_index=pin_index)
+        sensor = sensors[0]
+        proto = self.adapter.protocol
+        message = RequestMessageDefinition(sensor,
+                                           fmt=self.fmt,
+                                           hdr=self.hdr,
+                                           pin_index=pin_index,
+                                           timer=timer)
 
+        req = proto.create_macro_req(
+            trigger_type=proto.EVKIT_MACRO_TYPE_INTR,
+            gpio_pin=message.gpio_pin,
+            gpio_sense=self.sense_dict[sensor.resource[CFG_POLARITY]],
+            gpio_pullup=self.pullup_dict[sensor.resource[CFG_PULLUP]])
+
+        self.adapter.send_message(req)
+        _, macro_id = self.adapter.receive_message(
+            proto.EVKIT_MSG_CREATE_MACRO_RESP)
+        self.macro_id_list.append(macro_id)
+        self.msg_ind_dict[macro_id] = message
+        message.msg_req.append(req)
+
+        # read int_rel separately as it needs to be 1st byte to read when SPI in use
+        reg_read_cfgs = [(r.KX132_1211_INS3, 2, False),
+                         (r.KX132_1211_INT_REL, 1, False)]
+                         
+        for addr_start, read_size, discard in reg_read_cfgs:
+            if self.sensor.resource.get(CFG_SPI_PROTOCOL, 0) == 1:
+                # With Kionix components, MSB must be set 1 to indicate reading
+                addr_start = addr_start | 1 << 7
+            req = proto.add_macro_action_req(
+                macro_id,
+                action=proto.EVKIT_MACRO_ACTION_READ,
+                target=self.sensor.resource[CFG_TARGET],
+                identifier=self.sensor.get_identifier(),
+                discard=discard,
+                start_register=addr_start,
+                bytes_to_read=read_size)
+            self.adapter.send_message(req)
+            self.adapter.receive_message(proto.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
+            message.msg_req.append(req)
 
 class Parameter_set_1(object):
     WUF_THRESHOLD_VALUE = 20       # 3.9mg*value
@@ -211,7 +245,7 @@ def main():
             odr=evkit_config.odr,
             max_range='2G',
             lp_mode='128_SAMPLE_AVG',
-            low_pass_filter='BYPASS',
+            low_pass_filter='ODR_2',
             filter1_setting=None,
             filter2_setting=None,
             adp_odr=evkit_config.odr,

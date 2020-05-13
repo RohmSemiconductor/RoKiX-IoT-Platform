@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -30,7 +30,6 @@ from kx_lib.kx_configuration_enum import CH_ACC, CH_ADP, CFG_SPI_PROTOCOL, CFG_P
 from kx_lib.kx_data_logger import SingleChannelReader
 from kx_lib.kx_data_stream import RequestMessageDefinition
 from kx132.kx132_driver import KX132Driver, r
-from kx132.kx132_driver import filter1_values, filter2_values
 from kx132 import kx132_raw_adp_logger
 from kx132.kx132_test_wu_bts import enable_wu_bts
 
@@ -67,12 +66,18 @@ class KX132RawRmsWuBtsStream(StreamConfig):
                                            hdr=self.hdr,
                                            pin_index=pin_index,
                                            timer=timer)
-
-        req = proto.create_macro_req(
-            trigger_type=proto.EVKIT_MACRO_TYPE_INTR,
-            gpio_pin=message.gpio_pin,
-            gpio_sense=self.sense_dict[sensor.resource[CFG_POLARITY]],
-            gpio_pullup=self.pullup_dict[sensor.resource[CFG_PULLUP]])
+        if pin_index is not None:
+            req = proto.create_macro_req(
+                trigger_type=proto.EVKIT_MACRO_TYPE_INTR,
+                gpio_pin=message.gpio_pin,
+                gpio_sense=self.sense_dict[sensor.resource[CFG_POLARITY]],
+                gpio_pullup=self.pullup_dict[sensor.resource[CFG_PULLUP]])
+        elif timer is not None:
+            time_unit, time_val = proto.seconds_to_proto_time(message.timer)
+            req = proto.create_macro_req(
+                trigger_type=proto.EVKIT_MACRO_TYPE_POLL,
+                timer_scale=time_unit,
+                timer_value=time_val)
         self.adapter.send_message(req)
         _, macro_id = self.adapter.receive_message(
             proto.EVKIT_MSG_CREATE_MACRO_RESP)
@@ -82,7 +87,7 @@ class KX132RawRmsWuBtsStream(StreamConfig):
 
         # read three separate register areas
         reg_read_cfgs = [(r.KX132_1211_XOUT_L, 6, False),
-                        (self.reg, 6, False),
+                         (self.reg, 6, False),
                          (r.KX132_1211_STATUS_REG, 1, False),
                          (r.KX132_1211_INT_REL, 1, True)]
         for addr_start, read_size, discard in reg_read_cfgs:

@@ -1,5 +1,5 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 # pylint: disable=unused-argument, no-self-use
 from kx_lib.kx_exception import EvaluationKitException

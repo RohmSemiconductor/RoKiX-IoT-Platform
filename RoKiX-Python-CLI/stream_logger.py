@@ -1,10 +1,9 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 import json
 import struct
 
-import kx_lib
 from kx_lib.kx_util import *  # pylint: disable=unused-wildcard-import,wildcard-import
 from kx_lib.kx_configuration_enum import *  # pylint: disable=unused-wildcard-import,wildcard-import
 from kx_lib.kx_exception import *  # pylint: disable=unused-wildcard-import,wildcard-import
@@ -30,7 +29,7 @@ class StandAloneConnectionManager(ConnectionManager):
                 self.found_sensors[sensor_name].update(self.board_config['configuration']['bus1']['sensor_defaults'])
                 self.found_sensors[sensor_name].update(sensor_info)
 
-    def write_sensor_register(self, sensor_name, bus1_name, register, values):
+    def write_sensor_register_by_name(self, sensor_name, bus1_name, register, values):
 
         assert bus1_name in [BUS1_I2C, BUS1_SPI], 'Invalid bus1 name'
         target = self.found_sensors[sensor_name][CFG_TARGET]
@@ -54,8 +53,8 @@ class StandAloneConnectionManager(ConnectionManager):
         else:
             raise EvaluationKitException('Unable write data to sensor register.')
 
-    def get_physical_pin_for_sensor(self, sensor_name, pin=1):
-        sensor_resource = self.found_sensors[sensor_name]
+    def get_physical_pin_for_sensor(self, sensor, pin=1):
+        sensor_resource = self.found_sensors[sensor]
 
         if isinstance(pin, int):
             return sensor_resource[INT_GPIO_DICT[pin]]
@@ -70,8 +69,7 @@ class StandAloneStreamMessageDefinition(RequestMessageDefinition):
         self.msg_fmt = fmt
         self.msg_hdr = hdr
         self.msg_size = struct.calcsize(self.msg_fmt)
-        self.axis_mapper = AxisMapper(channel_header=hdr, axis_map=axis_map)
-
+        self.axis_mapper = AxisMapper(channel_header=hdr, axis_map=None)
 
 class StandAloneDataStream(StreamConfig):
     def __init__(self, stream_config_json):
@@ -90,7 +88,7 @@ class StandAloneDataStream(StreamConfig):
             for register_write_node in self.stream_config[section]:
                 sensor_name, addr, value, _ = register_write_node
                 assert sensor_name in self.board.found_sensors.keys(), 'Sensor not found %s' % sensor_name
-                self.board.write_sensor_register(sensor_name, self.board.found_sensors[sensor_name][CFG_NAME], addr, value)
+                self.board.write_sensor_register_by_name(sensor_name, self.board.found_sensors[sensor_name][CFG_NAME], addr, value)
 
         if self.stream_config['structure_version'] == "3.0":
             self._define_request_message = self._define_request_message_structure_v3
@@ -185,6 +183,7 @@ class StandAloneDataStream(StreamConfig):
                     else:
                         self.adapter.send_message(create_macro_req_msg)
                         _, channel_id = self.adapter.receive_message(wait_for_message=protocol.EVKIT_MSG_CREATE_MACRO_RESP)
+                        self.msg_ind_dict[channel_id] = message_info
 
                     # Send EVKIT_MSG_ADD_MACRO_ACTION_REQ
                     self.adapter.send_message(add_macro_action_msg)
@@ -195,6 +194,11 @@ class StandAloneDataStream(StreamConfig):
                     sensor_id = None
                     message_info = None
                     create_macro_req_handled = True
+                elif msg[1] == protocol.EVKIT_MSG_ADD_MACRO_ACTION_REQ:
+                    # Send EVKIT_MSG_ADD_MACRO_ACTION_REQ, there can be several
+                    self.adapter.send_message(add_macro_action_msg)
+                    resp = self.adapter.receive_message(wait_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
+                    LOGGER.debug(resp)
 
                 elif msg[1] == protocol.EVKIT_MSG_START_MACRO_REQ:
                     # Send start macro's in _start_streaming
@@ -247,7 +251,7 @@ class StandAloneDataStream(StreamConfig):
             LOGGER.debug(result)
         for deactivate_msg in self.stream_config['deactivate']:
             sensor_name, addr, value, _ = deactivate_msg
-            self.board.write_sensor_register(
+            self.board.write_sensor_register_by_name(
                 sensor_name, self.board.found_sensors[sensor_name][CFG_NAME], addr, value)
 
 

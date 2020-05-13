@@ -1,5 +1,5 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 import sys
 import os
@@ -8,7 +8,6 @@ from datetime import datetime  # pylint: disable=unused-import
 import array
 import signal
 import logging
-import argparse
 import six
 
 from kx_lib import kx_logger

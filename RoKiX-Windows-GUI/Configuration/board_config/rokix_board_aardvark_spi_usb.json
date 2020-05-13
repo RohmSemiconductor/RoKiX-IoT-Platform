@@ -4,8 +4,8 @@
         "2.0"
     ],
     "configuration": {
-        "name": "Aardvark I2C connection",
-        "doc": "Aardvark I2C connection",
+        "name": "Aardvark SPI connection",
+        "doc": "Aardvark SPI connection",
         "board_id": -1,
         "bus1": {
             "sensor_defaults": {
@@ -30,7 +30,7 @@
                     "ss_polarity": "ACTIVE_LOW",
                     "bitrate_spi": 4000,
                     "parts": {
-                        "KX122": {
+                        "KX132-1211": {
                             "cs": 0,
                             "gpio1": 1,
                             "gpio2": 2,
@@ -39,20 +39,6 @@
                                 0,
                                 1,
                                 2
-                            ]
-                        },
-                        "KMX64": {
-                            "cs": 0,
-                            "gpio1": 1,
-                            "gpio2": 2,
-                            "protocol": 1,		
-                            "axis_map": [
-                                0,
-                                1,
-                                2,
-								3,
-								4,
-								5
                             ]
                         }
                     }

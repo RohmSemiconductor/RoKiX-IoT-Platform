@@ -1,8 +1,8 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 import time
-from kx_lib.kx_exception import EvaluationKitException, ProtocolTimeoutException, FunctionalityNotInDevice
+from kx_lib.kx_exception import ProtocolTimeoutException, FunctionalityNotInDevice
 from kx_lib.kx_configuration_enum import BUS1_I2C, BUS1_SPI, CFG_SAD, CFG_CS, CFG_POLARITY, EVKIT_GPIO_PIN_SENSE_HIGH, EVKIT_GPIO_PIN_SENSE_LOW, SENSOR_TYPE_DIGITAL_3D, CH_ACC, CFG_AXIS_MAP, ADAPTER_GPIO1_INT, ADAPTER_GPIO2_INT, TIMER_POLL, REG_POLL
 from kx_lib.kx_util import evkit_config, get_timer
 import kx_lib.kx_logger as kx_logger

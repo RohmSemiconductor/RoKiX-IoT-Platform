@@ -1,10 +1,10 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 import os
 import json
 from kx_lib.kx_configuration_enum import *  # pylint: disable=unused-wildcard-import,wildcard-import
-from kx_lib.kx_bus2 import KxComPort, KxSocket, KxWinBLE, KxLinuxBLE, KxLinuxI2C
+from kx_lib.kx_bus2 import KxComPort, KxWinBLE, KxLinuxBLE
 from kx_lib.kx_adapter_aardvark import KxAdapterAardvark
 from kx_lib.kx_adapter_evk import KxAdapterEvk
 from kx_lib.kx_exception import *  # pylint: disable=unused-wildcard-import,wildcard-import
@@ -450,7 +450,6 @@ class ConnectionManager(object):
             # find this sensor from board configuration
             target_blob = None
             for target_blob in self.board_config['configuration']['bus1']['targets']:
-
                 if sensor_driver.name in target_blob['parts']:
 
                     # take default configuration blob
@@ -470,7 +469,6 @@ class ConnectionManager(object):
 
                     # update found sensors dict
                     self.found_sensors[sensor_driver.name] = (target_blob, sensor_driver.resource)
-
                     LOGGER.debug(sensor_driver.resource)
 
                     break
@@ -485,12 +483,11 @@ class ConnectionManager(object):
             _probe_status = sensor_driver.probe()
             if _probe_status != 1:
                 raise EvaluationKitException("Sensor probe failed with return value %s" % _probe_status)
-
             if target_blob[CFG_NAME] == BUS1_I2C:
                 LOGGER.info('Sensor %s found. I2C address 0x%x' % (sensor_driver.name, sensor_driver.resource[CFG_SAD]))
             elif target_blob[CFG_NAME] == BUS1_SPI:
                 LOGGER.info('Sensor %s found. SPI CS pin 0x%x' % (sensor_driver.name, sensor_driver.resource[CFG_CS]))
-            elif target_blob[CFG_NAME] == BUS1_ADC:
+            elif target_blob[CFG_NAME] in [BUS1_ADC, BUS1_ADC_SAR, BUS1_ADC_DELTA_SIGMA]:
                 LOGGER.info('Sensor %s found. ADC pins used.' % (sensor_driver.name))
             elif target_blob[CFG_NAME] == BUS1_GPIO:
                 LOGGER.info('Sensor %s found. GPIO pins used.' % sensor_driver.name)
@@ -502,7 +499,7 @@ class ConnectionManager(object):
 
         else:
             # bus 1 name is given
-            assert bus1_name in [BUS1_I2C, BUS1_SPI, BUS1_ADC]
+            assert bus1_name in [BUS1_I2C, BUS1_SPI, BUS1_ADC, BUS1_ADC_SAR, BUS1_ADC_DELTA_SIGMA]
             assert bus1_name in sensor_driver.supported_connectivity
 
             if sensor_resource_definition is not None:
@@ -517,7 +514,8 @@ class ConnectionManager(object):
                 self.found_sensors[sensor_driver.name] = (None, sensor_resource_definition)
 
                 LOGGER.debug(sensor_driver.resource)
-                assert sensor_driver.probe() is True
+                if bus1_name in [BUS1_I2C, BUS1_SPI]:
+                    assert sensor_driver.probe() is True
 
                 LOGGER.debug('<')
                 return True

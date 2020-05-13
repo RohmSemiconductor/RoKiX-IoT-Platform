@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -27,7 +27,7 @@ import imports  # pylint: disable=unused-import
 from kx_lib import kx_logger
 from kx_lib.kx_data_stream import StreamConfig
 from kx_lib.kx_util import get_drdy_pin_index, get_drdy_timer, convert_to_enumkey, evkit_config
-from kx_lib.kx_configuration_enum import CH_ACC, CH_ADP, CH_TEMP, CFG_AXIS_MAP
+from kx_lib.kx_configuration_enum import CH_ACC, CH_ADP, CFG_AXIS_MAP
 from kx132.kx132_driver import KX132Driver, filter1_values, filter2_values, r, e
 from kx132.kx132_data_logger import enable_data_logging as enable_data_logging_raw
 from kx132.kx132_data_logger import KX132DataLogger
@@ -116,7 +116,7 @@ def enable_data_logging(sensor,
                         odr=25,
                         max_range='2G',
                         lp_mode='128_SAMPLE_AVG',
-                        low_pass_filter='BYPASS',
+                        low_pass_filter='ODR_2',
                         filter1_setting=None,
                         filter2_setting=None,
                         adp_odr=25,

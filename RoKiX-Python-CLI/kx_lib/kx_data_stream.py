@@ -1,12 +1,12 @@
 # 
-# Copyright 2018 Kionix Inc.
+# Copyright 2020 Rohm Semiconductor
 #
 import struct
 from kx_lib.kx_util import DelayedKeyboardInterrupt
 from kx_lib.kx_sensor_base import AxisMapper
 from kx_lib.kx_exception import ProtocolBus1Exception, EvaluationKitException, ProtocolTimeoutException
 from kx_lib import kx_logger
-from kx_lib.kx_configuration_enum import BUS1_I2C, BUS1_SPI, BUS1_ADC, BUS1_GPIO, \
+from kx_lib.kx_configuration_enum import BUS1_I2C, BUS1_SPI, BUS1_ADC, BUS1_ADC_SAR, BUS1_ADC_DELTA_SIGMA, BUS1_GPIO, \
     CFG_SAD, CFG_CS, CFG_TARGET, CFG_ADC_RESOLUTION, CFG_SPI_PROTOCOL, \
     CFG_POLARITY, EVKIT_GPIO_PIN_SENSE_HIGH, EVKIT_GPIO_PIN_SENSE_LOW, \
     CFG_PULLUP, EVKIT_GPIO_PIN_NOPULL, EVKIT_GPIO_PIN_PULLDOWN, EVKIT_GPIO_PIN_PULLUP, CFG_AXIS_MAP
@@ -79,7 +79,8 @@ class StreamConfig(object):
         self.adapter = self.sensor.connection_manager.kx_adapter
 
         if self.adapter.stream_support is False:
-            raise EvaluationKitException("Adapter %s does not support data streaming." % self.adapter)
+            raise EvaluationKitException("\nSelected board does not support streaming." +
+                                         "\nPlease edit rokix_settings.cfg and select another board or set 'stream_mode = FALSE'")
 
         # map methods based on protocol version
         if self.adapter.engine.version == 2:
@@ -156,7 +157,6 @@ class StreamConfig(object):
                 timer_value=time_val)
 
         elif message.gpio_pin is not None:
-
             LOGGER.debug('EVKIT_MACRO_TYPE_INTR %s' % message.gpio_pin)
             req = protocol.create_macro_req(
                 trigger_type=protocol.EVKIT_MACRO_TYPE_INTR,
@@ -222,16 +222,14 @@ class StreamConfig(object):
             message.msg_req.append(req)
             self.adapter.receive_message(wait_for_message=protocol.EVKIT_MSG_ADD_MACRO_ACTION_RESP)
 
-        elif bus1_name == BUS1_ADC:
+        elif bus1_name in [BUS1_ADC, BUS1_ADC_SAR, BUS1_ADC_DELTA_SIGMA]:
             LOGGER.debug("EVKIT_MACRO_ACTION_ADC_READ")
 
             if isinstance(message.gpio_pin, int):
                 message.gpio_pin = [message.gpio_pin]
 
             self.sensor.connection_manager.gpio_config_for_adc(self.sensor)
-
             for pin in message.gpio_pin:
-
                 req2 = protocol.add_macro_action_req(
                     macro_id=macro_id,
                     action=protocol.EVKIT_MACRO_ACTION_ADC_READ,
@@ -408,7 +406,6 @@ class StreamConfig(object):
 
         # subscribe sensor data from FW
         self._start_streaming()
-
         # On FW1 channels are known only after that _start_streaming()
         # print out header text, replace text "ch" with channel number
         for channel, request in iter(self.msg_ind_dict.items()):
@@ -424,6 +421,7 @@ class StreamConfig(object):
                         macro_index, resp = self.adapter.receive_message()
                     except ProtocolTimeoutException:
                         resp = None
+
                 if resp is None:
                     LOGGER.debug("Timeout when receiving data")
                     timeout_count += 1

@@ -1,27 +1,6 @@
-# The MIT License (MIT)
-#
-# Copyright (c) 2018 Kionix Inc.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy 
-# of this software and associated documentation files (the "Software"), to deal 
-# in the Software without restriction, including without limitation the rights 
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
-# copies of the Software, and to permit persons to whom the Software is 
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in 
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
-# THE SOFTWARE.
 # pylint: skip-file
 # The MIT License (MIT)
-# Copyright (c) 2017 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the
@@ -112,6 +91,8 @@ class bits(register_base):
 		self.KXTJ3_INT_CTRL_REG2_XPWU                             = (0x01 << 4)  # x+
 		self.KXTJ3_INT_CTRL_REG2_YNWU                             = (0x01 << 3)  # y-
 		self.KXTJ3_INT_CTRL_REG2_YPWU                             = (0x01 << 2)  # y+
+		self.KXTJ3_INT_CTRL_REG2_ZNWU                             = (0x01 << 1)  # z-
+		self.KXTJ3_INT_CTRL_REG2_ZPWU                             = (0x01 << 0)  # z+
 		self.KXTJ3_DATA_CTRL_REG_OSA_12P5                         = (0x00 << 0)  # 12.5Hz
 		self.KXTJ3_DATA_CTRL_REG_OSA_25                           = (0x01 << 0)  # 25Hz
 		self.KXTJ3_DATA_CTRL_REG_OSA_50                           = (0x02 << 0)  # 50Hz
@@ -178,7 +159,6 @@ class masks(register_base):
 		self.KXTJ3_WHO_AM_I_WIA_MASK                              = 0xFF         # WHO_AM_I
 		self.KXTJ3_CTRL_REG1_GSEL_MASK                            = 0x1C         # selects the acceleration range of the accelerometer outputs
 		self.KXTJ3_CTRL_REG2_OWUF_MASK                            = 0x07         # sets the Output Data Rate for the Wake Up function
-		self.KXTJ3_INT_CTRL_REG2_ZPWUE_MASK                       = 0x03         # z+
 		self.KXTJ3_DATA_CTRL_REG_OSA_MASK                         = 0x0F         # sets the output data rate (ODR)
 		self.KXTJ3_WAKEUP_COUNTER_WUFC_MASK                       = 0xFF         # This register sets the time motion must be present before a wake-up interrupt is set
 		self.KXTJ3_NA_COUNTER_NAFC_MASK                           = 0xFF         # This register sets the non-activity time required before another wake-up interrupt can be set
