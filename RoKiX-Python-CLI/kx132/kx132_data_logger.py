@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -26,9 +26,9 @@ import imports  # pylint: disable=unused-import
 from kx_lib import kx_logger
 from kx_lib.kx_data_stream import StreamConfig
 from kx_lib.kx_util import get_drdy_pin_index, get_drdy_timer, evkit_config, convert_to_enumkey
-from kx_lib.kx_configuration_enum import CH_ACC, CH_TEMP, CH_ADP, POLARITY_DICT, CFG_POLARITY, CFG_SAD, ADAPTER_GPIO1_INT, ADAPTER_GPIO2_INT, REG_POLL
+from kx_lib.kx_configuration_enum import CH_ACC, POLARITY_DICT, CFG_POLARITY, ADAPTER_GPIO1_INT, ADAPTER_GPIO2_INT, REG_POLL
 from kx_lib.kx_data_logger import SingleChannelReader
-from kx132.kx132_driver import KX132Driver, r, b, m, e, SLEEP, WAKE
+from kx132.kx132_driver import KX132Driver, r, b, e
 
 LOGGER = kx_logger.get_logger(__name__)
 # LOGGER.setLevel(kx_logger.DEBUG)
@@ -121,11 +121,7 @@ def enable_data_logging(sensor,
     sensor.set_odr(e.KX132_1211_ODCNTL_OSA[convert_to_enumkey(odr)])
 
     # set bandwitdh
-    if low_pass_filter != 'BYPASS':
-        sensor.set_BW(low_pass_filter, 0, CH_ACC)
-        sensor.enable_iir()
-    else:
-        sensor.disable_iir()
+    sensor.set_BW(low_pass_filter, 0, CH_ACC)
     #
     # interrupt pin routings and settings
     #

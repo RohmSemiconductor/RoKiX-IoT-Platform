@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -24,8 +24,8 @@ from . import imports  # pylint: disable=unused-import
 from kx_lib.kx_configuration_enum import BUS1_I2C, BUS1_SPI
 from kx_lib.kx_sensor_base import SensorDriver, AxisMapper
 from kx_lib import kx_logger
-from kx_lib.kx_util import delay_seconds, bin2uint16, bin2uint8
-from kx_lib.kx_configuration_enum import CH_ACC, CH_ADP, CH_TEMP, ACTIVE_LOW, ACTIVE_HIGH
+from kx_lib.kx_util import delay_seconds, bin2uint16
+from kx_lib.kx_configuration_enum import CH_ACC, CH_ADP, ACTIVE_LOW, ACTIVE_HIGH
 from kx132 import kx132_1211_registers
 
 LOGGER = kx_logger.get_logger(__name__)
@@ -39,7 +39,7 @@ e = kx132_1211_registers.enums()
 # activity modes
 SLEEP, WAKE = range(2)
 
-# f1_1a, f1_ba, f1_ca, f1_ish, f1_osh 
+# f1_1a, f1_ba, f1_ca, f1_ish, f1_osh
 
 filter1_values = {
     'LP_ODR_4': (22, 0, 1439258, 1, 1),
@@ -52,12 +52,13 @@ filter1_values = {
     'LP_ODR_512': (29, 8315818, 8244280, 13, 0),
     'LP_ODR_1024': (29, 8352212, 8316131, 15, 0),
     'LP_ODR_2048': (30, 8370410, 8352291, 17, 0),
+    'LP_ODR_6p400': (15, 2934914, 2176803, 1, 0),
     'LP_ODR_4p266': (52, 4213708, 2986360, 2, 0),
     'LP_ODR_4p830': (18, 4674381, 3358701, 2, 0),
 
 }
 
-# f2_1a, f2_ba, f2_ish, f2_osh 
+# f2_1a, f2_ba, f2_ish, f2_osh
 filter2_values = {
     'LP_ODR_4': (0, 0, 1, 1),
     'LP_ODR_8': (22, 13573, 1, 0),
@@ -74,10 +75,12 @@ filter2_values = {
     'HP_ODR_8': (53, 13573, 2, 2),
     'HP_ODR_16': (86, 21895, 3, 3),
     'HP_ODR_32': (105, 26892, 4, 4),
+    'HP_ODR_40': (109, 27987, 4, 4),
     'HP_ODR_64': (116, 29699, 5, 5),
     'HP_ODR_128': (122, 31198, 6, 6),
     'HP_ODR_256': (125, 31973, 7, 7),
     'HP_ODR_512': (126, 32368, 8, 8),
+    'HP_ODR_640': (127, 32448, 8, 8),
     'HP_ODR_1024': (127, 32568, 9, 9),
     'HP_ODR_2048': (0, 32668, 9, 10),
     'HP_ODR_6p400': (77, 19640, 3, 3),
@@ -106,7 +109,7 @@ hz = [0.781, 1.563, 3.125, 6.25,
 
 
 class KX132Driver(SensorDriver):
-    supported_parts = ['KX132', 'KX132-1211', 'KX132-1201']
+    supported_parts = ['KX132-1211']
     _WAIS = [b.KX132_1211_WHO_AM_I_WAI_ID]
 
     def __init__(self):
@@ -150,12 +153,12 @@ class KX132Driver(SensorDriver):
         delay_seconds(1)
         LOGGER.debug("POR done")
 
-    def set_power_on(self, channel=CH_ACC | CH_ADP | CH_TEMP):
+    def set_power_on(self, channel=CH_ACC | CH_ADP):
         """
         Set operating mode to "operating mode".
         """
 
-        assert channel > 0 and channel & (CH_ACC | CH_ADP | CH_TEMP) == channel, 'only accelerometer and temperature supported'
+        assert channel > 0 and channel & (CH_ACC | CH_ADP) == channel, 'only accelerometer and ADP'
 
         if channel & CH_ACC:
             # When changing PC1 0->1 then 2.0/ODR delay is needed
@@ -172,17 +175,11 @@ class KX132Driver(SensorDriver):
         if channel & CH_ADP:
             self.set_bit(r.KX132_1211_CNTL5, b.KX132_1211_CNTL5_ADPE)
 
-        if channel & CH_TEMP:
-            assert self.read_register(r.KX132_1211_CNTL1, 1)[0] & \
-                b.KX132_1211_CNTL1_RES, \
-                'temperature sensor not available for low power -mode'
-            self.set_bit(r.KX132_1211_CNTL5, b.KX132_1211_CNTL5_TSE)
-
-    def set_power_off(self, channel=CH_ACC | CH_ADP | CH_TEMP):
+    def set_power_off(self, channel=CH_ACC | CH_ADP):
         """
         Set operating mode to "stand-by".
         """
-        assert channel > 0 and channel & (CH_ACC | CH_ADP | CH_TEMP) == channel, 'only accelerometer and temperature supported'
+        assert channel > 0 and channel & (CH_ACC | CH_ADP) == channel, 'only accelerometer and ADP'
         self.reset_bit(r.KX132_1211_CNTL1, b.KX132_1211_CNTL1_PC1)
 
         if channel & CH_ACC:
@@ -196,11 +193,8 @@ class KX132Driver(SensorDriver):
         if channel & CH_ADP:
             self.reset_bit(r.KX132_1211_CNTL5, b.KX132_1211_CNTL5_ADPE)
 
-        if channel & CH_TEMP:
-            self.reset_bit(r.KX132_1211_CNTL5, b.KX132_1211_CNTL5_TSE)
-
-    def _read_data(self, channel=CH_ACC | CH_ADP | CH_TEMP):    # normal data
-        assert channel > 0 and channel & (CH_ACC | CH_ADP | CH_TEMP) == channel, 'only accelerometer and temperature supported'
+    def _read_data(self, channel=CH_ACC | CH_ADP):    # normal data
+        assert channel > 0 and channel & (CH_ACC | CH_ADP) == channel, 'only accelerometer and ADP'
         s_form = ()
         if channel & CH_ACC:
             data = self.read_register(r.KX132_1211_XOUT_L, 6)
@@ -210,9 +204,6 @@ class KX132Driver(SensorDriver):
             data = self.read_register(r.KX132_1211_XADP_L, 6)
             s_form = s_form + struct.unpack('hhh', data)
 
-        if channel & CH_TEMP:
-            data = self.read_register(r.KX132_1211_TEMP_OUT_L, 2)
-            s_form = s_form + struct.unpack('h', data)
         return s_form
 
     def read_drdy(self, intpin=1, channel=CH_ACC | CH_ADP):
@@ -334,12 +325,6 @@ class KX132Driver(SensorDriver):
                              e.KX132_1211_ODCNTL_LPRO[lpro],
                              m.KX132_1211_ODCNTL_LPRO_MASK)
 
-    def enable_iir(self):
-        self.reset_bit(r.KX132_1211_ODCNTL, b.KX132_1211_ODCNTL_IIR_BYPASS)
-
-    def disable_iir(self):
-        self.set_bit(r.KX132_1211_ODCNTL, b.KX132_1211_ODCNTL_IIR_BYPASS)
-
     def set_adp_filter1(self, f1_value=None):
         assert (f1_value in list(filter1_values.keys())
                 + [None]), 'Invalid value for f1_value'
@@ -416,7 +401,7 @@ class KX132Driver(SensorDriver):
             mode=b.KX132_1211_BUF_CNTL2_BM_STREAM,
             res=b.KX132_1211_BUF_CNTL2_BRES,
             axis_mask=0x03):  # enable buffer with mode and resolution
-        # syncronized with KXxxx, KXG03
+
         assert mode in e.KX132_1211_BUF_CNTL2_BM.values()
 
         # 8 or 16bit resolution store

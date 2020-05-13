@@ -1,27 +1,6 @@
-# The MIT License (MIT)
-#
-# Copyright (c) 2018 Kionix Inc.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy 
-# of this software and associated documentation files (the "Software"), to deal 
-# in the Software without restriction, including without limitation the rights 
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
-# copies of the Software, and to permit persons to whom the Software is 
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in 
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
-# THE SOFTWARE.
 # pylint: skip-file
 # The MIT License (MIT)
-# Copyright (c) 2017 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the
@@ -58,8 +37,6 @@ class registers(register_base):
 		self.KX132_1211_YOUT_H                                    = 0x0B         # msb
 		self.KX132_1211_ZOUT_L                                    = 0x0C         # Accelerometer output register z
 		self.KX132_1211_ZOUT_H                                    = 0x0D         # msb
-		self.KX132_1211_TEMP_OUT_L                                = 0x0E         # 16-bit temperature sensor output register
-		self.KX132_1211_TEMP_OUT_H                                = 0x0F         # msb
 		self.KX132_1211_COTR                                      = 0x12         # The Command Test Response (COTR) register is used to verify proper integrated circuit functionality.
 		self.KX132_1211_WHO_AM_I                                  = 0x13         # This register can be used for supplier recognition
 		self.KX132_1211_TSCP                                      = 0x14         # Current Tilt Position Register.
@@ -73,7 +50,7 @@ class registers(register_base):
 		self.KX132_1211_CNTL2                                     = 0x1C         # Control register 2. Read/write control register that primarily controls tilt position state enabling.
 		self.KX132_1211_CNTL3                                     = 0x1D         # Control register 3. Read/write control register that provides control of the Output Data Rate (ODR) for Tilt, Tap, and Wake-up engines.
 		self.KX132_1211_CNTL4                                     = 0x1E         # Control register 4. Read/write control register that provides more feature set control.
-		self.KX132_1211_CNTL5                                     = 0x1F         # Control register 5. Read/write control register that provides more feature set control. Note that to properly change the value of this register, the PC1 bit in CNTL1 must first be set to 0.
+		self.KX132_1211_CNTL5                                     = 0x1F         # Control register 5. Read/write control register that provides more feature set control. Note that to properly change the value of this register, the PC1 bit in CNTL1 must first be set to "0".
 		self.KX132_1211_CNTL6                                     = 0x20         # Control register 6. Read/write control register that provides more feature set control.
 		self.KX132_1211_ODCNTL                                    = 0x21         # Output data control register that configures the acceleration outputs.
 		self.KX132_1211_INC1                                      = 0x22         # Interrupt control 1. This register controls the settings for the physical interrupt pin INT1
@@ -105,9 +82,9 @@ class registers(register_base):
 		self.KX132_1211_BTSC                                      = 0x4C         # Debounce counter register for the Back-to-Sleep (BTS) engine.
 		self.KX132_1211_WUFC                                      = 0x4D         # Debounce counter register for the Wake-up Function (WUF) engine.
 		self.KX132_1211_SELF_TEST                                 = 0x5D         # Self-Test Enable register:
-		self.KX132_1211_BUF_CNTL1                                 = 0x5E         # Sample Threshold  determines the number of samples that will trigger a watermark interrupt or will be saved prior to a trigger event. When BRES=1, the maximum number of samples is 86; when BRES=0, the maximum number of samples is 171. The minimum number of samples must be greater than or equal to 2.
+		self.KX132_1211_BUF_CNTL1                                 = 0x5E         # Sample Threshold - determines the number of samples that will trigger a watermark interrupt or will be saved prior to a trigger event. When BRES=1, the maximum number of samples is 86; when BRES=0, the maximum number of samples is 171. The minimum number of samples must be greater than or equal to 2.
 		self.KX132_1211_BUF_CNTL2                                 = 0x5F         # Read/write control register that controls sample buffer operation
-		self.KX132_1211_BUF_STATUS_1                              = 0x60         # These register reports the status of the sample buffer. Note that BUF_STATUS_1 and BUF_STATUS_2 registers may have a delay of up to 1sec to update the sample level after a buffer read.
+		self.KX132_1211_BUF_STATUS_1                              = 0x60         # These register reports the status of the sample buffer. Note that BUF_STATUS_1 and BUF_STATUS_2 registers may have a delay of up to 1usec to update the sample level after a buffer read.
 		self.KX132_1211_BUF_STATUS_2                              = 0x61         # This register reports the status of the sample buffer trigger function
 		self.KX132_1211_BUF_CLEAR                                 = 0x62         # Latched buffer status information and the entire sample buffer are cleared when any data is written to this register
 		self.KX132_1211_BUF_READ                                  = 0x63         # Buffer output register
@@ -155,15 +132,15 @@ class bits(register_base):
 		self.KX132_1211_INS1_TFU                                  = (0x01 << 0)  # Z  positive (z+)
 		self.KX132_1211_INS2_FFS                                  = (0x01 << 7)  # Free fall Status (FFS) bit. This bit is cleared when the interrupt latch release register (INT_REL) is read.
 		self.KX132_1211_INS2_BFI                                  = (0x01 << 6)  # Buffer Full Interrupt (BFI) bit indicates that buffer has been filled. This bit is automatically cleared when at least one sample from the buffer is read.
-		self.KX132_1211_INS2_WMI                                  = (0x01 << 5)  # Watermark Interrupt bit indicates that user-defined buffers sample threshold (watermark) has been exceeded when in FIFO or Stream modes. Not used in Trigger mode. This bit is automatically cleared when buffer is read and the content is below the watermark.
+		self.KX132_1211_INS2_WMI                                  = (0x01 << 5)  # Watermark Interrupt bit indicates that user-defined buffer's sample threshold (watermark) has been exceeded when in FIFO or Stream modes. Not used in Trigger mode. This bit is automatically cleared when buffer is read and the content is below the watermark.
 		self.KX132_1211_INS2_DRDY                                 = (0x01 << 4)  # Data Ready (DRDY) interrupt bit indicates that new acceleration data is available in output data registers 0x08 to 0x0D. This bit is cleared when acceleration data is read or the interrupt latch release register (INT_REL) is read.
 		self.KX132_1211_INS2_TDTS_NOTAP                           = (0x00 << 2)  # 00 = no tap
 		self.KX132_1211_INS2_TDTS_SINGLE                          = (0x01 << 2)  # 01 = single tap
 		self.KX132_1211_INS2_TDTS_DOUBLE                          = (0x02 << 2)  # 10 = double tap
 		self.KX132_1211_INS2_TDTS_NA                              = (0x03 << 2)  # 11 = does not exist
 		self.KX132_1211_INS2_TPS                                  = (0x01 << 0)  # Tilt Position Status bit
-		self.KX132_1211_INS3_WUFS                                 = (0x01 << 7)  # Wake up interrupt. This bit is cleared when the interrupt latch release register (INT_REL) is read. WUFS = 1  Motion is above wake up threshold, WUFS = 0  Motion is below wake up threshold
-		self.KX132_1211_INS3_BTS                                  = (0x01 << 6)  # Back to sleep interrupt. This bit is cleared when the interrupt latch release register (INT_REL) is read. BTS = 1  Motion is below back to sleep threshold, BTS = 0  Motion is above back to sleep threshold
+		self.KX132_1211_INS3_WUFS                                 = (0x01 << 7)  # Wake up interrupt. This bit is cleared when the interrupt latch release register (INT_REL) is read. WUFS = 1 - Motion is above wake up threshold, WUFS = 0 - Motion is below wake up threshold
+		self.KX132_1211_INS3_BTS                                  = (0x01 << 6)  # Back to sleep interrupt. This bit is cleared when the interrupt latch release register (INT_REL) is read. BTS = 1 - Motion is below back to sleep threshold, BTS = 0 - Motion is above back to sleep threshold
 		self.KX132_1211_INS3_XNWU                                 = (0x01 << 5)  # X' negative (x-)
 		self.KX132_1211_INS3_XPWU                                 = (0x01 << 4)  # X' positive (x+)
 		self.KX132_1211_INS3_YNWU                                 = (0x01 << 3)  # Y' negative (y-)
@@ -174,15 +151,15 @@ class bits(register_base):
 		self.KX132_1211_STATUS_REG_WAKE                           = (0x01 << 0)  # reports the wake/back to sleep state; 0 = back-to-sleep state,1 = wake state.
 		self.KX132_1211_CNTL1_PC1                                 = (0x01 << 7)  # controls the operating mode.  0= stand-by mode,  1= operating mode.
 		self.KX132_1211_CNTL1_RES                                 = (0x01 << 6)  # controls the resolution of the accelerometer output. RES = 0 - low power, higher noise mode. RES = 1 - higher power, lower noise mode
-		self.KX132_1211_CNTL1_DRDYE                               = (0x01 << 5)  # enables the data ready engine. DRDYE = 0  disable, DRDYE = 1 - enable
+		self.KX132_1211_CNTL1_DRDYE                               = (0x01 << 5)  # enables the data ready engine. DRDYE = 0 - disable, DRDYE = 1 - enable
 		self.KX132_1211_CNTL1_GSEL_2G                             = (0x00 << 3)  # 00 = +/- 2g
 		self.KX132_1211_CNTL1_GSEL_4G                             = (0x01 << 3)  # 01 = +/- 4g
 		self.KX132_1211_CNTL1_GSEL_8G                             = (0x02 << 3)  # 10 = +/- 8g
 		self.KX132_1211_CNTL1_GSEL_16G                            = (0x03 << 3)  # 11 = +/- 16g
-		self.KX132_1211_CNTL1_TDTE                                = (0x01 << 2)  # enables the Tap/Double tap engine. TDTE = 0  disable, TDTE = 1  enable
-		self.KX132_1211_CNTL1_TPE                                 = (0x01 << 0)  # enables the Tilt engine.TPE = 0  disable, TPE = 1  enable
+		self.KX132_1211_CNTL1_TDTE                                = (0x01 << 2)  # enables the Tap/Double tap engine. TDTE = 0 - disable, TDTE = 1 - enable
+		self.KX132_1211_CNTL1_TPE                                 = (0x01 << 0)  # enables the Tilt engine.TPE = 0 - disable, TPE = 1 - enable
 		self.KX132_1211_CNTL2_SRST                                = (0x01 << 7)  # The Software Reset bit initiates software reset, which performs the RAM reboot routine. This bit will remain 1 until the RAM reboot routine is finished.
-		self.KX132_1211_CNTL2_COTC                                = (0x01 << 6)  # The Command Test Control bit is used to verify proper ASIC functionality. COTC = 0  no action, COTC = 1  sets AA to COTR register, when the COTR register is read, COTC is cleared and STR = 55.
+		self.KX132_1211_CNTL2_COTC                                = (0x01 << 6)  # The Command Test Control bit is used to verify proper ASIC functionality. COTC = 0 - no action, COTC = 1 - sets AA to COTR register, when the COTR register is read, COTC is cleared and STR = 55.
 		self.KX132_1211_CNTL2_LEM                                 = (0x01 << 5)  # Tilt Left state mask
 		self.KX132_1211_CNTL2_RIM                                 = (0x01 << 4)  # Tilt Right state mask
 		self.KX132_1211_CNTL2_DOM                                 = (0x01 << 3)  # Tilt Down state mask
@@ -214,7 +191,7 @@ class bits(register_base):
 		self.KX132_1211_CNTL4_C_MODE                              = (0x01 << 7)  # defines debounce counter clear mode
 		self.KX132_1211_CNTL4_TH_MODE_ABSOLUTE                    = (0x00 << 6)  # absolute threshold
 		self.KX132_1211_CNTL4_TH_MODE_RELATIVE                    = (0x01 << 6)  # relative threshold
-		self.KX132_1211_CNTL4_TH_MODE                             = (0x01 << 6)  # defines wake / back-to-sleep threshold mode. TH_MODE = 0  absolute threshold, TH_MODE = 1  relative threshold
+		self.KX132_1211_CNTL4_TH_MODE                             = (0x01 << 6)  # defines wake / back-to-sleep threshold mode. TH_MODE = 0 - absolute threshold, TH_MODE = 1 - relative threshold
 		self.KX132_1211_CNTL4_WUFE_DISABLED                       = (0x00 << 5)  # Wake-Up Function Engine is disabled
 		self.KX132_1211_CNTL4_WUFE_ENABLED                        = (0x01 << 5)  # Wake-Up Function Engine is enabled
 		self.KX132_1211_CNTL4_WUFE                                = (0x01 << 5)  # Wake-Up Function Engine enable bit
@@ -234,25 +211,19 @@ class bits(register_base):
 		self.KX132_1211_CNTL4_OBTS_100                            = (0x07 << 0)  # 100Hz
 		self.KX132_1211_CNTL5_ADPE_DISABLED                       = (0x00 << 4)  # ADP disabled
 		self.KX132_1211_CNTL5_ADPE_ENABLED                        = (0x01 << 4)  # ADP enabled
-		self.KX132_1211_CNTL5_ADPE                                = (0x01 << 4)  # Advanced Data Path (ADP) enable. ADPE = 0  Advanced Data Path is disabled.  ADPE = 1  Advanced Data Path is enabled. Outputs are available in XADP, YADP, ZADP registers.
-		self.KX132_1211_CNTL5_TSE_DISABLED                        = (0x00 << 2)  # temperature sensor disabled
-		self.KX132_1211_CNTL5_TSE_ENABLED                         = (0x01 << 2)  # temperature sensor enabled
-		self.KX132_1211_CNTL5_TSE                                 = (0x01 << 2)  # enables the Temperature Sensor output TOUT. TSE = 0  temperature sensor output disabled, TSE = 1  temperature sensor output enabled
-		self.KX132_1211_CNTL5_MAN_WAKE                            = (0x01 << 1)  # manual wake-sleep engine overwrite.MAN_WAKE = 0  default, MAN_WAKE = 1  forces wake state (bit is self-cleared)
-		self.KX132_1211_CNTL5_MAN_SLEEP                           = (0x01 << 0)  # manual wake-sleep engine overwrite. MAN_SLEEP = 0  default, MAN_SLEEP = 1  forces sleep state (bit is self-cleared)
+		self.KX132_1211_CNTL5_ADPE                                = (0x01 << 4)  # Advanced Data Path (ADP) enable. ADPE = 0 - Advanced Data Path is disabled.  ADPE = 1 - Advanced Data Path is enabled. Outputs are available in XADP, YADP, ZADP registers.
+		self.KX132_1211_CNTL5_MAN_WAKE                            = (0x01 << 1)  # manual wake-sleep engine overwrite.MAN_WAKE = 0 - default, MAN_WAKE = 1 - forces wake state (bit is self-cleared)
+		self.KX132_1211_CNTL5_MAN_SLEEP                           = (0x01 << 0)  # manual wake-sleep engine overwrite. MAN_SLEEP = 0 - default, MAN_SLEEP = 1 - forces sleep state (bit is self-cleared)
 		self.KX132_1211_CNTL6_I2C_ALE_DISABLED                    = (0x00 << 7)  # I2C auto release function is disabled
 		self.KX132_1211_CNTL6_I2C_ALE_ENABLED                     = (0x01 << 7)  # I2C auto release function is enabled
-		self.KX132_1211_CNTL6_I2C_ALE                             = (0x01 << 7)  # enables the I2C auto release function. I2C_ALE = 0  disabled, I2C_ALE = 1  enabled
+		self.KX132_1211_CNTL6_I2C_ALE                             = (0x01 << 7)  # enables the I2C auto release function. I2C_ALE = 0 - disabled, I2C_ALE = 1 - enabled
 		self.KX132_1211_CNTL6_I2C_ALC_0P5                         = (0x00 << 0)  # 0.5sec
 		self.KX132_1211_CNTL6_I2C_ALC_1P0                         = (0x01 << 0)  # 1.0sec
 		self.KX132_1211_CNTL6_I2C_ALC_2P0                         = (0x02 << 0)  # 2.0sec
 		self.KX132_1211_CNTL6_I2C_ALC_4P0                         = (0x03 << 0)  # 4.0sec
-		self.KX132_1211_ODCNTL_IIR_BYPASS_NOT_BYPASSED            = (0x00 << 7)  # IIR filter is not bypassed
-		self.KX132_1211_ODCNTL_IIR_BYPASS_BYPASSED                = (0x01 << 7)  # IIR filter is bypassed
-		self.KX132_1211_ODCNTL_IIR_BYPASS                         = (0x01 << 7)  # IIR Filter Bypass mode enable bit
 		self.KX132_1211_ODCNTL_LPRO_ODR_9                         = (0x00 << 6)  # IIR filter corner frequency set to ODR/9 (default)
 		self.KX132_1211_ODCNTL_LPRO_ODR_2                         = (0x01 << 6)  # IIR filter corner frequency set to ODR/2
-		self.KX132_1211_ODCNTL_LPRO                               = (0x01 << 6)  # Low-Pass filter roll off control. LPRO = 0  filter corner frequency set to ODR/9, LPRO = 1  filter corner frequency set to ODR/2
+		self.KX132_1211_ODCNTL_LPRO                               = (0x01 << 6)  # Low-Pass filter roll off control. LPRO = 0 - filter corner frequency set to ODR/9, LPRO = 1 - filter corner frequency set to ODR/2
 		self.KX132_1211_ODCNTL_FSTUP_DISABLED                     = (0x00 << 5)  # Fast Start is disabled
 		self.KX132_1211_ODCNTL_FSTUP_ENABLED                      = (0x01 << 5)  # Fast Start is enabled
 		self.KX132_1211_ODCNTL_FSTUP                              = (0x01 << 5)  # Fast Start Up Enable bit.
@@ -279,8 +250,8 @@ class bits(register_base):
 		self.KX132_1211_INC1_IEN1                                 = (0x01 << 5)  # enables/disables the physical interrupt pin 1. 0=disable, 1=enable.
 		self.KX132_1211_INC1_IEA1                                 = (0x01 << 4)  # Interrupt active level control for interrupt pin 1, 0=active low, 1=active high.
 		self.KX132_1211_INC1_IEL1                                 = (0x01 << 3)  # Interrupt latch control for interrupt pin 1, 0=latched, 1=one pulse
-		self.KX132_1211_INC1_STPOL                                = (0x01 << 1)  # sets the polarity of Self Test. STPOL = 0  Negative, STPOL = 1  Positive
-		self.KX132_1211_INC1_SPI3E                                = (0x01 << 0)  # sets the 3-wire SPI interface. SPI3E = 0  disabled, SPI3E = 1  enabled
+		self.KX132_1211_INC1_STPOL                                = (0x01 << 1)  # sets the polarity of Self Test. STPOL = 0 - Negative, STPOL = 1 - Positive
+		self.KX132_1211_INC1_SPI3E                                = (0x01 << 0)  # sets the 3-wire SPI interface. SPI3E = 0 - disabled, SPI3E = 1 - enabled
 		self.KX132_1211_INC2_AOI_OR                               = (0x00 << 6)  # 0=Or combination of selected directions
 		self.KX132_1211_INC2_AOI_AND                              = (0x01 << 6)  # 1=And combination of selected axes
 		self.KX132_1211_INC2_AOI                                  = (0x01 << 6)  # And-Or configuration. 0=Or combination of selected directions, 1=And combination of selected axes
@@ -311,25 +282,25 @@ class bits(register_base):
 		self.KX132_1211_INC5_IEN2                                 = (0x01 << 5)  # enable/disable physical interrupt pin 2, 0=disable, 1=enable.
 		self.KX132_1211_INC5_IEA2                                 = (0x01 << 4)  # Interrupt active level control for interrupt pin 2, 0=active low, 1=active high.
 		self.KX132_1211_INC5_IEL2                                 = (0x01 << 3)  # Interrupt latch control for interrupt pin 2, 0=latched, 1=one pulse
-		self.KX132_1211_INC5_ACLR2                                = (0x01 << 1)  # Latched interrupt source information(INS1-INS3) is cleared and physical interrupt-1 latched pin is changed to its inactive state at pulse interrupt-1 trailing edge. Note:WMI, BFI, and STPWMI are not auto-cleared by a pulse interrupt trailing edge. ACLR2 = 0  disable, ACLR2 = 1  enable
-		self.KX132_1211_INC5_ACLR1                                = (0x01 << 0)  # Latched interrupt source information(INS1-INS3) is cleared and physical interrupt-1 latched pin is changed to its inactive state at pulse interrupt-2 trailing edge. Note:WMI, BFI, and STPWMI are not auto-cleared by a pulse interrupt trailing edge. ACLR2 = 0  disable, ACLR2 = 1  enable
-		self.KX132_1211_INC6_FFI2                                 = (0x01 << 7)  # Free fall interrupt reported on physical interrupt pin INT2. FFI2 = 0  disable, FFI2 = 1  enable
-		self.KX132_1211_INC6_BFI2                                 = (0x01 << 6)  # Buffer full interrupt reported on physical interrupt pin INT2. BF2 = 0  disable, BF2 = 1  enable
-		self.KX132_1211_INC6_WMI2                                 = (0x01 << 5)  # Watermark interrupt reported on physical interrupt pin INT2. WMI2 = 0  disable, WMI2 = 1  enable
-		self.KX132_1211_INC6_DRDYI2                               = (0x01 << 4)  # Data ready interrupt reported on physical interrupt pin INT2. DRDYI2 = 0  disable, DRDYI2 = 1  enable
-		self.KX132_1211_INC6_BTSI2                                = (0x01 << 3)  # Back to sleep interrupt reported on physical interrupt pin INT2. BTSI2 = 0  disable, BTSI2 = 1  enable
+		self.KX132_1211_INC5_ACLR2                                = (0x01 << 1)  # Latched interrupt source information(INS1-INS3) is cleared and physical interrupt-1 latched pin is changed to its inactive state at pulse interrupt-1 trailing edge. Note: WMI, BFI, and STPWMI are not auto-cleared by a pulse interrupt trailing edge. ACLR2 = 0 - disable, ACLR2 = 1 - enable
+		self.KX132_1211_INC5_ACLR1                                = (0x01 << 0)  # Latched interrupt source information(INS1-INS3) is cleared and physical interrupt-1 latched pin is changed to its inactive state at pulse interrupt-2 trailing edge. Note: WMI, BFI, and STPWMI are not auto-cleared by a pulse interrupt trailing edge. ACLR2 = 0 - disable, ACLR2 = 1 - enable
+		self.KX132_1211_INC6_FFI2                                 = (0x01 << 7)  # Free fall interrupt reported on physical interrupt pin INT2. FFI2 = 0 - disable, FFI2 = 1 - enable
+		self.KX132_1211_INC6_BFI2                                 = (0x01 << 6)  # Buffer full interrupt reported on physical interrupt pin INT2. BF2 = 0 - disable, BF2 = 1 - enable
+		self.KX132_1211_INC6_WMI2                                 = (0x01 << 5)  # Watermark interrupt reported on physical interrupt pin INT2. WMI2 = 0 - disable, WMI2 = 1 - enable
+		self.KX132_1211_INC6_DRDYI2                               = (0x01 << 4)  # Data ready interrupt reported on physical interrupt pin INT2. DRDYI2 = 0 - disable, DRDYI2 = 1 - enable
+		self.KX132_1211_INC6_BTSI2                                = (0x01 << 3)  # Back to sleep interrupt reported on physical interrupt pin INT2. BTSI2 = 0 - disable, BTSI2 = 1 - enable
 		self.KX132_1211_INC6_TDTI2                                = (0x01 << 2)  # Tap/Double Tap interrupt reported on physical interrupt pin 2, 0=disable, 1=enable.
-		self.KX132_1211_INC6_WUFI2                                = (0x01 << 1)  # Wake-Up (motion detect) interrupt reported on physical interrupt pin INT2. WUFI2 = 0  disable, WUFI2 = 1  enable
-		self.KX132_1211_INC6_TPI2                                 = (0x01 << 0)  # Tilt position interrupt reported on physical interrupt pin INT. TPI2 = 0  disable, TPI2 = 1  enable
-		self.KX132_1211_TDTRC_DTRE                                = (0x01 << 1)  # enables/disables the double tap interrupt. DTRE = 0  do not update INS1 or DTDS if double tap occurs, DTRE = 1  update INS1 and DTDS in INS2 with double tap events
-		self.KX132_1211_TDTRC_STRE                                = (0x01 << 0)  # enables/disables single tap interrupt. STRE = 0  do not update INS1 or DTDS if single tap occurs, STRE = 1  update INS1 and DTDS in INS2 single tap events
-		self.KX132_1211_FFCNTL_FFIE                               = (0x01 << 7)  # Free fall engine enable. FFIE = 0  disable, FFIE = 1  enable
-		self.KX132_1211_FFCNTL_ULMODE                             = (0x01 << 6)  # Free fall interrupt latch/un-latch control. ULMODE = 0  latched, ULMODE = 1  unlatched
+		self.KX132_1211_INC6_WUFI2                                = (0x01 << 1)  # Wake-Up (motion detect) interrupt reported on physical interrupt pin INT2. WUFI2 = 0 - disable, WUFI2 = 1 - enable
+		self.KX132_1211_INC6_TPI2                                 = (0x01 << 0)  # Tilt position interrupt reported on physical interrupt pin INT. TPI2 = 0 - disable, TPI2 = 1 - enable
+		self.KX132_1211_TDTRC_DTRE                                = (0x01 << 1)  # enables/disables the double tap interrupt. DTRE = 0 - do not update INS1 or DTDS if double tap occurs, DTRE = 1 - update INS1 and DTDS in INS2 with double tap events
+		self.KX132_1211_TDTRC_STRE                                = (0x01 << 0)  # enables/disables single tap interrupt. STRE = 0 - do not update INS1 or DTDS if single tap occurs, STRE = 1 - update INS1 and DTDS in INS2 single tap events
+		self.KX132_1211_FFCNTL_FFIE                               = (0x01 << 7)  # Free fall engine enable. FFIE = 0 - disable, FFIE = 1 - enable
+		self.KX132_1211_FFCNTL_ULMODE                             = (0x01 << 6)  # Free fall interrupt latch/un-latch control. ULMODE = 0 - latched, ULMODE = 1 - unlatched
 		self.KX132_1211_FFCNTL_FFDC_NO_DELAY                      = (0x00 << 4)  # no delay
 		self.KX132_1211_FFCNTL_FFDC_1                             = (0x01 << 4)  # 1sec
 		self.KX132_1211_FFCNTL_FFDC_2                             = (0x02 << 4)  # 2sec
 		self.KX132_1211_FFCNTL_FFDC_4                             = (0x03 << 4)  # 4sec
-		self.KX132_1211_FFCNTL_DCRM                               = (0x01 << 3)  # Debounce methodology control. DCRM = 0  count up/down, DCRM = 1  count up/reset
+		self.KX132_1211_FFCNTL_DCRM                               = (0x01 << 3)  # Debounce methodology control. DCRM = 0 - count up/down, DCRM = 1 - count up/reset
 		self.KX132_1211_FFCNTL_OFFI_12P5                          = (0x00 << 0)  # 12.5Hz
 		self.KX132_1211_FFCNTL_OFFI_25                            = (0x01 << 0)  # 25Hz
 		self.KX132_1211_FFCNTL_OFFI_50                            = (0x02 << 0)  # 50Hz
@@ -349,14 +320,14 @@ class bits(register_base):
 		self.KX132_1211_LP_CNTL2_LPSTPSEL                         = (0x01 << 0)  # Digital power shut-off select
 		self.KX132_1211_SELF_TEST_MEMS_TEST_ST_OFF                = (0x00 << 0)  # Self test off
 		self.KX132_1211_SELF_TEST_MEMS_TEST_ST_ON                 = (0xCA << 0)  # Self test on
-		self.KX132_1211_BUF_CNTL2_BUFE                            = (0x01 << 7)  # controls activation of the sample buffer. BUFE = 0  sample buffer inactive, BUFE = 1  sample buffer active
-		self.KX132_1211_BUF_CNTL2_BRES                            = (0x01 << 6)  # determines the resolution of the acceleration data samples collected by the sample buffer. BRES = 0  8-bit samples are accumulated in the buffer, BRES = 1  16-bit samples are accumulated in the buffer
-		self.KX132_1211_BUF_CNTL2_BFIE                            = (0x01 << 5)  # buffer full interrupt enable bit. BFIE = 0  buffer full interrupt is disabled, BFIE = 1  buffer full interrupt is enabled and updated in INS2
+		self.KX132_1211_BUF_CNTL2_BUFE                            = (0x01 << 7)  # controls activation of the sample buffer. BUFE = 0 - sample buffer inactive, BUFE = 1 - sample buffer active
+		self.KX132_1211_BUF_CNTL2_BRES                            = (0x01 << 6)  # determines the resolution of the acceleration data samples collected by the sample buffer. BRES = 0 - 8-bit samples are accumulated in the buffer, BRES = 1 - 16-bit samples are accumulated in the buffer
+		self.KX132_1211_BUF_CNTL2_BFIE                            = (0x01 << 5)  # buffer full interrupt enable bit. BFIE = 0 - buffer full interrupt is disabled, BFIE = 1 - buffer full interrupt is enabled and updated in INS2
 		self.KX132_1211_BUF_CNTL2_BM_FIFO                         = (0x00 << 0)  # The buffer collects 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values and then stops collecting data, collecting new data only when the buffer is not full
 		self.KX132_1211_BUF_CNTL2_BM_STREAM                       = (0x01 << 0)  # The buffer holds the last 681 sets of 8-bit low resolution values or 339 sets of 16-bit high resolution values. Once the buffer is full, the oldest data is discarded to make room for newer data.
 		self.KX132_1211_BUF_CNTL2_BM_TRIGGER                      = (0x02 << 0)  # When a trigger event occurs, the buffer holds the last data set of SMP[9:0] samples before the trigger event and then continues to collect data until full. New data is collected only when the buffer is not full.
 		self.KX132_1211_BUF_CNTL2_BM_NA                           = (0x03 << 0)  # Not applicable
-		self.KX132_1211_BUF_STATUS_2_BUF_TRIG                     = (0x01 << 7)  # reports the status of the buffers trigger function if this mode has been selected
+		self.KX132_1211_BUF_STATUS_2_BUF_TRIG                     = (0x01 << 7)  # reports the status of the buffer's trigger function if this mode has been selected
 		self.KX132_1211_ADP_CNTL1_RMS_AVC_2_SAMPLE_AVG            = (0x00 << 4)  # 2 Samples Averaged
 		self.KX132_1211_ADP_CNTL1_RMS_AVC_4_SAMPLE_AVG            = (0x01 << 4)  # 4 Samples Averaged
 		self.KX132_1211_ADP_CNTL1_RMS_AVC_8_SAMPLE_AVG            = (0x02 << 4)  # 8 Samples Averaged
@@ -387,7 +358,7 @@ class bits(register_base):
 		self.KX132_1211_ADP_CNTL2_ADP_FLT2_BYP                    = (0x01 << 4)  # Advanced Data Path Filter-2 bypass control
 		self.KX132_1211_ADP_CNTL2_ADP_FLT1_BYP                    = (0x01 << 3)  # Advanced Data Path Filter-1 bypass control
 		self.KX132_1211_ADP_CNTL2_ADP_RMS_OSEL                    = (0x01 << 1)  # Select data out to XADP, YADP, and ZADP registers.
-		self.KX132_1211_ADP_CNTL2_ADP_F2_HP                       = (0x01 << 0)  # Filter-2 High-pass enable. 0  Filter-2 is set to Low-pass filter. 1  Filter-2 is set to High-pass filter
+		self.KX132_1211_ADP_CNTL2_ADP_F2_HP                       = (0x01 << 0)  # Filter-2 High-pass enable. 0 - Filter-2 is set to Low-pass filter. 1 - Filter-2 is set to High-pass filter
 		self.KX132_1211_ADP_CNTL11_ADP_F1_OSH                     = (0x01 << 7)  # ADP filter-1 output scale shift value
 _b=bits()
 class enums(register_base):
@@ -468,10 +439,6 @@ class enums(register_base):
 			'DISABLED':_b.KX132_1211_CNTL5_ADPE_DISABLED,
 			'ENABLED':_b.KX132_1211_CNTL5_ADPE_ENABLED,
 		}
-		self.KX132_1211_CNTL5_TSE={
-			'DISABLED':_b.KX132_1211_CNTL5_TSE_DISABLED,
-			'ENABLED':_b.KX132_1211_CNTL5_TSE_ENABLED,
-		}
 		self.KX132_1211_CNTL6_I2C_ALE={
 			'DISABLED':_b.KX132_1211_CNTL6_I2C_ALE_DISABLED,
 			'ENABLED':_b.KX132_1211_CNTL6_I2C_ALE_ENABLED,
@@ -481,10 +448,6 @@ class enums(register_base):
 			'1P0':_b.KX132_1211_CNTL6_I2C_ALC_1P0,
 			'2P0':_b.KX132_1211_CNTL6_I2C_ALC_2P0,
 			'4P0':_b.KX132_1211_CNTL6_I2C_ALC_4P0,
-		}
-		self.KX132_1211_ODCNTL_IIR_BYPASS={
-			'NOT_BYPASSED':_b.KX132_1211_ODCNTL_IIR_BYPASS_NOT_BYPASSED,
-			'BYPASSED':_b.KX132_1211_ODCNTL_IIR_BYPASS_BYPASSED,
 		}
 		self.KX132_1211_ODCNTL_LPRO={
 			'ODR_9':_b.KX132_1211_ODCNTL_LPRO_ODR_9,
@@ -604,17 +567,15 @@ class masks(register_base):
 		self.KX132_1211_CNTL3_OTDT_MASK                           = 0x38         # Tap/Double-TapTM (OTDT) sets the output data rate for the Directional-Tap function
 		self.KX132_1211_CNTL3_OWUF_MASK                           = 0x07         # Wake-Up Function (OWUF) sets the output data rate
 		self.KX132_1211_CNTL4_C_MODE_MASK                         = 0x80         # defines debounce counter clear mode
-		self.KX132_1211_CNTL4_TH_MODE_MASK                        = 0x40         # defines wake / back-to-sleep threshold mode. TH_MODE = 0  absolute threshold, TH_MODE = 1  relative threshold
+		self.KX132_1211_CNTL4_TH_MODE_MASK                        = 0x40         # defines wake / back-to-sleep threshold mode. TH_MODE = 0 - absolute threshold, TH_MODE = 1 - relative threshold
 		self.KX132_1211_CNTL4_WUFE_MASK                           = 0x20         # Wake-Up Function Engine enable bit
 		self.KX132_1211_CNTL4_BTSE_MASK                           = 0x10         # Back-to-Sleep Engine enable bit.
 		self.KX132_1211_CNTL4_PR_MODE_MASK                        = 0x08         # defines Pulse Reject mode
 		self.KX132_1211_CNTL4_OBTS_MASK                           = 0x07         # sets the output data rate at which the back-to-sleep (motion detection) performs its function during wake state
-		self.KX132_1211_CNTL5_ADPE_MASK                           = 0x10         # Advanced Data Path (ADP) enable. ADPE = 0  Advanced Data Path is disabled.  ADPE = 1  Advanced Data Path is enabled. Outputs are available in XADP, YADP, ZADP registers.
-		self.KX132_1211_CNTL5_TSE_MASK                            = 0x04         # enables the Temperature Sensor output TOUT. TSE = 0  temperature sensor output disabled, TSE = 1  temperature sensor output enabled
-		self.KX132_1211_CNTL6_I2C_ALE_MASK                        = 0x80         # enables the I2C auto release function. I2C_ALE = 0  disabled, I2C_ALE = 1  enabled
+		self.KX132_1211_CNTL5_ADPE_MASK                           = 0x10         # Advanced Data Path (ADP) enable. ADPE = 0 - Advanced Data Path is disabled.  ADPE = 1 - Advanced Data Path is enabled. Outputs are available in XADP, YADP, ZADP registers.
+		self.KX132_1211_CNTL6_I2C_ALE_MASK                        = 0x80         # enables the I2C auto release function. I2C_ALE = 0 - disabled, I2C_ALE = 1 - enabled
 		self.KX132_1211_CNTL6_I2C_ALC_MASK                        = 0x03         # I2C auto release function counter select
-		self.KX132_1211_ODCNTL_IIR_BYPASS_MASK                    = 0x80         # IIR Filter Bypass mode enable bit
-		self.KX132_1211_ODCNTL_LPRO_MASK                          = 0x40         # Low-Pass filter roll off control. LPRO = 0  filter corner frequency set to ODR/9, LPRO = 1  filter corner frequency set to ODR/2
+		self.KX132_1211_ODCNTL_LPRO_MASK                          = 0x40         # Low-Pass filter roll off control. LPRO = 0 - filter corner frequency set to ODR/9, LPRO = 1 - filter corner frequency set to ODR/2
 		self.KX132_1211_ODCNTL_FSTUP_MASK                         = 0x20         # Fast Start Up Enable bit.
 		self.KX132_1211_ODCNTL_OSA_MASK                           = 0x0F         # Acceleration Output data rate.
 		self.KX132_1211_INC1_PW1_MASK                             = 0xC0         # Pulse interrupt 1 width configuration

@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2018 Kionix Inc.
+# Copyright (c) 2020 Rohm Semiconductor
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -27,9 +27,9 @@ import imports  # pylint: disable=unused-import
 from kx_lib import kx_logger
 from kx_lib.kx_data_stream import StreamConfig
 from kx_lib.kx_util import get_drdy_pin_index, get_drdy_timer, evkit_config, convert_to_enumkey
-from kx_lib.kx_configuration_enum import CH_ACC, POLARITY_DICT, CFG_POLARITY, CFG_SAD, ADAPTER_GPIO1_INT, ADAPTER_GPIO2_INT, REG_POLL
+from kx_lib.kx_configuration_enum import POLARITY_DICT, CFG_POLARITY, ADAPTER_GPIO1_INT, REG_POLL
 from kx_lib.kx_data_logger import SingleChannelReader
-from kxtj3.kxtj3_driver import KXTJ3Driver, r, b, m, e
+from kxtj3.kxtj3_driver import KXTJ3Driver, r, b, e
 
 LOGGER = kx_logger.get_logger(__name__)
 # LOGGER.setLevel(kx_logger.DEBUG)
