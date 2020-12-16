@@ -7,7 +7,7 @@
         "name": "CY8CKIT-059 / RoKiX adapter A3 / SPI",
         "doc": "Cypress CY8CKIT-059 with RoKiX Adapter board A3 and SPI connected sensor on Kionix Sensor evaluation board.",
         "board_id": 10,
-        "cpu_freq_mhz": 74,
+        "cpu_freq_mhz": 72,
         "bus1": {
             "sensor_defaults": {
                 "polarity": "EVKIT_GPIO_PIN_SENSE_LOW",
