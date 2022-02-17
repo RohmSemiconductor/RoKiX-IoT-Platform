@@ -1,2 +1,0 @@
-google-cloud-storage==1.14.0
-google-oauth==1.0.1

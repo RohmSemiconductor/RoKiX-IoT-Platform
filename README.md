@@ -1,17 +1,40 @@
-# RoKiX-IoT-Platform
+## Copyright ® 2017-2022 ROHM Semiconductor
+## ROHM EVK version 3.0.1 release
+## 11.02.2022
+## https://www.rohm.com/support/accelerometer-evk-support
 
-The RoKiX IoT Platform is the leading Internet of Things (IoT) technology platform. It enables innovators to rapidly create, deploy and evaluate various IoT applications, ranging from consumer IoT applications such as wearables, health, wellness, games, toys, and smart home to Industrial IoT applications such as smart city sensor networks, asset management and logistics monitoring, factory automation, etc.
- 
-**Features**
-* Removing complexity from IoT applications development
-* Hardware evaluation environment with Windows GUI and Python CLI
-* Android data logger app
-* Software development kit for sensor nodes and gateways
-* Easy connectivity of sensor nodes and gateways to the cloud platform
-* Integrated machine learning for big data analytics
 
-**Release**
-* [Latest release: (2.3.1, Dec 16 2020)](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/releases/latest)
-  * Direct link to Windows installer: [RoKiX_IoT_Platform_Setup.exe](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/releases/download/v2.3.1/RoKiX_IoT_Platform_Setup.exe)
-* Please check [RoKiX-Development-Kit-User-Guide.pdf](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/blob/v2.3.1/RoKiX-Development-Kit-User-Guide.pdf) for further details.
-* Please give feedback and ask questions in [Issues](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/issues)
+## Folder structure
+ROHM-EVK-Docs
+* user guides and other documents
+ROHM-EVK-Firmware
+* latest firmware binary for CY8CKIT059, Arduino and nRF52840-DK
+ROHM-EVK-GUI
+* ROHM EVK GUI application and default configurations
+
+## System Requirements
+* Windows 10 (Windows 8.1 and Windows 7 also supported)
+* Preferred minimum display resolution (1920 x 1080)
+
+
+## Change log
+Release version 3.0.1
+# New functionality:
+* new connection states in top right corner: EVK Disconnected, EVK Connected, EVK Ready, EVK Mismatch
+
+# Fixes and updates:
+* renewed user guides
+* configuration download logic improved
+* GUI layout updates
+* about host adapter window shows all possible firmware infomation
+
+# Known issues:
+* COM port scanning takes sometimes long time which slows down the auto connect functionality
+* GPIO toggling may have some perfomance problems during data streaming
+
+Release version 2.6
+* logarithmic x & y on FFT plot
+* support for BU79100G-LA-EVK-001 ADC converter
+
+Release version 2.3
+* support for Kionix accelerometers
