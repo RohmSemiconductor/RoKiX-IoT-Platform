@@ -11,7 +11,7 @@ The RoKiX IoT Platform is the leading Internet of Things (IoT) technology platfo
 * Integrated machine learning for big data analytics
 
 **Release**
-* [Latest release: (2.3.1, Dec 16 2020)](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/releases/latest)
-  * Direct link to Windows installer: [RoKiX_IoT_Platform_Setup.exe](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/releases/download/v2.3.1/RoKiX_IoT_Platform_Setup.exe)
-* Please check [RoKiX-Development-Kit-User-Guide.pdf](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/blob/v2.3.1/RoKiX-Development-Kit-User-Guide.pdf) for further details.
+* **RoKiX-IoT-Platform is now called ROHM EVK**
+* [Latest release: (3.0.1, Feb 11 2022)](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/releases/latest)
+  * Release content is found from the ROHM web site: [ROHM EVK 3.0.1 release content](https://www.rohm.com/support/accelerometer-evk-support)
 * Please give feedback and ask questions in [Issues](https://github.com/RohmSemiconductor/RoKiX-IoT-Platform/issues)
